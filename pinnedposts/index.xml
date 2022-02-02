@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pinned Posts on Happy RC Blog !</title>
-    <link>https://www.example.org/pinnedposts/</link>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/pinnedposts/</link>
     <description>Recent content in Pinned Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language><atom:link href="https://www.example.org/pinnedposts/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja</language><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/pinnedposts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ボディ塗装 on Happy RC Blog !</title>
-    <link>https://www.example.org/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/</link>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/</link>
     <description>Recent content in ボディ塗装 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.example.org/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ポリカボディ風の3Dモデルを作ってみた</title>
-      <link>https://www.example.org/post/made_lexan-body_3d-model/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/post/made_lexan-body_3d-model/</link>
       <pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.example.org/post/made_lexan-body_3d-model/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/post/made_lexan-body_3d-model/</guid>
       <description>なぜこれをやろうと思ったのか？ 　京商のOutlaw rampage Pro を購入したときに、ボディ塗装のデザインに悩んだことがきっかけです。 ラジコンのポリカボディは再塗装が難しい(透明なボディ裏面から塗装を重ねていく)ので、失敗したくないと思い、PC上で塗装結果をイメージ出来たら良いと考えました。
 　そこで FreeCAD（オープンソースの3DCADソフト）を使って、ラジコンのボディを作ってみることにしました。
 FreeCADでボディ形状作成 製作過程 　FreeCADのサーフェス機能を使って、モデリングを行いました。サーフェス機能の使い方はこちらの記事が参考になりま した。

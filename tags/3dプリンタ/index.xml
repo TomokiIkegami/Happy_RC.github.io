@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>3Dプリンタ on Happy RC Blog !</title>
-    <link>https://www.example.org/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/</link>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/</link>
     <description>Recent content in 3Dプリンタ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.example.org/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>3Dプリンタでホイールを作ってみた</title>
-      <link>https://www.example.org/post/wheel-making_using_3d-printer/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/post/wheel-making_using_3d-printer/</link>
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.example.org/post/wheel-making_using_3d-printer/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/post/wheel-making_using_3d-printer/</guid>
       <description>自分でホイールを作ったきっかけ 　ホイールを自分で設計・製作することはあまり考えていなかったのですが、どうしてもそうしなきゃいけない状況に直面しました。
 ボディ変更とタイヤの購入 　クローララジコン ECX Barrage 1.9 純正のボディに満足いかず、PROLINE の F-100 ボディに変更することがありました。そのときに、タイヤを 1.9インチのものから 1.55インチに変更することを考えました。
 　ECX Barrage 1.9 の後継機として ECX Barrage Gen2 売られています。Gen2 は ホイールサイズが 1.9 → 1.55インチに変更されていました。そこで、これに使われている純正タイヤを購入しましした。
