@@ -6,33 +6,13 @@
     <description>Recent content in ラジコン on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>3Dプリンタでホイールを作ってみた</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/post/wheel-making_using_3d-printer/</link>
-      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/post/wheel-making_using_3d-printer/</guid>
-      <description>自分でホイールを作ったきっかけ 　初めはホイールを自分で設計・製作することはあまり考えていなかったのですが、買ったタイヤが少し特殊だったのでそれに合わせて設計することにしました。
-ボディ変更とタイヤの購入 　クローララジコン ECX Barrage 1.9 純正のボディに満足いかず、PROLINE の F-100 ボディに変更することがありました。そのときに、タイヤを 1.9インチのものから 1.55インチに変更することを考えました。
-　ECX Barrage 1.9 の後継機として ECX Barrage Gen2 売られています。Gen2 は ホイールサイズが 1.9 → 1.55インチに変更されていました。そこで、これに使われている純正タイヤを購入しました。
-タイヤを買ってから気づいた 　1.55 インチのタイヤなら家にあるホイールを使えば大丈夫だろうと思っていました。しかし、Gen2の純正用タイヤは妙に内側のゴムが厚いことに気付いてしまいました。（買っておいたホイール使えない&amp;hellip;笑）
-しょうがない。自分で作ろう！ 　学校で機械設計、3DCADと3Dプリンタの勉強をしていたので、ラジコンのホイールを自分で設計することにしました。
-設計作業 使ったソフト 　ホイールの設計には3DCADソフトを使うことにしました。学校で使用しているのは SolidWorks というCADソフトなのですが、非常に高価（調べると100万くらい？）なので趣味使うのはハードルが高いです。
-　そこで、趣味で使えそうな無料ソフトを色々調べた結果、FreeCADを使うことにしました。他に色々なCADがあるなかで、FreeCADにした理由は、
- オープンソースである ずっと無料で使える 機能に全く制限がなく、拡張機能が充実している（有料版が存在しない）  　などです。使い方は図書館で本を借りて勉強しました。インターネットでも情報がたくさんあるのが嬉しいところです。フォーラムにも参考になるテクニックがたくさんあります。
-3Dモデリング作業 　下の写真がモデリング中の様子になります。回転押し出しやブーリアン演算を駆使して形状を作っていきます。
- ベースの形状（円柱）☝
-            完成した3Dモデル☝
-3Dプリント 　家に3Dプリンタがなかったので、ShapeWays という3Dプリントサービスを使うことにしました。ShapeWays に3Dデータをアップロードすると、完成品を購入することが出来ます。</description>
-    </item>
-    
+    <lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ポリカボディ風の3Dモデルを作る</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/post/lexan-body_painting_simulation/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/%E3%83%9D%E3%83%AA%E3%82%AB%E3%83%9C%E3%83%87%E3%82%A3%E9%A2%A8%E3%81%AE3d%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E4%BD%9C%E3%82%8B/</link>
       <pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/post/lexan-body_painting_simulation/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/%E3%83%9D%E3%83%AA%E3%82%AB%E3%83%9C%E3%83%87%E3%82%A3%E9%A2%A8%E3%81%AE3d%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
       <description>なぜこれをやろうと思ったのか？ 　京商のOutlaw rampage Pro を購入したときに、ボディ塗装のデザインに悩んだことがきっかけです。 ラジコンのポリカボディは再塗装が難しい(透明なボディ裏面から塗装を重ねていく)ので、失敗したくないと思い、PC上で塗装結果をイメージ出来たら良いと考えました。
 　そこで FreeCAD（オープンソースの3DCADソフト）を使って、ラジコンのボディを作ってみることにしました。
 FreeCADでボディ形状作成 製作過程 　FreeCADのサーフェス機能を使って、モデリングを行いました。サーフェス機能の使い方はこちらの記事が参考になりま した。
