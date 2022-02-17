@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     ポリカボディ風の3Dモデルを作る -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      ポリカボディ風の3Dモデルを作る
+    </h1>
+    
+    <p class="document-date">
+      2022-01-27 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"ラジコンのポリカボディ塗装で、塗装後に後悔しないために"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<div style="display: flex; justify-content: flex-end">
+  <div class="share-links">
+    
+    <a
+      class="icon active"
+      href="mailto:?subject=%e3%83%9d%e3%83%aa%e3%82%ab%e3%83%9c%e3%83%87%e3%82%a3%e9%a2%a8%e3%81%ae3D%e3%83%a2%e3%83%87%e3%83%ab%e3%82%92%e4%bd%9c%e3%82%8b%20by%20Tomoki%20Ikegami&amp;body=https%3a%2f%2ftomokiikegami.github.io%2fHappy_RC.github.io%2f2022%2f01%2f27%2f"
+      target="_self"
+      rel="noopener"
+      aria-label="share by email"
+      ><i class="bi bi-envelope-fill"></i
+    ></a>
+    <a
+      class="icon active"
+      href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftomokiikegami.github.io%2fHappy_RC.github.io%2f2022%2f01%2f27%2f"
+      target="_blank"
+      rel="noopener"
+      aria-label="share on facebook"
+      ><i class="bi bi-facebook"></i
+    ></a>
+    <a
+      class="icon active"
+      href="https://twitter.com/intent/tweet/?text=%e3%83%9d%e3%83%aa%e3%82%ab%e3%83%9c%e3%83%87%e3%82%a3%e9%a2%a8%e3%81%ae3D%e3%83%a2%e3%83%87%e3%83%ab%e3%82%92%e4%bd%9c%e3%82%8b%20by%20Tomoki%20Ikegami&amp;url=https%3a%2f%2ftomokiikegami.github.io%2fHappy_RC.github.io%2f2022%2f01%2f27%2f"
+      target="_blank"
+      rel="noopener"
+      aria-label="share on twitter"
+      ><i class="bi bi-twitter"></i
+    ></a>
+    <a
+      class="icon active"
+      href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2ftomokiikegami.github.io%2fHappy_RC.github.io%2f2022%2f01%2f27%2f"
+      target="_blank"
+      rel="noopener"
+      aria-label="share on twitter"
+      ><i class="bi bi-linkedin"></i
+    ></a>
+  </div>
+</div>
+
+<h2 id="なぜこれをやろうと思ったのか">なぜこれをやろうと思ったのか？</h2>
+<p>　京商のOutlaw rampage Pro を購入したときに、ボディ塗装のデザインに悩んだことがきっかけです。
+ラジコンのポリカボディは再塗装が難しい(透明なボディ裏面から塗装を重ねていく)ので、失敗したくないと思い、PC上で塗装結果をイメージ出来たら良いと考えました。</p>
+<p>　そこで FreeCAD（オープンソースの3DCADソフト）を使って、ラジコンのボディを作ってみることにしました。</p>
+<h2 id="freecadでボディ形状作成">FreeCADでボディ形状作成</h2>
+<h3 id="製作過程">製作過程</h3>
+<p>　FreeCADのサーフェス機能を使って、モデリングを行いました。サーフェス機能の使い方は<a href="https://monoist.itmedia.co.jp/mn/articles/2012/18/news008.html">こちらの記事</a>が参考になりま
+した。</p>
+<p>　製作の流れとしては、</p>
+<ol>
+<li>ボディ側面をFront面（正面）作成</li>
+<li>ボディ側面をFront面からずらす（ボディ横幅の半分）</li>
+<li>ボディ側面をFront面に対してミラーコピー</li>
+<li>2つのボディ側面の間に、ボンネットや屋根、窓ガラス、グリル、バンパーを作る</li>
+<li>4で作った部分と側面を結合して完成</li>
+</ol>
+<p>　という感じで進めました。</p>
+<p><figure><img src="outbody_making1.png"
+         alt="側面を作っている様子"/>
+</figure>
+
+側面を作っている様子☝（面の作成に失敗すると、画像のように変な突起が飛び出すことがありますw）</p>
+<p><figure><img src="outbody_making2.png"
+         alt="完成した側面"/>
+</figure>
+
+完成した側面☝</p>
+<p><figure><img src="outbody_making3.png"
+         alt="ミラーコピーした側面"/>
+</figure>
+
+ミラーコピーした側面☝</p>
+<p><figure><img src="outbody_making4.png"
+         alt="フロントウィンドウ作成中の様子"/>
+</figure>
+
+フロントウィンドウ作成中の様子☝</p>
+<p><figure><img src="outbody_making5.png"
+         alt="おまけ"/>
+</figure>
+
+おまけ☝（3Dモデルの結合に失敗して、側面が3つ出てきたw）</p>
+<h3 id="3dcadモデル完成">3DCADモデル完成</h3>
+<p>　ポリカボディのように薄い3Dモデルになったので、リアル感が出て良かったと思います。</p>
+<p><figure><img src="outbody_final_front.png"
+         alt="ボディ前方"/>
+</figure>
+
+ボディ斜め前方から☝</p>
+<p><figure><img src="outbody_final_rear.png"
+         alt="ボディ後方"/>
+</figure>
+
+ボディ斜め後方から☝</p>
+<p><figure><img src="outbody_final_bottom.png"
+         alt="ボディ裏面"/>
+</figure>
+
+ボディ裏面の様子☝（薄いボディなのがよくわかると思います）</p>
+<h2 id="色を塗ってみる">色を塗ってみる</h2>
+<h3 id="blenderで着色">blenderで着色</h3>
+<p>　作成した3DCADデータからstl形式で3Dモデルを出力して、色塗りをしました。
+　初めはblenderで色をつけてみましたが、初心者の私にとっては操作が難しく、ポリゴンごとに着色するのが限界でした。</p>
+<p><figure><img src="blender_normal_vector.png"
+         alt="法線ベクトル"/>
+</figure>
+
+法線ベクトル※ で面の向きを確認出来ます☝（水色のヒゲみたいなのが法線ベクトルです）</p>
+<p>※法線ベクトル：面から垂直に出る矢印のこと。コンピュータグラフィックス用語。</p>
+<p><figure><img src="blender_paint_image_front.png"
+         alt="blenderで着色（斜め前方から）"/>
+</figure>
+
+blenderで着色☝（斜め前方から）</p>
+<p><figure><img src="blender_paint_image_rear.png"
+         alt="blenderで着色（斜め後方から）"/>
+</figure>
+
+blenderで着色☝（斜め後方から）</p>
+<h3 id="ペイント3dで着色">ペイント3Dで着色</h3>
+<p>　最終的にペイント3Dを使って塗装イメージを作ることにしました。絵の具で色を塗るような雰囲気で、地道に3Dモデルを塗装していきます（笑）。</p>
+<p>　色塗りだけでは雰囲気が出ないので、2DCAD（jw_CAD）で作成したテクスチャ（3Dモデル表面に貼る画像）を貼り付けました。</p>
+<p><figure><img src="outbody_painting1.png"
+         alt="ペイント3Dで色を塗る"/>
+</figure>
+
+ペイント3Dで色を塗る☝（はみ出さないようにする感じが筆塗りみたい）</p>
+<p><figure><img src="outbody_painting2.png"
+         alt="jw_CADで作ったウィンドウのテクスチャ"/>
+</figure>
+
+jw_CADで作ったウィンドウのテクスチャ☝</p>
+<p><figure><img src="outbody_painting3.png"
+         alt="テクスチャを貼り付ける様子"/>
+</figure>
+
+テクスチャを貼り付ける様子☝</p>
+<h2 id="完成した3dモデル">完成した3Dモデル</h2>
+<p>　出来上がった塗装イメージは下の画像のような感じです！</p>
+<p><figure><img src="outbody_paint_image_front.png"
+         alt="塗装イメージ（斜め前方から）"/>
+</figure>
+
+塗装イメージ（斜め前方から）☝</p>
+<p><figure><img src="outbody_paint_image_rear.png"
+         alt="塗装イメージ（斜め後方から）"/>
+</figure>
+
+塗装イメージ（斜め後方から）☝</p>
+<p>地道な作業が多くて大変だけど楽しかった！</p>
+
+
+    </main><footer>
+  
+  
+  
+  
+  <div class="prev-next"></div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/">ポリカボディ風の3Dモデルを作る</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
