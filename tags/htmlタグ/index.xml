@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>htmlタグ on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/</link>
+    <description>Recent content in htmlタグ on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 21 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hugoで上付き・下付き文字が入力できない</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</link>
+      <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</guid>
+      <description>現状 記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。
+記事ファイル「index.md」の中身 x&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; + y&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; = r&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt;　 出力結果 　hugoのserverコマンドで確認した出力結果がこちらです。
+   出力結果（現状） 正しい結果（理想）            解決方法 　調べてみると、「config.json」に数行付け足すことで解決出来ることが分かりました。configファイルの形式が.jsonの場合は、以下の数行を付け足します。
+「config.json」に付け足す文（カッコの数やカンマの位置に注意） { &amp;#34;markup&amp;#34;: { &amp;#34;goldmark&amp;#34;: { &amp;#34;renderer&amp;#34;: { &amp;#34;unsafe&amp;#34;: true } } } } .json形式でない場合（.yamlや.toml）は書き方が少し変わりますが、やることは全く同じです。書き足す文はこちらのページに記載されています。記載されている形式は「.yaml」,「.toml」,「.json」の三種類です。
+実際に変更する前と変更した後のファイルは下のような感じです。細かい構成はテーマによって違うと思います。
+追加する場所はどこでも良いのですが、今回は&amp;quot;disableKinds&amp;quot;の下側に追加してみました。カッコの数やカンマの位置に注意して書き足してください。
+変更前の「config.json」 { &amp;#34;baseURL&amp;#34;: &amp;#34;https://tomokiikegami.github.io/Happy_RC.github.io/&amp;#34;, &amp;#34;languageCode&amp;#34;: &amp;#34;ja&amp;#34;, &amp;#34;permalinks&amp;#34;: { &amp;#34;post&amp;#34;: &amp;#34;/:year/:month/:day/&amp;#34; }, &amp;#34;title&amp;#34;: &amp;#34;Happy RC Blog !&amp;#34;, &amp;#34;theme&amp;#34;: &amp;#34;redgood&amp;#34;, &amp;#34;disableKinds&amp;#34;: &amp;#34;taxonomyTerm&amp;#34;, &amp;#34;params&amp;#34;: { &amp;#34;author&amp;#34;: &amp;#34;Tomoki Ikegami&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！&amp;#34;, &amp;#34;theme&amp;#34;: { &amp;#34;dateFormat&amp;#34;: &amp;#34;2006-01-02&amp;#34;, &amp;#34;copyrightInFooter&amp;#34;: false, &amp;#34;footerText&amp;#34;: &amp;#34;I hope to enjoy your RC Life&amp;#34;, &amp;#34;pinnedPosts&amp;#34;: false }, &amp;#34;about&amp;#34;: { &amp;#34;profileImage&amp;#34;: &amp;#34;images/profile.</description>
+    </item>
+    
+  </channel>
+</rss>

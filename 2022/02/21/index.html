@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     hugoで上付き・下付き文字が入力できない -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      hugoで上付き・下付き文字が入力できない
+    </h1>
+    
+    <p class="document-date">
+      2022-02-21 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"マークダウンでhtmlのタグを使えるようにするには"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h2 id="現状">現状</h2>
+<p>記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。</p>
+<h4 id="記事ファイルindexmdの中身">記事ファイル「index.md」の中身</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">x&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt; + y&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt; = r&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt;　</code></pre></div>
+<h4 id="出力結果">出力結果</h4>
+<p>　hugoの<kbd>server</kbd>コマンドで確認した出力結果がこちらです。</p>
+<table>
+<thead>
+<tr>
+<th>出力結果（現状）</th>
+<th>正しい結果（理想）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><figure><img src="false_output.png"
+         alt="正しくない出力結果（現状）"/>
+</figure>
+</td>
+<td><figure><img src="ideal_output.png"
+         alt="正しくない出力結果（現状）"/>
+</figure>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="解決方法">解決方法</h2>
+<p>　調べてみると、「config.json」に数行付け足すことで解決出来ることが分かりました。configファイルの形式が.jsonの場合は、以下の数行を付け足します。</p>
+<h4 id="configjsonに付け足す文カッコの数やカンマの位置に注意">「config.json」に付け足す文（カッコの数やカンマの位置に注意）</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+   <span style="color:#f92672">&#34;markup&#34;</span>: {
+      <span style="color:#f92672">&#34;goldmark&#34;</span>: {
+         <span style="color:#f92672">&#34;renderer&#34;</span>: {
+            <span style="color:#f92672">&#34;unsafe&#34;</span>: <span style="color:#66d9ef">true</span>
+         }
+      }
+   }
+}</code></pre></div>
+<p>.json形式でない場合（.yamlや.toml）は書き方が少し変わりますが、やることは全く同じです。書き足す文は<a href="https://gohugo.io/news/0.60.0-relnotes/">こちらのページ</a>に記載されています。記載されている形式は「.yaml」,「.toml」,「.json」の三種類です。</p>
+<p>実際に変更する前と変更した後のファイルは下のような感じです。細かい構成はテーマによって違うと思います。</p>
+<p>追加する場所はどこでも良いのですが、今回は&quot;disableKinds&quot;の下側に追加してみました。カッコの数やカンマの位置に注意して書き足してください。</p>
+<h4 id="変更前のconfigjson">変更前の「config.json」</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;baseURL&#34;</span>: <span style="color:#e6db74">&#34;https://tomokiikegami.github.io/Happy_RC.github.io/&#34;</span>,
+  <span style="color:#f92672">&#34;languageCode&#34;</span>: <span style="color:#e6db74">&#34;ja&#34;</span>,
+  <span style="color:#f92672">&#34;permalinks&#34;</span>: {
+    <span style="color:#f92672">&#34;post&#34;</span>: <span style="color:#e6db74">&#34;/:year/:month/:day/&#34;</span>
+ },
+  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Happy RC Blog !&#34;</span>,
+  <span style="color:#f92672">&#34;theme&#34;</span>: <span style="color:#e6db74">&#34;redgood&#34;</span>,
+  <span style="color:#f92672">&#34;disableKinds&#34;</span>: <span style="color:#e6db74">&#34;taxonomyTerm&#34;</span>,
+  <span style="color:#f92672">&#34;params&#34;</span>: {
+    <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;Tomoki Ikegami&#34;</span>,
+    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！&#34;</span>,
+    <span style="color:#f92672">&#34;theme&#34;</span>: {
+      <span style="color:#f92672">&#34;dateFormat&#34;</span>: <span style="color:#e6db74">&#34;2006-01-02&#34;</span>,
+      <span style="color:#f92672">&#34;copyrightInFooter&#34;</span>: <span style="color:#66d9ef">false</span>,
+      <span style="color:#f92672">&#34;footerText&#34;</span>: <span style="color:#e6db74">&#34;I hope to enjoy your RC Life&#34;</span>,
+      <span style="color:#f92672">&#34;pinnedPosts&#34;</span>: <span style="color:#66d9ef">false</span>
+    },
+    <span style="color:#f92672">&#34;about&#34;</span>: {
+      <span style="color:#f92672">&#34;profileImage&#34;</span>: <span style="color:#e6db74">&#34;images/profile.jpg&#34;</span>,
+      <span style="color:#f92672">&#34;narrative&#34;</span>: <span style="color:#e6db74">&#34;ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！&#34;</span>
+    },
+    <span style="color:#f92672">&#34;social&#34;</span>: {
+    }
+  }
+}</code></pre></div>
+<h4 id="変更後のconfigjson">変更後の「config.json」</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;baseURL&#34;</span>: <span style="color:#e6db74">&#34;https://tomokiikegami.github.io/Happy_RC.github.io/&#34;</span>,
+  <span style="color:#f92672">&#34;languageCode&#34;</span>: <span style="color:#e6db74">&#34;ja&#34;</span>,
+  <span style="color:#f92672">&#34;permalinks&#34;</span>: {
+    <span style="color:#f92672">&#34;post&#34;</span>: <span style="color:#e6db74">&#34;/:year/:month/:day/&#34;</span>
+ },
+  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Happy RC Blog !&#34;</span>,
+  <span style="color:#f92672">&#34;theme&#34;</span>: <span style="color:#e6db74">&#34;redgood&#34;</span>,
+  <span style="color:#f92672">&#34;disableKinds&#34;</span>: <span style="color:#e6db74">&#34;taxonomyTerm&#34;</span>,
+  <span style="color:#f92672">&#34;markup&#34;</span>: {                      
+    <span style="color:#f92672">&#34;goldmark&#34;</span>: {                  
+       <span style="color:#f92672">&#34;renderer&#34;</span>: {               
+          <span style="color:#f92672">&#34;unsafe&#34;</span>: <span style="color:#66d9ef">true</span>           
+       }                           
+    }                                                          
+ },                                
+  <span style="color:#f92672">&#34;params&#34;</span>: {
+    <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;Tomoki Ikegami&#34;</span>,
+    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！&#34;</span>,
+    <span style="color:#f92672">&#34;theme&#34;</span>: {
+      <span style="color:#f92672">&#34;dateFormat&#34;</span>: <span style="color:#e6db74">&#34;2006-01-02&#34;</span>,
+      <span style="color:#f92672">&#34;copyrightInFooter&#34;</span>: <span style="color:#66d9ef">false</span>,
+      <span style="color:#f92672">&#34;footerText&#34;</span>: <span style="color:#e6db74">&#34;I hope to enjoy your RC Life&#34;</span>,
+      <span style="color:#f92672">&#34;pinnedPosts&#34;</span>: <span style="color:#66d9ef">false</span>
+    },
+    <span style="color:#f92672">&#34;about&#34;</span>: {
+      <span style="color:#f92672">&#34;profileImage&#34;</span>: <span style="color:#e6db74">&#34;images/profile.jpg&#34;</span>,
+      <span style="color:#f92672">&#34;narrative&#34;</span>: <span style="color:#e6db74">&#34;ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！&#34;</span>
+    },
+    <span style="color:#f92672">&#34;social&#34;</span>: {
+    }
+  }
+}</code></pre></div>
+<h2 id="修正後の出力結果">修正後の出力結果</h2>
+<p>「config.json」を修正して出力したら、上付き文字が表示できるようになりました！</p>
+<p>x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup>　（円の方程式）</p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li>まくまくHugo/Goノート「Markdown ファイルに記述した HTML コードが削除されてしまう」、(<a href="https://maku77.github.io/hugo/misc/include-html.html">https://maku77.github.io/hugo/misc/include-html.html</a>　閲覧日：2022年2月22日)</li>
+<li>Hugo「Now CommonMark Compliant!」、(<a href="https://gohugo.io/news/0.60.0-relnotes/">https://gohugo.io/news/0.60.0-relnotes/</a>　閲覧日：2022年2月22日)</li>
+</ol>
+
+
+    </main><footer>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/02/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/">hugoで上付き・下付き文字が入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/">3Dプリンタでホイールを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/">ポリカボディ風の3Dモデルを作る</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
