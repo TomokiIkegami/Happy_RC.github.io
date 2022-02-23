@@ -50,7 +50,7 @@
     
     <main class="card shadow round-corner">
 <h1 id="span-styletext-decorationunderlineきっかけspan"><span style="text-decoration:underline;">きっかけ</span></h1>
-<p>　古い1/12カーを屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。約40年前の車体なので部品の入手が難しく、どうしようか困っていました。</p>
+<p>　古い1/12カーを屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。かなり昔の車体なので部品の入手が難しく、どうしようか困っていました。</p>
 <p>　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみて、ラジコンの歯車を作ってみたい思いました。</p>
 <h1 id="span-styletext-decorationunderlinefreecadでギア設計するにはspan"><span style="text-decoration:underline;">FreeCADでギア設計するには</span></h1>
 <p>　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）</p>
@@ -107,7 +107,7 @@ P= 25.4 \times \frac{1}{m} =\frac{25.4}{m}
 \end{equation}</p>
 <p>　</p>
 <h2 id="rcの世界で使われているピッチとモジュール">RCの世界で使われているピッチとモジュール</h2>
-<p>ラジコンのピッチ・モジュールについて記事を書いている方<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>や、<a href="http://www.kawadamodel.co.jp/">川田模型のホームページ</a>を参考にして、ラジコンに使用されているモジュールとピッチ表に整理しました。</p>
+<p>ラジコンのピッチ・モジュールについて記事を書いている方<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>や、<a href="http://www.kawadamodel.co.jp/">川田模型のホームページ</a>を参考にして、ラジコンに使用されているモジュールとピッチを表に整理してみました。</p>
 <div align="center">
 <table>
   <tr>
@@ -125,20 +125,22 @@ P= 25.4 \times \frac{1}{m} =\frac{25.4}{m}
   </tr>
 </table>
 </div>
-<p>　ラジコンのギアでは、48, 64ピッチのように表現されることも多いのですが、FreeCADではモジュールを使って設計をします。そこで、(\ref{P_using_mod})式から、ダイヤメトラルピッチをモジュールに換算します。0.8モジュールと32Pは互換性がある<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>と言われているので、32Pをモジュール $m$ に換算してみる。(\ref{P_using_mod})式より、</p>
+<p>　ラジコンのギアでは、48, 64ピッチのように表現されることも多いのですが、FreeCADではモジュールを使って設計をします。</p>
+<p>　そこで、(\ref{P_using_mod})式から、ダイヤメトラルピッチをモジュールに換算します。0.8モジュールと32Pは互換性がある<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>と言われているので、32Pをモジュール $m$ に換算してみます。(\ref{P_using_mod})式を使うと、</p>
 <p>\begin{equation}
 \label{32P_to_mod}
 m = \frac{25.4}{P} = \frac{25.4}{32} = 0.7938&hellip; \simeq 0.8
 \end{equation}</p>
-<p>　この他にも非常に似ているモジュールとピッチがあるみたいですが、摩耗が起こるので使用しないほうが良いと言われています。</p>
+<p>　計算結果を見ると、0.8モジュールと32ピッチはほぼ同じと考えられます。</p>
+<p>　この他にも非常に似ているモジュールとピッチがあるみたいですが、摩耗が起こるので使用しない<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>ほうが良いみたいです。</p>
 <h2 id="欠けたギアからモジュールを計算">欠けたギアからモジュールを計算</h2>
 <p>　壊れた歯車をもとに設計したいという場合には、モジュールの値を求める必要があります。そこでその方法を調べてみることにしました。</p>
-<p>　調べてみた結果、壊れた歯車の歯数と歯先円直径（歯の先端部分の直径、一番大きい直径）を調べればモジュールが計算できることが分かりました。歯車の歯数を $z$、歯先円直径を $d_a$ [mm] おくと、モジュール $m$ [mm] は、</p>
+<p>　調べた結果、壊れた歯車の歯数と歯先円直径（歯の先端部分の直径、一番大きい直径）を調べればモジュールが計算できることが分かりました。歯車の歯数を $z$、歯先円直径を $d_a$ [mm] おくと、モジュール $m$ [mm] は、</p>
 <p>\begin{equation}
 \label{mod_using_da}
 m = \frac{d_a}{z+2}
 \end{equation}</p>
-<p>　この式は歯車メーカ（RONSON GEARS）が公開している技術ドキュメント<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>に記載されていたものです。ちなみにこの計算を自動でやってくれるWebページ（<a href="https://www.radiocontrolinfo.com/information/rc-calculators/rc-gear-calculator/">RC Gear Calculator</a>）を作っている方もいて凄いなと思いました。</p>
+<p>　この式は歯車メーカー（RONSON GEARS）が公開している技術ドキュメント<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>に記載されていたものです。ちなみにこの計算を自動でやってくれるWebページ（<a href="https://www.radiocontrolinfo.com/information/rc-calculators/rc-gear-calculator/">RC Gear Calculator</a>）を作っている方もいて凄いなと思いました。</p>
 <p>　色々な人が情報を発信してくれていたので、何とか歯車の設計ができそうです！ ありがとうございます！</p>
 <h1 id="span-styletext-decorationunderline参考文献span"><span style="text-decoration:underline;">参考文献</span></h1>
 <section class="footnotes" role="doc-endnotes">
