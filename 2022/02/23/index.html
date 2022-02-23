@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     壊れたRCのギアを作りたい [理論編] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      壊れたRCのギアを作りたい [理論編]
+    </h1>
+    
+    <p class="document-date">
+      2022-02-23 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"⚙ ラジコンの歯車設計に関するメモ ⚙"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="span-styletext-decorationunderlineきっかけspan"><span style="text-decoration:underline;">きっかけ</span></h1>
+<p>　古い1/12カーを屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。約40年前の車体なので部品の入手が難しく、どうしようか困っていました。</p>
+<p>　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみて、ラジコンの歯車を作ってみたい思いました。</p>
+<h1 id="span-styletext-decorationunderlinefreecadでギア設計するにはspan"><span style="text-decoration:underline;">FreeCADでギア設計するには</span></h1>
+<p>　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）</p>
+<p>　この機能は「Part Design ワークベンチ」の中に入っており、「Involute gear」という名前がついています。（図1参照）</p>
+<p>　細かい操作方法はXsimの技術ドキュメント<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を参考にして、設計作業を進めていこうと思います。</p>
+<div align="center">
+<figure><img src="Involute-gear_function_in_Part-Design.png"
+         alt="図1 Involute gear 機能"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図1 Involute gear 機能
+</div>
+<h1 id="span-styletext-decorationunderlineギア設計に必要な理論span"><span style="text-decoration:underline;">ギア設計に必要な理論</span></h1>
+<h2 id="歯車の大きさを表す指標">歯車の大きさを表す指標</h2>
+<p>　歯車を選ぶときに何かしらの規格がないと、機械の設計をする上で不便です。ここでは、ラジコンの世界で用いられているピッチとモジュールについて整理したいと思います。</p>
+<h3 id="ピッチpitch">ピッチ（pitch）</h3>
+<p>　ピッチ<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>とは歯と歯の間隔のことで、記号は pitch の頭文字を取って $p$ で表現されます。歯車の基準円直径を $d$ [mm]、歯数を $z$ [枚] とおくと、ピッチ $p$ [mm] の定義式は、</p>
+<p>\begin{equation}
+\label{p}
+p=\pi \times \frac{d}{z}
+\end{equation}</p>
+<p>　ラジコンの世界ではこのピッチの他に、ダイヤメトラルピッチ<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>（Diametral Pitch：DP）が使われることも多いです。Imperial Pitch と書かれている文献もありますが同じ意味です。ダイヤメトラルピッチを $P$ [1/in] 、インチ単位の直径を $D$ [in] とおくと</p>
+<p>\begin{equation}
+\label{DP}
+P= \frac{z}{D}
+\end{equation}</p>
+<p>基準円直径の単位を $d$ [mm] と考えると、</p>
+<p>\begin{equation}
+\label{D_in}
+D= \frac{d}{25.4}
+\end{equation}</p>
+<p>(\ref{DP})式に(\ref{D_in})式を代入すると、</p>
+<p>\begin{equation}
+\label{P_dia}
+P= \frac{z}{\frac{d}{25.4}}=25.4\times \frac{z}{d}
+\end{equation}</p>
+<h3 id="モジュールmodule">モジュール（module）</h3>
+<p>　モジュールの記号は module の頭文字を取って $m$ [mm] で表現されます。モジュール $m$ [mm] は次式で定義されます。
+\begin{equation}
+\label{mod}
+m=\frac{d}{z}
+\end{equation}</p>
+<h3 id="ピッチpitchと-モジュールmoduleの関係">ピッチ（pitch）と モジュール（module）の関係</h3>
+<p>　(\ref{p}), (\ref{P_dia})式に(\ref{mod})式を代入することで、次の関係式が得られます。</p>
+<p>\begin{equation}
+\label{p_using_mod}
+p=\pi \times m
+\end{equation}</p>
+<p>\begin{equation}
+\label{P_using_mod}
+P= 25.4 \times \frac{1}{m} =\frac{25.4}{m}
+\end{equation}</p>
+<p>　</p>
+<h2 id="rcの世界で使われているピッチとモジュール">RCの世界で使われているピッチとモジュール</h2>
+<p>ラジコンのピッチ・モジュールについて記事を書いている方<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>や、<a href="http://www.kawadamodel.co.jp/">川田模型のホームページ</a>を参考にして、ラジコンに使用されているモジュールとピッチ表に整理しました。</p>
+<div align="center">
+<table>
+  <tr>
+   <td>モジュール $m$
+<p>(Metric Gear Pitches)</p>
+   </td>
+   <td>ダイヤメトラルピッチ $P$
+   </td>
+  </tr>
+  <tr>
+   <td>0.4, 0.5, 0.6, <strong>0.8</strong>, 1.0
+   </td>
+   <td><strong>32</strong>, 48, 64
+   </td>
+  </tr>
+</table>
+</div>
+<p>　ラジコンのギアでは、48, 64ピッチのように表現されることも多いのですが、FreeCADではモジュールを使って設計をします。そこで、(\ref{P_using_mod})式から、ダイヤメトラルピッチをモジュールに換算します。0.8モジュールと32Pは互換性がある<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>と言われているので、32Pをモジュール $m$ に換算してみる。(\ref{P_using_mod})式より、</p>
+<p>\begin{equation}
+\label{32P_to_mod}
+m = \frac{25.4}{P} = \frac{25.4}{32} = 0.7938&hellip; \simeq 0.8
+\end{equation}</p>
+<p>　この他にも非常に似ているモジュールとピッチがあるみたいですが、摩耗が起こるので使用しないほうが良いと言われています。</p>
+<h2 id="欠けたギアからモジュールを計算">欠けたギアからモジュールを計算</h2>
+<p>　壊れた歯車をもとに設計したいという場合には、モジュールの値を求める必要があります。そこでその方法を調べてみることにしました。</p>
+<p>　調べてみた結果、壊れた歯車の歯数と歯先円直径（歯の先端部分の直径、一番大きい直径）を調べればモジュールが計算できることが分かりました。歯車の歯数を $z$、歯先円直径を $d_a$ [mm] おくと、モジュール $m$ [mm] は、</p>
+<p>\begin{equation}
+\label{mod_using_da}
+m = \frac{d_a}{z+2}
+\end{equation}</p>
+<p>　この式は歯車メーカ（RONSON GEARS）が公開している技術ドキュメント<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>に記載されていたものです。ちなみにこの計算を自動でやってくれるWebページ（<a href="https://www.radiocontrolinfo.com/information/rc-calculators/rc-gear-calculator/">RC Gear Calculator</a>）を作っている方もいて凄いなと思いました。</p>
+<p>　色々な人が情報を発信してくれていたので、何とか歯車の設計ができそうです！ ありがとうございます！</p>
+<h1 id="span-styletext-decorationunderline参考文献span"><span style="text-decoration:underline;">参考文献</span></h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>XSim 技術ドキュメント「FreeCAD インボリュートギア・ツールを使って歯車を作る」、( <a href="https://www.xsim.info/articles/FreeCAD/HowTo/Create-gears-with-Involute-Gear-tool.html">https://www.xsim.info/articles/FreeCAD/HowTo/Create-gears-with-Involute-Gear-tool.html</a> )&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>塚田忠夫・舟橋宏明・野口昭治 ほか著『新機械設計』、東京：実教出版、2019、167頁&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>日本機械学会 機械工学辞典「spur-gear-formula」、(<a href="https://www.jsme.or.jp/jsme-medwiki/16:1007674">https://www.jsme.or.jp/jsme-medwiki/16:1007674</a> )&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Ameba ブンジsanのブログ「ギヤの04、06、48、64の違い検証」、( <a href="https://ameblo.jp/rc-kidori/entry-12596460897.html">https://ameblo.jp/rc-kidori/entry-12596460897.html</a> )&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>RADIO CONTROL INFO 「All About RC Car Gear Pitches – Why are there so many?」、(<a href="https://www.radiocontrolinfo.com/rc-car-gear-pitches/">https://www.radiocontrolinfo.com/rc-car-gear-pitches/</a> )&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>Roger’s Hobby Center 「R/C Gearing 101」、(<a href="https://rogershobbycenter.com/rc-gearing-101">https://rogershobbycenter.com/rc-gearing-101</a> )&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>RONSON GEARS 「spur-gear-formulation-calculations」、(<a href="https://ronsongears.com.au/wp-content/uploads/2018/05/spur-gear-formulation-calculations.pdf">https://ronsongears.com.au/wp-content/uploads/2018/05/spur-gear-formulation-calculations.pdf</a> )&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/21/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/">壊れたRCのギアを作りたい [理論編]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/">hugoで上付き・下付き文字が入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/">3Dプリンタでホイールを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/">ポリカボディ風の3Dモデルを作る</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

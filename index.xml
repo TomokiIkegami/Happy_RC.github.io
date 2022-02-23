@@ -6,7 +6,27 @@
     <description>Recent content on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 21 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 23 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>壊れたRCのギアを作りたい [理論編]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/</link>
+      <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/</guid>
+      <description>きっかけ 　古い1/12カーを屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。約40年前の車体なので部品の入手が難しく、どうしようか困っていました。
+　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみて、ラジコンの歯車を作ってみたい思いました。
+FreeCADでギア設計するには 　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）
+　この機能は「Part Design ワークベンチ」の中に入っており、「Involute gear」という名前がついています。（図1参照）
+　細かい操作方法はXsimの技術ドキュメント1を参考にして、設計作業を進めていこうと思います。
+  図1 Involute gear 機能  ギア設計に必要な理論 歯車の大きさを表す指標 　歯車を選ぶときに何かしらの規格がないと、機械の設計をする上で不便です。ここでは、ラジコンの世界で用いられているピッチとモジュールについて整理したいと思います。
+ピッチ（pitch） 　ピッチ2とは歯と歯の間隔のことで、記号は pitch の頭文字を取って $p$ で表現されます。歯車の基準円直径を $d$ [mm]、歯数を $z$ [枚] とおくと、ピッチ $p$ [mm] の定義式は、
+\begin{equation} \label{p} p=\pi \times \frac{d}{z} \end{equation}
+　ラジコンの世界ではこのピッチの他に、ダイヤメトラルピッチ3（Diametral Pitch：DP）が使われることも多いです。Imperial Pitch と書かれている文献もありますが同じ意味です。ダイヤメトラルピッチを $P$ [1/in] 、インチ単位の直径を $D$ [in] とおくと
+\begin{equation} \label{DP} P= \frac{z}{D} \end{equation}
+基準円直径の単位を $d$ [mm] と考えると、
+\begin{equation} \label{D_in} D= \frac{d}{25.</description>
+    </item>
+    
     <item>
       <title>hugoで上付き・下付き文字が入力できない</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</link>
