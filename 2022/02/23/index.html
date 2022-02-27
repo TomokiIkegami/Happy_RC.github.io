@@ -49,26 +49,64 @@
 
     
     <main class="card shadow round-corner">
-<h1 id="span-styletext-decorationunderlineきっかけspan"><span style="text-decoration:underline;">きっかけ</span></h1>
-<p>　古い1/12カーを屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。かなり昔の車体なので部品の入手が難しく、どうしようか困っていました。</p>
-<p>　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみて、ラジコンの歯車を作ってみたい思いました。</p>
-<h1 id="span-styletext-decorationunderlinefreecadでギア設計するにはspan"><span style="text-decoration:underline;">FreeCADでギア設計するには</span></h1>
-<p>　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）</p>
-<p>　この機能は「Part Design ワークベンチ」の中に入っており、「Involute gear」という名前がついています。（図1参照）</p>
-<p>　細かい操作方法はXsimの技術ドキュメント<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を参考にして、設計作業を進めていこうと思います。</p>
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E3%81%8D%E3%81%A3%E3%81%8B%E3%81%91">1. <span style="text-decoration:underline;">きっかけ</span></a></li>
+<li><a href="#2-freecad%E3%81%A7%E3%82%AE%E3%82%A2%E8%A8%AD%E8%A8%88%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF">2. <span style="text-decoration:underline;">FreeCADでギア設計するには</span></a></li>
+<li><a href="#3-%E3%82%AE%E3%82%A2%E8%A8%AD%E8%A8%88%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E7%90%86%E8%AB%96">3. <span style="text-decoration:underline;">ギア設計に必要な理論</span></a>
+<ul>
+<li><a href="#31-%E6%AD%AF%E8%BB%8A%E3%81%AE%E5%A4%A7%E3%81%8D%E3%81%95%E3%82%92%E8%A1%A8%E3%81%99%E6%8C%87%E6%A8%99">3.1. 歯車の大きさを表す指標</a>
+<ul>
+<li><a href="#311-%E3%83%94%E3%83%83%E3%83%81pitch">3.1.1. ピッチ（pitch）</a></li>
+<li><a href="#312-%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%ABmodule">3.1.2. モジュール（module）</a></li>
+<li><a href="#313-%E3%83%94%E3%83%83%E3%83%81pitch%E3%81%A8-%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%ABmodule%E3%81%AE%E9%96%A2%E4%BF%82">3.1.3. ピッチ（pitch）と モジュール（module）の関係</a></li>
+</ul>
+</li>
+<li><a href="#32-rc%E3%81%AE%E4%B8%96%E7%95%8C%E3%81%A7%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%94%E3%83%83%E3%83%81%E3%81%A8%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB">3.2. RCの世界で使われているピッチとモジュール</a></li>
+<li><a href="#33-%E6%AC%A0%E3%81%91%E3%81%9F%E3%82%AE%E3%82%A2%E3%81%8B%E3%82%89%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%82%92%E8%A8%88%E7%AE%97">3.3. 欠けたギアからモジュールを計算</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">4. <span style="text-decoration:underline;">参考文献</span></a></li>
+</ul>
+<hr>
+<h1 id="1-span-styletext-decorationunderlineきっかけspan">1. <span style="text-decoration:underline;">きっかけ</span></h1>
+<p>　古い1/12カー(<a href="https://tamiyabase.com/chassis/23-rm-mk-5">Tamiya RM Mk.5</a>)を屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。かなり昔の車体なので部品の入手が難しく、どうしようか困っていました。</p>
 <div align="center">
-<figure><img src="Involute-gear_function_in_Part-Design.png"
-         alt="図1 Involute gear 機能"/>
+<figure><img src="rear_diff.jpg"
+         alt="後輪駆動部分（ダイレクトドライブの構造になっている）"/>
 </figure>
 
 </div>
 <div style="text-align: center;">
-図1 Involute gear 機能
+☝　後輪駆動部分（ダイレクトドライブの構造になっている）
 </div>
-<h1 id="span-styletext-decorationunderlineギア設計に必要な理論span"><span style="text-decoration:underline;">ギア設計に必要な理論</span></h1>
-<h2 id="歯車の大きさを表す指標">歯車の大きさを表す指標</h2>
+<div align="center">
+<figure><img src="broken_spur_gear.jpg"
+         alt="分解してスパーギアを取り出した（歯が欠けている）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　分解してスパーギアを取り出した（歯が欠けている）
+</div>
+<p>　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみたのがきっかけで、ラジコンの歯車を作ってみたい思いました。</p>
+<h1 id="2-span-styletext-decorationunderlinefreecadでギア設計するにはspan">2. <span style="text-decoration:underline;">FreeCADでギア設計するには</span></h1>
+<p>　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）</p>
+<p>　この機能は「Part Design ワークベンチ」の中に入っており、「Involute gear」という名前がついています。（下図参照）</p>
+<p>　細かい操作方法はXsimの技術ドキュメント<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を参考にして、設計作業を進めていこうと思います。</p>
+<div align="center">
+<figure><img src="Involute-gear_function_in_Part-Design.png"
+         alt="図：Involute gear 機能"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図：Involute gear 機能
+</div>
+<h1 id="3-span-styletext-decorationunderlineギア設計に必要な理論span">3. <span style="text-decoration:underline;">ギア設計に必要な理論</span></h1>
+<h2 id="31-歯車の大きさを表す指標">3.1. 歯車の大きさを表す指標</h2>
 <p>　歯車を選ぶときに何かしらの規格がないと、機械の設計をする上で不便です。ここでは、ラジコンの世界で用いられているピッチとモジュールについて整理したいと思います。</p>
-<h3 id="ピッチpitch">ピッチ（pitch）</h3>
+<h3 id="311-ピッチpitch">3.1.1. ピッチ（pitch）</h3>
 <p>　ピッチ<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>とは歯と歯の間隔のことで、記号は pitch の頭文字を取って $p$ で表現されます。歯車の基準円直径を $d$ [mm]、歯数を $z$ [枚] とおくと、ピッチ $p$ [mm] の定義式は、</p>
 <p>\begin{equation}
 \label{p}
@@ -89,13 +127,13 @@ D= \frac{d}{25.4}
 \label{P_dia}
 P= \frac{z}{\frac{d}{25.4}}=25.4\times \frac{z}{d}
 \end{equation}</p>
-<h3 id="モジュールmodule">モジュール（module）</h3>
+<h3 id="312-モジュールmodule">3.1.2. モジュール（module）</h3>
 <p>　モジュールの記号は module の頭文字を取って $m$ [mm] で表現されます。モジュール $m$ [mm] は次式で定義されます。
 \begin{equation}
 \label{mod}
 m=\frac{d}{z}
 \end{equation}</p>
-<h3 id="ピッチpitchと-モジュールmoduleの関係">ピッチ（pitch）と モジュール（module）の関係</h3>
+<h3 id="313-ピッチpitchと-モジュールmoduleの関係">3.1.3. ピッチ（pitch）と モジュール（module）の関係</h3>
 <p>　(\ref{p}), (\ref{P_dia})式に(\ref{mod})式を代入することで、次の関係式が得られます。</p>
 <p>\begin{equation}
 \label{p_using_mod}
@@ -106,8 +144,9 @@ p=\pi \times m
 P= 25.4 \times \frac{1}{m} =\frac{25.4}{m}
 \end{equation}</p>
 <p>　</p>
-<h2 id="rcの世界で使われているピッチとモジュール">RCの世界で使われているピッチとモジュール</h2>
+<h2 id="32-rcの世界で使われているピッチとモジュール">3.2. RCの世界で使われているピッチとモジュール</h2>
 <p>ラジコンのピッチ・モジュールについて記事を書いている方<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>や、<a href="http://www.kawadamodel.co.jp/">川田模型のホームページ</a>を参考にして、ラジコンに使用されているモジュールとピッチを表に整理してみました。</p>
+<p>表：ラジコンの世界で使われることが多いモジュールとピッチ</p>
 <div align="center">
 <table>
   <tr>
@@ -133,7 +172,7 @@ m = \frac{25.4}{P} = \frac{25.4}{32} = 0.7938&hellip; \simeq 0.8
 \end{equation}</p>
 <p>　計算結果を見ると、0.8モジュールと32ピッチはほぼ同じと考えられます。</p>
 <p>　この他にも非常に似ているモジュールとピッチがあるみたいですが、摩耗が起こるので使用しない<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>ほうが良いみたいです。</p>
-<h2 id="欠けたギアからモジュールを計算">欠けたギアからモジュールを計算</h2>
+<h2 id="33-欠けたギアからモジュールを計算">3.3. 欠けたギアからモジュールを計算</h2>
 <p>　壊れた歯車をもとに設計したいという場合には、モジュールの値を求める必要があります。そこでその方法を調べてみることにしました。</p>
 <p>　調べた結果、壊れた歯車の歯数と歯先円直径（歯の先端部分の直径、一番大きい直径）を調べればモジュールが計算できることが分かりました。歯車の歯数を $z$、歯先円直径を $d_a$ [mm] おくと、モジュール $m$ [mm] は、</p>
 <p>\begin{equation}
@@ -142,7 +181,7 @@ m = \frac{d_a}{z+2}
 \end{equation}</p>
 <p>　この式は歯車メーカー（RONSON GEARS）が公開している技術ドキュメント<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>に記載されていたものです。ちなみにこの計算を自動でやってくれるWebページ（<a href="https://www.radiocontrolinfo.com/information/rc-calculators/rc-gear-calculator/">RC Gear Calculator</a>）を作っている方もいて凄いなと思いました。</p>
 <p>　色々な人が情報を発信してくれていたので、何とか歯車の設計ができそうです！ ありがとうございます！</p>
-<h1 id="span-styletext-decorationunderline参考文献span"><span style="text-decoration:underline;">参考文献</span></h1>
+<h1 id="4-span-styletext-decorationunderline参考文献span">4. <span style="text-decoration:underline;">参考文献</span></h1>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -192,7 +231,12 @@ m = \frac{d_a}{z+2}
       aria-label="Previous Article"
       ><i class="bi bi-arrow-left-circle-fill"></i
     ></a>
-    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/24/"
+      aria-label="Next Article"
+      ><i class="bi bi-arrow-right-circle-fill"></i
+    ></a>
   </div>
   </div>
   
@@ -202,6 +246,8 @@ m = \frac{d_a}{z+2}
       <div class="footer-recent-posts">
         <h6>Recent Posts</h6>
         <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/">壊れたRCのギアを作りたい [3Dモデリング編1]</a></li>
           
           <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/">壊れたRCのギアを作りたい [理論編]</a></li>
           
@@ -254,6 +300,12 @@ m = \frac{d_a}{z+2}
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
   
   
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
   
   
@@ -263,16 +315,10 @@ m = \frac{d_a}{z+2}
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
   
   
-    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
-  
-  
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
   
   
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
-  
-  
-    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
   
 </div>
 

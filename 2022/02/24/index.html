@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     壊れたRCのギアを作りたい [3Dモデリング編1] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      壊れたRCのギアを作りたい [3Dモデリング編1]
+    </h1>
+    
+    <p class="document-date">
+      2022-02-24 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"⚙ FreeCADでラジコンのギアを設計 ⚙"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E8%A8%AD%E8%A8%88%E3%81%AB%E5%85%A5%E3%82%8B%E5%89%8D%E3%81%AB">1. <span style="text-decoration:underline;">設計に入る前に</span></a>
+<ul>
+<li><a href="#11-%E5%89%8D%E5%9B%9E%E3%81%AE%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8A">1.1. 前回の振り返り</a></li>
+<li><a href="#12-%E5%A3%8A%E3%82%8C%E3%81%9F%E6%AD%AF%E8%BB%8A%E3%81%AE%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%AF">1.2. 壊れた歯車のモジュールは？</a></li>
+</ul>
+</li>
+<li><a href="#2-freecad%E3%81%A7%E3%82%AE%E3%82%A2%E8%A8%AD%E8%A8%88">2. <span style="text-decoration:underline;">FreeCADでギア設計</span></a>
+<ul>
+<li><a href="#21-involute-gear-%E6%A9%9F%E8%83%BD%E3%81%A7%E5%A4%A7%E3%81%BE%E3%81%8B%E3%81%AA%E5%BD%A2%E7%8A%B6%E3%82%92%E4%BD%9C%E6%88%90">2.1. Involute gear 機能で大まかな形状を作成</a></li>
+<li><a href="#22-%E7%B4%B0%E3%81%8B%E3%81%84%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F">2.2. 細かいところを作っていく</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">3. <span style="text-decoration:underline;">参考文献</span></a></li>
+</ul>
+<hr>
+<h1 id="1-span-styletext-decorationunderline設計に入る前にspan">1. <span style="text-decoration:underline;">設計に入る前に</span></h1>
+<h2 id="11-前回の振り返り">1.1. 前回の振り返り</h2>
+<p>　<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/">前回</a>はギアの設計に必要な理論を調べました。今回は実際に歯車の設計をしていきたいと思います！</p>
+<p>　前回の最後に掲載した計算式<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>をここにも書いておきます。この式を使っていきます。</p>
+<p>\begin{equation}
+\label{mod_using_da}
+m = \frac{d_a}{z+2}
+\end{equation}</p>
+<h2 id="12-壊れた歯車のモジュールは">1.2. 壊れた歯車のモジュールは？</h2>
+<p>　式(\ref{mod_using_da})を使って、歯車のモジュール $m$ を調べてみます。少し大変ですが、壊れた歯車の歯数は地道に数えていきます（笑）。</p>
+<div align="center">
+<figure><img src="gear_module_estimation.jpg"
+         alt="歯車の歯数と刃先円直径を測定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　歯車の歯数 $z$ と刃先円直径 $d_a$ を測定
+</div>
+<p>　歯数を数えると $z=62$ [枚] 、刃先円直径は $d_a=38.9$ [mm] （ノギスで測定）でした。 これを計算式に入れて、モジュール $m$ [mm] を計算してみます。</p>
+<p>\begin{equation}
+\label{old_rc_mod}
+m = \frac{d_a}{z+2} = \frac{38.9}{62+2} = 0.6078125\dots \simeq 0.6
+\end{equation}</p>
+<p>　ついでにダイヤメトラルピッチ $P$ [1/in] も計算してみます。</p>
+<p>\begin{equation}
+\label{old_rc_P}
+P= \frac{25.4}{m} = \frac{25.4}{0.6078125} =41.7892\dots \simeq 42
+\end{equation}</p>
+<p>　前回まとめた表と見比べてみると、モジュールが切りの良い数字($m=0.6$) になっているので、恐らく壊れたギアのモジュールは$0.6$であると考えられます。</p>
+<p>　ダイヤメトラルピッチは $P=42$ になりましたが、ラジコンで使われている 48ピッチ からは大きく離れています。</p>
+<p>　ちなみに<a href="https://www.radiocontrolinfo.com/information/rc-calculators/rc-gear-calculator/">RC Gear Calculator</a>を使っても同じような計算結果になりました。</p>
+<p>表：ラジコンの世界で使われることが多いモジュールとピッチ</p>
+<div align="center">
+<table>
+  <tr>
+   <td>モジュール $m$
+<p>(Metric Gear Pitches)</p>
+   </td>
+   <td>ダイヤメトラルピッチ $P$
+   </td>
+  </tr>
+  <tr>
+   <td>0.4, 0.5, <strong>0.6</strong>, 0.8, 1.0
+   </td>
+   <td>32, 48, 64
+   </td>
+  </tr>
+</table>
+</div>
+<h1 id="2-span-styletext-decorationunderlinefreecadでギア設計span">2. <span style="text-decoration:underline;">FreeCADでギア設計</span></h1>
+<h2 id="21-involute-gear-機能で大まかな形状を作成">2.1. Involute gear 機能で大まかな形状を作成</h2>
+<p>　「Part Design ワークベンチ」に入っている、「Involute gear」機能（下図参照） で設計を進めていくことにします。</p>
+<p>　細かい操作方法はXsimの技術ドキュメント<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>が参考になりました。</p>
+<div align="center">
+<figure><img src="Involute-gear_function_in_Part-Design.png"
+         alt="図 Involute gear 機能のメニュー"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図：Involute gear 機能のメニュー
+</div>
+<div align="center">
+<figure><img src="gear_making1_parameter.png"
+         alt="設定画面（歯車の歯数とモジュールを設定）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　歯車の歯数 $z$ とモジュール $m$ を設定
+</div>
+<div align="center">
+<figure><img src="gear_making1.png"
+         alt="  生成した歯の輪郭（斜めから）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝  生成した歯の輪郭（斜めから）
+</div>
+<div align="center">
+<figure><img src="gear_making3.png"
+         alt="生成した歯の輪郭（真上から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　生成した歯の輪郭（真上から）
+</div>
+<div align="center">
+<figure><img src="gear_making4.png"
+         alt="輪郭を押し出す"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　輪郭を押し出す
+</div>
+<p>　自動で歯車の形を作ってくれる機能は凄く便利です(^^)</p>
+<h2 id="22-細かいところを作っていく">2.2. 細かいところを作っていく</h2>
+<div align="center">
+<figure><img src="gear_making5.png"
+         alt="☝　底面にスケッチを作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　底面にスケッチを作成
+</div>
+<div align="center">
+<figure><img src="gear_making6.png"
+         alt="スプレッドシートを使ってパラメータを管理"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　スプレッドシートを使ってパラメータを管理
+</div>
+<div align="center">
+<figure><img src="gear_making7.png"
+         alt="パラメータの名前を決める"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　パラメータの名前を決める
+</div>
+<div align="center">
+<figure><img src="gear_making8.png"
+         alt="裏面の空洞を作るためのスケッチ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　裏面の空洞を作るためのスケッチ
+</div>
+<div align="center">
+<figure><img src="gear_making9.png"
+         alt="ワイヤーフレームモデルで空洞を確認"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ワイヤーフレームモデルで空洞を確認
+</div>
+<div align="center">
+<figure><img src="gear_making10.png"
+         alt="ボス部分を作る"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ボス部分を作る
+</div>
+<div align="center">
+<figure><img src="gear_making11.png"
+         alt="ベベルギア支持部分のベース形状を作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギア支持部分のベース形状を作成
+</div>
+<div align="center">
+<figure><img src="gear_making12.png"
+         alt="シャフトが通る穴をあける"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　シャフトが通る穴をあける
+</div>
+<div align="center">
+<figure><img src="gear_making13.png"
+         alt="穴あけの結果"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　穴あけの結果
+</div>
+<p>　今回はこのくらいにしたいと思います！</p>
+<p>　大まかな形まで作れて良かったです！</p>
+<h1 id="3-span-styletext-decorationunderline参考文献span">3. <span style="text-decoration:underline;">参考文献</span></h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>RONSON GEARS 「spur-gear-formulation-calculations」、(<a href="https://ronsongears.com.au/wp-content/uploads/2018/05/spur-gear-formulation-calculations.pdf">https://ronsongears.com.au/wp-content/uploads/2018/05/spur-gear-formulation-calculations.pdf</a> )&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>XSim 技術ドキュメント「FreeCAD インボリュートギア・ツールを使って歯車を作る」、( <a href="https://www.xsim.info/articles/FreeCAD/HowTo/Create-gears-with-Involute-Gear-tool.html">https://www.xsim.info/articles/FreeCAD/HowTo/Create-gears-with-Involute-Gear-tool.html</a> )&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/23/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/">壊れたRCのギアを作りたい [3Dモデリング編1]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/">壊れたRCのギアを作りたい [理論編]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/">hugoで上付き・下付き文字が入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/">3Dプリンタでホイールを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/">ポリカボディ風の3Dモデルを作る</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
