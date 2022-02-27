@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
   <title>
-     文字装飾 -  Happy RC Blog !
+     Bluetooth モジュールでRCサーボ・ESCを制御したい -  Happy RC Blog !
   </title>
   <meta name="theme-color" content="#a3001b" />
   <meta charset="utf-8" />
@@ -34,30 +34,47 @@
     
   </div>
   <div class="page-title-and-info" style="text-align: center">
-    <h1 class="page-title" style="margin-bottom: 1em;">
-      #文字装飾
+    <h1 class="page-title" >
+      Bluetooth モジュールでRCサーボ・ESCを制御したい
     </h1>
     
+    <p class="document-date">
+      2022-02-27 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"無線でRC装置を制御するために考えたこと・やってみたこと"</p>
+     
   </div>
 </header>
 
     
     <main class="card shadow round-corner">
-<div class="taxonomy-data">
-  
-  <div class="list-page-data">
-  <time class="list-page-date">2022-02-21
-  </time>
-  <a
-    class="archive-table-link"
-    href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/"
-  >
-    hugoで上付き・下付き文字が入力できない
-  </a>
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E6%9C%80%E7%B5%82%E7%9A%84%E3%81%AB%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. <span style="text-decoration:underline;">最終的にやりたいこと</span></a></li>
+<li><a href="#2-%E5%AE%9F%E9%A8%93%E5%86%85%E5%AE%B9">2. <span style="text-decoration:underline;">実験内容</span></a>
+<ul>
+<li><a href="#21-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A6%82%E8%A6%81">2.1. システムの概要</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="1-span-styletext-decorationunderline最終的にやりたいことspan">1. <span style="text-decoration:underline;">最終的にやりたいこと</span></h1>
+<p>最終的には、ラジコンのコントローラを作ることを目指しています。そのためには無線通信でRC装置を動かせるようになる必要があります。</p>
+<p>　今回はその基礎として、PCをコントローラ、マイコン+Bluetooth をRC受信機と考えて実験を行いたいと思います。</p>
+<h1 id="2-span-styletext-decorationunderline実験内容span">2. <span style="text-decoration:underline;">実験内容</span></h1>
+<h2 id="21-システムの概要">2.1. システムの概要</h2>
+<p>　下の図は使用する装置、ぞれぞれの装置の役割を整理したものです。</p>
+<div align="center">
+<figure><img src="rc_wireless_control_system_using_bt-module.svg"
+         alt="システムの概要"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図：システムの概要
 </div>
 
-  
-</div>
 
     </main><footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -72,6 +89,17 @@
   
   
   
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/24/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
   
   <div class="footer shadow round-corner">
     
