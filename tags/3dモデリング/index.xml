@@ -6,7 +6,20 @@
     <description>Recent content in 3Dモデリング on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>壊れたRCのギアを作りたい [3Dモデリング編1]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/</link>
+      <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/</guid>
+      <description>～ 目次 ～   1. 設計に入る前に  1.1. 前回の振り返り 1.2. 壊れた歯車のモジュールは？   2. FreeCADでギア設計  2.1. Involute gear 機能で大まかな形状を作成 2.2. 細かいところを作っていく   3. 参考文献   1. 設計に入る前に 1.1. 前回の振り返り 　前回はギアの設計に必要な理論を調べました。今回は実際に歯車の設計をしていきたいと思います！
+　前回の最後に掲載した計算式1をここにも書いておきます。この式を使っていきます。
+\begin{equation} \label{mod_using_da} m = \frac{d_a}{z+2} \end{equation}
+1.2. 壊れた歯車のモジュールは？ 　式(\ref{mod_using_da})を使って、歯車のモジュール $m$ を調べてみます。少し大変ですが、壊れた歯車の歯数は地道に数えていきます（笑）。
+  ☝　歯車の歯数 $z$ と刃先円直径 $d_a$ を測定  　歯数を数えると $z=62$ [枚] 、刃先円直径は $d_a=38.9$ [mm] （ノギスで測定）でした。 これを計算式に入れて、モジュール $m$ [mm] を計算してみます。</description>
+    </item>
+    
     <item>
       <title>3Dプリンタでホイールを作ってみた</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/</link>

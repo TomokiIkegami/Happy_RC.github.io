@@ -8,15 +8,25 @@
     <language>ja</language>
     <lastBuildDate>Sun, 27 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい</title>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/</link>
       <pubDate>Sun, 27 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/</guid>
-      <description>～ 目次 ～   1. 最終的にやりたいこと 2. 実験内容  2.1. システムの概要     1. 最終的にやりたいこと 最終的には、ラジコンのコントローラを作ることを目指しています。そのためには無線通信でRC装置を動かせるようになる必要があります。
+      <description>～ 目次 ～   1. 最終的にやりたいこと 2. 実験準備  2.1. システムの概要 2.2. 回路図   3. 動作実験結果 4. 参考文献   1. 最終的にやりたいこと 　最終的には、ラジコンのコントローラを作ることを目指しています。そのためには無線通信でRC装置を動かせるようになる必要があります。
 　今回はその基礎として、PCをコントローラ、マイコン+Bluetoothモジュール をRC受信機と考えて実験を行いたいと思います。
-2. 実験内容 2.1. システムの概要 　下の図は使用する装置、ぞれぞれの装置の役割を整理したものです。
-  図：システムの概要  </description>
+2. 実験準備 2.1. システムの概要 　下の図は使用する装置、ぞれぞれの装置の役割を整理したものです。
+  図：システムの概要  　PCから無線通信（Bluetooth）でArduinoへ信号を送り、ArduinoでサーボモータやESCの制御を行いたいと思います。
+　BluetoothモジュールはHC-05と呼ばれるものを使用しました。Amazonに1000円くらいで売っています。
+　ArduinoとHC-05を使用してLEDを点灯させる回路を作っている記事1,2がいくつかあったので、そちらを参考にして回路を作成しました。
+2.2. 回路図 　まずはRCサーボのみを無線通信で制御する回路をつくりました（下図参照）。
+　この回路では、サーボ用の電源を3.3[V]にしていますが、実際のRCでは6[V]で動かしていることが多いです。（ハイボルテージといって7.4[V]で動かす場合もあります）
+  図：サーボモータ制御用の回路  　Bluetoothモジュールの動作用とサーボ駆動用の電源を別にしたかった※ので、このような（不思議な）回路になっています。しかしこれではトルクが足りません（笑）。とりあえず今回はこれでいきたいと思います。
+※ Bluetoothモジュールとサーボモータで5V電源を共有すると、サーボモータが動いたときに通信が途切れてしまいました。
+3. 動作実験結果 　先ほどの回路を組み立てて実験した結果がこちらの動画になります。
+  　電圧が足りず前輪が接地した状態ではハンドルが切れていませんが、動かすことは出来ました！
+　サーボ用には別の方法で電源供給する必要がありそうです。BEC3とかを使って電源供給すると良いかも&amp;hellip;
+4. 参考文献   Love on Technology「WindowsとArduinoとBluetoothモジュール(HC-05/HC-06)の接続方法」、( https://wireless-network.</description>
     </item>
     
   </channel>
