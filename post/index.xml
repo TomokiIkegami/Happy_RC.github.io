@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 05 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使っている3Dプリンタの紹介</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/</link>
+      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/</guid>
+      <description>1. 機種について 　BIBO2 という3Dプリンタです。金属のボディだったり、印刷台がガラスだったりするところがカッコイイです(^^)
+  ☝　外観  2. 使ってみた感じ 　まだ付属のフィラメント（PLA）と標準設定でしか印刷してませんが、仕上がりがきれいでびっくりしました。
+　エッジも丸くならず、穴もきれいな形状です。積層面同士が強く密着しているのも良いと感じました。
+  ☝　作ってみた12mmホイールハブ（斜めから）    ☝　作ってみた12mmホイールハブ（印刷台側の面）  　欠点を挙げるとするなら、動作音が大きいように感じます。（ノズルがあれだけ速く動いていれば、ある程度の音は仕方がないのかなと&amp;hellip;）
+3. セットアップについて 3Dプリンタ組み立て 　私も3Dプリンタ初心者ですが、組み立ては動画のマネをすればできると思います（動画は付属のSDカードに入っています）。ソフト側の設定は少し大変に感じました。
+　動画はGoogleドライブからダウンロードすることも可能です。リンクはこちらになります。 https://drive.google.com/file/d/1e02U8qIDgyE1xym4yPbTf_fmFDw2x0-b/view
+ソフトのセットアップ 　3Dプリンタ用の印刷用データを作るのに Ultimaker Cura というソフトを使います。そのソフト（Ultimaker Cura）をインストールしてから、ソフト上でプリンタの設定と印刷の設定をします。
+　SDカードに入っている「How to use BIBO cura settings in Ultimaker Cura for BIBO2」というpdfファイルを見ながら設定をしました。
+　インターネット上にもpdfファイルがあがっていたので、リンクを貼っておきます。 https://docero.tips/doc/how-to-use-bibo-cura-settings-in-ultimaker-cura-for-bibo2-14mzo69w00
+　設定を一度済ませてしまえば、同じフィラメントの場合は簡単に印刷することができます。</description>
+    </item>
+    
     <item>
       <title>壊れたRCのギアを作りたい [3Dモデリング編2]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/</link>
