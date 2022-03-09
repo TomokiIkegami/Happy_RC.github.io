@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     壊れたRCのギアを作りたい [3Dモデリング編2] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      壊れたRCのギアを作りたい [3Dモデリング編2]
+    </h1>
+    
+    <p class="document-date">
+      2022-03-05 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"⚙ FreeCADでラジコンのギアを設計 ⚙"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E8%A8%AD%E8%A8%88%E4%BD%9C%E6%A5%AD%E3%81%AE%E7%B6%9A%E3%81%8D">1. <span style="text-decoration:underline;">設計作業の続き</span></a></li>
+<li><a href="#2-%E5%AE%8C%E6%88%90%E3%81%97%E3%81%9F3d%E3%83%A2%E3%83%87%E3%83%AB">2. <span style="text-decoration:underline;">完成した3Dモデル</span></a></li>
+<li><a href="#3-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">3. <span style="text-decoration:underline;">参考文献</span></a></li>
+</ul>
+<hr>
+<h1 id="1-span-styletext-decorationunderline設計作業の続きspan">1. <span style="text-decoration:underline;">設計作業の続き</span></h1>
+<p>　前回に引き続き、3Dモデリング作業を進めていきます。前回はギアの大まかな形状を作ることができたので、今回は細かい部分を作りました。</p>
+<div align="center">
+<figure><img src="gear_making13.png"
+         alt="前回までの進捗"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　前回までの進捗
+</div>
+<p>　大まかな形状は完成していますが、ベベルギアが入る空間がないのでまずはそこを作っていきます。</p>
+<div align="center">
+<figure><img src="gear_modeling_2%20%281%29.png"
+         alt="ベベルギア用の穴をあける（スケッチ作成）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギア用の穴をあける（スケッチ作成）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%282%29.png"
+         alt="ベベルギア用の穴をあける（ポケットを実行）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギア用の穴をあける（ポケットを実行）
+</div>
+<p>　ベベルギアにはシャフトが通っているので、そのシャフトが入る部分を作っていきます。</p>
+<div align="center">
+<figure><img src="gear_modeling_2%20%287%29.png"
+         alt="裏面を少し盛る（スケッチ作成）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　裏面を少し盛る（スケッチ作成）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%288%29.png"
+         alt="裏面を少し盛る"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　裏面を少し盛る
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%289%29.png"
+         alt="ベベルギアのシャフトが入る穴（スケッチ作成）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギアのシャフトが入る穴（スケッチ作成）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2811%29.png"
+         alt="アイソメ図で見るとこんな感じ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　アイソメ図で見るとこんな感じ
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2812%29.png"
+         alt="ベベルギアのシャフトが入る穴ができた（ポケットを実行）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギアのシャフトが入る穴ができた（ポケットを実行）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2813%29.png"
+         alt="作った穴をミラーコピーする（ミラーする面を選択）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　作った穴をミラーコピーする（ミラーする面を選択）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2814%29.png"
+         alt="ミラーコピー実行後"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ミラーコピー実行後
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2815%29.png"
+         alt="これでベベルギアは取り付けられそう"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　これでベベルギアは取り付けられそう
+</div>
+<p>　これで完成にしても良いのですが、せっかくなので文字を切り抜きたいと思います。やり方は、XSim 技術ドキュメントに文字列をソリッド化する方法<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>が載っていたので、そちらを参考にしました。</p>
+<p>　参考にした記事では文字列をPartワークベンチで押し出していましたが、Part Designワークベンチでも同様の操作が出来ました。押し出すときは文字列をBodyのツリーに入れてからやると良いです。</p>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2816%29.png"
+         alt="ギア上面にDraftワークベンチでスケッチ面を設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ギア上面にDraftワークベンチでスケッチ面を設定
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2817%29.png"
+         alt="フォントを選ぶ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　フォントを選ぶ
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2818%29.png"
+         alt="文字列生成（自分のイニシャルを選びました）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　文字列生成（自分のイニシャルを選びました）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2819%29.png"
+         alt="位置を調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　位置を調整
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2820%29.png"
+         alt="切り抜き（ポケットを実行）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　切り抜き（ポケットを実行）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2821%29.png"
+         alt="文字の切り抜きをミラーコピー"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　文字の切り抜きをミラーコピー
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2822%29.png"
+         alt="文字が切り抜けてうれしい(&#39;ω&#39;)"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　文字が切り抜けてうれしい('ω')
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2823%29.png"
+         alt="裏面のボス部を作る（スケッチを作成）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　裏面のボス部を作る（スケッチを作成）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2824%29.png"
+         alt="ボス部が完成した（押し出しを実行）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ボス部が完成した（押し出しを実行）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2825%29.png"
+         alt="ボス部に面取りを施す"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ボス部に面取りを施す
+</div>
+<p>　最後に細かい部分を丸面取りでや角面取り仕上げます。</p>
+<h1 id="2-span-styletext-decorationunderline完成した3dモデルspan">2. <span style="text-decoration:underline;">完成した3Dモデル</span></h1>
+<p>　最終的に完成した3Dモデルがこちらになります。</p>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2826%29.png"
+         alt="表面（斜めから）"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2829%29.png"
+         alt="裏面（斜めから）"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2827%29.png"
+         alt="表面"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2828%29.png"
+         alt="裏面"/>
+</figure>
+
+</div>
+<p>　完成までに結構時間がかかりましたが、何とかギアの形になって良かったです！（でも、はめあいを考えていないので組み立てに苦労しそうな予感&hellip;）</p>
+<p>　次回は3Dプリンタを使って実際に製作したいと思います！</p>
+<h1 id="3-span-styletext-decorationunderline参考文献span">3. <span style="text-decoration:underline;">参考文献</span></h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>XSim 技術ドキュメント「FreeCAD 文字列のソリッド化」、( <a href="https://www.xsim.info/articles/FreeCAD/HowTo/Create-string-shape-solids.html">https://www.xsim.info/articles/FreeCAD/HowTo/Create-string-shape-solids.html</a> )&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/02/27/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/">壊れたRCのギアを作りたい [3Dモデリング編2]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/">壊れたRCのギアを作りたい [3Dモデリング編1]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/">壊れたRCのギアを作りたい [理論編]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/">hugoで上付き・下付き文字が入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/">3Dプリンタでホイールを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/">ポリカボディ風の3Dモデルを作る</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
