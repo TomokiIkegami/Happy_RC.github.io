@@ -13,18 +13,13 @@
       <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/</guid>
-      <description>～ 目次 ～   1. UBECを使って電源を供給 2. UBECについて  3. 改良した回路 2.3. ソースコード   3. 動画 4. 参考文献   1. UBECを使って電源を供給 　前回はサーボモータを無線で操作しましたが、サーボモータの動きがイマイチでした。（笑）
+      <description>～ 目次 ～   1. UBECを使って電源を供給 2. UBECについて 3. 実験の内容  3.1. 使ったもの 3.2. 作った回路 3.3. ソースコード   4. 動画 5. 参考文献   1. UBECを使って電源を供給 　前回はサーボモータを無線で操作しましたが、サーボモータの動きがイマイチでした。（笑）
 　そこで今回はサーボモータの電源をUBECで供給することを考えました。BECはRCクローラーなどをやる人は馴染みのある装置だと思います。
 2. UBECについて 　Universal Battery Elimination Circuit の略で、スイッチングレギュレータ1の一種です。BECはESCの中に内臓されていることがほとんどで、わざわざ外付けのものを使わなくても問題なく動きます。
 　単にBECと呼ばれるものは、リニアレギュレータ2を使用しているものが多いみたいで、発熱が大きくなったり、扱える電圧・電流を（スイッチングレギュレータに比べて）は小さい3というデメリットがあります。
 　外付けのUBECを使うことでレシーバーがサーボモータへ送る電流を大きくできたり、ESCの発熱を抑えることができる1などメリットが多いようです。
-3. 改良した回路 　前回作成した回路にUBECを追加したものが下の図になります。サーボモータのGND（グランド）を、UBECに直接つなぐかどうかはフォーラム4,5,6でかなり議論になっていました。
-　ネット上では色々な意見があり悩みましたが、私はUBEC、サーボモータ、マイコンのGNDを全て共通にしました。この回路で特に問題なく動きました。
-  図：サーボモータ制御用の回路（UBEC追加）  　前回はマイコン用の電源が1つだけだったので省略していましたが、今回はちゃんと電源も書きました。
-　上側のPower Bankはモバイルバッテリー、下側のBatteryはラジコン用の7.2Vニッケル水素バッテリーです。
-2.3. ソースコード 　こちらがArduinoマイコンに書き込んだソースコードです。前回とほとんど変わりませんが、サーボモータの動作速度（mov_speed）、左右の切れ角（left_DR, right_DR）調整を行いました。
-　また、今後のことも考えて文字列でステアの操舵をするようにしました。
-#include&amp;lt;SoftwareSerial.h&amp;gt; //Bluetoothの無線通信に使用 #include &amp;lt;VarSpeedServo.h&amp;gt; //サーボモータの制御に使用 VarSpeedServo myservo; // create servo object to control a servo  int mov_speed = 100; //速度 int center_pos = 90; //ステア中心位置 [サーボモータの中心位置 (90°)] int left_DR = 20; //左位置 [中心位置より反時計回りに20°回転した位置] int right_DR = 25; //右位置 [中心位置より時計回りに25°回転した位置] int left_max = center_pos - left_DR; //左の最大切れ角 int right_max = center_pos + right_DR; //右の最大切れ角  //速度v(mov_speed)は 1~255 の範囲で与える。（0にすると最大速度で移動） //サーボモータの回転角度θ(pos)の範囲は、 0°≦θ(pos)≦180° //myservo.</description>
+3. 実験の内容 3.1. 使ったもの 　前回の記事では、使った装置について書いていなかったので整理しておきます。
+ マイコン：Arduino UNO モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.0V) バッテリー（サーボモータ用）：Dynamite Speedpack (7.2V Ni-MH 700mAh) サーボモータ：Hitec DB777WP UBEC：Hobbywing 3Amp Switch-Mode UBEC  3.</description>
     </item>
     
     <item>
