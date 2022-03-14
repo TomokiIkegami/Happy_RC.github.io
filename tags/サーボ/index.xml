@@ -6,7 +6,27 @@
     <description>Recent content in サーボ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 27 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/</guid>
+      <description>～ 目次 ～   1. UBECを使って電源を供給 2. UBECについて  3. 改良した回路 2.3. ソースコード   3. 動画 4. 参考文献   1. UBECを使って電源を供給 　前回はサーボモータを無線で操作しましたが、サーボモータの動きがイマイチでした。（笑）
+　そこで今回はサーボモータの電源をUBECで供給することを考えました。BECはRCクローラーなどをやる人は馴染みのある装置だと思います。
+2. UBECについて 　Universal Battery Elimination Circuit の略で、スイッチングレギュレータ1の一種です。BECはESCの中に内臓されていることがほとんどで、わざわざ外付けのものを使わなくても問題なく動きます。
+　単にBECと呼ばれるものは、リニアレギュレータ2を使用しているものが多いみたいで、発熱が大きくなったり、扱える電圧・電流を（スイッチングレギュレータに比べて）は小さい3というデメリットがあります。
+　外付けのUBECを使うことでレシーバーがサーボモータへ送る電流を大きくできたり、ESCの発熱を抑えることができる1などメリットが多いようです。
+3. 改良した回路 　前回作成した回路にUBECを追加したものが下の図になります。サーボモータのGND（グランド）を、UBECに直接つなぐかどうかはフォーラム4,5,6でかなり議論になっていました。
+　ネット上では色々な意見があり悩みましたが、私はUBEC、サーボモータ、マイコンのGNDを全て共通にしました。この回路で特に問題なく動きました。
+  図：サーボモータ制御用の回路（UBEC追加）  　前回はマイコン用の電源が1つだけだったので省略していましたが、今回はちゃんと電源も書きました。
+　上側のPower Bankはモバイルバッテリー、下側のBatteryはラジコン用の7.2Vニッケル水素バッテリーです。
+2.3. ソースコード 　こちらがArduinoマイコンに書き込んだソースコードです。前回とほとんど変わりませんが、サーボモータの動作速度（mov_speed）、左右の切れ角（left_DR, right_DR）調整を行いました。
+　また、今後のことも考えて文字列でステアの操舵をするようにしました。
+#include&amp;lt;SoftwareSerial.h&amp;gt; //Bluetoothの無線通信に使用 #include &amp;lt;VarSpeedServo.h&amp;gt; //サーボモータの制御に使用 VarSpeedServo myservo; // create servo object to control a servo  int mov_speed = 100; //速度 int center_pos = 90; //ステア中心位置 [サーボモータの中心位置 (90°)] int left_DR = 20; //左位置 [中心位置より反時計回りに20°回転した位置] int right_DR = 25; //右位置 [中心位置より時計回りに25°回転した位置] int left_max = center_pos - left_DR; //左の最大切れ角 int right_max = center_pos + right_DR; //右の最大切れ角  //速度v(mov_speed)は 1~255 の範囲で与える。（0にすると最大速度で移動） //サーボモータの回転角度θ(pos)の範囲は、 0°≦θ(pos)≦180° //myservo.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/</link>
@@ -19,7 +39,7 @@
   図：システムの概要  　PCから無線通信（Bluetooth）でArduinoへ信号を送り、ArduinoでサーボモータやESCの制御を行いたいと思います。
 　BluetoothモジュールはHC-05と呼ばれるものを使用しました。Amazonに1000円くらいで売っています。
 　ArduinoとHC-05を使用してLEDを点灯させる回路を作っている記事1,2がいくつかあったので、そちらを参考にして回路を作成しました。
-2.2. 回路図 　まずはRCサーボのみを無線通信で制御する回路をつくりました（下図参照）。
+2.2. 回路図 　まずはRCサーボのみを無線通信で制御する回路をつくりました（下図参照）。マイコンへの5V電源（モバイルバッテリー）は省略しています。
 　この回路では、サーボ用の電源を3.3[V]にしていますが、実際のRCでは6[V]で動かしていることが多いです。（ハイボルテージといって7.4[V]で動かす場合もあります）
   図：サーボモータ制御用の回路  　Bluetoothモジュールの動作用とサーボ駆動用の電源を別にしたかった※ので、このような（不思議な）回路になっています。しかしこれではトルクが足りません（笑）。とりあえず今回はこれでいきたいと思います。
 ※ Bluetoothモジュールとサーボモータで5V電源を共有すると、サーボモータが動いたときに通信が途切れてしまいました。

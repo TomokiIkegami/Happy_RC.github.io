@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
   <title>
-     Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御] -  Happy RC Blog !
+     Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加] -  Happy RC Blog !
   </title>
   <meta name="theme-color" content="#a3001b" />
   <meta charset="utf-8" />
@@ -35,14 +35,14 @@
   </div>
   <div class="page-title-and-info" style="text-align: center">
     <h1 class="page-title" >
-      Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]
+      Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加]
     </h1>
     
     <p class="document-date">
-      2022-02-27 &middot; Tomoki Ikegami
+      2022-03-12 &middot; Tomoki Ikegami
     </p>
     
-    <p class="document-description">"まずは無線でRCサーボを動かしてみる"</p>
+    <p class="document-description">"サーボがサクサク動くようにするには"</p>
      
   </div>
 </header>
@@ -51,61 +51,51 @@
     <main class="card shadow round-corner">
 <h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
 <ul>
-<li><a href="#1-%E6%9C%80%E7%B5%82%E7%9A%84%E3%81%AB%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 最終的にやりたいこと</a></li>
-<li><a href="#2-%E5%AE%9F%E9%A8%93%E6%BA%96%E5%82%99">2. 実験準備</a>
+<li><a href="#1-ubec%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%9B%BB%E6%BA%90%E3%82%92%E4%BE%9B%E7%B5%A6">1. UBECを使って電源を供給</a></li>
+<li><a href="#2-ubec%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">2. UBECについて</a>
 <ul>
-<li><a href="#21-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E6%A6%82%E8%A6%81">2.1. システムの概要</a></li>
-<li><a href="#22-%E5%9B%9E%E8%B7%AF%E5%9B%B3">2.2. 回路図</a></li>
+<li><a href="#3-%E6%94%B9%E8%89%AF%E3%81%97%E3%81%9F%E5%9B%9E%E8%B7%AF">3. 改良した回路</a></li>
 <li><a href="#23-%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89">2.3. ソースコード</a></li>
 </ul>
 </li>
-<li><a href="#3-%E5%8B%95%E4%BD%9C%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C">3. 動作実験結果</a></li>
+<li><a href="#3-%E5%8B%95%E7%94%BB">3. 動画</a></li>
 <li><a href="#4-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">4. 参考文献</a></li>
 </ul>
 <hr>
-<h1 id="1-最終的にやりたいこと">1. 最終的にやりたいこと</h1>
-<p>　最終的には、ラジコンのコントローラを作ることを目指しています。そのためには無線通信でRC装置を動かせるようになる必要があります。</p>
-<p>　今回はその基礎として、PCをコントローラ、マイコン+Bluetoothモジュール をRC受信機と考えて実験を行いたいと思います。</p>
-<h1 id="2-実験準備">2. 実験準備</h1>
-<h2 id="21-システムの概要">2.1. システムの概要</h2>
-<p>　下の図は使用する装置、ぞれぞれの装置の役割を整理したものです。</p>
+<h1 id="1-ubecを使って電源を供給">1. UBECを使って電源を供給</h1>
+<p>　<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/">前回</a>はサーボモータを無線で操作しましたが、サーボモータの動きがイマイチでした。（笑）</p>
+<p>　そこで今回はサーボモータの電源をUBECで供給することを考えました。BECはRCクローラーなどをやる人は馴染みのある装置だと思います。</p>
+<h1 id="2-ubecについて">2. UBECについて</h1>
+<p>　Universal Battery Elimination Circuit の略で、スイッチングレギュレータ<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>の一種です。BECはESCの中に内臓されていることがほとんどで、わざわざ外付けのものを使わなくても問題なく動きます。</p>
+<p>　単にBECと呼ばれるものは、リニアレギュレータ<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>を使用しているものが多いみたいで、発熱が大きくなったり、扱える電圧・電流を（スイッチングレギュレータに比べて）は小さい<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>というデメリットがあります。</p>
+<p>　外付けのUBECを使うことでレシーバーがサーボモータへ送る電流を大きくできたり、ESCの発熱を抑えることができる<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>などメリットが多いようです。</p>
+<h2 id="3-改良した回路">3. 改良した回路</h2>
+<p>　前回作成した回路にUBECを追加したものが下の図になります。サーボモータのGND（グランド）を、UBECに直接つなぐかどうかはフォーラム<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup><sup>,</sup><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>でかなり議論になっていました。</p>
+<p>　ネット上では色々な意見があり悩みましたが、私はUBEC、サーボモータ、マイコンのGNDを全て共通にしました。この回路で特に問題なく動きました。</p>
   <div align="center">
-  <figure><img src="rc_wireless_control_system_using_bt-module.svg"
-         alt="システムの概要"/>
+  <figure><img src="servo_motor_control_using_hc-05_BEC.svg"
+         alt="サーボモータ制御用の回路（UBEC追加）"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  図：システムの概要
+  図：サーボモータ制御用の回路（UBEC追加）
   </div>
-<p>　PCから無線通信（Bluetooth）でArduinoへ信号を送り、ArduinoでサーボモータやESCの制御を行いたいと思います。</p>
-<p>　BluetoothモジュールはHC-05と呼ばれるものを使用しました。Amazonに1000円くらいで売っています。</p>
-<p>　ArduinoとHC-05を使用してLEDを点灯させる回路を作っている記事<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><sup>,</sup><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>がいくつかあったので、そちらを参考にして回路を作成しました。</p>
-<h2 id="22-回路図">2.2. 回路図</h2>
-<p>　まずはRCサーボのみを無線通信で制御する回路をつくりました（下図参照）。マイコンへの5V電源（モバイルバッテリー）は省略しています。</p>
-<p>　この回路では、サーボ用の電源を3.3[V]にしていますが、実際のRCでは6[V]で動かしていることが多いです。（ハイボルテージといって7.4[V]で動かす場合もあります）</p>
-  <div align="center">
-  <figure><img src="servo_motor_control_using_hc-05_v2.svg"
-         alt="サーボモータ制御用の回路"/>
-</figure>
-
-  </div>
-  <div style="text-align: center;">
-  図：サーボモータ制御用の回路
-  </div>
-<p>　Bluetoothモジュールの動作用とサーボ駆動用の電源を別にしたかった<sup>※</sup>ので、このような（不思議な）回路になっています。しかしこれではトルクが足りません（笑）。とりあえず今回はこれでいきたいと思います。</p>
-<p>※ Bluetoothモジュールとサーボモータで5V電源を共有すると、サーボモータが動いたときに通信が途切れてしまいました。</p>
+<p>　前回はマイコン用の電源が1つだけだったので省略していましたが、今回はちゃんと電源も書きました。</p>
+<p>　上側のPower Bankはモバイルバッテリー、下側のBatteryはラジコン用の7.2Vニッケル水素バッテリーです。</p>
 <h2 id="23-ソースコード">2.3. ソースコード</h2>
-<p>　こちらがArduinoマイコンに書き込んだソースコードです。</p>
-<p>　サーボモータの制御には、VarSpeedServo.h<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>というライブラリを使いました。このライブラリは、サーボモータの回転速度も変更できるのがすごく便利です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>SoftwareSerial<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//Bluetoothの無線通信に使用
+<p>　こちらがArduinoマイコンに書き込んだソースコードです。前回とほとんど変わりませんが、サーボモータの動作速度（mov_speed）、左右の切れ角（left_DR, right_DR）調整を行いました。</p>
+<p>　また、今後のことも考えて文字列でステアの操舵をするようにしました。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#960050;background-color:#1e0010">#</span>include<span style="color:#f92672">&lt;</span>SoftwareSerial<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//Bluetoothの無線通信に使用
 </span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>VarSpeedServo<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//サーボモータの制御に使用
 </span><span style="color:#75715e"></span>VarSpeedServo myservo<span style="color:#f92672">;</span>    <span style="color:#75715e">// create servo object to control a servo
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> mov_speed <span style="color:#f92672">=</span> 100<span style="color:#f92672">;</span> <span style="color:#75715e">//速度
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> center_pos <span style="color:#f92672">=</span> 90<span style="color:#f92672">;</span> <span style="color:#75715e">//ステア中心位置 [サーボモータの中心位置 (90°)]
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> left_pos <span style="color:#f92672">=</span> 90 <span style="color:#f92672">-</span> 45<span style="color:#f92672">;</span> <span style="color:#75715e">//左位置 [中心位置より反時計回りに45°回転した位置]
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> right_pos <span style="color:#f92672">=</span> 90 <span style="color:#f92672">+</span> 45<span style="color:#f92672">;</span> <span style="color:#75715e">//右位置 [中心位置より時計回りに45°回転した位置]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> left_DR <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> <span style="color:#75715e">//左位置 [中心位置より反時計回りに20°回転した位置]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> right_DR <span style="color:#f92672">=</span> 25<span style="color:#f92672">;</span> <span style="color:#75715e">//右位置 [中心位置より時計回りに25°回転した位置]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> left_max <span style="color:#f92672">=</span> center_pos <span style="color:#f92672">-</span> left_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//左の最大切れ角
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> right_max <span style="color:#f92672">=</span> center_pos <span style="color:#f92672">+</span> right_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//右の最大切れ角
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">//速度v(mov_speed)は 1~255 の範囲で与える。（0にすると最大速度で移動）
 </span><span style="color:#75715e">//サーボモータの回転角度θ(pos)の範囲は、 0°≦θ(pos)≦180°
@@ -116,47 +106,53 @@ SoftwareSerial <span style="color:#a6e22e">Bluetooth</span><span style="color:#f
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
   Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>9600<span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルポートを開いて、伝送速度を9600[bps] に設定
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>9600<span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタで確認用
 </span><span style="color:#75715e"></span>  myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">attach</span><span style="color:#f92672">(</span>9<span style="color:#f92672">);</span> <span style="color:#75715e">//サーボモータのPWM端子とArduinoの9番ピンを接続
 </span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
   <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">available</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">int</span> input <span style="color:#f92672">=</span> Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> 4<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>left_pos<span style="color:#f92672">,</span> mov_speed<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを左に切る
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> 5<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">char</span> input <span style="color:#f92672">=</span> Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span> <span style="color:#75715e">//受信したテキストを変数inputに保存
+</span><span style="color:#75715e"></span>    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>input<span style="color:#f92672">);</span> <span style="color:#75715e">//受信したテキストをシリアルモニタに表示
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>left_max<span style="color:#f92672">,</span> mov_speed<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを左に切る
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
       myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>center_pos<span style="color:#f92672">,</span> mov_speed<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心に
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> 6<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>right_pos<span style="color:#f92672">,</span> mov_speed<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//ステアを右に切る
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span><span style="color:#f92672">{</span>
-      <span style="color:#f92672">}</span>
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>right_max<span style="color:#f92672">,</span> mov_speed<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//ステアを右に切る
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
   <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span></code></pre></div>
 <p>　PCから4が送られてきたらステアを左に、5が送られてきたらステアを中心に、6が送られてきたらステアを右に切るという単純なプログラムです。</p>
-<h1 id="3-動作実験結果">3. 動作実験結果</h1>
-<p>　先ほどの回路を組み立てて実験した様子がこちらの動画になります。</p>
+<h1 id="3-動画">3. 動画</h1>
+<p>　前回と比べて、接地した状態でもサーボモータが動いています！うれしい！</p>
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/XoGBV71PzU4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  <iframe src="https://www.youtube.com/embed/cMlRGfGmLhk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
-<p>　電圧が足りず前輪が接地した状態ではハンドルが切れていませんが、動かすことは出来ました！</p>
-<p>　サーボ用には別の方法で電源供給する必要がありそうです。BEC<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>とかを使って電源供給すると良いかも&hellip;</p>
 <h1 id="4-参考文献">4. 参考文献</h1>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Love on Technology「WindowsとArduinoとBluetoothモジュール(HC-05/HC-06)の接続方法」、(<a href="https://wireless-network.net/arduino-win-bt/">https://wireless-network.net/arduino-win-bt/</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>RC HOBBY TIPS「What Is A UBEC [Detailed Explanation]」、(<a href="https://rchobbytips.com/what-is-a-ubec/">https://rchobbytips.com/what-is-a-ubec/</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>マーティーの工房日誌「Bluetooth Module HC-05でAndroidからRGB LED Controll」、(<a href="https://martyworkshopdiary.blogspot.com/2018/05/bluetooth-module-hc-05androidrgb-led.html">https://martyworkshopdiary.blogspot.com/2018/05/bluetooth-module-hc-05androidrgb-led.html</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Panasonic INDUSTRY「電源回路の基礎知識(1)～電源回路の分類～」、(<a href="https://industrial.panasonic.com/jp/ss/technical/b10">https://industrial.panasonic.com/jp/ss/technical/b10</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>GitHub「NETLab Toolkit Group&gt;VarSpeedServo」、(<a href="https://github.com/netlabtoolkit/VarSpeedServo">https://github.com/netlabtoolkit/VarSpeedServo</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>FLITE TEST「WHAT IS A BEC? WHAT IS THE DIFFERENCE BETWEEN A BEC AND UBEC?」、(<a href="https://www.flitetest.com/articles/What_is_a_BEC_What_is_the_difference_between_a_BEC_and_UBEC">https://www.flitetest.com/articles/What_is_a_BEC_What_is_the_difference_between_a_BEC_and_UBEC</a>_)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p>KK HOBBY「HOME&gt;レギュレータ」、(<a href="https://www.kkhobby.com/SHOP/AP077.html">https://www.kkhobby.com/SHOP/AP077.html</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>RCCRAWLER.COM FORUM「BEC to Receiver to Servo」、(<a href="http://www.rccrawler.com/forum/electronics/598550-bec-receiver-servo.html">http://www.rccrawler.com/forum/electronics/598550-bec-receiver-servo.html</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>RCCRAWLER.COM FORUM「High Voltage servo wiring」、(<a href="http://www.rccrawler.com/forum/axial-yeti/561803-high-voltage-servo-wiring.html">http://www.rccrawler.com/forum/axial-yeti/561803-high-voltage-servo-wiring.html</a>)&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>ARRMA FORUM「Run a BEC just for the steering servo for Big Rock?」、(<a href="https://www.arrmaforum.com/threads/run-a-bec-just-for-the-steering-servo-for-big-rock.4980/">https://www.arrmaforum.com/threads/run-a-bec-just-for-the-steering-servo-for-big-rock.4980/</a>)&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -179,16 +175,11 @@ SoftwareSerial <span style="color:#a6e22e">Bluetooth</span><span style="color:#f
   <div class="prev-next">
     <a
       class="active icon"
-      href="/Happy_RC.github.io/2022/02/24/"
+      href="/Happy_RC.github.io/2022/03/09/"
       aria-label="Previous Article"
       ><i class="bi bi-arrow-left-circle-fill"></i
     ></a>
-    <a
-      class="active icon"
-      href="/Happy_RC.github.io/2022/03/05/"
-      aria-label="Next Article"
-      ><i class="bi bi-arrow-right-circle-fill"></i
-    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
   </div>
   </div>
   
