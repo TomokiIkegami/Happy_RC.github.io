@@ -6,20 +6,20 @@
     <description>Recent content in ESC on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/</link>
-      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第3回-ESCを使ったモータ駆動＆スマホ向けコントローラアプリ試作]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/</link>
+      <pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/</guid>
-      <description>～ 目次 ～   1. UBECを使って電源を供給 2. UBECについて 3. 実験の内容  3.1. 使ったもの 3.2. 作った回路 3.3. ソースコード   4. 動画 5. 参考文献   1. UBECを使って電源を供給 　前回はサーボモータを無線で操作しましたが、サーボモータの動きがイマイチでした。（笑）
-　そこで今回はサーボモータの電源をUBECで供給することを考えました。BECはRCクローラーなどをやる人は馴染みのある装置だと思います。
-2. UBECについて 　Universal Battery Elimination Circuit の略で、スイッチングレギュレータ1の一種です。BECはESCの中に内臓されていることがほとんどで、わざわざ外付けのものを使わなくても問題なく動きます。
-　単にBECと呼ばれるものは、リニアレギュレータ2を使用しているものが多いみたいで、発熱が大きくなったり、扱える電圧・電流を（スイッチングレギュレータに比べて）は小さい3というデメリットがあります。
-　外付けのUBECを使うことでレシーバーがサーボモータへ送る電流を大きくできたり、ESCの発熱を抑えることができる1などメリットが多いようです。
-3. 実験の内容 3.1. 使ったもの 　前回の記事では、使った装置について書いていなかったので整理しておきます。
- マイコン：Arduino UNO モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.0V) バッテリー（サーボモータ用）：Dynamite Speedpack (7.2V Ni-MH 700mAh) サーボモータ：Hitec DB777WP UBEC：Hobbywing 3Amp Switch-Mode UBEC  3.</description>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. ESCについて 3. 3.　ハードウェアのセットアップ  3.1. 使ったもの 3.2. 作った回路 3.3. ソースコード   4. ソフトウェア（操作用アプリ）のセットアップ  4.1. アプリ開発環境 4.2. 試作したアプリ   5. 動画 6. 参考資料   1. 今回やりたいこと 　前回はサーボモータの電源問題を解決したので、ラジコンのステアをサクサク動かせるようになりました。
+　ステアを操作するだけではラジコンは走行できないので、今回は駆動用のモータを制御したいと思います。モータの駆動にはESCという装置を使います。
+2. ESCについて 　Electronic Speed Controller の略で、ラジコンのモータの回転速度を制御するために使われる装置です。昔のラジコンではスピコン（Mechanical speed controllers1）という装置を使っていましたが、現在はこのESCを使われています。
+　ESCは FET （電界効果トランジスタ） という素子を使ってスイッチングを行う2ことで、モータに流れる電流をコントロールしています。電流量が大きくなればモータの回転速度は速くなり、小さくなればゆっくりになります。
+　スピコンではモータにかかる電圧小さくするときに、抵抗器で熱としてエネルギーを捨てるのがESCとの大きな違いです。
+3. 3.　ハードウェアのセットアップ 3.1. 使ったもの 　今回の実験で使ったハードウェアをリストアップしておきます。ESCが増えた以外は前回と全く同じです。操作に使ったアプリはこの記事の後半に紹介します。
+ マイコン：Arduino UNO モバイルバッテリー：SANYO KBC-L54D (3.</description>
     </item>
     
     <item>
