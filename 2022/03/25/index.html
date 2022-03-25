@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     壊れたRCのギアを作りたい [3Dプリンタで製作] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      壊れたRCのギアを作りたい [3Dプリンタで製作]
+    </h1>
+    
+    <p class="document-date">
+      2022-03-25 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"⚙ 3Dプリンタを使ってRCの歯車を製作 ⚙"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-3d%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E6%B5%81%E3%82%8C">1. 3Dプリントの流れ</a></li>
+<li><a href="#2-3d%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E4%BD%9C%E6%A5%AD%E3%81%AE%E6%A7%98%E5%AD%90">2. 3Dプリント作業の様子</a>
+<ul>
+<li><a href="#21-3d%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%BA%96%E5%82%99">2.1. 3Dモデルの準備</a></li>
+<li><a href="#22-%E5%8D%B0%E5%88%B7%E7%94%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E4%BD%9C%E6%88%90">2.2. 印刷用データの作成</a></li>
+<li><a href="#23-%E5%8D%B0%E5%88%B7">2.3. 印刷</a></li>
+<li><a href="#24-%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E6%9D%90%E3%81%AE%E9%99%A4%E5%8E%BB">2.4. サポート材の除去</a></li>
+<li><a href="#25-%E5%AE%8C%E6%88%90%E5%93%81">2.5. 完成品</a></li>
+</ul>
+</li>
+<li><a href="#3-%E7%B5%84%E3%81%BF%E7%AB%8B%E3%81%A6">3. 組み立て</a></li>
+<li><a href="#4-%E5%8F%96%E3%82%8A%E4%BB%98%E3%81%91%E3%81%9F%E6%A7%98%E5%AD%90">4. 取り付けた様子</a></li>
+<li><a href="#5-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">5. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-3dプリントの流れ">1. 3Dプリントの流れ</h1>
+<p>　前回でギアの設計が終わったので、今回はギアを実際に製作したいと思います。本格的なプラスチック歯車なら、<strong>射出成形</strong>で製造されている<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>（<strong>切削加工</strong>で製造している場合もある<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>）みたいです。</p>
+<p>　でも、工具と機械をそろえると凄い金額（ノウハウもかなり必要）なっちゃうので、ここでは<strong>3Dプリンタ</strong>を使って作ってみます。3Dプリンタを使った方法は<strong>付加製造</strong>と呼ばれています。</p>
+<p>　3Dプリンタにも色々な種類があるのですが、<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/">私が使ったプリンタ</a>は<strong>熱溶解積層方式</strong> （<strong>FDM</strong>）の機種です。この方式は、高温で<strong>融かしたプラスチックを重ねて</strong>いってモノを作るやり方です。</p>
+<p>　3Dプリンタでモノを作る流れ（一例）をまとめると、</p>
+<ol>
+<li>3Dデータを準備する</li>
+<li>3Dデータから印刷用データを作る</li>
+<li>印刷用データを使って3Dプリンタで印刷する</li>
+<li>余分な材料を除去する</li>
+<li>完成</li>
+</ol>
+<p>　という感じです。</p>
+<h1 id="2-3dプリント作業の様子">2. 3Dプリント作業の様子</h1>
+<h2 id="21-3dモデルの準備">2.1. 3Dモデルの準備</h2>
+<p>　下の画像は、前回作成したギアの3DCADモデルになります。</p>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2826%29.png"
+         alt="完成した3DCADモデル（斜め上から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　完成した3DCADモデル（斜め上から）
+</div>
+<div align="center">
+<figure><img src="gear_modeling_2%20%2829%29.png"
+         alt="完成した3DCADモデル（斜め下から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　完成した3DCADモデル（斜め下から）
+</div>
+　
+<br>
+<p>　印刷用データをつくるために、まずはファイル形式を変換します。</p>
+<p>　ここでは、FreeCADデータを <strong>STL</strong>（Standard Triangulated Language）メッシュと呼ばれるファイル形式に変換したいと思います。</p>
+<br>
+<blockquote>
+<p>STLファイルとは全てのカタチを沢山の小さな三角形の集まりとして表現するファイル形式です。
+（RICOH「技術者が語る 3Dプリンターのいろは」<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> より引用）</p>
+</blockquote>
+<p>　この作業には <strong>Mesh Design</strong>ワークベンチ を使います。（下図参照）</p>
+<div align="center">
+<figure><img src="select_mesh_design_workbench.png"
+         alt="Mesh Designワークベンチを選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Mesh Designワークベンチを選択
+</div>
+<div align="center">
+<figure><img src="selected_mesh_design_workbench.png"
+         alt="Mesh Designワークベンチの画面"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Mesh Designワークベンチの画面
+</div>
+<p>　Mesh Designワークベンチが起動したらまず、STLメッシュにしたいボディをモデルツリー上で選択します。</p>
+<div align="center">
+<figure><img src="select_model.png"
+         alt="STLにしたいモデルを選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　STLにしたいモデルを選択
+</div>
+<p>　次にツールバー（画面上側）で「メッシュ（M）＞シェイプからメッシュを作成」をクリックします。</p>
+<div align="center">
+<figure><img src="make_mesh_from_shape.png"
+         alt="シェイプからメッシュを作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　シェイプからメッシュを作成
+</div>
+<p>　そうすると、パラメータの設定画面が出てくるので「OK」をクリックします。</p>
+<div align="center">
+<figure><img src="mesh_settings.png"
+         alt="パラメータの例（サーフェース偏差：50μm　角度の偏差：15°）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　パラメータの例（サーフェース偏差：50μm　角度の偏差：15°）
+</div>
+<p>　モデルツリーの一番下にメッシュができます（下図参照）。</p>
+<div align="center">
+<figure><img src="generated_mesh.png"
+         alt="（Meshed）と表示されているのが生成したSTLメッシュ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　（Meshed）と表示されているのが生成したSTLメッシュ
+</div>
+<p>　元のボディ（FreeCADデータ）と重なっていてSTLメッシュが見ずらいので、ボディを非表示（ツリー上で選択してスペースを押す）にします。（線のないモデルが表示される）</p>
+<div align="center">
+<figure><img src="generated_mesh_no_line.png"
+         alt="STLメッシュで表現された3Dモデル"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　STLメッシュで表現された3Dモデル
+</div>
+<p>　表示を切り替えると、たくさんの三角形ポリゴンで3Dモデルが構成されていることが分かります。（印刷するうえではこの作業は不要です）</p>
+<div align="center">
+<figure><img src="generated_mesh_polygon_top_view.png"
+         alt="CADデータからできたSTLメッシュ（斜め上から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　CADデータからできたSTLメッシュ（斜め上から）
+</div>
+<div align="center">
+<figure><img src="generated_mesh_polygon_bottom_view.png"
+         alt="CADデータからできたSTLメッシュ（斜め下から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　CADデータからできたSTLメッシュ（斜め下から）
+</div>
+<p>　最後に、STLメッシュをモデルツリー上で選んで右クリックしたあと「エクスポート」をして好きなフォルダに保存します。</p>
+<div align="center">
+<figure><img src="export_mesh_1.png"
+         alt="STLメッシュのエクスポート"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　STLメッシュのエクスポート
+</div>
+<p>　このデータは印刷用データを作成するときに使うので、分かりやすい場所に保存しておきます。</p>
+<div align="center">
+<figure><img src="export_mesh_1.png"
+         alt="エクスポートしたSTLメッシュを保存"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　エクスポートしたSTLメッシュを保存
+</div>
+<h2 id="22-印刷用データの作成">2.2. 印刷用データの作成</h2>
+<p>　先ほど保存したSTLメッシュを使って、印刷用のデータを作っていきます。</p>
+<p>　印刷用データを作るために、まずは <strong>Ultimaker Cura</strong>（以降 Cura と呼びます） を起動します。</p>
+<p>　<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/">Cura の設定</a>はすでに済ませた状態で、これからの作業を進めていきたいと思います。</p>
+<div align="center">
+<figure><img src="cura_loading_window.png"
+         alt="Ultimaker Cura の起動画面"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Ultimaker Cura の起動画面
+</div>
+<div align="center">
+<figure><img src="cura_monitor_default_view.png"
+         alt="起動後の画面（3Dプリンタの中をイメージした空間が表示されている）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　起動後の画面（3Dプリンタの中をイメージした空間が表示されている）
+</div>
+<p>　Cura が起動したら エクスプローラー を起動します。そうしたら、先ほど保存したSTLメッシュをCuraの画面上にドラッグ＆ドロップします。</p>
+<p>　ドラッグ＆ドロップすると、Cura に読み込まれた3Dモデル（STLメッシュ）が表示されます。</p>
+<blockquote>
+<p>画面上側の「File＞Open File(s)」で、先ほど保存したSTLメッシュを選んでも同じです。</p>
+</blockquote>
+<div align="center">
+<figure><img src="import_mesh_to_cura.png"
+         alt="STLメッシュをCuraにインポートする"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　STLメッシュをCuraにインポートする
+</div>
+<div align="center">
+<figure><img src="mesh_imported_1.png"
+         alt="Curaに3Dモデル（STLメッシュ）がインポートされる"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Curaに3Dモデル（STLメッシュ）がインポートされる
+</div>
+<div align="center">
+<figure><img src="mesh_imported_2.png"
+         alt="インポートされた3Dモデル（斜め上から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インポートされた3Dモデル（斜め上から）
+</div>
+<div align="center">
+<figure><img src="imported_mesh_bottom_view.png"
+         alt="インポートされた3Dモデル（底面のようす）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インポートされた3Dモデル（底面のようす）
+</div>
+<p>　モデルを無事インポート出来たので、次は印刷の設定をしていきたいと思います。まずは3Dモデルを選びます。</p>
+<div align="center">
+<figure><img src="select_3d_model.png"
+         alt="3Dモデルを選ぶ（モデルの周りが水色になる）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　3Dモデルを選ぶ（モデルの周りが水色になる）
+</div>
+<p>　3Dモデルが選択できたら、画面右上をクリックして印刷設定をしていきます。（必要に応じてモデルの向きや位置を変更）</p>
+<p>　今回の形状なら、<strong>サポート材</strong>以外はデフォルトのままで問題ないと思います。</p>
+<p>　サポート材やその他の設定が反映されたかどうかは、後でスライスをしたときに分かります。</p>
+<blockquote>
+<p><strong>サポート材</strong><br>
+印刷時に突き出した部分（<strong>オーバーハング</strong>）や<strong>ブリッジ</strong>の内側などを支える材料です。この材料は完成品には不要なので印刷後に取り除きます。</p>
+</blockquote>
+<p>　オーバーハングやブリッジについては<a href="https://i-maker.jp/blog/support-material-11673.html#i-3">こちらの記事</a>で分かりやすく説明されています。</p>
+<div align="center">
+<figure><img src="this_is_print_settings_window.png"
+         alt="印刷設定の画面"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷設定の画面
+</div>
+<div align="center">
+<figure><img src="support_structures_needed.png"
+         alt="サポート材（印刷時に画像の赤い部分を支える）を有効にする"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　サポート材（印刷時に画像の赤い部分を支える）を有効にする
+</div>
+<div align="center">
+<figure><img src="build_plate_adhesion.png"
+         alt="スカート（モデル周りに細い線ができる）を有効にする"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　スカート（モデル周りに細い線ができる）を有効にする
+</div>
+<p>　
+　印刷の設定をすることができたので、最後に印刷用データを生成したいと思います。</p>
+<p>　ノズル（画面左側）を選択し、「Slice」（画面右下）をクリックすると、印刷用のスライスデータ（3Dモデルが層状に細かく切られている）ができます。</p>
+<div align="center">
+<figure><img src="print_preview_top_view.png"
+         alt="印刷プレビュー（斜め上から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷プレビュー（斜め上から）
+</div>
+<div align="center">
+<figure><img src="print_preview_bottom_view.png"
+         alt="印刷プレビュー（斜め下から）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷プレビュー（斜め下から）
+</div>
+<h2 id="23-印刷">2.3. 印刷</h2>
+<p>　印刷中に印刷台から成形品がはがれないように、印刷台に付属のスティックのりを塗りました。（プリンタによっては塗らなくても良いものもあります）</p>
+<p>　このときプリンタとPCをUSBケーブルで繋ぎ、電源を入れておきます。</p>
+<div align="center">
+<figure><img src="build_plate_adhesion_using_glue_stick.jpg"
+         alt="印刷台にのりを塗る"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷台にのりを塗る
+</div>
+<p>　プレビューを見て問題なさそうだったので、「Print via USB」を押して印刷を始めます。</p>
+<div align="center">
+<figure><img src="print_via_usb.png"
+         alt="印刷を開始ボタンを押す"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷を開始ボタンを押す
+</div>
+<div align="center">
+<figure><img src="slice_data_sent_to_printer.png"
+         alt="印刷データがプリンタに送信される"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷データがプリンタに送信される
+</div>
+<p>　印刷を始めると、溶けたプラスチックが出てくるノズル（Extruder）と、印刷台（Build Plate）の温度が上がっていきます。</p>
+<div align="center">
+<figure><img src="cura_monitor_1.png"
+         alt="ノズル（Extruder）と印刷台（Build Plate）は室温"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ノズル（Extruder）と印刷台（Build Plate）は室温
+</div>
+<div align="center">
+<figure><img src="cura_monitor_2_heated.png"
+         alt="ノズルは186℃、印刷台は60℃と温度が上がっている"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ノズルは186℃、印刷台は60℃と温度が上がっている
+</div>
+<p>　印刷中の様子は下の画像のようになります。最初は薄い形状ですが、だんだんギアの形が見えてきて面白いです(&lsquo;ω&rsquo;)ノ</p>
+<div align="center">
+<figure><img src="gear_printing_1.jpg"
+         alt="印刷中の様子（まだ薄い形状）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷中の様子（まだ薄い形状）
+</div>
+<div align="center">
+<figure><img src="gear_printing_2.jpg"
+         alt="印刷中の様子（少しずつ厚みが出てきた）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷中の様子（少しずつ厚みが出てきた）
+</div>
+<div align="center">
+<figure><img src="gear_printing_3.jpg"
+         alt="印刷中の様子（完成にだいぶ近づいている）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷中の様子（完成にだいぶ近づいている）
+</div>
+<div align="center">
+<figure><img src="gear_printing_4.jpg"
+         alt="印刷完了(*^^*)"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　印刷完了(*^^*)
+</div>
+<h2 id="24-サポート材の除去">2.4. サポート材の除去</h2>
+<p>　印刷した状態では、下の写真のようにサポート材やスカートがついています。</p>
+<p>　これらの材料は完成品として使用するうえでは必要ないので、ニッパーやカッターを使って丁寧に取り除きました。</p>
+<div align="center">
+<figure><img src="gear_skirt.jpg"
+         alt="完成品の周囲にスカートがついている"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　完成品の周囲にスカートがついている
+</div>
+<div align="center">
+<figure><img src="gear_support_structure.jpg"
+         alt="ギア裏面の空洞部分には、格子状のサポート材がついている"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ギア裏面の空洞部分には、格子状のサポート材がついている
+</div>
+<h2 id="25-完成品">2.5. 完成品</h2>
+<p>　サポート材を取り除いたあとの画像がこちらになります。</p>
+<p>　ギアの歯形もきれいに出力されていて感動しました！</p>
+<p>　ギア中央部分の穴は少し小さかったので、ドリル（φ5）で仕上げました。</p>
+<div align="center">
+<figure><img src="finished_gear_1.jpg"
+         alt="完成品画像1"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="finished_gear_2.jpg"
+         alt="完成品画像2"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="finished_gear_3.jpg"
+         alt="完成品画像3"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="finished_gear_4.jpg"
+         alt="完成品画像4"/>
+</figure>
+
+</div>
+<h1 id="3-組み立て">3. 組み立て</h1>
+<p>　サポート材などを取り除いたので、実際に組み立てをしていきます。</p>
+<div align="center">
+<figure><img src="gear_before_cleaning.jpg"
+         alt="汚れていたので部品を分解＆清掃（清掃前）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　汚れていたので部品を分解＆清掃（清掃前）
+</div>
+<div align="center">
+<figure><img src="gear_after_cleaning.jpg"
+         alt="汚れていたので部品を分解＆清掃（清掃後）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　汚れていたので部品を分解＆清掃（清掃後）
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_1.jpg"
+         alt="組み立てる部品"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　組み立てる部品
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_2.jpg"
+         alt="グリスを塗りながら組み立て"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　グリスを塗りながら組み立て
+</div>
+<p>　ベベルギアのバックラッシを自分で調整（いい感じでギアが回る位置でねじを締めて固定）するのはマニアックな仕組みだなと思いました。( ;∀;)</p>
+<div align="center">
+<figure><img src="rm_gear_assembly_3.jpg"
+         alt="ベベルギアのバックラッシ調整が終わった"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ベベルギアのバックラッシ調整が終わった
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_4.jpg"
+         alt="リアのフレームにギア一式を取り付けます"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　リアのフレームにギア一式を取り付けます
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_5.jpg"
+         alt="スパーギアとピニオンギアのバックラッシを調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　スパーギアとピニオンギアのバックラッシを調整
+</div>
+<p>　メーカ製のギアに比べると偏心が大きいように感じましたが、細かいことを気にしなければ問題なく使えるレベルです！</p>
+<h1 id="4-取り付けた様子">4. 取り付けた様子</h1>
+<p>　リアのフレームをシャーシに固定し、タイヤも装着した様子が下の画像になります。</p>
+<div align="center">
+<figure><img src="rm_gear_assembly_6.jpg"
+         alt="スパーギアとピニオンギアのバックラッシを調整"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_8.jpg"
+         alt="スパーギアとピニオンギアのバックラッシを調整"/>
+</figure>
+
+</div>
+<div align="center">
+<figure><img src="rm_gear_assembly_7.jpg"
+         alt="スパーギアとピニオンギアのバックラッシを調整"/>
+</figure>
+
+</div>
+<p>　もう走らないと思ってた旧車が、また走れるようになって嬉しいです！</p>
+<p>　ギア一つ作るだけでもたくさんの知識が必要なんだと勉強になりました。</p>
+<p>　メーカーさんが作っているラジコンはやっぱり凄い！</p>
+<h1 id="5-参考文献">5. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>太陽パーツ「プラスチック歯車の射出成形なら太陽パーツへ」、(<a href="https://www.taiyoparts.co.jp/blog/1090/">https://www.taiyoparts.co.jp/blog/1090/</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>樹脂加工ドットコム「タグ「プラスチック歯車加工」が付けられているもの」、(<a href="http://www.jushikakou.com/mt-search.cgi?IncludeBlogs=3&amp;tag=%E3%83%97%E3%83%A9%E3%82%B9%E3%83%81%E3%83%83%E3%82%AF%E6%AD%AF%E8%BB%8A%E5%8A%A0%E5%B7%A5&amp;limit=20">http://www.jushikakou.com/mt-search.cgi?IncludeBlogs=3&amp;tag=%E3%83%97%E3%83%A9%E3%82%B9%E3%83%81%E3%83%83%E3%82%AF%E6%AD%AF%E8%BB%8A%E5%8A%A0%E5%B7%A5&amp;limit=20</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>RICOH「技術者が語る 3Dプリンターのいろは」、(<a href="https://blogs.ricoh.co.jp/3dp/2016/10/3d-31.html">https://blogs.ricoh.co.jp/3dp/2016/10/3d-31.html</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/03/15/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/">壊れたRCのギアを作りたい [3Dプリンタで製作]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第3回-ESCを使ったモータ駆動＆スマホ向けコントローラアプリ試作]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/">使っている3Dプリンタの紹介</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/">壊れたRCのギアを作りたい [3Dモデリング編2]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/">壊れたRCのギアを作りたい [3Dモデリング編1]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
