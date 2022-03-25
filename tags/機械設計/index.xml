@@ -8,7 +8,7 @@
     <language>ja</language>
     <lastBuildDate>Fri, 25 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>壊れたRCのギアを作りたい [3Dプリンタで製作]</title>
+      <title>壊れたRCのギアを作りたい [製作編]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/</link>
       <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
@@ -54,12 +54,13 @@
       <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/23/</guid>
-      <description>～ 目次 ～   1. きっかけ 2. FreeCADでギア設計するには 3. ギア設計に必要な理論  3.1. 歯車の大きさを表す指標  3.1.1. ピッチ（pitch） 3.1.2. モジュール（module） 3.1.3. ピッチ（pitch）と モジュール（module）の関係   3.2. RCの世界で使われているピッチとモジュール 3.3. 欠けたギアからモジュールを計算   4. 参考文献   1. きっかけ 　古い1/12カー(Tamiya RM Mk.5)を屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。かなり昔の車体なので部品の入手が難しく、どうしようか困っていました。
+      <description>～ 目次 ～   1. きっかけ 2. FreeCADでギア設計するには 3. ギア設計に必要な理論  3.1. 歯車の大きさを表す指標  3.1.1. ピッチ（pitch） 3.1.2. モジュール（module） 3.1.3. ピッチ（pitch）と モジュール（module）の関係   3.2. RCの世界で使われているピッチとモジュール 3.3. 欠けたギアからモジュールを計算   4. 参考文献   1. きっかけ 　古い1/12カー(Tamiya RM Mk.5Tamiya RM Mk.7)を屋外で走行させていたところ、後輪を駆動するスパーギアが破損して走行出来なくなってしまいました。
+　かなり昔の車体なので部品の入手が難しく、どうしようか困っていました。
   ☝　後輪駆動部分（ダイレクトドライブの構造になっている）    ☝　分解してスパーギアを取り出した（歯が欠けている）  　3DCADと3Dプリンタを作ってロボットの歯車を設計・製作している人をみたのがきっかけで、ラジコンの歯車を作ってみたい思いました。
 2. FreeCADでギア設計するには 　FreeCADではギアを設計するための機能を、標準で使えることが分かりました。（無料ソフトなのにすごい）
 　この機能は「Part Design ワークベンチ」の中に入っており、「Involute gear」という名前がついています。（下図参照）
 　細かい操作方法はXsimの技術ドキュメント1を参考にして、設計作業を進めていこうと思います。
-  図：Involute gear 機能  3. ギア設計に必要な理論 3.</description>
+  図：Involute gear 機能  3.</description>
     </item>
     
   </channel>
