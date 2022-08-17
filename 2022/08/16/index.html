@@ -81,8 +81,8 @@
 <ul>
 <li><a href="#61-draw-%E3%81%8B%E3%82%89-word-%E3%81%AB%E5%9B%B3%E3%82%92%E8%B2%BC%E3%82%8B%E6%89%8B%E9%A0%86">6.1. Draw から Word に図を貼る手順</a></li>
 <li><a href="#62-%E9%AB%98%E9%80%9F%E3%81%A7%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91%E3%81%8A%E3%81%BE%E3%81%91">6.2. 高速で貼り付け（おまけ）</a></li>
-<li><a href="#64-%E5%88%A5%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A7%E4%BF%9D%E5%AD%98%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91%E3%81%8A%E3%81%BE%E3%81%91">6.4. 別のファイル形式で保存＆貼り付け（おまけ）</a></li>
-<li><a href="#63-pdf-%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B">6.3. pdf として出力</a></li>
+<li><a href="#63-%E5%88%A5%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A7%E4%BF%9D%E5%AD%98%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91%E3%81%8A%E3%81%BE%E3%81%91">6.3. 別のファイル形式で保存[エクスポート]＆貼り付け（おまけ）</a></li>
+<li><a href="#64-pdf-%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B">6.4. pdf として出力</a></li>
 </ul>
 </li>
 <li><a href="#7-%E3%81%BE%E3%81%A8%E3%82%81">7. まとめ</a></li>
@@ -479,7 +479,8 @@
 　・数式入力のとき左のタブから、数式を丁寧に選んで入力してもよいのですが、キーボードだけでも高速で入力できます。慣れると便利だと思います。<br>
 　・上付き文字は「<strong>^{入力したい上付き文字}</strong>」、下付き文字は「<strong>_{入力したい下付き文字}</strong>」を使う。（1文字の場合{}は不要）<br>
 　・<strong>%sigma</strong> などと書くと、ギリシャ文字が入力できる。この場合は σ（シグマ：sigma）が入力される。<br>
-インターネットで丁寧に紹介している記事<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup><sup>,</sup><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>があるので参考にすると良いです！</p>
+　入力などはインターネットで丁寧に紹介している記事<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup><sup>,</sup><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>があるので参考にすると良いです！　ギリシャ文字（※）を一覧でまとめている方<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>もいました。<br>
+　※ギリシャ文字に関してですが、%がいらないものもあります。例えば、下の画像の「その他タブ」に入っているものがそうです（ ∞：infty、∂：partial など&hellip;)</p>
 </blockquote>
 <div align="center">
 <figure><img src="add_eq_tips.gif"
@@ -489,6 +490,15 @@
 </div>
 <div style="text-align: center;">
 ☝　数式の挿入のテクニック
+</div>
+<div align="center">
+<figure><img src="inf_partial.png"
+         alt="ギリシャ文字の入力補足"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ギリシャ文字の入力補足
 </div>
 <h3 id="527-レイヤーの確認と移動おまけ">5.2.7. レイヤーの確認と移動（おまけ）</h3>
 <p>　ここで試しに画面下側の「レイアウト」レイヤーの上にカーソルを持って行って、「Shiftキー」を押しながらクリックしてみてください。文字以外の部分がついたり消えたりしませんか？（これがレイヤーというものです）</p>
@@ -559,18 +569,48 @@
 <div style="text-align: center;">
 ☝　Wordへ貼り付け（ショートカットキー）
 </div>
-<h2 id="64-別のファイル形式で保存貼り付けおまけ">6.4. 別のファイル形式で保存＆貼り付け（おまけ）</h2>
+<h2 id="63-別のファイル形式で保存エクスポート貼り付けおまけ">6.3. 別のファイル形式で保存[エクスポート]＆貼り付け（おまけ）</h2>
 <p>　下の画像のように、<strong>svg</strong>というファイル形式にして保存することもできます。保存したsvgをWordに挿入すれば、Wordでそのまま見たときも綺麗なのでおすすめです。</p>
+<p>　次の手順でエクスポートをすることができます。</p>
+<ol>
+<li>Draw の画面（用紙）をクリック</li>
+<li>「Ctrl+A」で図形を全選択</li>
+<li>「ファイル＞エクスポート」を選ぶ</li>
+<li>保存用のダイアログが表示されるので、「ファイルの種類」を<strong>svg</strong>、「選択範囲」にチェック</li>
+<li>「保存」をクリックする</li>
+<li>Draw のファイルと同じ場所に<strong>svg</strong>ファイルが保存される</li>
+</ol>
+<p>　例では<strong>svg</strong>ファイルに変換しましたが、その他のファイル形式（PNG, emf など）も同じ方法でエクスポートできます。</p>
 <div align="center">
 <figure><img src="svg_export.gif"
-         alt="pdfエクスポート"/>
+         alt="svgエクスポート"/>
 </figure>
 
 </div>
 <div style="text-align: center;">
 ☝　svgエクスポート
 </div>
-<h2 id="63-pdf-として出力">6.3. pdf として出力</h2>
+<p>　PNGをエクスポートする例は、下の動画のようになります。手順はsvgの時とほとんど同じで、</p>
+<ol>
+<li>Draw の画面（用紙）をクリック</li>
+<li>「Ctrl+A」で図形を全選択</li>
+<li>「ファイル＞エクスポート」を選ぶ</li>
+<li>保存用のダイアログが表示されるので、「ファイルの種類」を<strong>png</strong>、「選択範囲」にチェック</li>
+<li>「保存」をクリックする</li>
+<li>png の設定の画面が表示されるので、動画のようにピクセル数を設定（縦を1000ピクセルにしたのは、フルHDの画質が1920×1080 だからです。好みに合わせて調整してください。）</li>
+<li>Draw のファイルと同じ場所に<strong>png</strong>ファイルが保存される</li>
+</ol>
+<p>　手順6で画質を設定しますが、大きくしすぎるとファイルサイズが大きくなるので注意してください。</p>
+<div align="center">
+<figure><img src="png_export.gif"
+         alt="pngエクスポート"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　pngエクスポート
+</div>
+<h2 id="64-pdf-として出力">6.4. pdf として出力</h2>
 <p>　Word で見ると、作った図はザラザラして見えます。これは表示の問題で、実際には滑らかな輪郭になっています。</p>
 <p>　pdfに変換すれば、図は滑らか（綺麗）な見た目で表示されます。変換手順は、</p>
 <ol>
@@ -604,9 +644,14 @@
 <p>　最後までお読みいただきありがとうございました！ お疲れ様でした！</p>
 <h1 id="8-サンプルファイル">8. サンプルファイル</h1>
 <p>　今回作成したファイルの生データです。自由に使ってください(^^)</p>
+<p><strong>～ 図、文書の元データ ～</strong></p>
 <p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.odg">Drawファイル（ファイル名：片持ちはり.odg）</a></p>
 <p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.docx">Wordファイル（ファイル名：片持ちはり.docx）</a></p>
-<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.pdf">pdfファイル（ファイル名：片持ちはり.pdf）</a></p>
+<p><strong>～ エクスポートしたデータ ～</strong></p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.pdf">pdfファイル（ファイル名：片持ちはり.pdf）</a>← Word からエクスポート</p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.svg">svgファイル（ファイル名：片持ちはり.svg）</a>← Draw からエクスポート</p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.png">pngファイル（ファイル名：片持ちはり.png）</a>← Draw からエクスポート</p>
+<p>　※pngは透明なので注意してください。wordやペイントに貼り付けたら見れます。</p>
 <h1 id="9-参考文献">9. 参考文献</h1>
 <section class="footnotes" role="doc-endnotes">
 <hr>
@@ -622,6 +667,9 @@
 </li>
 <li id="fn:4" role="doc-endnote">
 <p>オプティライフ「【LibreOffice】数式・化学式を書くよ ～卒業論文・レポートで役立つ～」、(<a href="https://opty-life.com/apps/libreoffice-math-writer/">https://opty-life.com/apps/libreoffice-math-writer/</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>所長日記・改「Openoffice Math 数式 ギリシャ文字入力コマンド一覧」、(<a href="https://ameblo.jp/hc-lab/entry-10683303270.html">https://ameblo.jp/hc-lab/entry-10683303270.html</a>)&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
