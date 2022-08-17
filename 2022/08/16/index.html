@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     LibreOffice Draw を使って教科書みたいなカッコイイ図を作る！ -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      LibreOffice Draw を使って教科書みたいなカッコイイ図を作る！
+    </h1>
+    
+    <p class="document-date">
+      2022-08-16 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"LibreOffice Drawを使った図の作成から Word への貼り付け方法まで"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. はじめに</a></li>
+<li><a href="#2-libreoffice-draw%E3%81%A8%E3%81%AF">2. LibreOffice Drawとは？</a></li>
+<li><a href="#3-libreoffice%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">3. LibreOfficeのインストール</a></li>
+<li><a href="#4-libreoffice-draw%E3%81%AE%E8%B5%B7%E5%8B%95%E3%81%A8%E8%A8%AD%E5%AE%9A">4. LibreOffice Drawの起動と設定</a>
+<ul>
+<li><a href="#41-%E3%82%BD%E3%83%95%E3%83%88%E3%81%AE%E8%B5%B7%E5%8B%95">4.1. ソフトの起動</a></li>
+<li><a href="#42-%E7%94%A8%E7%B4%99%E3%82%B5%E3%82%A4%E3%82%BA%E3%81%AE%E8%A8%AD%E5%AE%9A">4.2. 用紙サイズの設定</a></li>
+<li><a href="#43-%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A">4.3. グリッドの設定</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%9B%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86">5. 図を作ってみよう</a>
+<ul>
+<li><a href="#51-%E4%BD%9C%E3%82%8A%E3%81%9F%E3%81%84%E5%9B%B3">5.1. 作りたい図</a></li>
+<li><a href="#52-%E4%BD%9C%E5%9B%B3%E6%89%8B%E9%A0%86">5.2. 作図手順</a>
+<ul>
+<li><a href="#521-%E9%95%B7%E6%96%B9%E5%BD%A2%E3%81%AE%E6%8F%8F%E7%94%BB">5.2.1. 長方形の描画</a></li>
+<li><a href="#522-%E7%B7%9A%E3%81%AE%E6%8F%8F%E7%94%BB">5.2.2. 線の描画</a></li>
+<li><a href="#523-%E3%83%8F%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0">5.2.3. ハッチング</a></li>
+<li><a href="#524-%E7%9F%A2%E5%8D%B0">5.2.4. 矢印</a></li>
+<li><a href="#525-%E6%96%87%E5%AD%97">5.2.5. 文字</a></li>
+<li><a href="#526-%E6%95%B0%E5%BC%8F">5.2.6. 数式</a></li>
+<li><a href="#527-%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E7%A2%BA%E8%AA%8D%E3%81%A8%E7%A7%BB%E5%8B%95%E3%81%8A%E3%81%BE%E3%81%91">5.2.7. レイヤーの確認と移動（おまけ）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#6-word%E3%81%AB%E6%8C%BF%E5%85%A5">6. Wordに挿入</a>
+<ul>
+<li><a href="#61-draw-%E3%81%8B%E3%82%89-word-%E3%81%AB%E5%9B%B3%E3%82%92%E8%B2%BC%E3%82%8B%E6%89%8B%E9%A0%86">6.1. Draw から Word に図を貼る手順</a></li>
+<li><a href="#62-%E9%AB%98%E9%80%9F%E3%81%A7%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91%E3%81%8A%E3%81%BE%E3%81%91">6.2. 高速で貼り付け（おまけ）</a></li>
+<li><a href="#64-%E5%88%A5%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A7%E4%BF%9D%E5%AD%98%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91%E3%81%8A%E3%81%BE%E3%81%91">6.4. 別のファイル形式で保存＆貼り付け（おまけ）</a></li>
+<li><a href="#63-pdf-%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B">6.3. pdf として出力</a></li>
+</ul>
+</li>
+<li><a href="#7-%E3%81%BE%E3%81%A8%E3%82%81">7. まとめ</a></li>
+<li><a href="#8-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">8. サンプルファイル</a></li>
+<li><a href="#9-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">9. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-はじめに">1. はじめに</h1>
+<p>　レポートや論文の作成、趣味などで図表を作成する機会があると思います。そのときに、Word や PowerPoint の作図機能を活用するのは良い方法だと思います。</p>
+<p>　ですが、Word は文書作成がメインのソフトなので、作図機能だけを見ると専用ソフトウェアには劣る部分が出てきてしまいます。</p>
+<p>　作図専用のソフトウェアを使えば、高品質な図を効率よく作成できるので非常に便利です。作図専用ソフトウェアで私が知っているのは、LibreOffice Draw, Draw.io, AR_CAD, JW-CAD, Dynamic Draw, Inkscape, Illuslator, Visio, &hellip; などがあります。</p>
+<p>　ここでは、図を専用ソフトウェア「<strong>LibreOffice Draw</strong>」で作成し、Word に貼り付ける方法について紹介します。</p>
+<h1 id="2-libreoffice-drawとは">2. LibreOffice Drawとは？</h1>
+<p>　<strong>LibreOffice Draw</strong>（以下、Draw） は図を作るための専用ソフトです。<strong>LibreOffice</strong> の中に貼っているソフトの1つになります。個人的な意見になりますが、Inkscapeよりシンプルで操作しやすいと感じています。（Inkscapeはプロ向けの印象です）</p>
+<p>　<strong>LibreOffice</strong> は Microsoft Office と同じようなものですが、フリーソフト（ずっと無料で使える）のが嬉しいところです。（趣味で使うには十分な機能が入っていると思います）</p>
+<p>　Microsoft にも Visio<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> という作図ソフトがあり、こちらは有償（お金がかかる）になっています。その分機能は充実していて、オンライン上で他の人と共同編集で作図をしたりできます。（仕事で使うための、ガチのソフトという感じがします）</p>
+<h1 id="3-libreofficeのインストール">3. LibreOfficeのインストール</h1>
+<p>　まず、<a href="https://www.libreoffice.org/download/download/?lang=ja&amp;version=7.3.5&amp;pk_campaign=update">こちら</a>にアクセスしてインストール用のファイルをダウンロードします。</p>
+<p>　バージョンはどれでも良いですが、ここでは安定版（2022/08/16 時点では7.2.7）を選びました。</p>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_1.png"
+         alt="インストール手順　その1"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その1
+</div>
+<p>　次に、ダウンロードしたファイルを開きます。</p>
+<p>　ファイルを開いたら、下の画像のように順番にインストールを進めていきます。画像だけでは分からないという方は、Office Hackのページ<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>に丁寧な説明が書かれていたので、そちら参考にすると良いかと思います。</p>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_2.png"
+         alt="インストール手順　その2"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その2
+</div>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_3.png"
+         alt="インストール手順　その3"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その3
+</div>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_4.png"
+         alt="インストール手順　その4"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その4
+</div>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_5.png"
+         alt="インストール手順　その5"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その5
+</div>
+<div align="center">
+<figure><img src="libreoffice_install_procedure_6.png"
+         alt="インストール手順　その6"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　インストール手順　その6
+</div>
+<h1 id="4-libreoffice-drawの起動と設定">4. LibreOffice Drawの起動と設定</h1>
+<h2 id="41-ソフトの起動">4.1. ソフトの起動</h2>
+<p>　インストールができたら、早速 LibreOffice Drawを開いてみましょう。</p>
+<p>　Windowsの検索窓に「LibreOffice Draw」または単に「draw」と入力して「Enterキー」を押します。（デスクトップアイコンから開いてもよいです。）</p>
+<p>　そうすると下のような画面が起動すると思います。グリッド（画面上に並んでいる点）やページは表示されいないかもしませんが、心配しなくても大丈夫です。</p>
+<div align="center">
+<figure><img src="draw_start_window.png"
+         alt="Draw 起動後の画面"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Draw 起動後の画面
+</div>
+<h2 id="42-用紙サイズの設定">4.2. 用紙サイズの設定</h2>
+<p>　Wordに貼り付けたとき、サイズ感が変わらないように用紙の大きさを決めます。</p>
+<p>　「ページ＞ページ設定」を開き、サイズ名を「<strong>A4</strong>」にしてください。Wordの用紙サイズもA4であれば、Drawで作った図を<strong>そのままの大きさ</strong>で貼り付けできます。</p>
+<p>　印刷の向きもWord文書に合わせて「<strong>縦</strong>」にします。</p>
+<div align="center">
+<figure><img src="page_size.png"
+         alt="用紙サイズの設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　用紙サイズの設定
+</div>
+<h2 id="43-グリッドの設定">4.3. グリッドの設定</h2>
+<p>　<strong>グリッド</strong>は、画面上に等間隔に並んだ点（ドット）のことです。ちょっと良いノートやレポート用紙を買ったことがある人は、ドット入りのものを見たことがあると思います。それと同じです。</p>
+<p>　まずは、単位の設定をします。標準では単位が[cm]になっていると思いますが、製図の世界では[mm]を使うことが多いので、単位を[mm]に変更します。</p>
+<p>「ツール＞オプション＞LibreOffice Draw＞全般」を開いて、使用する単位を「ミリメートル」に変更します。
+（ウィンドウはまだ閉じない）</p>
+<div align="center">
+<figure><img src="scale_settings.png"
+         alt="単位の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　単位の設定
+</div>
+<p>　次に、「ツール＞オプション＞LibreOffice Draw＞グリッド線」を開いて、下の画像のように設定します（チェックボックスはとりあえず画像の通りにしておけばよいです）。設定できたら「OK」をクリックします。</p>
+<p>　そうすると、画面の用紙上に黒い点が見れるはずです。見えない場合は、「表示＞グリッドと補助線＞グリッドの表示」で表示できます。</p>
+<div align="center">
+<figure><img src="grid_settings.png"
+         alt="グリッドの設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　グリッドの設定
+</div>
+<div align="center">
+<figure><img src="grid.png"
+         alt="グリッドが表示された"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　グリッドが表示された（黒い点がグリッド）
+</div>
+<p>　設定は一旦これで終わりです！　疲れたら休みましょう！</p>
+<h1 id="5-図を作ってみよう">5. 図を作ってみよう</h1>
+<p>　一通り設定ができたところで、図を作ってみましょう！</p>
+<h2 id="51-作りたい図">5.1. 作りたい図</h2>
+<p>　今回は、下の画像のような「<strong>片持ち梁</strong>」の図を作ってみます。</p>
+<div align="center">
+<figure><img src="%e7%89%87%e6%8c%81%e3%81%a1%e3%81%af%e3%82%8a.svg"
+         alt="作成する図（片持ちはり）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　作成する図（片持ちはり）
+</div>
+<p>　<strong>片持ち梁</strong>（cantilever:カンチレバー）は機械系の方なら見たことがあると思います。材料力学で必ず出てきます。</p>
+<p>　ちなみに<strong>Gmade GS02</strong>というラジコン（このブログのイメージ画像になっている）には、カンチレバー式のサスペンション（後方）がついています。</p>
+<h2 id="52-作図手順">5.2. 作図手順</h2>
+<h3 id="521-長方形の描画">5.2.1. 長方形の描画</h3>
+<p>　梁（棒の部分）を書きます。はじめに、図形を書くために「表示＞ツールバー＞図形描画」を選んで、書きたい図形が選べる状態にします。（下図のように色々な図形が表示される）</p>
+<div align="center">
+<figure><img src="tool_bar_settings.png"
+         alt="図形描画ツールバーが現れた"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　図形描画ツールバーが現れた
+</div>
+<p>　次に、実際に<strong>長方形</strong>を使って、梁の部分を書いてみます。作図は下の動画のようになりますが、手順を説明すると、</p>
+<ol>
+<li>図形描画ツールバーから<strong>長方形</strong>を選択</li>
+<li>用紙の好きな場所で左クリックし、そのままカーソルを移動</li>
+<li>左クリックを離すと、長方形が描ける</li>
+</ol>
+<p>という感じになります。グリッドにカーソルがくっついてくれるので、大きさを調整しやすいと思います。</p>
+<blockquote>
+<p>　◆ 覚えておくと便利　「<strong>Shift</strong>」「<strong>Alt</strong>」キーの操作<br>
+　・<strong>Shiftキー</strong>：図形を選んだ状態で、「Shiftキー」を押したまま、「矢印キー（↑、↓、←、→）」を押すと図形が１グリッド間隔で動きます。<br>
+　・<strong>Altキー</strong>：図形を選んだ状態で、「Altキー」を押したまま、「矢印キー（↑、↓、←、→）」を押すと図形の位置を微調整できます。また、グリッドにくっついて欲しくないときは「Altキー」を押したまま操作するとよいです。<br></p>
+</blockquote>
+<p>　動画では、教科書っぽい雰囲気を出すためにこの後に図形の色などを変更しています。動画では、プロパティ（図形の設定）次のように設定しています。</p>
+<ul>
+<li>領域 ⇒ 塗りつぶし：無し</li>
+<li>線 ⇒ 線幅：1.0pt（ポイント[pt]ではなく、ミリメートル[mm]単位でも指定可能）、色：黒</li>
+</ul>
+<div align="center">
+<figure><img src="draw_rect.gif"
+         alt="長方形の描画"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　長方形の描画
+</div>
+<h3 id="522-線の描画">5.2.2. 線の描画</h3>
+<p>　<strong>直線</strong>を使って壁を書きます。下の動画のように作図手順は、</p>
+<ol>
+<li>図形描画ツールバーから<strong>直線</strong>を選択</li>
+<li>用紙の好きな場所で左クリックし、そのままカーソルを移動</li>
+<li>左クリックを離すと、直線が描ける</li>
+</ol>
+<p>になります。線の設定は、</p>
+<ul>
+<li>線 ⇒ 幅：1.0pt、色：黒</li>
+</ul>
+<p>にしました。</p>
+<div align="center">
+<figure><img src="draw_wall_1.gif"
+         alt="直線の描画"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　直線の描画
+</div>
+<h3 id="523-ハッチング">5.2.3. ハッチング</h3>
+<p>　今のままでは壁の部分がさみしいので、壁の部分をハッチングで塗りつぶします。長方形を使って、動画のように以下の手順で作図します。</p>
+<ol>
+<li>図形描画ツールバーから<strong>長方形</strong>を選択</li>
+<li>用紙の好きな場所で左クリックし、そのままカーソルを移動</li>
+<li>左クリックを離すと、長方形が描ける</li>
+<li><strong>塗りつぶし</strong>を<strong>ハッチング</strong>に変更</li>
+<li><strong>ハッチング</strong>は「青45度」を選ぶ</li>
+<li><strong>線</strong>を「<strong>無し</strong>」にする</li>
+</ol>
+<div align="center">
+<figure><img src="draw_wall_2-1.gif"
+         alt="ハッチング"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ハッチング
+</div>
+<p>　ハッチングはできましたが青色なのが気になるので、下の動画のように黒色に変更します。動画では、</p>
+<ol>
+<li>図形をメタファイルに変換</li>
+<li>色を白黒に変換</li>
+</ol>
+<p>　という作業をしています。</p>
+<div align="center">
+<figure><img src="draw_wall_2-2.gif"
+         alt="ハッチングを黒色に"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　ハッチングを黒色に
+</div>
+<h3 id="524-矢印">5.2.4. 矢印</h3>
+<p>　梁の先端に作用する力を<strong>矢印</strong>で書きます。作図手順は、</p>
+<ol>
+<li>図形描画ツールバーから<strong>矢印</strong>を選択</li>
+<li>用紙の好きな場所で左クリックし、そのままカーソルを移動</li>
+<li>左クリックを離すと、<strong>直線</strong>が描ける</li>
+<li>線色を黒にする</li>
+</ol>
+<p>になります。</p>
+<div align="center">
+<figure><img src="draw_force.gif"
+         alt="矢印の描画"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　矢印の描画
+</div>
+<p>　梁の長さを表す矢印も追加します。力と区別するために塗りつぶし無しの矢印を使います。これは<strong>直線</strong>を使って以下の手順でかきます。</p>
+<ol>
+<li>図形描画ツールバーから<strong>直線</strong>を選択</li>
+<li>用紙の好きな場所で左クリックし、そのままカーソルを移動</li>
+<li>左クリックを離すと、<strong>直線</strong>が描ける</li>
+<li>プロパティから線の終点スタイルを線矢印にする（下の動画参照）</li>
+<li>線色を黒にする</li>
+</ol>
+<div align="center">
+<figure><img src="draw_length.gif"
+         alt="線矢印の描画"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　線矢印の描画
+</div>
+<h3 id="525-文字">5.2.5. 文字</h3>
+<p>　このままでは文字が無くてさみしいので、文字を追加します。梁の固定端（左側）をA、自由端（右側）をBとします。</p>
+<p>　文字を書く前に<strong>レイヤー</strong>を追加します。レイヤーは透明な紙のようなで、レイヤーを複数重ねて1枚の図をつくることができます。</p>
+<p>　今まで説明するのを忘れていましたが、ずっと「レイアウト」という名前のレイヤーに図を書いていました。</p>
+<p>　これから「説明」という文字専用のレイヤーを作って、そこに文字を入力していきます。レイヤー追加手順は、</p>
+<ol>
+<li>画面下側の「寸法線」の右側をクリック</li>
+<li>ダイアログが表示されるので、名前を”説明”と入力して「OK」をおす</li>
+<li>画面下側で明るくなっているのが、現在選択されているレイヤー（説明）です</li>
+</ol>
+<p>　となります。</p>
+<div align="center">
+<figure><img src="add_layer.gif"
+         alt="レイヤーの追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　レイヤーの追加
+</div>
+<p>　<em>テキストボックス</em>を使えば文字が追加できます。手順は、</p>
+<ol>
+<li>標準ツールバー（画面上側）から<strong>テキストボックス</strong>を選択</li>
+<li>用紙の好きな場所で左クリック</li>
+<li>A と入力</li>
+<li>「Crtl+A」で文字を全選択</li>
+<li>フォントを「Times New Roman」に変更（教科書っぽのでこれにしただけです）</li>
+<li>フォントサイズを調整（ここでは14pt）</li>
+<li>テキストボックス選択後、位置を矢印キーで調整（ここでは14pt）</li>
+</ol>
+<div align="center">
+<figure><img src="add_text_A.gif"
+         alt="文字の追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　文字の追加
+</div>
+<p>　文字B は次の手順で追加すると良いです。</p>
+<ul>
+<li>文字A のテキストボックスの枠をクリック（カーソルが4方向の矢印に変わります）</li>
+<li>文字A を「Ctrl+C」でコピー、「Ctrl+V」で貼り付け（同じ場所に貼り付けので見えにくいです）</li>
+<li>右矢印キー（Shiftキー押しながらだと速い）で移動してから書き換えればよいです。（動画参照）</li>
+</ul>
+<div align="center">
+<figure><img src="add_text_B.gif"
+         alt="文字のコピーと編集"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　文字のコピーと編集
+</div>
+<h3 id="526-数式">5.2.6. 数式</h3>
+<p>　理系の人なら毎日見ている（？）数式の追加方法を紹介します。</p>
+<p>　Draw なら分数や添え字、ギリシャ文字の入った数式も簡単に追加できちゃいます(&lsquo;ω&rsquo;)ノ</p>
+<p>　数式は以下の手順で入れることができます。</p>
+<ol>
+<li>「挿入＞オブジェクト＞数式オブジェクト」をクリック</li>
+<li>数式を入力</li>
+<li>用紙の好きなところをクリック
+　</li>
+</ol>
+<div align="center">
+<figure><img src="add_eq1.gif"
+         alt="数式の挿入"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　数式の挿入
+</div>
+<p>　数式が小さいと思ったときは、</p>
+<ol>
+<li>数式を右クリックし、「位置とサイズ」を選ぶ</li>
+<li>「保護」の「サイズ」のチェックを外す</li>
+<li>「サイズ」の「縦横比を固定する」にチェックし、高さ（幅でもよい）を調整する</li>
+<li>「OK」を押せば、数式が大きく（小さく）なったことが確認できる</li>
+</ol>
+<p>で修正できます。ちなみに、数式を入力しているときに「書式＞フォントサイズ」からフォントサイズを変えることもできるみたいです<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>（知らなかった！）</p>
+<div align="center">
+<figure><img src="resize_eq.gif"
+         alt="数式の大きさを調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　数式の大きさを調整（方法1）
+</div>
+<div align="center">
+<figure><img src="resize_eq2.gif"
+         alt="数式の大きさを調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　数式の大きさを調整（方法2）
+</div>
+<p>　初めに入力した数式をコピーして、同様に荷重P、梁先端のたわみY_Bも入力します。</p>
+<div align="center">
+<figure><img src="add_eq2.gif"
+         alt="数式の挿入"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　数式の挿入（続き）
+</div>
+　
+　これで図は完成になります。お疲れ様でした！ <br><br>
+<blockquote>
+<p>　◆ 数式入力に関する補足<br>
+　・数式入力のとき左のタブから、数式を丁寧に選んで入力してもよいのですが、キーボードだけでも高速で入力できます。慣れると便利だと思います。<br>
+　・上付き文字は「<strong>^{入力したい上付き文字}</strong>」、下付き文字は「<strong>_{入力したい下付き文字}</strong>」を使う。（1文字の場合{}は不要）<br>
+　・<strong>%sigma</strong> などと書くと、ギリシャ文字が入力できる。この場合は σ（シグマ：sigma）が入力される。<br>
+インターネットで丁寧に紹介している記事<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup><sup>,</sup><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>があるので参考にすると良いです！</p>
+</blockquote>
+<div align="center">
+<figure><img src="add_eq_tips.gif"
+         alt="数式の挿入のテクニック"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　数式の挿入のテクニック
+</div>
+<h3 id="527-レイヤーの確認と移動おまけ">5.2.7. レイヤーの確認と移動（おまけ）</h3>
+<p>　ここで試しに画面下側の「レイアウト」レイヤーの上にカーソルを持って行って、「Shiftキー」を押しながらクリックしてみてください。文字以外の部分がついたり消えたりしませんか？（これがレイヤーというものです）</p>
+<p>　試しに梁（はり）の部分だけ別のレイヤーに移動させてみます。手順は次の通りです。</p>
+<ol>
+<li>画面下側の「説明」の右側をクリック</li>
+<li>ダイアログが表示されるので、名前を”はり”と入力して「OK」をおす</li>
+<li>画面下側の「レイアウト」レイヤーをクリック</li>
+<li>棒の輪郭をクリックしてから、長押しします。</li>
+<li>「はり」レイヤーのところに文字の上にそのままカーソルを持っていく</li>
+</ol>
+<p>　「はり」レイヤーをクリック（Shiftキー押しながら）して、梁がついたり消えたりすればレイヤーの移動は完了です。</p>
+<div align="center">
+<figure><img src="move_layer.gif"
+         alt="レイヤーの移動方法"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　レイヤーの移動方法
+</div>
+<h1 id="6-wordに挿入">6. Wordに挿入</h1>
+<h2 id="61-draw-から-word-に図を貼る手順">6.1. Draw から Word に図を貼る手順</h2>
+<p>　作った図をWordに素早く挿入するテクニックを紹介します。好きな名前でWordファイル（ここでは 「片持ちはり.docx」としています）を作成したら、次の手順で貼り付けます。</p>
+<ol>
+<li>Draw の画面（用紙）をクリック</li>
+<li>「Ctrl+A」で図形を全選択（「編集＞すべて選択」でも可能）、「Ctrl+C」でコピー</li>
+<li>先ほど保存した Word を開く</li>
+<li>「ホーム＞貼り付け＞形式を選択して貼り付け」を選ぶ</li>
+<li>「図（拡張メタファイル）」を選んで「OK」を押す</li>
+<li>Word に図が挿入される</li>
+</ol>
+<div align="center">
+<figure><img src="make_word_file.gif"
+         alt="Wordファイル作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Wordファイル作成
+</div>
+<div align="center">
+<figure><img src="paste_to_word.gif"
+         alt="Wordへ貼り付け"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Wordへ貼り付け
+</div>
+<h2 id="62-高速で貼り付けおまけ">6.2. 高速で貼り付け（おまけ）</h2>
+<p>　ちなみにショートカットキーを駆使すれば、（下の画像のように）爆速で貼り付けできます。（笑）</p>
+<p>　何度もやっていると慣れると思います(;^ω^)</p>
+<ol>
+<li>Draw の画面（用紙）をクリック</li>
+<li>「Ctrl+A」で図形を全選択、「Ctrl+C」でコピー</li>
+<li>先ほど保存した Word を開く</li>
+<li>「Alt → H → V → S」の順番でキーを押す（「Alt → H」が ホーム選択、「V」は 貼り付け、「S」が 形式を選択して貼り付け に対応）</li>
+<li>上矢印キーで「図（拡張メタファイル）」を選び「Enter」を押す</li>
+<li>Word に図が挿入される</li>
+</ol>
+<div align="center">
+<figure><img src="paste_to_word_fastest.gif"
+         alt="Wordへ貼り付け"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　Wordへ貼り付け（ショートカットキー）
+</div>
+<h2 id="64-別のファイル形式で保存貼り付けおまけ">6.4. 別のファイル形式で保存＆貼り付け（おまけ）</h2>
+<p>　下の画像のように、<strong>svg</strong>というファイル形式にして保存することもできます。保存したsvgをWordに挿入すれば、Wordでそのまま見たときも綺麗なのでおすすめです。</p>
+<div align="center">
+<figure><img src="svg_export.gif"
+         alt="pdfエクスポート"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　svgエクスポート
+</div>
+<h2 id="63-pdf-として出力">6.3. pdf として出力</h2>
+<p>　Word で見ると、作った図はザラザラして見えます。これは表示の問題で、実際には滑らかな輪郭になっています。</p>
+<p>　pdfに変換すれば、図は滑らか（綺麗）な見た目で表示されます。変換手順は、</p>
+<ol>
+<li>「ファイル＞エクスポート＞PDF/XPSの作成」を選ぶ</li>
+<li>保存のダイアログが表示されるので「発行」を押す</li>
+<li>Wordファイルと同じ場所にpdfファイルが保存される</li>
+</ol>
+<p>　となります。</p>
+<div align="center">
+<figure><img src="pdf_export.gif"
+         alt="pdfエクスポート"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　pdfエクスポート
+</div>
+<p>　最後に、保存されたpdfファイルを見てみましょう！ 図を拡大してみると、その美しさに感動すると思います（笑）</p>
+<div align="center">
+<figure><img src="pdf_export_check.gif"
+         alt="作った図はいくら拡大しても美しい"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　作った図はいくら拡大しても美しい"
+</div>
+<h1 id="7-まとめ">7. まとめ</h1>
+<p>　図の作成を楽しんでいただけたでしょうか？</p>
+<p>　今回は、作図専用ソフト LibreOffice Draw を使った図の作成を紹介しました。他にもたくさん機能があるので、インターネットで色々調べて楽しんでほしいと思います。</p>
+<p>　最後までお読みいただきありがとうございました！ お疲れ様でした！</p>
+<h1 id="8-サンプルファイル">8. サンプルファイル</h1>
+<p>　今回作成したファイルの生データです。自由に使ってください(^^)</p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.odg">Drawファイル（ファイル名：片持ちはり.odg）</a></p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.docx">Wordファイル（ファイル名：片持ちはり.docx）</a></p>
+<p><a href="%E7%89%87%E6%8C%81%E3%81%A1%E3%81%AF%E3%82%8A.pdf">pdfファイル（ファイル名：片持ちはり.pdf）</a></p>
+<h1 id="9-参考文献">9. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Microsoft「Visio」、(<a href="https://www.microsoft.com/ja-jp/microsoft-365/visio/flowchart-software">https://www.microsoft.com/ja-jp/microsoft-365/visio/flowchart-software</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Office Hack「LibreOfficeのダウンロード/インストール方法について」、(<a href="https://office-hack.com/office/libreoffice-download/">https://office-hack.com/office/libreoffice-download/</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>ツールの使用方法「LibreOffice Math」、(<a href="https://office-hack.com/office/libreoffice-download/">https://office-hack.com/office/libreoffice-download/</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>オプティライフ「【LibreOffice】数式・化学式を書くよ ～卒業論文・レポートで役立つ～」、(<a href="https://opty-life.com/apps/libreoffice-math-writer/">https://opty-life.com/apps/libreoffice-math-writer/</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/03/25/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/">LibreOffice Draw を使って教科書みたいなカッコイイ図を作る！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/">壊れたRCのギアを作りたい [製作編]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第3回-ESCを使ったモータ駆動＆スマホ向けコントローラアプリ試作]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/12/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第2回-RCサーボ用の電源回路追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/">使っている3Dプリンタの紹介</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/">壊れたRCのギアを作りたい [3Dモデリング編2]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第1回-RCサーボの制御]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
