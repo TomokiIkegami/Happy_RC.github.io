@@ -371,7 +371,7 @@ SoftwareSerial <span style="color:#a6e22e">Bluetooth</span><span style="color:#f
   </div>
 <h3 id="332-マイコンプログラム">3.3.2. マイコンプログラム</h3>
 <p>　こちらもシンプルにしました。flagなどによる処理を無くしました。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#960050;background-color:#1e0010">#</span>include<span style="color:#f92672">&lt;</span>SoftwareSerial<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//Bluetoothの無線通信に使用
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>SoftwareSerial<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//Bluetoothの無線通信に使用
 </span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>VarSpeedServo<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>  <span style="color:#75715e">//サーボモータの制御に使用
 </span><span style="color:#75715e"></span>VarSpeedServo myservo<span style="color:#f92672">;</span>    <span style="color:#75715e">// create servo object to control a servo
 </span><span style="color:#75715e"></span>VarSpeedServo myesc<span style="color:#f92672">;</span>    <span style="color:#75715e">// create servo object to control a esc
@@ -408,7 +408,6 @@ SoftwareSerial <span style="color:#a6e22e">Bluetooth</span><span style="color:#f
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
 
-  delay<span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
   <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">available</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
     <span style="color:#66d9ef">char</span> input <span style="color:#f92672">=</span> Bluetooth<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span> <span style="color:#75715e">//受信したテキストを変数inputに保存
 </span><span style="color:#75715e"></span>    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>input<span style="color:#f92672">);</span> <span style="color:#75715e">//受信したテキストをシリアルモニタに表示
@@ -440,8 +439,8 @@ SoftwareSerial <span style="color:#a6e22e">Bluetooth</span><span style="color:#f
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
       myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>right_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//ステアを右(Right)に切る
 </span><span style="color:#75715e"></span>      myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>backward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//後退(Backward)
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span><span style="color:#f92672">{</span>
-      <span style="color:#f92672">}</span>
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
 
   <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span></code></pre></div>
