@@ -6,7 +6,20 @@
     <description>Recent content on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 16 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第4回-操作性の向上]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/</link>
+      <pubDate>Sat, 20 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 実際にやった改良の流れ 3. 改良の過程  3.1. ◆ ver.2 ～とりあえず文字打ち込みはやめよう～  3.1.1. スマホアプリ 3.1.2. マイコンプログラム   3.2. ◆ ver.3 ～片手で操作したいな～  3.2.1. スマホアプリ 3.2.2. マイコンプログラム   3.3. ◆ ver.4 ～ver.3の改良版～  3.3.1. スマホアプリ 3.3.2. マイコンプログラム     4. 課題点と今後に向けて 5. サンプルファイル 6. 参考資料   1. 今回やりたいこと 　前回は MIT App Inventor を使ってラジコン操縦アプリの試作を行いました。
+　前回作成したスマホアプリは、スマホキーボードから文字を打ち込んで（前進なら&amp;quot;F&amp;quot;、右折なら&amp;quot;R&amp;quot;、停止なら&amp;quot;N&amp;quot;など）操縦するというものでした（笑）。
+　実際これでラジコンを操縦してみると、全然操縦できませんでした！
+　今回はコントローラー側のアプリとマイコン側のプログラム（ラジコンに搭載している）を改良します(^^)/
+　実験に使った装置は前回と全く同じになります。</description>
+    </item>
+    
     <item>
       <title>LibreOffice Draw を使って教科書みたいなカッコイイ図を作る！</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/</link>
@@ -41,7 +54,7 @@
       <description>～ 目次 ～   1. 今回やりたいこと 2. ESCについて 3. ハードウェアのセットアップ  3.1. 使ったもの 3.2. 作った回路 3.3. ソースコード   4. ソフトウェア（操作用アプリ）のセットアップ  4.1. アプリ開発環境 4.2. 試作したアプリ   5. 動画 6. 参考資料   1. 今回やりたいこと 　前回はサーボモータの電源問題を解決したので、ラジコンのステアをサクサク動かせるようになりました。
 　ステアを操作するだけではラジコンは走行できないので、今回は駆動用のモータを制御したいと思います。モータの駆動にはESCという装置を使います。
 2. ESCについて 　Electronic Speed Controller の略で、ラジコンのモータの回転速度を制御するために使われる装置です。昔のラジコンではスピコン（Mechanical speed controllers1）という装置を使っていましたが、現在はこのESCを使われています。
-　ESCは FET （電界効果トランジスタ） という素子を使ってスイッチングを行う2ことで、モータに流れる電流をコントロールしています。電流量が大きくなればモータの回転速度は速くなり、小さくなればゆっくりになります。
+　ESCは FET （電界効果トランジスタ） という素子を使ってスイッチングを行う2ことで、モータにかかる電圧をコントロールしています。電圧が大きくなればモータの回転速度は速くなり、小さくなればゆっくりになります。
 　スピコンではモータにかかる電圧小さくするときに、抵抗器で熱としてエネルギーを捨てるのがESCとの大きな違いです。
 3. ハードウェアのセットアップ 3.1. 使ったもの 　今回の実験で使ったハードウェアをリストアップしておきます。ESCが増えた以外は前回と全く同じです。操作に使ったアプリはこの記事の後半に紹介します。
  マイコン：Arduino UNO モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.</description>
