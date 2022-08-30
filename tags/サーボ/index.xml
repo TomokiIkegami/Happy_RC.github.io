@@ -6,7 +6,19 @@
     <description>Recent content in サーボ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 20 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第5回-安全性の向上]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/</link>
+      <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/</guid>
+      <description>～ 目次 ～   1. 前回までの課題 2. なぜ遅延が起こったのか 3. フォーラムの内容 4. 改良の過程  4.1. ◆ ver.5a ～ESP32用にプログラムと回路を変更～  4.1.1. 使ったもの 4.1.2. 作った回路 4.1.3. ソースコード 4.1.4. スマホアプリ   4.2. ◆ ver.5b ～ESP32用にプログラムと回路を変更～  4.2.1. ソースコード 4.2.2. スマホアプリ     5. サンプルファイル 6. 使い方  6.1. 手順 6.2. トラブルシューティング   7. 謝辞 8. 参考資料   1. 前回までの課題 　前回はRCの操作性を向上させるために色々工夫をしました。
+　記事の最後のほうでは、bluetooth通信に謎の遅延が発生する問題について触れました。
+　まずは、この問題について調べた内容や解決策について書きます！
+2. なぜ遅延が起こったのか 　今私の試している装置（bluetoothモジュール）では、「2秒間送受信→2秒間お休み→2秒間送受信→…（繰り返し）」という謎の動きをします。</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第4回-操作性の向上]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/</link>
