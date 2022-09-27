@@ -18,7 +18,7 @@
 2. 改良の過程 　この記事のタイトルは ”bluetoothモジュールで&amp;hellip;&amp;quot; となっていますが、今回もESP32を使ってBluetooth接続をします。
 　装置やアプリ（Happy_RC_Driver_5b）は前回と同じです。
   ☝　アプリ外観（デザイン編集タブ）    ☝　アプリの中身（ブロック編集タブ）  2.1. ◆ ver.6a ～delay()を使ってゆっくり動かす～　 　こちらがArduinoマイコンに書き込んだソースコードです。
-　setup文の上にある change_ST_pos,change_TH_pos という関数がそれぞれステア、スロットルを操作する関数です。forループで角度を1°ずつ変化させて操作します。
+　setup文の上にある、change_ST_pos,change_TH_pos という関数がそれぞれステア、スロットルを操作する関数です。forループで角度を1°ずつ変化させて操作します。
 　角度の変化をdelayで遅らせてゆっくり動かしていますが、これだと加減速中・ステア操作中に操作が効きません（笑）
 ⇩⇩⇩ ソースコード ⇩⇩⇩  /* Happy_RC_Receiver(version 6a) ***************************** Download a Transmitter App:https://github.</description>
     </item>

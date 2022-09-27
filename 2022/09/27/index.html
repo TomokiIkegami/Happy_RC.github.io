@@ -87,7 +87,7 @@
   </div>
 <h2 id="21--ver6a-delayを使ってゆっくり動かす">2.1. ◆ ver.6a ～delay()を使ってゆっくり動かす～　</h2>
 <p>　こちらがArduinoマイコンに書き込んだソースコードです。</p>
-<p>　setup文の上にある change_ST_pos,change_TH_pos という関数がそれぞれステア、スロットルを操作する関数です。forループで角度を1°ずつ変化させて操作します。</p>
+<p>　setup文の上にある、change_ST_pos,change_TH_pos という関数がそれぞれステア、スロットルを操作する関数です。forループで角度を1°ずつ変化させて操作します。</p>
 <p>　角度の変化をdelayで遅らせてゆっくり動かしていますが、これだと加減速中・ステア操作中に操作が効きません（笑）</p>
   <br>
   <div style="text-align: center;">
@@ -323,7 +323,7 @@ unsigned <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">cha
 <span style="color:#f92672">}</span></code></pre></div>
 <h2 id="22--ver6b-millisを使ってゆっくり動かす">2.2. ◆ ver.6b ～millis()を使ってゆっくり動かす～　</h2>
 <p>　ver6aを改良したソースコードがこちらです。millis()を使って一定周期で処理する方法<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を紹介している記事があったので、そちらを参考にさせていただきました。</p>
-<p>　角度の変化をdelayを使わないので処理が止まることなく、加減速中・ステア操作中でも操作することができます！</p>
+<p>　delayを使わないので処理が止まることなく、加減速中・ステア操作中でも操作することができます！</p>
   <br>
   <div style="text-align: center;">
 ⇩⇩⇩ ソースコード ⇩⇩⇩
