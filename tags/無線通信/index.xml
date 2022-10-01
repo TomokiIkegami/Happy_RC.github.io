@@ -6,7 +6,26 @@
     <description>Recent content in 無線通信 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 27 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/</link>
+      <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/</guid>
+      <description>～ 目次 ～   1. 今回やったこと 2. シンプルにした回路図 3. 小型な回路を作る  3.1. 使ったもの 3.2. 作業手順   4. 車体に取り付け 5. サンプルファイル   1. 今回やったこと 　今まではジャンパ線で回路の配線をしていて、見た目がかなりゴチャゴチャしてました(;&amp;lsquo;∀&amp;rsquo;)
+　今回はユニバーサル基板を使って、ゴチャゴチャしてた配線をスッキリします！（一番下の画像みたいに）
+  ☝　自作RCレシーバの変遷  2. シンプルにした回路図 　下の画像がその回路図です。
+　前々回の回路と違って、サーボの電源がマイコン（ESP32）からESCの内臓UBECから供給しています。
+　こうするとサーボをよりパワフルに（供給電圧が5Vから6Vにアップ）動かせます。さらにマイコンに過剰な電流が流れないので、マイコンに優しくなって動作も安定しました。
+  ☝　サーボモータ＆ESC制御用回路  3. 小型な回路を作る 　回路図を参考に実際の回路を作っていきます！
+3.1. 使ったもの   ESP32-WROOM-32E
+  ユニバーサル基板（ELPA:HK-PKW01H）
+  ピンソケットとピンヘッダ（Amazonのリンク）
+  エナメル線（ELPA:PP-07NH）
+  ☝　用意したもの    3.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第6回-動きを滑らかに]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/</link>
