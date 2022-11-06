@@ -6,7 +6,25 @@
     <description>Recent content on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 09 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/</link>
+      <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. ArduinoDroidでESP32開発  2.1. アプリのインストール 2.2. ライブラリの追加 2.3. ボードの設定 2.4. プログラムのコンパイル 2.5. 書き込み   3. 参考文献   1. 今回やりたいこと 　この連載では、自作ラジコンコントローラーとレシーバをずっと作ってます(^^)/。
+　操縦用スマホアプリはMIT App Inventorで開発しているので外出先でもアプリの修正ができますが、ラジコン（レシーバ）側のマイコン（ESP32）はWindowsのArduino IDEなのでPCが必要です（泣）
+　始めはUMPC（超小型のPC、Windowsが使える）を買って対応しようとも思ったのですが、スマホでできることが分かったのでスマホでやることにしました！
+　スマホではArduinoDroidというアプリを使います。（これから説明します）
+　いろんなアプリでスクショをとったので、画像の大きさがバラバラですが許してください( ;∀;)
+2. ArduinoDroidでESP32開発 2.1. アプリのインストール 　AndroidスマホでGoogle Playストアを開いて、「ArduinoDroid」と検索＆インストールします。
+  ☝　ArduinoDroidのアイコン  2.2. ライブラリの追加 　サーボモータを制御するために、ESP32用のサーボライブラリを追加します。ここでは、jkb-gitさんの作った「Servo Library for ESP32」1を使わせていただきます。（ありがとうございます）
+　このライブラリをGitHubからzip形式でダウンロードしてきます。（ArduinoDroidでは既存のServoライブラリが使えなかった）
+　スマホのブラウザ（Google Chrome使用）からGitHubレポジトリのzipをダウンロードするときは、
+ ブラウザをPC版サイトに切り替える Gitサイトの「Code」（←緑色）を押して、「Download zip」を押す。 スマホのDownloadsフォルダに「ESP32Servo-master.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/</link>

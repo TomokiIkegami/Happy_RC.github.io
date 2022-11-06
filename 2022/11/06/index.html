@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]
+    </h1>
+    
+    <p class="document-date">
+      2022-11-06 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"ArduinoDroidを使って、スマホでArduinoプログラム編集＆書き込み"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
+<li><a href="#2-arduinodroid%E3%81%A7esp32%E9%96%8B%E7%99%BA">2. ArduinoDroidでESP32開発</a>
+<ul>
+<li><a href="#21-%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">2.1. アプリのインストール</a></li>
+<li><a href="#22-%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E8%BF%BD%E5%8A%A0">2.2. ライブラリの追加</a></li>
+<li><a href="#23-%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A">2.3. ボードの設定</a></li>
+<li><a href="#24-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB">2.4. プログラムのコンパイル</a></li>
+<li><a href="#25-%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF">2.5. 書き込み</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">3. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
+<p>　この連載では、自作ラジコンコントローラーとレシーバをずっと作ってます(^^)/。</p>
+<p>　操縦用スマホアプリはMIT App Inventorで開発しているので外出先でもアプリの修正ができますが、ラジコン（レシーバ）側のマイコン（ESP32）はWindowsのArduino IDEなのでPCが必要です（泣）</p>
+<p>　始めはUMPC（超小型のPC、Windowsが使える）を買って対応しようとも思ったのですが、スマホでできることが分かったのでスマホでやることにしました！</p>
+<p>　スマホではArduinoDroidというアプリを使います。（これから説明します）</p>
+<p>　いろんなアプリでスクショをとったので、画像の大きさがバラバラですが許してください( ;∀;)</p>
+<h1 id="2-arduinodroidでesp32開発">2. ArduinoDroidでESP32開発</h1>
+<h2 id="21-アプリのインストール">2.1. アプリのインストール</h2>
+<p>　AndroidスマホでGoogle Playストアを開いて、「ArduinoDroid」と検索＆インストールします。</p>
+  <div align="center">
+  <figure><img src="ArduinoDroid_playstore.png"
+         alt="ArduinoDroidのアイコン"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ArduinoDroidのアイコン
+  </div>
+<h2 id="22-ライブラリの追加">2.2. ライブラリの追加</h2>
+<p>　サーボモータを制御するために、ESP32用のサーボライブラリを追加します。ここでは、jkb-gitさんの作った「<a href="https://github.com/jkb-git/ESP32Servo">Servo Library for ESP32</a>」<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を使わせていただきます。（ありがとうございます）</p>
+<p>　このライブラリをGitHubからzip形式でダウンロードしてきます。（ArduinoDroidでは既存のServoライブラリが使えなかった）</p>
+<p>　スマホのブラウザ（Google Chrome使用）からGitHubレポジトリのzipをダウンロードするときは、</p>
+<ol>
+<li>ブラウザをPC版サイトに切り替える</li>
+<li>Gitサイトの「Code」（←緑色）を押して、「Download zip」を押す。</li>
+<li>スマホのDownloadsフォルダに「ESP32Servo-master.zip」というファイルが保存される。（後でArduinoDroidで開きます）</li>
+</ol>
+<p>　zipファイルがダウンロードできたら、次はArduinoDroidを起動します。起動すると下のような画面が出てきます。</p>
+  <div align="center">
+  <figure><img src="ArduinoDroid-start.png"
+         alt="ArduinoDroid起動後の画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ArduinoDroid起動後の画面
+  </div>
+<p>　次に「画面右上の点点点マーク＞Libraries＞Add.ZIP library」と進み、先ほどダウンロードした「ESP32Servo-master.zip」を選んで、画面右上のチェックマークを押します。</p>
+  <div align="center">
+  <figure><img src="add_lib.gif"
+         alt="ライブラリ追加"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ライブラリ追加
+  </div>
+<h2 id="23-ボードの設定">2.3. ボードの設定</h2>
+<p>　今回はESP32-WROOM-32Eを使うので「画面右上の点点点マーク＞Settings＞Board type＞ESP32＞DOIT ESP32 DEVKIT V1」を選択します。</p>
+<p>　YouTubeで操作方法を説明してくれている人がいた<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>ので参考にさせていただきました。</p>
+  <div align="center">
+  <figure><img src="add_board.gif"
+         alt="ボード追加"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ボード追加
+  </div>
+<h2 id="24-プログラムのコンパイル">2.4. プログラムのコンパイル</h2>
+<p>　下のソースコードをArduinoDroidに貼り付け、コンパイル（画面上側のイナズママークを押す）します！ （少し待ちます）</p>
+<p>　※細かい値（特にプログラム中の★マーク）は自分の持っている車体に合わせてセッティングしてください。</p>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/* Happy_RC_Receiver(version 6d) *****************************
+</span><span style="color:#75715e">  Download a Transmitter App:https://github.com/TomokiIkegami/Happy_RC_Driver/raw/main/Happy_RC_Driver.apk
+</span><span style="color:#75715e">  About this Project:https://github.com/TomokiIkegami/Happy_RC_Driver
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">  ◆ 動作
+</span><span style="color:#75715e">  1.スマホアプリ(Happy_RC_Receiver)から命令（&#39;A&#39;～&#39;I&#39;）を取得
+</span><span style="color:#75715e">  2.取得した命令に基づいて、RCを前後左右に操作
+</span><span style="color:#75715e">  ◆ 機能
+</span><span style="color:#75715e">  ・アプリを開いていないときは、車体を停止させる安全機能を装備（Dragブレーキ付きESCを使用すること）
+</span><span style="color:#75715e">  ・アプリ再起動時には、走行停止ボタン（画面中央のPボタン）を押さないと走行しない（アプリ再起動時に急に走行する危険を防ぐため）
+</span><span style="color:#75715e">  ・カクカクではなく滑らかな走行が可能に
+</span><span style="color:#75715e">  ・速度の切り替えが可能に（2種類の速度）
+</span><span style="color:#75715e">  ◆ 補足
+</span><span style="color:#75715e">  ・プログラム中で★マークがついている部分は、自分の装置に合わせて調整
+</span><span style="color:#75715e">*************************************************************/</span>
+
+<span style="color:#75715e">/*ハードウェアの接続ピンの設定*/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>define LED_PIN 2 <span style="color:#75715e">//走行には無関係。2番ピンにLEDのアノード(+)を接続すると割り込み処理の間隔(100ms)でLEDが点滅
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>define LED_PIN_ACTIVE 17 <span style="color:#75715e">//走行には無関係。17番ピンにLEDのアノード(+)を接続すると、アプリ起動時のみLEDが点灯
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>define SERVO_PWM_PIN 4 <span style="color:#75715e">//サーボモータのPWMピン（信号入力ピン）をESP32の4番ピンに接続 ★回路と対応した番号にする
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>define ESC_PWM_PIN 16 <span style="color:#75715e">//ESCのPWMピン（信号入力ピン）をESP32の16番ピンに接続 ★回路と対応した番号にする
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*タイマーの定義*/</span>
+hw_timer_t<span style="color:#f92672">*</span>timer <span style="color:#f92672">=</span> NULL<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/*ライブラリ*/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;BluetoothSerial.h&#34;</span> <span style="color:#75715e">//ESP32のBluetooth通信に使用
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>ESP32Servo<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span> <span style="color:#75715e">//サーボモータの制御に使用
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*ESC,サーボのオブジェクト作成*/</span>
+Servo myservo<span style="color:#f92672">;</span>    <span style="color:#75715e">// サーボモータを制御するためのServoオブジェクト作成
+</span><span style="color:#75715e"></span>Servo myesc<span style="color:#f92672">;</span>    <span style="color:#75715e">// ESCを制御するためのServoオブジェクト作成
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> pulsew_min<span style="color:#f92672">=</span>500<span style="color:#f92672">;</span> <span style="color:#75715e">//minimum pulse width of servo motor
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pulsew_max<span style="color:#f92672">=</span>2400<span style="color:#f92672">;</span> <span style="color:#75715e">//maximum pulse width of servo motor
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">/* ステアリングの設定 */</span>
+unsigned <span style="color:#66d9ef">long</span> mov_speed_ST <span style="color:#f92672">=</span> 40<span style="color:#f92672">;</span> <span style="color:#75715e">//ステア移動速度
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> center_pos <span style="color:#f92672">=</span> 95<span style="color:#f92672">;</span> <span style="color:#75715e">//ステア中心位置 [サーボモータの中心位置 (90°)]　★まっすぐ走るように調整。90より大きい値にするとステア（ハンドル）が右寄りに、90より小さい値にするとステア（ハンドル）が左寄りになる
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> left_DR <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> <span style="color:#75715e">//左の切れ角 ★:好みに合わせて調整。ただし大きくしすぎないように注意。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> right_DR <span style="color:#f92672">=</span> 25<span style="color:#f92672">;</span> <span style="color:#75715e">//右の切れ角 ★:好みに合わせて調整。ただし大きくしすぎないように注意。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> left_max <span style="color:#f92672">=</span> center_pos <span style="color:#f92672">-</span> left_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//左ステアの最大位置 [中心位置より反時計回りに20°（left_DR）回転した位置] ★逆に動くときはleft_DRの手前の符号をプラス（+）に
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> right_max <span style="color:#f92672">=</span> center_pos <span style="color:#f92672">+</span> right_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//右ステアの最大位置 [中心位置より時計回りに25°（right_DR）回転した位置] ★逆に動くときはright_DRの手前の符号をマイナス（-）に
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* スロットルの設定 */</span>
+unsigned <span style="color:#66d9ef">long</span> mov_speed_TH <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//スロットル移動速度
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> mov_speed_brk <span style="color:#f92672">=</span> 40<span style="color:#f92672">;</span> <span style="color:#75715e">//ブレーキ速度
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> neutral_pos <span style="color:#f92672">=</span> 93<span style="color:#f92672">;</span> <span style="color:#75715e">//中立位置 [スロットルの中立位置 (90) ★ESCの設定によってずれがあるので、前後に走行しないよう値を調整する。※ ESC側を90で中立になるよう設定（上級者向け。ESCの説明書通りプロポでニュートラル設定を済ませてから、このプログラムの値を調整するのがオススメ）してもよい。]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> forward_DR <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> <span style="color:#75715e">//前進の速さ ★好みの速度に調整
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> backward_DR <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> <span style="color:#75715e">//バックの速さ ★好みの速度に調整
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> forward_max <span style="color:#f92672">=</span> neutral_pos <span style="color:#f92672">+</span> forward_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//前進の最大位置 ★逆に動くときはforward_DRの手前の符号をマイナス（-）に
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> backward_max <span style="color:#f92672">=</span> neutral_pos <span style="color:#f92672">-</span> backward_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//バックの最大位置 ★逆に動くときはbackward_DRの手前の符号をプラス（+）に
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> turbo_speed <span style="color:#f92672">=</span> 120<span style="color:#f92672">;</span> <span style="color:#75715e">//全開走行時の速度（180が最大。速すぎると思ったら170や160など値を小さくしてみる）
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*値設定の注意点*/</span>
+<span style="color:#75715e">//速度(mov_speed_ST,mov_speed_TH)は 0-50 の範囲で与える。（0：最低速度、50:最大速度）
+</span><span style="color:#75715e">//スロットル、サーボモータの値(pos)の範囲は、 0≦ pos ≦180 で与える。
+</span><span style="color:#75715e">//myservo.write 関数には回転角を絶対的な位置で与える。例) 90°から 45°反時計回りに動いてほしいときは、-45ではなく、45を関数に入力する。
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*ステアとスロットルの位置を記憶する変数*/</span>
+<span style="color:#66d9ef">int</span> CH1 <span style="color:#f92672">=</span> center_pos<span style="color:#f92672">;</span> <span style="color:#75715e">//CH1:ステア
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> CH2 <span style="color:#f92672">=</span> neutral_pos<span style="color:#f92672">;</span> <span style="color:#75715e">//CH2:スロットル
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*プログラムの流れを制御する変数*/</span>
+<span style="color:#66d9ef">int</span> flag <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//アプリの起動状態を管理する変数。アプリがバックグラウンドに入ったときは1に設定する。アプリがバックグラウンドから復帰し、アプリのPボタンが押されたら0に設定してラジコン操作を有効にする。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> turbo_flag <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//ターボ有効時には1に設定
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> input <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">;</span> <span style="color:#75715e">//入力信号
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> t1 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//データ受信時間
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> t2 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//割り込み時の時間
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> td <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//データ受信時間と割り込み時間の差
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> t_loss_ST <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//ステア操作で失われた時間
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> t_loss_TH <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">//スロットル操作で失われた時間
+</span><span style="color:#75715e"></span>unsigned <span style="color:#66d9ef">long</span> curr <span style="color:#f92672">;</span> <span style="color:#75715e">/*現在時刻を取得*/</span>
+unsigned <span style="color:#66d9ef">long</span> prev_ST <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">/*前時刻を保存*/</span>
+unsigned <span style="color:#66d9ef">long</span> prev_TH <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> <span style="color:#75715e">/*前時刻を保存*/</span>
+
+<span style="color:#75715e">/*Bluetooth通信に必要*/</span>
+BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#75715e">//ESP_BTという名前でオブジェクトを定義
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*割り込み関数onTimerで実行される内容*/</span>
+<span style="color:#66d9ef">void</span> IRAM_ATTR <span style="color:#a6e22e">onTimer</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  digitalWrite<span style="color:#f92672">(</span>LED_PIN<span style="color:#f92672">,</span> <span style="color:#f92672">!</span>digitalRead<span style="color:#f92672">(</span>LED_PIN<span style="color:#f92672">));</span> <span style="color:#75715e">//前の出力と反転して点灯（チカチカする）
+</span><span style="color:#75715e"></span>  t2 <span style="color:#f92672">=</span> millis<span style="color:#f92672">();</span>  <span style="color:#75715e">//割り込み時の時間を測定（100ms間隔）
+</span><span style="color:#75715e"></span>  td <span style="color:#f92672">=</span> t2 <span style="color:#f92672">-</span> t1<span style="color:#f92672">;</span> <span style="color:#75715e">//割り込み時の時間と命令取得時間の差を取る。この差が大きいとき、アプリは起動していない状態。
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*ステアを操作する関数*/</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">change_ST_pos</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> goal_pos<span style="color:#f92672">,</span> unsigned <span style="color:#66d9ef">long</span> mov_speed<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  unsigned <span style="color:#66d9ef">long</span> delay_time <span style="color:#f92672">=</span> 50 <span style="color:#f92672">-</span> mov_speed<span style="color:#f92672">;</span> <span style="color:#75715e">//処理を遅くする時間（この値が大きいとゆっくりな操作に）
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>curr <span style="color:#f92672">-</span> prev_ST<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;=</span> delay_time<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">/*ステアを切る処理*/</span>
+    <span style="color:#75715e">//右折
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>goal_pos <span style="color:#f92672">-</span> CH1 <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      CH1<span style="color:#f92672">++;</span>
+      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH1<span style="color:#f92672">);</span>
+      <span style="color:#75715e">//左折
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>goal_pos <span style="color:#f92672">-</span> CH1 <span style="color:#f92672">&lt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      CH1<span style="color:#f92672">--;</span>
+      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH1<span style="color:#f92672">);</span>
+
+      <span style="color:#75715e">//その他→ステアはそのまま
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH1<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    prev_ST <span style="color:#f92672">=</span> curr<span style="color:#f92672">;</span> <span style="color:#75715e">//前回に処理を実行した時刻を現在時刻に更新
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*スロットルを操作する関数*/</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">change_TH_pos</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> goal_pos<span style="color:#f92672">,</span> unsigned <span style="color:#66d9ef">long</span> mov_speed<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  unsigned <span style="color:#66d9ef">long</span> delay_time <span style="color:#f92672">=</span> 50 <span style="color:#f92672">-</span> mov_speed<span style="color:#f92672">;</span> <span style="color:#75715e">//処理を遅くする時間（この値が大きいとゆっくりな操作に）
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>curr <span style="color:#f92672">-</span> prev_TH<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;=</span> delay_time<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">/*スロットルを操作する処理*/</span>
+    <span style="color:#75715e">//前進
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>goal_pos <span style="color:#f92672">-</span> CH2 <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      CH2<span style="color:#f92672">++;</span>
+      myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH2<span style="color:#f92672">);</span>
+      <span style="color:#75715e">//後退
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>goal_pos <span style="color:#f92672">-</span> CH2 <span style="color:#f92672">&lt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      CH2<span style="color:#f92672">--;</span>
+      myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH2<span style="color:#f92672">);</span>
+
+      <span style="color:#75715e">//その他→スロットルはそのまま
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>CH2<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    prev_TH <span style="color:#f92672">=</span> curr<span style="color:#f92672">;</span> <span style="color:#75715e">//前回に処理を実行した時刻を現在時刻に更新
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  pinMode<span style="color:#f92672">(</span>LED_PIN_ACTIVE<span style="color:#f92672">,</span> OUTPUT<span style="color:#f92672">);</span> <span style="color:#75715e">//LEDの点灯ピンを出力用に設定
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>115200<span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタで確認用
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ESP32_RC_Receiver&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//接続画面で表示される名前を設定 ★好きな名前にしてよい
+</span><span style="color:#75715e"></span>  myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">attach</span><span style="color:#f92672">(</span>SERVO_PWM_PIN<span style="color:#f92672">,</span>pulsew_min<span style="color:#f92672">,</span>pulsew_max<span style="color:#f92672">);</span> <span style="color:#75715e">//サーボモータのPWM端子とArduinoの4番ピンを接続 ★回路と対応した番号にする
+</span><span style="color:#75715e"></span>  myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">attach</span><span style="color:#f92672">(</span>ESC_PWM_PIN<span style="color:#f92672">,</span>pulsew_min<span style="color:#f92672">,</span>pulsew_max<span style="color:#f92672">);</span> <span style="color:#75715e">//ESCのPWM端子とArduinoの16番ピンを接続 ★回路と対応した番号にする
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">/*勝手には走りださないように設定*/</span>
+  myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>center_pos<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>  myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">);</span>  <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">/*割り込み処理（アプリ停止の検知に必要）の設定*/</span>
+  pinMode<span style="color:#f92672">(</span>LED_PIN<span style="color:#f92672">,</span> OUTPUT<span style="color:#f92672">);</span> <span style="color:#75715e">//LEDの点灯ピンを出力用に設定
+</span><span style="color:#75715e"></span>  timer <span style="color:#f92672">=</span> timerBegin<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 80<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">//80クロック1カウント
+</span><span style="color:#75715e"></span>  timerAttachInterrupt<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> <span style="color:#f92672">&amp;</span>onTimer<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">//onTimerという名前の関数で割り込み
+</span><span style="color:#75715e"></span>  timerAlarmWrite<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> 1000000 <span style="color:#f92672">*</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">1</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span> <span style="color:#75715e">//80クロック×1000000カウント=1秒、1*0.1=100[ms]
+</span><span style="color:#75715e"></span>  timerAlarmEnable<span style="color:#f92672">(</span>timer<span style="color:#f92672">);</span> <span style="color:#75715e">//タイマー有効化
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  curr <span style="color:#f92672">=</span> millis<span style="color:#f92672">();</span>
+  <span style="color:#75715e">/*available()で受信した信号があるか確認*/</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">available</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+    t1 <span style="color:#f92672">=</span> millis<span style="color:#f92672">();</span> <span style="color:#75715e">//データを取得した時間を記録
+</span><span style="color:#75715e"></span>    input <span style="color:#f92672">=</span> ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span> <span style="color:#75715e">//受信したテキストを変数inputに保存
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/*Pボタンが押されたらラジコンの操作を有効する（安全のため）*/</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag <span style="color:#f92672">==</span> 1 <span style="color:#f92672">&amp;&amp;</span> input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    flag <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/*アプリ起動時（flag=0のとき）は操作を有効にする*/</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">/*命令に基づいてラジコンを制御*/</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>center_pos<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>forward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//前進(Forward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;B&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>center_pos<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>backward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//後退(Backward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      forward_max <span style="color:#f92672">=</span> neutral_pos <span style="color:#f92672">+</span> forward_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//標準の速度に設定
+</span><span style="color:#75715e"></span>      change_ST_pos<span style="color:#f92672">(</span>center_pos<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">,</span> mov_speed_brk<span style="color:#f92672">);</span> <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;D&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>left_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを左(Left)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">,</span> mov_speed_brk<span style="color:#f92672">);</span> <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;E&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>right_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを右(Right)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">,</span> mov_speed_brk<span style="color:#f92672">);</span> <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;F&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>left_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを左(Left)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>forward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//前進(Forward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;G&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>right_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを右(Right)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>forward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//前進(Forward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;H&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>left_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを左(Left)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>backward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//後退(Backward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>right_max<span style="color:#f92672">,</span> mov_speed_ST<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを右(Right)に切る
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>backward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//後退(Backward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;J&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      forward_max <span style="color:#f92672">=</span> turbo_speed<span style="color:#f92672">;</span> <span style="color:#75715e">//ターボの速度に設定
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>forward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//前進(Forward)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>input <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;K&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      forward_max <span style="color:#f92672">=</span> neutral_pos <span style="color:#f92672">+</span> forward_DR<span style="color:#f92672">;</span> <span style="color:#75715e">//標準の速度に設定
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>forward_max<span style="color:#f92672">,</span> mov_speed_TH<span style="color:#f92672">);</span> <span style="color:#75715e">//前進(Forward)      
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      change_ST_pos<span style="color:#f92672">(</span>center_pos<span style="color:#f92672">,</span> 50<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>      change_TH_pos<span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">,</span> 50<span style="color:#f92672">);</span> <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+
+
+  <span style="color:#75715e">/*シリアルモニタで確認用（ラジコンの制御には無関係）*/</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Received signal=&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>input<span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t1=&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>t1<span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t2=&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>t2<span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t2-t1=&#34;</span><span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>td<span style="color:#f92672">);</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">);</span>
+
+  <span style="color:#75715e">/*アプリがバックグラウンドに入ったとき（もしくは閉じたとき）、車体を停止させる処理（安全のため）*/</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>td <span style="color:#f92672">&gt;</span> 150<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Transmitter is NOT active&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//NOT active：アプリはバックグラウンド状態（もしく閉じている）
+</span><span style="color:#75715e"></span>    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">);</span>
+    myservo<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>center_pos<span style="color:#f92672">);</span> <span style="color:#75715e">// ステアを中心(Center)に
+</span><span style="color:#75715e"></span>    myesc<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>neutral_pos<span style="color:#f92672">);</span>  <span style="color:#75715e">//中立(Neutral)
+</span><span style="color:#75715e"></span>    input <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">;</span>
+    digitalWrite<span style="color:#f92672">(</span>LED_PIN_ACTIVE<span style="color:#f92672">,</span> LOW<span style="color:#f92672">);</span> <span style="color:#75715e">//アプリがバックグラウンドに入ったとき（もしくは閉じたとき）はLEDを消灯
+</span><span style="color:#75715e"></span>    flag <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> <span style="color:#75715e">//アプリがバックグラウンド状態に入った（もしく閉じた）ときはflag=1に設定
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Transmitter is active&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//active：アプリの画面が開いている
+</span><span style="color:#75715e"></span>    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">);</span>
+    digitalWrite<span style="color:#f92672">(</span>LED_PIN_ACTIVE<span style="color:#f92672">,</span> HIGH<span style="color:#f92672">);</span> <span style="color:#75715e">//アプリ起動時（画面を開いているとき）にはLEDを点灯
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+
+<span style="color:#f92672">}</span></code></pre></div>
+<h2 id="25-書き込み">2.5. 書き込み</h2>
+<p>　書き込みの手順は、</p>
+<ol>
+<li>まず、スマホとESP32をUSBケーブルで接続（直接つなげるケーブルを用意するか、USB変換などを使うとよいです）</li>
+<li>書き込み（画面上側の下矢印マーク↓）ボタンを押します</li>
+<li>このときUSBポートの情報いくつか出てくるのでどれかをクリック（うまくいかなかったら違うのを選んでみてください&hellip;）</li>
+<li>次にアクセスしていいか聞くようなメッセージが出てくるのでOKを押します</li>
+<li>書き込みが終わるまで（表示が100%になるまで）少し待ちます。「Hard resetting via RTS pin &hellip;」というメッセージが出たらOKです！</li>
+</ol>
+  <div align="center">
+  <figure><img src="uploading_finished.png"
+         alt="書き込み完了"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　書き込み完了
+  </div>
+<p>　これで外出先でもプログラムが修正できる！(&lsquo;ω&rsquo;)　すごい便利！！</p>
+  <div align="center">
+  <figure><img src="connect_to_RC.jpg"
+         alt="ESP32にスマホをつないでプログラム修正（これは便利だ...）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ESP32にスマホをつないでプログラム修正（これは便利だ...）
+  </div>
+<h1 id="3-参考文献">3. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>jkb-git「Servo Library for ESP32」、(<a href="https://github.com/jkb-git/ESP32Servo">https://github.com/jkb-git/ESP32Servo</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>YouTube「How to program ESP32 using arduino droid | How to program ESP32 using android phone | part-3」、(<a href="https://www.youtube.com/watch?v=_0a-lwx3o5U&amp;t=160s">https://www.youtube.com/watch?v=_0a-lwx3o5U&amp;t=160s</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/10/09/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第6回-動きを滑らかに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/">GS02のタイヤを浮かせたい！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第5回-安全性の向上]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第4回-操作性の向上]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
