@@ -6,7 +6,24 @@
     <description>Recent content in Arduino on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 06 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ESP32でフォトリフレクタを使いたい！</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/</link>
+      <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/</guid>
+      <description>～ 目次 ～   1. 何が起きたか 2. 回路  2.1. うまくいかなかった回路 2.2. うまくいった回路   3. プログラム 4. センサは壊れないのか？ 5. 参考文献   1. 何が起きたか 　ラジコン用のスピードメータを作るのに、フォトリフレクタ（赤外線LEDとフォトトランジスタが一緒になったセンサ。色によって赤外線の反射率が変わります）を使ってみようとネット記事1を参考に回路を組んでみました。使用したフォトリフレクタはLBR-127LHDです。
+　この記事1では、Arduinoでフォトリフレクタを使う方法が丁寧に解説されていました。（分かりやすい）
+　同じ回路とプログラムで試したのですが、うまくいきませんでした。（シリアルモニタにずっと4095と表示されてる??）
+　今回はESP32で使う方法を紹介します！
+  ☝　フォトリフレクタをESP32で使ってみた  2. 回路 2.1. うまくいかなかった回路 　ESP32でこの回路を組むとうまくいきません。色々と違う抵抗を試したり、ネットを調べてみたところ、アナログ入力電圧がArduinoとESP32で違うことが原因みたいでした。
+　Arduinoの入力電圧は5[V]が最大で、ESP32は3.3[V]が最大2なのは知りませんでした!(&amp;lsquo;Д&amp;rsquo;)
+　ESP32では 0~3.3[V] までのアナログ電圧が 0~4095 のデジタル値に変換されることになります。
+　  ☝　うまくいかなかった回路  2.2. うまくいった回路 　こちらがうまくいった回路です。電源電圧を5[V]から3.3[V]に変更したらうまく動きました（笑）
+　これに数時間悩んでいたので、動いて感動しました( ;∀;)//   ☝　うまくいった回路  　実際に動かした様子は下のアニメーションのようになります。画質が粗くシリアルモニタの値が読みづらいと思いますが、しっかり変化しています！</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/</link>

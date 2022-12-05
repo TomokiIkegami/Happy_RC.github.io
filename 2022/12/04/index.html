@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     ESP32でフォトリフレクタを使いたい！ -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      ESP32でフォトリフレクタを使いたい！
+    </h1>
+    
+    <p class="document-date">
+      2022-12-04 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"Arduinoと同じ回路でやったらハマった話"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BD%95%E3%81%8C%E8%B5%B7%E3%81%8D%E3%81%9F%E3%81%8B">1. 何が起きたか</a></li>
+<li><a href="#2-%E5%9B%9E%E8%B7%AF">2. 回路</a>
+<ul>
+<li><a href="#21-%E3%81%86%E3%81%BE%E3%81%8F%E3%81%84%E3%81%8B%E3%81%AA%E3%81%8B%E3%81%A3%E3%81%9F%E5%9B%9E%E8%B7%AF">2.1. うまくいかなかった回路</a></li>
+<li><a href="#22-%E3%81%86%E3%81%BE%E3%81%8F%E3%81%84%E3%81%A3%E3%81%9F%E5%9B%9E%E8%B7%AF">2.2. うまくいった回路</a></li>
+</ul>
+</li>
+<li><a href="#3-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0">3. プログラム</a></li>
+<li><a href="#4-%E3%82%BB%E3%83%B3%E3%82%B5%E3%81%AF%E5%A3%8A%E3%82%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%8B">4. センサは壊れないのか？</a></li>
+<li><a href="#5-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">5. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-何が起きたか">1. 何が起きたか</h1>
+<p>　ラジコン用のスピードメータを作るのに、フォトリフレクタ（赤外線LEDとフォトトランジスタが一緒になったセンサ。色によって赤外線の反射率が変わります）を使ってみようとネット記事<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を参考に回路を組んでみました。使用したフォトリフレクタは<a href="https://akizukidenshi.com/download/lbr127hld.pdf">LBR-127LHD</a>です。</p>
+<p>　この記事<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>では、Arduinoでフォトリフレクタを使う方法が丁寧に解説されていました。（分かりやすい）</p>
+<p>　同じ回路とプログラムで試したのですが、うまくいきませんでした。（シリアルモニタにずっと4095と表示されてる??）</p>
+<p>　今回はESP32で使う方法を紹介します！</p>
+  <div align="center">
+  <figure><img src="%e3%83%95%e3%82%a9%e3%83%88%e3%83%aa%e3%83%95%e3%83%ac%e3%82%af%e3%82%bf%e3%82%92ESP32%e3%81%a7%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f.png"
+         alt="フォトリフレクタをESP32で使ってみた"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　フォトリフレクタをESP32で使ってみた
+  </div>
+<h1 id="2-回路">2. 回路</h1>
+<h2 id="21-うまくいかなかった回路">2.1. うまくいかなかった回路</h2>
+<p>　ESP32でこの回路を組むとうまくいきません。色々と違う抵抗を試したり、ネットを調べてみたところ、<strong>アナログ入力電圧</strong>がArduinoとESP32で違うことが原因みたいでした。</p>
+<p>　Arduinoの入力電圧は5[V]が最大で、<strong>ESP32は3.3[V]が最大</strong><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>なのは知りませんでした!(&lsquo;Д&rsquo;)</p>
+<p>　ESP32では <strong>0~3.3[V]</strong> までのアナログ電圧が <strong>0~4095</strong> のデジタル値に変換されることになります。</p>
+<p>　</p>
+  <div align="center">
+  <figure><img src="%e3%81%86%e3%81%be%e3%81%8f%e3%81%84%e3%81%8b%e3%81%aa%e3%81%8b%e3%81%a3%e3%81%9f%e3%83%95%e3%82%a9%e3%83%88%e3%83%aa%e3%83%95%e3%83%ac%e3%82%af%e3%82%bf%e5%9b%9e%e8%b7%af_%e8%aa%ac%e6%98%8e%e4%bb%98%e3%81%8d.png"
+         alt="うまくいかなかった回路"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　うまくいかなかった回路
+  </div>
+<h2 id="22-うまくいった回路">2.2. うまくいった回路</h2>
+<p>　こちらがうまくいった回路です。電源電圧を5[V]から3.3[V]に変更したらうまく動きました（笑）</p>
+<p>　これに数時間悩んでいたので、動いて感動しました( ;∀;)//
+　</p>
+  <div align="center">
+  <figure><img src="%e3%81%86%e3%81%be%e3%81%8f%e3%81%84%e3%81%a3%e3%81%9f%e3%83%95%e3%82%a9%e3%83%88%e3%83%aa%e3%83%95%e3%83%ac%e3%82%af%e3%82%bf%e5%9b%9e%e8%b7%af_%e8%aa%ac%e6%98%8e%e4%bb%98%e3%81%8d.png"
+         alt="うまくいった回路"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　うまくいった回路
+  </div>
+<p>　実際に動かした様子は下のアニメーションのようになります。画質が粗くシリアルモニタの値が読みづらいと思いますが、しっかり変化しています！</p>
+  <div align="center">
+  <figure><img src="%e5%ae%9f%e9%a8%93%e3%81%ae%e6%a7%98%e5%ad%90.gif"
+         alt="実験の様子"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　実験の様子
+  </div>
+  <div align="center">
+  <figure><img src="%e3%83%95%e3%82%a9%e3%83%88%e3%83%aa%e3%83%95%e3%83%ac%e3%82%af%e3%82%bf%e3%81%ae%e5%8b%95%e4%bd%9c.png"
+         alt="シリアルモニタを拡大（AD変換後のデジタル値が表示）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　シリアルモニタを拡大（AD変換後のデジタル値が表示）
+  </div>
+<h1 id="3-プログラム">3. プログラム</h1>
+<p>　今回の実験に使ったプログラムです。整理してないので使ってない変数がいっぱいあります（笑）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> sense_pin <span style="color:#f92672">=</span> 25 <span style="color:#f92672">;</span> <span style="color:#75715e">//★回路に合わせる。今回は25番ピンを使用。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> Vr <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">3</span><span style="color:#f92672">;</span> <span style="color:#75715e">//入力電圧の範囲は0~3.3V（今回は未使用）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> ANALOG_MAX <span style="color:#f92672">=</span> 4096<span style="color:#f92672">;</span> <span style="color:#75715e">//AD変換の最大値（今回は未使用）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> val <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>        <span style="color:#75715e">//センサ入力値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">float</span> voltage <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>  <span style="color:#75715e">//電圧に変換したセンサ入力値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>9600<span style="color:#f92672">);</span>  <span style="color:#75715e">//伝送速度設定
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  val <span style="color:#f92672">=</span> analogRead<span style="color:#f92672">(</span>sense_pin<span style="color:#f92672">);</span>                      <span style="color:#75715e">//センサの値などを読む
+</span><span style="color:#75715e"></span>  voltage <span style="color:#f92672">=</span> <span style="color:#66d9ef">float</span><span style="color:#f92672">(</span>val<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> <span style="color:#f92672">(</span>Vr<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> <span style="color:#f92672">(</span>ANALOG_MAX<span style="color:#f92672">);</span>  <span style="color:#75715e">// AD変換（今回は未使用）
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>val<span style="color:#f92672">);</span>          <span style="color:#75715e">//文字をシリアルモニタに表示
+</span><span style="color:#75715e"></span>  delay<span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<h1 id="4-センサは壊れないのか">4. センサは壊れないのか？</h1>
+<p>　電源電圧を3.3Vにしたらとりあえず動きましたが、センサに負担がかかっていないか理論的にもチェックします。</p>
+<p>　下の回路図は、データシートから抜粋して電圧とかの記号を書き足したものです。入力側の閉回路①に注目します。</p>
+  <div align="center">
+  <figure><img src="%e3%82%bb%e3%83%b3%e3%82%b5%e3%81%af%e5%a3%8a%e3%82%8c%e3%81%aa%e3%81%84%e3%81%ae%e3%81%8b.png"
+         alt="センサが壊れないのか理論的に確認（回路図はデータシートより抜粋して、記号を追記）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　センサは壊れないのか.png
+  </div>
+<p>　上の図の閉回路①でキルヒホッフの電圧則を考えて、センサに流れる電流$I_F$を求めます。電源電圧を$V_{CC}$、抵抗の両端電圧を$V_R$、ダイオードの順方向電圧を$V_F$とすると、</p>
+<p>\begin{equation}
+\label{KVL1}
+V_{CC}-V_R-V_F=0 \to V_R=V_{CC}-V_F
+\end{equation}</p>
+<p>　オームの法則から、抵抗の両端電圧$V_R$、抵抗値$R_D$、回路に流れる電流$I_F$の関係は、</p>
+<p>\begin{equation}
+\label{ohm_law}
+V_R =R_D I_F
+\end{equation}</p>
+<p>　式(\ref{ohm_law})から回路に流れる電流$I_F$は、</p>
+<p>\begin{equation}
+\label{I_F}
+I_F=\frac{V_R}{R_D}
+\end{equation}</p>
+<p>　となるので、式(\ref{I_F})に式(\ref{KVL1})を代入すると、</p>
+<p>\begin{equation}
+\label{I_F2}
+I_F=\frac{V_R}{R_D}=\frac{V_{CC}-V_F}{R_D}
+\end{equation}</p>
+<p>　最後に式(\ref{I_F2})から、順方向電圧$I_F$を計算します。電源電圧を$V_{CC}=3.3[\rm{V}]$、ダイオードの順方向電圧を$V_F=1.5[\rm{V}]$（仕様書より）、抵抗を$R_D=220[\Omega]$とすると、</p>
+<p>\begin{equation}
+\label{I_F3}
+I_F=\frac{V_{CC}-V_F}{R_D}=\frac{3.3-1.5}{220}=0.00818\dots \simeq 8 [\rm{mA}]
+\end{equation}</p>
+<p>　20[mA]を超えてないから妥当かな？</p>
+<h1 id="5-参考文献">5. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>プチモンテ「フォトリフレクタの使い方 [Arduino]」、(<a href="https://www.petitmonte.com/robot/howto_photo_reflector.html">https://www.petitmonte.com/robot/howto_photo_reflector.html</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>ソースに絡まるエスカルゴ「【ESP32】analogReadする方法」、(<a href="https://rikoubou.hatenablog.com/entry/2017/06/29/135819">https://rikoubou.hatenablog.com/entry/2017/06/29/135819</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/11/06/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/">ESP32でフォトリフレクタを使いたい！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第6回-動きを滑らかに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/">GS02のタイヤを浮かせたい！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第5回-安全性の向上]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2022</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
