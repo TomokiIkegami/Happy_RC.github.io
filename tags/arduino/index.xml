@@ -6,7 +6,21 @@
     <description>Recent content in Arduino on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自作アプリでBluetooth接続できない！[Runtime Error]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</link>
+      <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</guid>
+      <description>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
+　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。
+  ☝　Bluetooth接続しようと「ここをタッチしてRCに接続」ボタンを押したらエラーが....  　説明をよく読むと、Androidの権限が必要みたいです。
+2. 解決方法 　次の1~5の手順で、自作アプリに付近のデバイスへのアクセス権限を与えれば良いです。
+ アプリのアイコンを長押しして、「アプリ情報」をタップします。    ☝　アプリ情報を開く  「許可」をタップします。    ☝　「許可」をタップ  &amp;ldquo;許可されていないアプリ&amp;quot;の項目にある「付近のデバイス」をタップします。    ☝　付近のデバイス  &amp;ldquo;このアプリによる付近のデバイスへのアクセス&amp;quot;の項目にある「許可」をタップします。    ☝　付近のデバイスにアクセス許可  画面左上の矢印「←」をタップして戻ります。下の画像のように、&amp;ldquo;許可されているアプリ&amp;quot;の項目が「付近のデバイス」になっていればOKです！  　（一度アプリでBluetooth接続すると、下に「過去24時間にアクセス」と表示されます。）
+  ☝　設定完了！  　これで、自作アプリでBluetooth接続できるようになります！！</description>
+    </item>
+    
     <item>
       <title>ESP32でフォトリフレクタを使いたい！</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/</link>
@@ -48,7 +62,7 @@
       <pubDate>Sun, 09 Oct 2022 00:00:00 +0000</pubDate>
       
       <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/</guid>
-      <description>～ 目次 ～   1. 今回やりたいこと 2. 改良の過程  2.1. スマホアプリの改良 2.2. レシーバ側プログラムの改良     1. 今回やりたいこと 　前回は自作Rcレシーバ（Happy RC Receiver）を実際のラジコンに搭載できるように、ユニバーサル基板を使って回路を小型化しました。
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 改良の過程  2.1. スマホアプリの改良 2.2. レシーバ側プログラムの改良   3. サンプルファイル   1. 今回やりたいこと 　前回は自作Rcレシーバ（Happy RC Receiver）を実際のラジコンに搭載できるように、ユニバーサル基板を使って回路を小型化しました。
 　今回は前々回に引き続き、レシーバ側のプログラムと操作用アプリの改良を行います‼
 　現状では走行時のスピードを1つしか設定することができないので、今回は2種類の速度を切り替えられるようにします！ 2. 改良の過程 　使った装置は前回と同じです。今回のバージョンは6c（前々回は6a,6b）とします。
 2.1. スマホアプリの改良 　改良したアプリは下の画像のようになります。
