@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     スマホからサーボモータをPWM制御してみた!! -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      スマホからサーボモータをPWM制御してみた!!
+    </h1>
+    
+    <p class="document-date">
+      2023-01-02 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"スマホアプリを自作して、ラジコン用サーボモータを無線操縦してみた"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
+<li><a href="#2-%E4%BD%BF%E3%81%A3%E3%81%9F%E6%8A%80%E8%A1%93">2. 使った技術</a>
+<ul>
+<li><a href="#21-pwm%E5%88%B6%E5%BE%A1">2.1. PWM制御</a></li>
+<li><a href="#22-%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E9%80%9A%E4%BF%A1">2.2. シリアル通信</a></li>
+</ul>
+</li>
+<li><a href="#3-%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%82%E3%81%AE">3. 使ったもの</a>
+<ul>
+<li><a href="#31-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2">3.1. ソフトウェア</a></li>
+<li><a href="#32-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2">3.2. ハードウェア</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%9B%9E%E8%B7%AF%E5%9B%B3">4. 回路図</a></li>
+<li><a href="#5-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%A2%E3%83%97%E3%83%AA">5. スマホアプリ</a></li>
+<li><a href="#6-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89">6. プログラム（ソースコード）</a></li>
+<li><a href="#7-%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D">7. 動作確認</a></li>
+<li><a href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">8. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
+<p>　いやぁ～（※）新年(2023)一発目の投稿ですね!!（※いやぁ～は東北とか北海道の人が使いがちみたいで、私もその一人です笑。特に深い意味はないです笑）</p>
+<p>　今回はスマホからラジコン用サーボモータを動かします!</p>
+<p>　スマホでスライダを操作し、その操作量に応じてサーボモータの角度がコントロールしました。</p>
+<p>　これを作るにあたって、<strong>PWM制御</strong>と<strong>シリアル通信</strong>という技術を使ったので、まずはその説明から始めます(^^)/</p>
+  <div align="center">
+  <figure><img src="my_rc_and_smartphone.png"
+         alt="スマホからRCサーボを操作したい"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　スマホからRCサーボを操作したい
+  </div>
+<h1 id="2-使った技術">2. 使った技術</h1>
+<h2 id="21-pwm制御">2.1. PWM制御</h2>
+<p>　PWMというのは Pulse Width Modulation の頭文字を取ったものです。日本語に直すと パルス（Pulse）幅（Width）変調（Modulation）となります。と言われてもあんまりしっくり来ないと思うので、図を使って説明します。</p>
+<p>　下の図がPWM制御のイメージ図です。このカクカクした波形を<strong>パルス波</strong>といいます。このパルス波の<strong>幅を変える</strong>ことで、サーボモータの角度を制御するのがPWM制御です。</p>
+<p>　具体的には、ONになってるところのパルス幅を1000~2000[μs]の間（メーカによって異なる<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>が大体一緒）で変えて制御します。</p>
+<p>　例えば、パルス幅が1000[μs]のときは右回転（角度：0°）、1500[μs]のときはニュートラル（角度：90°）、2000[μs]のときは左回転（角度：180°）となります。</p>
+  <div align="center">
+  <figure><img src="RC%e3%82%b5%e3%83%bc%e3%83%9c%e3%81%aePWM%e5%88%b6%e5%be%a1.svg"
+         alt="RCサーボのPWM制御"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　RCサーボのPWM制御
+  </div>
+<h2 id="22-シリアル通信">2.2. シリアル通信</h2>
+<p>　1本の（伝送）経路上にデータを流して通信する方法です。遅れるデータやビット数など細かい話はあるのですが、ここではイメージのみを説明します。</p>
+<p>　例えば、&ldquo;ラジコン&quot;という文字を送りたければ、まず&quot;ラ&quot;を送ってから、&ldquo;ジ&rdquo;、&ldquo;コ&rdquo;、&ldquo;ン&quot;と順番に送ります（同時に送らない）。一見効率が悪そうですが、高速通信が可能です。身近な場面では、USBやBluetoothの通信に使われています。</p>
+  <div align="center">
+  <figure><img src="%e3%82%b7%e3%83%aa%e3%82%a2%e3%83%ab%e4%bc%9d%e9%80%81%e3%81%a8%e3%83%91%e3%83%a9%e3%83%ac%e3%83%ab%e4%bc%9d%e9%80%81.svg"
+         alt="シリアル通信のイメージ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　シリアル通信のイメージ
+  </div>
+<h1 id="3-使ったもの">3. 使ったもの</h1>
+<p>　作業にあたって使用したソフトとかハードウェア（装置）を整理しておきます。</p>
+<h2 id="31-ソフトウェア">3.1. ソフトウェア</h2>
+<ol>
+<li>MIT App Inventor（スマホアプリ作成）</li>
+<li>Arduino IDE（マイコン用のプログラム開発）</li>
+<li>KiCAD（回路図の作成）</li>
+</ol>
+<h2 id="32-ハードウェア">3.2. ハードウェア</h2>
+<ol>
+<li>操縦用スマホ（送信機）：Moto g pro（Android 12）</li>
+<li>マイコン（受信機）：ESP32-WROOM-32E</li>
+<li>サーボモータ：Hitec DB777WP</li>
+</ol>
+<p>（参考：以下の装置は、今回の話題でそこまで重要ではないです。）</p>
+<ul>
+<li>ラジコンカー本体：ECX Barrage 1.9（1/12スケールロッククローラRC）←お気に入りです</li>
+<li>モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.0V) ←マイコンに電源供給</li>
+<li>走行用バッテリー：Dynamite Speedpack (7.2V Ni-MH 700mAh) ←ESCに電源供給</li>
+<li>クローラ用ESC：TEKIN BXR ←ESCからサーボモータに電源供給</li>
+</ul>
+<h1 id="4-回路図">4. 回路図</h1>
+<p>　ESP32とサーボモータの接続です。</p>
+<p>　<strong>サーボモータの電源(+)端子に6[V]、PWM信号線に5[V]が入る</strong>ように自由に回路を組み立ててください。サーボモータのPWM信号線は、ESP32の（PWMが使える）好きな端子に繋げてください。このとき、ESP32の端子番号は確認しておいてください（プログラムを書くときに使います）。</p>
+<p>　ここでは例としてラジコン用のスピードコントローラー（ESC）から、サーボモータ用の6[V]電源を取る回路を載せておきます(&lsquo;ω&rsquo;)/</p>
+  <div align="center">
+  <figure><img src="rc_control_using_esp32_bluetooth_ESC-BEC.svg"
+         alt="サーボモータ＆ESC制御用回路"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　サーボモータ＆ESC制御用回路（サーボモータの電源はESCから）
+  </div>
+<h1 id="5-スマホアプリ">5. スマホアプリ</h1>
+<p>　MIT App Inventor を使って作ったスマホアプリです。</p>
+<p>　スライダの位置によって、ラジコンカー側に送信するパルス幅を変化させます。パルス幅の値はBluetoothで無線送信します。</p>
+  <div align="center">
+  <figure><img src="UI.png"
+         alt="アプリ外観（デザイン編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリ外観（デザイン編集タブ）
+  </div>
+  <div align="center">
+  <figure><img src="blocks.png"
+         alt="アプリの中身（ブロック編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリの中身（ブロック編集タブ）
+  </div>
+<h1 id="6-プログラムソースコード">6. プログラム（ソースコード）</h1>
+<p>　Arduino IDEで作ったプログラムです。ラジコン側のESP32に書き込んで動かします。</p>
+<p>　スマホから送られてきたパルス幅に応じて、サーボモータの角度をPWM制御で変化させます。スマホから送られてくるのは文字なので、数値に変換して制御に使ってます。</p>
+<p>　プログラムの大まかな動きを説明すると、</p>
+<ol>
+<li>シリアル通信で、パルス幅を文字としてスマホから受信（パルス幅&quot;1000&quot;なら⇒'1&rsquo;と'0&rsquo;と'0&rsquo;と'0&rsquo;という文字として取得）</li>
+<li>区切り文字（ここではセミコロン;）が来るまで文字を受信して、文字列に変換（&lsquo;1&rsquo;と'0&rsquo;と'0&rsquo;と'0'⇒&quot;1000&rdquo;）</li>
+<li>文字列を整数値に変換（&ldquo;1000&quot;⇒1000）</li>
+<li>変換された数値でサーボモータをPWM制御</li>
+</ol>
+<blockquote>
+<p>　シングルコーテーション（'）は文字、ダブルコーテーション（&quot;）は文字列の意味です。</p>
+</blockquote>
+<p>　PWM制御の方法<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>、文字列として受信して整数に変換する方法<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> について紹介してくれている方に非常に感謝しています。ありがとうございます。</p>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**** アプリから受け取ったパルス幅でサーボを制御（サーボモータをPWM制御で動かしてみる。スマホアプリからサーボモータを操作）****/</span>
+
+<span style="color:#75715e">/*ハードウェアの接続ピンの設定*/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>define SERVO_PWM_PIN 4    <span style="color:#75715e">//サーボモータのPWMピン（信号入力ピン）をESP32の4番ピンに接続 ★回路と対応した番号にする
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*ライブラリ*/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;BluetoothSerial.h&#34;</span>  <span style="color:#75715e">//ESP32のBluetooth通信に使用
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*変数の定義*/</span>
+<span style="color:#66d9ef">int</span> PWM_period <span style="color:#f92672">=</span> 20000<span style="color:#f92672">;</span>  <span style="color:#75715e">//PWM周期をT=20000[μs]に設定
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> CH1 <span style="color:#f92672">=</span> 1500<span style="color:#f92672">;</span>          <span style="color:#75715e">//パルス幅Tonを1500[μs]（中立）に設定。データシートにはLeft=900[μs]、Neutral=1500[μs]、Right=2100[μs]と記載されていた。(HiTEC DB777WP)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*Bluetooth通信に必要*/</span>
+BluetoothSerial ESP_BT<span style="color:#f92672">;</span>  <span style="color:#75715e">//ESP_BTという名前でオブジェクトを定義
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  pinMode<span style="color:#f92672">(</span>SERVO_PWM_PIN<span style="color:#f92672">,</span> OUTPUT<span style="color:#f92672">);</span>     <span style="color:#75715e">//サーボモータのピンへ、Arduinoから出力するように設定
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>115200<span style="color:#f92672">);</span>               <span style="color:#75715e">//シリアルモニタで確認用。伝送速度を115200[bps]に設定
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ESP32_RC_Receiver&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//接続画面で表示される名前を設定 ★好きな名前にしてよい
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/*PWM制御でサーボモータの角度を制御する関数*/</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">change_ST_pos</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> goal_pos<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#75715e">/*20000[μs]周期で幅CH1[μs]のパルス波生成*/</span>
+  digitalWrite<span style="color:#f92672">(</span>SERVO_PWM_PIN<span style="color:#f92672">,</span> HIGH<span style="color:#f92672">);</span>  <span style="color:#75715e">//PWMピンの電圧を5[V]に
+</span><span style="color:#75715e"></span>  delayMicroseconds<span style="color:#f92672">(</span>goal_pos<span style="color:#f92672">);</span>        <span style="color:#75715e">//パルス幅(goal_pos=900~2100[μs]：DB777WPの場合)
+</span><span style="color:#75715e"></span>  digitalWrite<span style="color:#f92672">(</span>SERVO_PWM_PIN<span style="color:#f92672">,</span> LOW<span style="color:#f92672">);</span>   <span style="color:#75715e">//PWMピンの電圧を0[V]に
+</span><span style="color:#75715e"></span>  delayMicroseconds<span style="color:#f92672">(</span>PWM_period<span style="color:#f92672">);</span>      <span style="color:#75715e">//制御周期（T=20000[μs]）
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">available</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//available()で受信した文字があるか確認。あればif文内の処理を実行。
+</span><span style="color:#75715e"></span>    String input <span style="color:#f92672">=</span> ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">readStringUntil</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;;&#39;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//文字をセミコロン(;)まで読んで、文字列として変数inputに保存。
+</span><span style="color:#75715e"></span>    CH1 <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span><span style="color:#a6e22e">toInt</span><span style="color:#f92672">();</span>  <span style="color:#75715e">//文字列を整数値(int)に変換
+</span><span style="color:#75715e"></span>    Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>input<span style="color:#f92672">);</span> <span style="color:#75715e">//数値をシリアルモニタに表示
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+  change_ST_pos<span style="color:#f92672">(</span>CH1<span style="color:#f92672">);</span> <span style="color:#75715e">//受信したパルス幅でサーボモータの角度を制御
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div>
+<h1 id="7-動作確認">7. 動作確認</h1>
+<p>　スマホのスライダを操作すると、それに応じてステア（ハンドル）が動いてます！</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/fVxmJlVRiuE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p>　スロットル（アクセル）も同時に操作できるようなれば、本格的なコントローラができそうです!!</p>
+<h1 id="8-参考文献">8. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hori&rsquo;s Library「サーボの動作原理」、(<a href="https://berry.sakura.ne.jp/technics/servo_control_p3.html">https://berry.sakura.ne.jp/technics/servo_control_p3.html</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>ぶらり＠web走り書き「【Arduino入門編⑧】サーボモーターを動かしてみる。PWM制御についていの解説です！」、(<a href="https://burariweb.info/electronic-work/arduino-learning/aruduino-servomotor-control.html">https://burariweb.info/electronic-work/arduino-learning/aruduino-servomotor-control.html</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>メカトロDIYチャレンジ(Mechatro DIY Challenge)「スマホからBluetooth通信でArduinoを操作する②基本設計」、(<a href="https://mechadiy.com/bluetooth_phone_arduino_cont02/">https://mechadiy.com/bluetooth_phone_arduino_cont02/</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2022/12/30/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/">スマホからサーボモータをPWM制御してみた!!</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/">自作アプリでBluetooth接続できない！[Runtime Error]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/">ESP32でフォトリフレクタを使いたい！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第6回-動きを滑らかに]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2023</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

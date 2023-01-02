@@ -6,7 +6,24 @@
     <description>Recent content in ラジコン on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>スマホからサーボモータをPWM制御してみた!!</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/</link>
+      <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 使った技術  2.1. PWM制御 2.2. シリアル通信   3. 使ったもの  3.1. ソフトウェア 3.2. ハードウェア   4. 回路図 5. スマホアプリ 6. プログラム（ソースコード） 7. 動作確認 8. 参考文献   1. 今回やりたいこと 　いやぁ～（※）新年(2023)一発目の投稿ですね!!（※いやぁ～は東北とか北海道の人が使いがちみたいで、私もその一人です笑。特に深い意味はないです笑）
+　今回はスマホからラジコン用サーボモータを動かします!
+　スマホでスライダを操作し、その操作量に応じてサーボモータの角度がコントロールしました。
+　これを作るにあたって、PWM制御とシリアル通信という技術を使ったので、まずはその説明から始めます(^^)/
+  ☝　スマホからRCサーボを操作したい  2. 使った技術 2.1. PWM制御 　PWMというのは Pulse Width Modulation の頭文字を取ったものです。日本語に直すと パルス（Pulse）幅（Width）変調（Modulation）となります。と言われてもあんまりしっくり来ないと思うので、図を使って説明します。
+　下の図がPWM制御のイメージ図です。このカクカクした波形をパルス波といいます。このパルス波の幅を変えることで、サーボモータの角度を制御するのがPWM制御です。
+　具体的には、ONになってるところのパルス幅を1000~2000[μs]の間（メーカによって異なる1が大体一緒）で変えて制御します。
+　例えば、パルス幅が1000[μs]のときは右回転（角度：0°）、1500[μs]のときはニュートラル（角度：90°）、2000[μs]のときは左回転（角度：180°）となります。
+  ☝　RCサーボのPWM制御  2.</description>
+    </item>
+    
     <item>
       <title>ESP32でフォトリフレクタを使いたい！</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/</link>
