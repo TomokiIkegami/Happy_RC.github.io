@@ -11,7 +11,7 @@
    xml:space="preserve"
    id="svg24371"
    sodipodi:docname="rc_control_using_esp32_bluetooth_ESC-BEC.svg"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -30,15 +30,17 @@
    fit-margin-left="0"
    fit-margin-right="0"
    fit-margin-bottom="0"
-   inkscape:zoom="0.62590087"
-   inkscape:cx="351.49336"
-   inkscape:cy="419.39549"
+   inkscape:zoom="1.2518017"
+   inkscape:cx="241.65169"
+   inkscape:cy="409.01046"
    inkscape:window-width="1920"
-   inkscape:window-height="1001"
-   inkscape:window-x="-9"
-   inkscape:window-y="-9"
+   inkscape:window-height="1094"
+   inkscape:window-x="-11"
+   inkscape:window-y="-11"
    inkscape:window-maximized="1"
-   inkscape:current-layer="svg24371" />
+   inkscape:current-layer="svg24371"
+   inkscape:showpageshadow="2"
+   inkscape:deskcolor="#d1d1d1" />
  <defs
    id="defs83">
   <font
@@ -252,6 +254,15 @@
    d="M 715,1728 C 580,1561 486,1398 431,1239 383,1100 359,947 359,778 359,586 391,412 454,255 510,116 597,-26 715,-172 L 662,-215 C 507,-52 396,111 331,275 270,426 240,594 240,778 240,987 280,1175 359,1344 426,1486 527,1628 662,1769 L 715,1728 Z"
    id="glyph80" />
   </font>
+ 
+  
+  
+  
+  
+  
+  
+  
+  
  </defs>
  <defs
    class="EmbeddedBulletChars"
@@ -328,12 +339,9 @@
   </g>
  </defs>
  <g
-   class="Page"
-   id="g24369"
-   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
-  <g
    class="com.sun.star.drawing.CustomShape"
-   id="g136">
+   id="g136"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3">
     <rect
@@ -380,10 +388,10 @@
          style="white-space:pre"
          id="tspan127">モータ</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="Group"
-   id="g24233">
+   id="g24233"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    class="com.sun.star.drawing.LineShape"
    id="g143">
@@ -82975,10 +82983,10 @@
    id="path24228" />
     </g>
    </g>
-  </g>
-  <g
+  </g><g
    class="com.sun.star.drawing.CustomShape"
-   id="g24248">
+   id="g24248"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3443">
     <rect
@@ -83012,10 +83020,10 @@
          style="white-space:pre"
          id="tspan24239">ESC</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="com.sun.star.drawing.CustomShape"
-   id="g24263">
+   id="g24263"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3444">
     <rect
@@ -83049,10 +83057,48 @@
          style="white-space:pre"
          id="tspan24254">ESP32</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="com.sun.star.drawing.CustomShape"
-   id="g24298">
+   id="g24263-0"
+   transform="matrix(1.9740605,0,0,1.9740605,-8642.8398,-8324.329)">
+   <g
+   id="id3444-3">
+    <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="11101"
+   y="7431"
+   width="2002"
+   height="1566"
+   id="rect24250-9" />
+    <path
+   fill="#4effb9"
+   stroke="none"
+   d="m 11433,7431 h 1 c -59,0 -116,8 -167,22 -50,15 -92,36 -121,61 -30,25 -45,54 -45,83 v 125 124 170 124 125 1 c 0,29 15,58 45,83 29,25 71,46 121,61 51,14 108,22 167,22 h 248 249 340 L 14199.492,10462.855 12769,8432 v 0 c 59,0 116,-8 167,-22 50,-15 92,-36 121,-61 30,-25 45,-54 45,-83 v -126 -124 -170 -124 -125 0 0 c 0,-29 -15,-58 -45,-83 -29,-25 -71,-46 -121,-61 -51,-14 -108,-22 -167,-22 h -249 -249 -340 -249 z"
+   id="path24252-7"
+   sodipodi:nodetypes="ccccscccccsccscccccsccsccccccsccsccccc" />
+    <text
+   class="SVGTextShape"
+   id="text24260-2"><tspan
+     class="TextParagraph"
+     font-family="'游ゴシック', sans-serif"
+     font-size="370px"
+     font-weight="400"
+     id="tspan24258-7"><tspan
+       class="TextPosition"
+       x="11545"
+       y="8054"
+       id="tspan24256-2"><tspan
+         fill="#000000"
+         stroke="none"
+         style="white-space:pre"
+         id="tspan24254-7">4番端子</tspan></tspan></tspan></text>
+   </g>
+  </g><g
+   class="com.sun.star.drawing.CustomShape"
+   id="g24298"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3445">
     <rect
@@ -83128,10 +83174,10 @@
          style="white-space:pre"
          id="tspan24289">)</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="com.sun.star.drawing.CustomShape"
-   id="g24319">
+   id="g24319"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3446">
     <rect
@@ -83178,10 +83224,10 @@
          style="white-space:pre"
          id="tspan24310">モータ</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="com.sun.star.drawing.CustomShape"
-   id="g24340">
+   id="g24340"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3447">
     <rect
@@ -83228,10 +83274,10 @@
          style="white-space:pre"
          id="tspan24331">バッテリー</tspan></tspan></tspan></text>
    </g>
-  </g>
-  <g
+  </g><g
    class="TextShape"
-   id="g24367">
+   id="g24367"
+   transform="matrix(1.9740605,0,0,1.9740605,-7788.5878,-2336.7711)">
    <g
    id="id3448">
     <rect
@@ -83289,5 +83335,4 @@
          id="tspan24358">に接続</tspan></tspan></tspan></text>
    </g>
   </g>
- </g>
 </svg>

@@ -68,13 +68,14 @@
 <li><a href="#5-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%A2%E3%83%97%E3%83%AA">5. スマホアプリ</a></li>
 <li><a href="#6-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89">6. プログラム（ソースコード）</a></li>
 <li><a href="#7-%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D">7. 動作確認</a></li>
-<li><a href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">8. 参考文献</a></li>
+<li><a href="#8-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">8. サンプルファイル</a></li>
+<li><a href="#9-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">9. 参考文献</a></li>
 </ul>
 <hr>
 <h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
 <p>　いやぁ～（※）新年(2023)一発目の投稿ですね!!（※いやぁ～は東北とか北海道の人が使いがちみたいで、私もその一人です笑。特に深い意味はないです笑）</p>
-<p>　今回はスマホからラジコン用サーボモータを動かします!</p>
-<p>　スマホでスライダを操作し、その操作量に応じてサーボモータの角度がコントロールしました。</p>
+<p>　今回は<strong>スマホからラジコン用サーボモータを操作</strong>します!</p>
+<p>　スマホでスライダを操作し、その操作量に応じてサーボモータの角度をコントロールしました。</p>
 <p>　これを作るにあたって、<strong>PWM制御</strong>と<strong>シリアル通信</strong>という技術を使ったので、まずはその説明から始めます(^^)/</p>
   <div align="center">
   <figure><img src="my_rc_and_smartphone.png"
@@ -87,8 +88,8 @@
   </div>
 <h1 id="2-使った技術">2. 使った技術</h1>
 <h2 id="21-pwm制御">2.1. PWM制御</h2>
-<p>　PWMというのは Pulse Width Modulation の頭文字を取ったものです。日本語に直すと パルス（Pulse）幅（Width）変調（Modulation）となります。と言われてもあんまりしっくり来ないと思うので、図を使って説明します。</p>
-<p>　下の図がPWM制御のイメージ図です。このカクカクした波形を<strong>パルス波</strong>といいます。このパルス波の<strong>幅を変える</strong>ことで、サーボモータの角度を制御するのがPWM制御です。</p>
+<p>　<strong>PWM</strong>というのは Pulse Width Modulation の頭文字を取ったものです。日本語に直すと<strong>パルス</strong>（Pulse）<strong>幅</strong>（Width）<strong>変調</strong>（Modulation）となります。と言われてもあんまりしっくり来ないと思うので、図を使って説明します！</p>
+<p>　下の図がPWM制御のイメージ図です。このカクカクした波形を<strong>パルス波</strong>といいます。この<strong>パルス幅を変える</strong>（図中ではTonの幅を変える）ことで、サーボモータの角度を制御するのが<strong>PWM制御</strong>です。</p>
 <p>　具体的には、ONになってるところのパルス幅を1000~2000[μs]の間（メーカによって異なる<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>が大体一緒）で変えて制御します。</p>
 <p>　例えば、パルス幅が1000[μs]のときは右回転（角度：0°）、1500[μs]のときはニュートラル（角度：90°）、2000[μs]のときは左回転（角度：180°）となります。</p>
   <div align="center">
@@ -101,7 +102,7 @@
   ☝　RCサーボのPWM制御
   </div>
 <h2 id="22-シリアル通信">2.2. シリアル通信</h2>
-<p>　1本の（伝送）経路上にデータを流して通信する方法です。遅れるデータやビット数など細かい話はあるのですが、ここではイメージのみを説明します。</p>
+<p>　<strong>1本の（伝送）経路</strong>上にデータを<strong>順番に</strong>流して通信する方法です。送れるデータの種類やビット数など細かい話はあるのですが、ここではイメージのみを説明します。</p>
 <p>　例えば、&ldquo;ラジコン&quot;という文字を送りたければ、まず&quot;ラ&quot;を送ってから、&ldquo;ジ&rdquo;、&ldquo;コ&rdquo;、&ldquo;ン&quot;と順番に送ります（同時に送らない）。一見効率が悪そうですが、高速通信が可能です。身近な場面では、USBやBluetoothの通信に使われています。</p>
   <div align="center">
   <figure><img src="%e3%82%b7%e3%83%aa%e3%82%a2%e3%83%ab%e4%bc%9d%e9%80%81%e3%81%a8%e3%83%91%e3%83%a9%e3%83%ac%e3%83%ab%e4%bc%9d%e9%80%81.svg"
@@ -113,7 +114,7 @@
   ☝　シリアル通信のイメージ
   </div>
 <h1 id="3-使ったもの">3. 使ったもの</h1>
-<p>　作業にあたって使用したソフトとかハードウェア（装置）を整理しておきます。</p>
+<p>　作業にあたって使用したソフトとハードウェア（装置）を整理しておきます。</p>
 <h2 id="31-ソフトウェア">3.1. ソフトウェア</h2>
 <ol>
 <li>MIT App Inventor（スマホアプリ作成）</li>
@@ -128,14 +129,15 @@
 </ol>
 <p>（参考：以下の装置は、今回の話題でそこまで重要ではないです。）</p>
 <ul>
-<li>ラジコンカー本体：ECX Barrage 1.9（1/12スケールロッククローラRC）←お気に入りです</li>
+<li>ラジコンカー本体：ECX Barrage 1.9（1/12スケールロッククローラRC）←お気に入りです!</li>
 <li>モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.0V) ←マイコンに電源供給</li>
 <li>走行用バッテリー：Dynamite Speedpack (7.2V Ni-MH 700mAh) ←ESCに電源供給</li>
 <li>クローラ用ESC：TEKIN BXR ←ESCからサーボモータに電源供給</li>
 </ul>
 <h1 id="4-回路図">4. 回路図</h1>
-<p>　ESP32とサーボモータの接続です。</p>
-<p>　<strong>サーボモータの電源(+)端子に6[V]、PWM信号線に5[V]が入る</strong>ように自由に回路を組み立ててください。サーボモータのPWM信号線は、ESP32の（PWMが使える）好きな端子に繋げてください。このとき、ESP32の端子番号は確認しておいてください（プログラムを書くときに使います）。</p>
+<p>　ESP32（マイコンボード）とサーボモータの接続です。</p>
+<p>　サーボモータには線が3本あります。<strong>サーボモータの電源(+)端子に6[V]、PWM信号線に5[V]が入る</strong>ように自由に回路を組み立ててください。GND(-)は共通にしてください。</p>
+<p>　サーボモータのPWM信号線は、ESP32の（PWMが使える）好きな端子に繋げてください。このとき、ESP32の端子番号は確認しておきます（プログラム書くときに使う）。</p>
 <p>　ここでは例としてラジコン用のスピードコントローラー（ESC）から、サーボモータ用の6[V]電源を取る回路を載せておきます(&lsquo;ω&rsquo;)/</p>
   <div align="center">
   <figure><img src="rc_control_using_esp32_bluetooth_ESC-BEC.svg"
@@ -233,7 +235,17 @@ BluetoothSerial ESP_BT<span style="color:#f92672">;</span>  <span style="color:#
 </div>
 
 <p>　スロットル（アクセル）も同時に操作できるようなれば、本格的なコントローラができそうです!!</p>
-<h1 id="8-参考文献">8. 参考文献</h1>
+<h1 id="8-サンプルファイル">8. サンプルファイル</h1>
+<p>　作成したアプリのデータはこちらになります。色々改良して遊んでみてください！</p>
+<p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
+<ul>
+<li><a href="RC_Controller_practice3.aia">RC_Controller_practice3.aia</a></li>
+</ul>
+<p><strong>～ Androidアプリのファイル(.apk) ～</strong></p>
+<ul>
+<li><a href="RC_Controller_practice3.apk">RC_Controller_practice3.apk</a></li>
+</ul>
+<h1 id="9-参考文献">9. 参考文献</h1>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
