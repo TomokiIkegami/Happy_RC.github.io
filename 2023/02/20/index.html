@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     ラジコンカー用スピードメータ開発！ -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      ラジコンカー用スピードメータ開発！
+    </h1>
+    
+    <p class="document-date">
+      2023-02-20 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"スマホで見れるラジコンカー用のスピードメータを自作してみた！"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
+<li><a href="#2-%E3%82%B7%E3%83%A3%E3%83%95%E3%83%884%E9%A7%86%E3%81%AE%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3%E3%82%AB%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E8%A8%AD%E8%A8%88%E3%81%AE%E5%89%8D%E3%81%AB">2. シャフト4駆のラジコンカーについて（設計の前に）</a>
+<ul>
+<li><a href="#21-%E5%AE%9A%E7%95%AA%E3%81%AE%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88">2.1. 定番のレイアウト</a></li>
+<li><a href="#22-%E9%A7%86%E5%8B%95%E9%83%A8%E5%88%86%E3%82%92%E8%A9%B3%E7%B4%B0%E3%81%AB">2.2. 駆動部分を詳細に</a></li>
+</ul>
+</li>
+<li><a href="#3-%E8%A8%AD%E8%A8%88">3. 設計</a>
+<ul>
+<li><a href="#31-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%A6%82%E8%A6%81">3.1. システム概要</a></li>
+<li><a href="#32-%E4%BD%BF%E3%81%A3%E3%81%9F%E8%A3%85%E7%BD%AE">3.2. 使った装置</a>
+<ul>
+<li><a href="#321-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2">3.2.1. ソフトウェア</a></li>
+<li><a href="#322-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2">3.2.2. ハードウェア</a></li>
+</ul>
+</li>
+<li><a href="#33-%E8%BB%8A%E9%80%9F%E3%81%AE%E8%A8%88%E7%AE%97">3.3. 車速の計算</a>
+<ul>
+<li><a href="#331-%E8%BB%8A%E9%80%9F%E3%81%AE%E8%A8%88%E7%AE%97%E5%8E%9F%E7%90%86">3.3.1. 車速の計算原理</a></li>
+<li><a href="#332-%E6%AD%AF%E6%95%B0%E3%81%AF%E3%81%A9%E3%81%86%E3%81%99%E3%82%8B">3.3.2. 歯数はどうする？</a></li>
+<li><a href="#333-%E3%82%B7%E3%83%A3%E3%83%95%E3%83%88%E5%91%A8%E6%B3%A2%E6%95%B0%E5%9B%9E%E8%BB%A2%E6%95%B0%E3%81%AF%E3%81%A9%E3%81%86%E3%81%99%E3%82%8B">3.3.3. シャフト周波数（回転数）はどうする？</a></li>
+</ul>
+</li>
+<li><a href="#34-%E5%9B%9E%E8%B7%AF%E8%A8%AD%E8%A8%88">3.4. 回路設計</a></li>
+<li><a href="#35-%E9%83%A8%E5%93%81%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88">3.5. 部品レイアウト</a></li>
+</ul>
+</li>
+<li><a href="#4-%E8%A3%BD%E4%BD%9C">4. 製作</a>
+<ul>
+<li><a href="#41-%E5%9B%9E%E8%B7%AF">4.1. 回路</a></li>
+<li><a href="#42-%E9%83%A8%E5%93%81%E3%81%AE%E5%9B%BA%E5%AE%9A">4.2. 部品の固定</a></li>
+<li><a href="#43-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%A2%E3%83%97%E3%83%AA">4.3. スマホアプリ</a></li>
+<li><a href="#44-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89">4.4. プログラム（ソースコード）</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%AE%9F%E9%A8%93">5. 実験</a>
+<ul>
+<li><a href="#51-%E5%AE%9F%E9%A8%93%E3%81%AE%E6%A6%82%E8%A6%81">5.1. 実験の概要</a></li>
+<li><a href="#52-%E5%AE%9F%E9%A8%93%E5%8B%95%E7%94%BB">5.2. 実験動画</a></li>
+<li><a href="#53-%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C">5.3. 実験結果</a></li>
+</ul>
+</li>
+<li><a href="#6-%E3%81%BE%E3%81%A8%E3%82%81">6. まとめ</a></li>
+<li><a href="#7-%E8%AC%9D%E8%BE%9E">7. 謝辞</a></li>
+<li><a href="#8-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">8. サンプルファイル</a></li>
+<li><a href="#9-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">9. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
+<p>　ラジコンカーのスピードをリアルタイムで知りたいと思い、スピードメータを自作することにしました！　</p>
+<p>　ラジコンでは、GNSS（中でもやっぱGPSが有名？）を使用してスピードを測定する方法が主流で、TRAXXASのTQi<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>もGNSSでスピードを測っています。便利な方法で速度も正確なのですが、高価、電波の届かない環境では速度が計算できないなどの欠点があります。</p>
+<p>　今回はラジコンカーのシャフト回転数からスピードを測定し、スマホ画面に表示します！！</p>
+<p>　値段も格安（材料費2000円以下）？</p>
+  <div align="center">
+  <figure><img src="project_outline.svg"
+         alt="スマホがスピードメータになったら嬉しいなあ (/・ω・)/"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　スマホがスピードメータになったら嬉しいなあ (/・ω・)/
+  </div>
+<h1 id="2-シャフト4駆のラジコンカーについて設計の前に">2. シャフト4駆のラジコンカーについて（設計の前に）</h1>
+<h2 id="21-定番のレイアウト">2.1. 定番のレイアウト</h2>
+<p>　スピードメータ設計の前に、ラジコンカーの駆動原理について説明します！</p>
+<p>　図(a)はラジコンカーでは定番、シャフト駆動4駆の構成です。</p>
+<p>　ラジコンは前輪を左右に動かすためのステア機構、車輪を回転させるための駆動機構で構成されています。ステア機構、駆動機構を動かすためにそれぞれモータ、サーボがあります。そしてモータやサーボを動かすには電気・電子回路が必要です。</p>
+<p>　図(a)はごちゃごちゃしてるので、スピードメータ設計に関わるところだけを取り出したのが、図(b)です。</p>
+<p>　センターシャフトの回転数から走行スピードを計算します！</p>
+  <div align="center">
+  <figure><img src="%e3%83%a9%e3%82%b8%e3%82%b3%e3%83%b3%e3%82%ab%e3%83%bc%e5%9f%ba%e6%9c%ac%e6%a7%8b%e6%88%90.svg"
+         alt="図(a) ラジコンカー基本構成"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　図(a) ラジコンカー基本構成
+  </div>
+  <div align="center">
+  <figure><img src="%e3%83%a9%e3%82%b8%e3%82%b3%e3%83%b3%e3%82%ab%e3%83%bc%e5%9f%ba%e6%9c%ac%e6%a7%8b%e6%88%90_%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%83%a1%e3%83%bc%e3%82%bf%e9%96%a2%e9%80%a3%e9%83%a8%e5%88%86.svg"
+         alt="図(b) スピード測定関連部分のみ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　図(b) スピード測定関連部分のみ
+  </div>
+<h2 id="22-駆動部分を詳細に">2.2. 駆動部分を詳細に</h2>
+<p>　下の図はラジコンカーの駆動部分をより詳しく描いたものです。</p>
+<p>　センターシャフトの回転数を測定することで、最終的なタイヤの回転数を求めることができます！（後で説明します&hellip;）。</p>
+<p>　ピニオンギアの回転数を測定しても良いですが、今回はセンサ無しのモータでも使えるようにしたいので、センターシャフトの回転数を測定します。あとは計算を簡単にする目的もあります。
+　</p>
+  <div align="center">
+  <figure><img src="%e3%83%a9%e3%82%b8%e3%82%b3%e3%83%b3%e3%82%ab%e3%83%bc%e5%9f%ba%e6%9c%ac%e6%a7%8b%e6%88%90_%e9%a7%86%e5%8b%95%e9%83%a8%e5%88%86%e8%a9%b3%e7%b4%b0.svg"
+         alt="ラジコンカー基本構成、駆動部分の詳細"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ラジコンカー基本構成、駆動部分の詳細
+  </div>
+<h1 id="3-設計">3. 設計</h1>
+<h2 id="31-システム概要">3.1. システム概要</h2>
+<p>　下の図が今回作成したスピードメータシステムの概要です。大まかな動作を説明すると、</p>
+<ol>
+<li>センサ（フォトリフレクタ）でシャフトの回転を検出</li>
+<li>マイコン（ESP32）でセンサ出力から回転数を計算</li>
+<li>回転数から速度を計算</li>
+<li>計算した速度をマイコン（ESP32）からスマホに送る</li>
+<li>送られてきた速度をスマホ画面に表示</li>
+</ol>
+<p>　となります。センサにはフォトリフレクタ※を使用します。使い方をまとめている方<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>の記事やデータシート<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>を参考に使いました。</p>
+<blockquote>
+<p>※フォトリフレクタ<br>
+赤外線LED（発光部）とフォトトランジスタ（受光部）がセットになったセンサです。赤外線LEDを物体に向けて発光した時に、その跳ね返ってくる光をフォトトランジスタで受光します。物体の色によって赤外線の跳ね返ってくる光の量が変化するので、色が分かります。</p>
+</blockquote>
+  <div align="center">
+  <figure><img src="%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%83%a1%e3%83%bc%e3%82%bf_%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e6%a6%82%e8%a6%81.svg"
+         alt="スピードメータシステム概要"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　スピードメータシステム概要
+  </div>
+<h2 id="32-使った装置">3.2. 使った装置</h2>
+<p>　作業にあたって使用したソフトとハードウェア（装置）を整理しておきます。</p>
+<h3 id="321-ソフトウェア">3.2.1. ソフトウェア</h3>
+<ol>
+<li>MIT App Inventor（スマホアプリ作成）</li>
+<li>Arduino IDE（マイコン用のプログラム開発）</li>
+<li>KiCAD（回路図の作成）</li>
+</ol>
+<h3 id="322-ハードウェア">3.2.2. ハードウェア</h3>
+<ol>
+<li>マイコンボード：ESP32-WROOM-32E</li>
+<li>フォトリフレクタ：LBR-127HLD</li>
+<li>スマホ：Moto g pro（Android 12）</li>
+</ol>
+  <div align="center">
+  <figure><img src="%e5%ae%9f%e9%a8%93%e8%a3%85%e7%bd%ae1.png"
+         alt="使った装置"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　使った装置
+  </div>
+<p>（参考：以下の装置は、今回の話題でそこまで重要ではないです。）</p>
+<ul>
+<li>
+<p>ラジコンカー本体：ECX Barrage 1.9（1/12スケールロッククローラRC）←お気に入りです!</p>
+</li>
+<li>
+<p>モバイルバッテリー：SANYO KBC-L54D (3.7V Li-ion 5400mAh ※INPUT,OUTPUT=5.0V) ←マイコンに電源供給</p>
+</li>
+<li>
+<p>走行用バッテリー：Dynamite Speedpack (7.2V Ni-MH 700mAh) ←ESCに電源供給</p>
+</li>
+<li>
+<p>クローラ用ESC：TEKIN BXR ←モータを回転</p>
+</li>
+<li>
+<p>走行用モータ：Dynamite Tazer 370 Motor（DYNS1209）←ギアを回転させてタイヤを駆動</p>
+</li>
+<li>
+<p>サーボモータ：Hitec DB777WP ←ステアを操作</p>
+</li>
+<li>
+<p>レシーバ：ECX13003 ←コントローラーの電波を受信</p>
+<div align="center">
+<figure><img src="%e5%ae%9f%e9%a8%93%e8%a3%85%e7%bd%ae2.png"
+         alt="使ったラジコンカー"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+☝　使ったラジコンカー
+</div>
+</li>
+</ul>
+<h2 id="33-車速の計算">3.3. 車速の計算</h2>
+<h3 id="331-車速の計算原理">3.3.1. 車速の計算原理</h3>
+<p>　ググってみると、モータの回転数からスピードメータをするWebアプリを自作している方<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>もいらっしゃいましたが、私はそこまでの猛者ではないので簡単な方法でやります&hellip;　</p>
+<p>　これから紹介する方法はシャフト4駆に限定されますが、シャフト4駆は結構ありふれている方法なので結構便利だと思います。（自分ではそう思ってる）</p>
+<p>　下の図はセンターシャフトの回転数から車速 $v_{app}$ [m/s]（アプリの表示値なので$app$という添え字をつけてます）を計算する方法です。計算式は、</p>
+<p>\begin{equation}
+\label{v_app}
+v_{app}=\frac{D \times 0.001}{2} \times 2 \pi f \times \frac{Z_1}{Z_2}
+\end{equation}</p>
+<p>　という感じになります。シャフト周波数（回転数） $f$ [Hz] と、ベベルギアの歯数 $Z_1$ [枚]、リングギアの歯数 $Z_2$ [枚]、タイヤの直径 $D$ [mm] が分かれば、車速 $v_{app}$ [m/s] を計算することができます。</p>
+  <div align="center">
+  <figure><img src="%e8%bb%8a%e9%80%9f%e3%81%ae%e8%a8%88%e7%ae%97%e5%8e%9f%e7%90%86.svg"
+         alt="車速の計算原理"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　車速の計算原理
+  </div>
+<p>　ここで、式(\ref{v_app})を求める手順について、下の図を使って説明します！</p>
+  <div align="center">
+  <figure><img src="%e8%bb%8a%e9%80%9f%e3%81%ae%e8%a8%88%e7%ae%97%e5%8e%9f%e7%90%86_%e8%a8%88%e7%ae%97%e5%bc%8f%e3%81%ae%e5%b0%8e%e5%87%ba.svg"
+         alt="車速の計算原理-計算式の導出"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　車速の計算原理-計算式の導出
+  </div>
+<p>　まず円運動の式から、タイヤの半径を $r$ [m] 、タイヤの角速度を $\omega_2$ [rad/s] とすると、車速 $v_{app}$ [m/s]は、</p>
+<p>\begin{equation}
+\label{v_app_1}
+v_{app}=r \times \omega_2
+\end{equation}</p>
+<p>　で計算できます。ここで、タイヤの半径 $r$  [m] は直径 $D$ [mm] を使って、</p>
+<p>\begin{equation}
+\label{r}
+r=\frac{D \times 0.001}{2}
+\end{equation}</p>
+<p>　と書き直せます。0.001を掛けているのは、単位を[mm]から[m]に直すためです。次に、角速度 $\omega_2$はシャフト周波数 $f$ [Hz]、ベベルギア歯数 $Z_1$ [枚]、リングギア歯数 $Z_2$ [枚]を使って、</p>
+<p>\begin{equation}
+\label{omega_2}
+\omega_{2}=\omega_1 \times \frac{Z_1}{Z_2} =2 \pi f  \times \frac{Z_1}{Z_2}
+\end{equation}</p>
+<p>　で計算できます。最後に式(\ref{r})、(\ref{omega_2})を式(\ref{v_app_1})に代入すれば、求めたかった式(\ref{v_app})を得ることができます。</p>
+<p>\begin{equation}
+\label{v_app_2}
+v_{app}=r \times \omega_2 = \frac{D \times 0.001}{2} \times 2 \pi f  \times \frac{Z_1}{Z_2}
+\end{equation}</p>
+<p>　この式を使えば、車速を計算することができますが、シャフト周波数（回転数） $f$ [Hz] と、ベベルギアの歯数 $Z_1$ [枚]、リングギアの歯数 $Z_2$ [枚]、タイヤの直径 $D$ [mm] は調べる必要があります。</p>
+<p>　タイヤの直径 $D$ [mm] は調べるか、定規やノギスで測ればよいです。ギアはケースに覆われているので、簡単に歯数を数えられません。シャフト周波数も測定する必要があります。</p>
+<p>　ギアの歯数とシャフト周波数は次のように求めました。</p>
+<h3 id="332-歯数はどうする">3.3.2. 歯数はどうする？</h3>
+<p>　分解するのは大変なので説明書<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>から探します。部品図からベベルギア・リングギアの品番を調べて、部品表の品番から歯数を探します。（下の画像のように）</p>
+  <div align="center">
+  <figure><img src="%e6%ad%af%e6%95%b0%e3%81%ae%e6%8e%a2%e3%81%97%e6%96%b9.png"
+         alt="歯数の探し方（説明書から画像を抜粋して追記）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　歯数の探し方（説明書から画像を抜粋して追記）
+  </div>
+<h3 id="333-シャフト周波数回転数はどうする">3.3.3. シャフト周波数（回転数）はどうする？</h3>
+<p>　色々考えた結果、シャフト周波数は下の図のように求めることにしました。パルスの出現回数を数えるのは直接係数形式<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>っていうみたいです。</p>
+<p>　排他的論理和 EX-OR（NOR）では、2つの入力が違うときに1を出力します。この性質を使ってパルスの立ち上がり、立ち下がりを検出します。例えば、下の図のようにある時刻でセンサが取得した値Aが0、その次の時刻で取得した値Bが1だったときは、EX-ORの出力Zは1になります。</p>
+<p>　この方法ではパルスの立ち上がりと立ち下がりの両方を検出します。このため、パルス値変化数は実際の周波数の倍になります。パルス変化数を2で割れば、実際のシャフト周波数 $f$ [Hz] を得ることができます。</p>
+<p>　<div align="center">
+<figure><img src="%e3%82%b7%e3%83%a3%e3%83%95%e3%83%88%e5%91%a8%e6%b3%a2%e6%95%b0%e6%b8%ac%e5%ae%9a%e5%8e%9f%e7%90%86.svg"
+         alt="シャフト周波数測定原理"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　シャフト周波数測定原理
+  </div>
+<p>　実際に測定すると、下の図のようなパルス出力が得られます。（AD変換後のセンサの入力値がある閾値以下なら1、そうでなければ0という処理をしています。閾値はth=3800に設定）</p>
+<p>　スピードが上がるほど、パルスの間隔が短くなります。</p>
+<p>　<div align="center">
+<figure><img src="%e5%ae%9f%e9%9a%9b%e3%81%ae%e3%83%91%e3%83%ab%e3%82%b9%e5%87%ba%e5%8a%9b.svg"
+         alt="実際のパルス出力"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　実際のパルス出力
+  </div>
+<h2 id="34-回路設計">3.4. 回路設計</h2>
+<p>　こちらが今回設計した回路です。（KiCAD使用）</p>
+<p>　センサからの出力値を25ピンに読み込みます。ESP32では 0~3.3[V] までのアナログ電圧が 0~4095 のデジタル値に変換されて読み込まれます。（センサの入力電圧は5[V]ではなく3.3[V]を使う<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>のがポイント）</p>
+  <div align="center">
+  <figure><img src="%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%83%a1%e3%83%bc%e3%82%bf%e5%9b%9e%e8%b7%af.svg"
+         alt="スピードメータ回路"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　スピードメータ回路
+  </div>
+<h2 id="35-部品レイアウト">3.5. 部品レイアウト</h2>
+<p>　3DCAD（FreeCAD）で部品の配置を設計しました。下の画像のようにシャフトの横にセンサが来るようにレイアウトしました。</p>
+  <div align="center">
+  <figure><img src="%e9%83%a8%e5%93%81%e3%83%ac%e3%82%a4%e3%82%a2%e3%82%a6%e3%83%88.png"
+         alt="部品レイアウト"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　部品レイアウト
+  </div>
+<h1 id="4-製作">4. 製作</h1>
+<h2 id="41-回路">4.1. 回路</h2>
+<p>　こちらは回路に半田つけをしている様子です(^^)/</p>
+<p>　この写真では<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/">自作ラジコンアプリ用レシーバ製作の記事</a>で作製した回路につぎ足す形ではんだ付けしていますが、今回の回路だけを新規に作っても大丈夫です！</p>
+  <div align="center">
+  <figure><img src="%e5%9b%9e%e8%b7%af%e8%a3%bd%e4%bd%9c.png"
+         alt="回路製作"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　回路製作
+  </div>
+<h2 id="42-部品の固定">4.2. 部品の固定</h2>
+<p>　シャフトにはコピー用紙を貼り付け、土台は段ボールで製作しました（笑）。固定にはすべて両面テープを使っています。</p>
+  <div align="center">
+  <figure><img src="%e9%83%a8%e5%93%81%e3%81%ae%e5%9b%ba%e5%ae%9a.png"
+         alt="部品の固定"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　部品の固定
+  </div>
+<h2 id="43-スマホアプリ">4.3. スマホアプリ</h2>
+<p>　MIT App Inventor を使って作ったスマホアプリです。</p>
+<p>　マイコンボード（ESP32）から受信した速度をリアルタイムに表示します。</p>
+  <div align="center">
+  <figure><img src="UI.png"
+         alt="アプリ外観（デザイン編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリ外観（デザイン編集タブ）
+  </div>
+  <div align="center">
+  <figure><img src="blocks.png"
+         alt="アプリの中身（ブロック編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリの中身（ブロック編集タブ）
+  </div>
+<h2 id="44-プログラムソースコード">4.4. プログラム（ソースコード）</h2>
+<p>　Arduino IDEで作ったプログラムです。マイコンボード（ESP32）に書き込んで動かします。</p>
+<p>　プログラムの大まかな動きを説明すると、</p>
+<ol>
+<li>AD変換でセンサの出力値（0~4095のデジタル値）を読み取る</li>
+<li>センサ出力が閾値（th=3800に調整）以下なら1、そうでなければ0としてパルスを作る</li>
+<li>EX-ORでパルス出力値の変化数を計算</li>
+<li>パルス出力値の変化数からシャフト周波数 $f$ [Hz]（パルス数）を求める（パルス値変化数÷2=周波数）</li>
+<li>求めたシャフト周波数 $f$ [Hz] を式(\ref{v_app})に代入し、速度 $v_{app}$ [m/s] を計算</li>
+<li>計算した速度 $v_{app}$ [m/s] をスケール速度※に変換（単位も[km/h]に）して無線（Bluetooth）でスマホへ送信</li>
+</ol>
+<p>（ここでは0.5秒間に出現するパルス数を計算。そのパルス数を2倍することで1秒間あたりのパルス数、つまり周波数 $f$ [Hz] を計算）<br><br></p>
+<blockquote>
+<p>※スケール速度<br>
+　ラジコンを実車サイズに換算した速度です。今回は実車の1/10程度の大きさのラジコンカーなので、実際の速度を10倍しました。</p>
+</blockquote>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/* RC speedometer using reflective object sensor (for a shaft 4WD car) ************************************
+</span><span style="color:#75715e">  Download a speedometer app:https://github.com/TomokiIkegami/Happy_RC_Driver/raw/main/Happy_RC_Driver.apk
+</span><span style="color:#75715e">  About this Project:https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/
+</span><span style="color:#75715e">  ◆ 動作
+</span><span style="color:#75715e">  1. シャフトに貼り付けられた目印をセンサ（フォトリフレクタ）で読み取り、シャフトの回転数（周波数）を計算します。
+</span><span style="color:#75715e">  2. シャフトの回転数をBluetooth通信でスマホに送信します。
+</span><span style="color:#75715e">  ◆ 補足
+</span><span style="color:#75715e">  ・プログラム中で★マークがついている部分は、自分の装置に合わせて調整
+</span><span style="color:#75715e">************************************************************************************************************/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;BluetoothSerial.h&#34;</span> <span style="color:#75715e">//ESP32のBluetooth通信に使用
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>define PI 3<span style="color:#f92672">.</span><span style="color:#a6e22e">141592653589793</span> <span style="color:#75715e">//円周率
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*パラメータ設定*/</span>
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> sense_pin <span style="color:#f92672">=</span> 25<span style="color:#f92672">;</span>  <span style="color:#75715e">//★回路に合わせる。今回は25番ピンを使用。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> z1<span style="color:#f92672">=</span>14<span style="color:#f92672">;</span> <span style="color:#75715e">//ベベルギアの歯数[枚]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> z2<span style="color:#f92672">=</span>38<span style="color:#f92672">;</span> <span style="color:#75715e">//リングギアの歯数[枚]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> D<span style="color:#f92672">=</span>95<span style="color:#f92672">;</span> <span style="color:#75715e">//タイヤの直径[mm]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*センサ関連の設定*/</span>
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> th <span style="color:#f92672">=</span> 3800<span style="color:#f92672">;</span>  <span style="color:#75715e">//センサ閾値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> val <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//センサ出力値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> output <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>       <span style="color:#75715e">//パルス出力（0/1）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> y<span style="color:#f92672">[</span>50<span style="color:#f92672">];</span>            <span style="color:#75715e">//パルス列を保存する配列
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>        <span style="color:#75715e">//パルスのカウント値
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*速度計算関連の変数*/</span>
+<span style="color:#66d9ef">double</span> f <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//周波数[Hz]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> v<span style="color:#f92672">,</span>v_kmh <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//速度v:[m/s], 速度v_kmh:[km/h]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> f_int <span style="color:#f92672">=</span> 0 <span style="color:#f92672">;</span>       <span style="color:#75715e">//周波数（整数）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> v_kmh_int <span style="color:#f92672">=</span> 0 <span style="color:#f92672">;</span>       <span style="color:#75715e">//周波数（整数）
+</span><span style="color:#75715e"></span>uint8_t f_uint8 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>  <span style="color:#75715e">//周波数（符号なし8bit[2byte]整数）
+</span><span style="color:#75715e"></span>uint8_t v_kmh_uint8 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>  <span style="color:#75715e">//周波数（符号なし8bit[2byte]整数）
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">/*プログラムの流れ制御用*/</span>
+<span style="color:#66d9ef">int</span> i<span style="color:#f92672">;</span>                <span style="color:#75715e">//カウンタ変数
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*Bluetooth通信に必要*/</span>
+BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#75715e">//ESP_BTという名前でオブジェクトを定義
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>115200<span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタで確認用
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ESP32_RC_Receiver&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//接続画面で表示される名前を設定 ★好きな名前にしてよい
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#75715e">/*フォトリフレクタから値を読み取り、パルスの生成*/</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 50<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//0.01×50=0.5[s] 間隔で周波数を計算
+</span><span style="color:#75715e"></span>    val <span style="color:#f92672">=</span> analogRead<span style="color:#f92672">(</span>sense_pin<span style="color:#f92672">);</span>  <span style="color:#75715e">//センサの値などを読む
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/**パルス作成**/</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>val <span style="color:#f92672">&lt;</span> th<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//センサの前にシャフトの目印が通過したらパルス値を1にする
+</span><span style="color:#75715e"></span>      output <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      output <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    y<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> output<span style="color:#f92672">;</span>  <span style="color:#75715e">//パルス出力値を保存
+</span><span style="color:#75715e"></span>    delay<span style="color:#f92672">(</span>10<span style="color:#f92672">);</span> <span style="color:#75715e">//サンプリング周期Δt=0.01[s] ごとに測定
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/**パルス数計算*/</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 49<span style="color:#f92672">;</span> i<span style="color:#f92672">++){</span> <span style="color:#75715e">//0.01×50=0.5[s] 間隔で周波数を計算
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span><span style="color:#f92672">((</span>y<span style="color:#f92672">[</span>i<span style="color:#f92672">]^</span>y<span style="color:#f92672">[</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">])==</span>1<span style="color:#f92672">){</span>
+      count<span style="color:#f92672">++;</span> <span style="color:#75715e">//排他的論理和（EX-OR）でパルスの立ち上がり/立ち下がりを計算
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>    
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/*周波数の計算、スマホに値を送信*/</span>
+  f<span style="color:#f92672">=((</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>count<span style="color:#f92672">/</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">)*(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">/</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">);</span> <span style="color:#75715e">//周波数f[Hz]を計算
+</span><span style="color:#75715e"></span>  v<span style="color:#f92672">=(</span>D<span style="color:#f92672">*</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">001</span><span style="color:#f92672">/</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">)*</span>2<span style="color:#f92672">*</span>PI<span style="color:#f92672">*</span>f<span style="color:#f92672">*(</span>z1<span style="color:#f92672">/</span>z2<span style="color:#f92672">);</span> <span style="color:#75715e">//周波数から速度[m/s]を計算
+</span><span style="color:#75715e"></span>  v_kmh<span style="color:#f92672">=</span>v<span style="color:#f92672">*</span>3600<span style="color:#f92672">/</span>1000<span style="color:#f92672">;</span> <span style="color:#75715e">//[m/s]から[km/h]に換算
+</span><span style="color:#75715e"></span>  v_kmh_int <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>v_kmh<span style="color:#f92672">*</span>10<span style="color:#f92672">);</span> <span style="color:#75715e">//速度を整数値に変換（10倍してスケール速度に変換）
+</span><span style="color:#75715e"></span>  v_kmh_uint8 <span style="color:#f92672">=</span>  v_kmh_int<span style="color:#f92672">;</span> <span style="color:#75715e">//速度を符号なし8bit整数に変換
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>v_kmh_uint8<span style="color:#f92672">);</span> <span style="color:#75715e">//速度をスマホに送信
+</span><span style="color:#75715e"></span>
+  f_int <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>f<span style="color:#f92672">;</span> <span style="color:#75715e">//周波数を整数に変換
+</span><span style="color:#75715e"></span>  f_uint8 <span style="color:#f92672">=</span> f_int<span style="color:#f92672">;</span> <span style="color:#75715e">//周波数を符号なし8bit整数に変換
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;f = &#34;</span><span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>f<span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; [Hz], &#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタに周波数（シャフト回転数）と速度を表示
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;v_kmh = &#34;</span><span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>v_kmh<span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; [km/h]\n&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタに周波数（シャフト回転数）と速度を表示
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//ESP_BT.write(f_uint8); //周波数をスマホに送信ESP_BT.write(f_uint8); //周波数をスマホに送信
+</span><span style="color:#75715e"></span>
+  count<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> <span style="color:#75715e">//カウント値をリセット
+</span><span style="color:#75715e"></span>  
+<span style="color:#f92672">}</span></code></pre></div>
+<h1 id="5-実験">5. 実験</h1>
+<h2 id="51-実験の概要">5.1. 実験の概要</h2>
+<p>　アプリの表示値が正しいか確認したかったので、実験をしました。</p>
+<p>　図(a)がその概要図になります。速度＝移動距離÷所要時間 の関係から求めた速度 $v_{real}$ とアプリ表示値 $v_{app}$ を比べて、アプリ表示値が正しいことを確認する実験です。</p>
+<p>　図(b)は実際の環境で行ったときの画像です。ラジコンカーが通りすぎる様子をスローモーション撮影して、タイマーからかかった時間（所要時間）を計算しました。</p>
+  <div align="center">
+  <figure><img src="%e5%ae%9f%e9%a8%93%e3%81%ae%e3%82%a4%e3%83%a1%e3%83%bc%e3%82%b8%e5%9b%b3.svg"
+         alt="図(a) 実験のイメージ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　図(a)　実験のイメージ
+  </div>
+  <div align="center">
+  <figure><img src="%e5%ae%9f%e9%a8%93%e7%94%bb%e5%83%8f.png"
+         alt="図(b) 実験画像"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　図(b)　実験画像
+  </div>
+<h2 id="52-実験動画">5.2. 実験動画</h2>
+<p>　こちらが先ほど説明した実験の動画になります。</p>
+<p>　小さくて見ずらいですが、スマホ画面に速度がリアルタイムで表示されています！<br><br></p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/ZD7HcliZ1BY" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h2 id="53-実験結果">5.3. 実験結果</h2>
+<p>　実験動画で取り上げた速度の他にも、色々な速度で試した結果がこちらです。こちらも表示はスケール速度です。</p>
+<p>　多少誤差はありますが、自作にしては満足な精度が得られました!!（笑）</p>
+<p>　誤差の原因としては、現在の計算方法では周波数が整数でしか出ないこと、AD変換の速度が遅い、タイヤ径の測定誤差&hellip;などが考えられます。</p>
+  <div align="center">
+  <figure><img src="%e5%ae%9f%e9%a8%93%e7%b5%90%e6%9e%9c.svg"
+         alt="実験結果"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　実験結果
+  </div>
+<h1 id="6-まとめ">6. まとめ</h1>
+<p>　今回の自作スピードメータを使って、屋内でもリアルタイムな速度計測・表示できました(<em>^▽^</em>)。作業する中で、機械、電気・電子、情報の知識が必要だったので大変でしたが、良い勉強になったと思います！</p>
+<p>　今後は、ラジコン操縦アプリにこのスピードメータを実装する、クルーズコントロールなどの制御をやってみる、自己位置推定に使うなど応用の幅を広げたいです！</p>
+<h1 id="7-謝辞">7. 謝辞</h1>
+<p>　作業場所・材料を提供してくださった先生方、配線の確認や実験方法についてアドバイスをしてくれた友人に、この場を借りて感謝申し上げます。</p>
+<h1 id="8-サンプルファイル">8. サンプルファイル</h1>
+<p>　作成したアプリのデータはこちらになります。色々改良して遊んでみてください！</p>
+<p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
+<ul>
+<li><a href="rc_speedometer_3.aia">rc_speedometer_3.aia</a></li>
+</ul>
+<p><strong>～ Androidアプリのファイル(.apk) ～</strong></p>
+<ul>
+<li><a href="rc_speedometer_3.apk">rc_speedometer_3.apk</a></li>
+</ul>
+<h1 id="9-参考文献">9. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>TRAXXAS「Upgrade Your Traxxas Model with the TQi Telemetry Expander 2.0 and GPS Module 2.0!」、(<a href="https://traxxas.com/products/parts/6553X">https://traxxas.com/products/parts/6553X</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>プチモンテ「フォトリフレクタの使い方 [Arduino]」、(<a href="https://www.petitmonte.com/robot/howto_photo_reflector.html">https://www.petitmonte.com/robot/howto_photo_reflector.html</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>秋月電子通商「LBR-127Dデータシート」、(<a href="https://akizukidenshi.com/download/lbr127hld.pdf">https://akizukidenshi.com/download/lbr127hld.pdf</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Kuma「ギヤ比計算機」、(<a href="http://www2.tokai.or.jp/mrnkmzu/rc/gearratio.html">http://www2.tokai.or.jp/mrnkmzu/rc/gearratio.html</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>ECX「Barrage 1.9 Manual EN」、(<a href="https://www.horizonhobby.com/on/demandware.static/-/Sites-horizon-master/default/dw8eff16d0/Manuals/ECX01009-Manual-EN.pdf">https://www.horizonhobby.com/on/demandware.static/-/Sites-horizon-master/default/dw8eff16d0/Manuals/ECX01009-Manual-EN.pdf</a>)&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>PIC World「Arduino で周波数を計測する – バイクのタコメーターを作りたいんだよ！（その１）」、(<a href="https://picworld.jp/2017/11/17/arduino-%E3%81%A7%E5%91%A8%E6%B3%A2%E6%95%B0%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B-%E3%83%90%E3%82%A4%E3%82%AF%E3%81%AE%E3%82%BF%E3%82%B3%E3%83%A1%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E4%BD%9C/">https://picworld.jp/2017/11/17/arduino-%E3%81%A7%E5%91%A8%E6%B3%A2%E6%95%B0%E3%82%92%E8%A8%88%E6%B8%AC%E3%81%99%E3%82%8B-%E3%83%90%E3%82%A4%E3%82%AF%E3%81%AE%E3%82%BF%E3%82%B3%E3%83%A1%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%92%E4%BD%9C/</a>)&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>ソースに絡まるエスカルゴ「【ESP32】analogReadする方法」、(<a href="https://rikoubou.hatenablog.com/entry/2017/06/29/135819">https://rikoubou.hatenablog.com/entry/2017/06/29/135819</a>)&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2023/01/02/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">ラジコンカー用スピードメータ開発！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/">スマホからサーボモータをPWM制御してみた!!</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/">自作アプリでBluetooth接続できない！[Runtime Error]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/">ESP32でフォトリフレクタを使いたい！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2023</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

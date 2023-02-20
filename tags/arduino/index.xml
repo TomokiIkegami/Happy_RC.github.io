@@ -6,7 +6,16 @@
     <description>Recent content in Arduino on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ラジコンカー用スピードメータ開発！</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. シャフト4駆のラジコンカーについて（設計の前に）  2.1. 定番のレイアウト 2.2. 駆動部分を詳細に   3. 設計  3.1. システム概要 3.2. 使った装置  3.2.1. ソフトウェア 3.2.2. ハードウェア   3.3. 車速の計算  3.3.1. 車速の計算原理 3.3.2. 歯数はどうする？ 3.3.3. シャフト周波数（回転数）はどうする？   3.4. 回路設計 3.5. 部品レイアウト   4. 製作  4.1. 回路 4.2. 部品の固定 4.3. スマホアプリ 4.4. プログラム（ソースコード）   5. 実験  5.1. 実験の概要 5.2. 実験動画 5.3. 実験結果   6.</description>
+    </item>
+    
     <item>
       <title>スマホからサーボモータをPWM制御してみた!!</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/</link>
