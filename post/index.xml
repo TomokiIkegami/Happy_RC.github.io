@@ -6,7 +6,21 @@
     <description>Recent content in Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第10回-スライダ操作式のラジコンアプリに]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/</link>
+      <pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 動作原理 3. 改良の過程  3.1. スマホアプリの改良  3.1.1. アプリの全体像 3.1.2. ステアリングトリム（ST. TRIM）機能 3.1.3. 動作方向反転（ST. REV、TH. REV）機能   3.2. レシーバ側プログラムの改良   4. 実験動画 5. サンプルファイル 6. 参考文献   1. 今回やりたいこと 　今まで（本連載の4～9回）は9つのボタンを押すことでラジコンを操縦していました。このボタン式のコントローラだと滑らかに操縦ができません(;^ω^)
+　今回からスライダ式に変更して、滑らかに操縦できるようにしました！
+  ☝　ボタン式からスライダ式に（本格的！！）  2. 動作原理 　基本的な動作原理はこちらの記事で紹介したものと同じですが、今回はステアだけでなくスロットルの信号も追加しました。これでラジコンのハンドルとアクセルの両方が操作できるようになります。（下図）
+  ☝　サーボモータとESCのPWM制御  　動作原理を下の図にまとめました。ステアの信号をCH1、スロットルの信号をCH2とします。
+　大まかな処理手順は、
+ スマホアプリ側からステア、スロットルの信号を1つの文字列として送信（ステア、スロットル信号はカンマ(,)で区切る） マイコン側で文字列を受け取り、カンマ(,)で分割1 分割した文字列の左側をCH1(ステア)、右側をCH2(スロットル)の信号とする CH1とCH2の値に基づいてサーボモータとESCをそれぞれ制御し、ステアとスロットルを操作  　となります。ここで、手順1はスマホアプリ側、手順2~4はマイコン(ESP32)側で行っている処理になります。</description>
+    </item>
+    
     <item>
       <title>ラジコンカー用スピードメータ開発！</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/</link>
