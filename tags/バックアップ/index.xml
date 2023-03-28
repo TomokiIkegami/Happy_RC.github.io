@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>バックアップ on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/</link>
+    <description>Recent content in バックアップ on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 28 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Motoメモの保存先</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</link>
+      <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</guid>
+      <description>Motoメモについて 　Motoメモ は motorola製 のスタイラスペン付きスマホについている純正メモアプリです。
+　私は moto g proというスライラスペン付きスマホを使っていて、授業や趣味のメモにかなり重宝しています(&amp;lsquo;ω&amp;rsquo;)
+　大事なこともたくさんメモしているので、もしスマホを紛失したり壊すと大変です！
+　可能であれば、別のデバイス（ノートPCとか）にデータを取っておきたい&amp;hellip;
+  ☝　Motoメモのアイコン    ☝　Motoメモの画面  メモの保存先 　ノートPC（Windows 11）にスマホ（Android 12）をファイル転送モードでUSB接続したときの保存先（フルパス）はこちらです。
+PC\moto g pro\内部共有ストレージ\Android\data\com.motorola.stylus\files\NoteInfo 　このパスをWindowsのエクスプローラーに貼り付けると、下の画像のようになります。
+  ☝　メモの保存先  　Motoメモの保存先（NoteInfoフォルダ）には、
+ 日付の書いた空のフォルダ ノートファイル（拡張子は.note） メモの画像ファイル（拡張子は.jpg）  　があります。これらのファイルまとめて好きな場所（自分のPCやクラウドなど）にコピーしておけば、バックアップできます！
+　com.motorola.stylusフォルダ（NoteInfoフォルダの2つ上）を丸ごとコピーするのが個人的にはオススメです。</description>
+    </item>
+    
+  </channel>
+</rss>

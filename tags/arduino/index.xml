@@ -47,20 +47,6 @@
     </item>
     
     <item>
-      <title>自作アプリでBluetooth接続できない！[Runtime Error]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</link>
-      <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</guid>
-      <description>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
-　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。
-  ☝　Bluetooth接続しようと「ここをタッチしてRCに接続」ボタンを押したらエラーが....  　説明をよく読むと、Androidの権限が必要みたいです。
-2. 解決方法 　次の1~5の手順で、自作アプリに付近のデバイスへのアクセス権限を与えれば良いです。
- アプリのアイコンを長押しして、「アプリ情報」をタップします。    ☝　アプリ情報を開く  「許可」をタップします。    ☝　「許可」をタップ  &amp;ldquo;許可されていないアプリ&amp;quot;の項目にある「付近のデバイス」をタップします。    ☝　付近のデバイス  &amp;ldquo;このアプリによる付近のデバイスへのアクセス&amp;quot;の項目にある「許可」をタップします。    ☝　付近のデバイスにアクセス許可  画面左上の矢印「←」をタップして戻ります。下の画像のように、&amp;ldquo;許可されているアプリ&amp;quot;の項目が「付近のデバイス」になっていればOKです！  　（一度アプリでBluetooth接続すると、下に「過去24時間にアクセス」と表示されます。）
-  ☝　設定完了！  　これで、自作アプリでBluetooth接続できるようになります！！</description>
-    </item>
-    
-    <item>
       <title>ESP32でフォトリフレクタを使いたい！</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/04/</link>
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
