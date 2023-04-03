@@ -6,7 +6,26 @@
     <description>Recent content in ラジコン on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 16 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/</link>
+      <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 改良版アプリ ～ver.7b～  2.1. 外観 2.2. 中身   3. サンプルファイル 4. 参考文献   1. 今回やりたいこと 　前回までのアプリ（ver.7a）では、RCカー側に搭載されている受信機（ESP32マイコン）の電源が切れたときの状況を考慮していませんでした。
+　前回のアプリだと受信機電源が切れても、表示が「RCに接続済み」のままでした。（これはまずいw）
+　今回は接続状態（つながっているか/切れているか）によって、スマホアプリの表示が切り替わるように（アプリ側のみを）改良しました！
+  ☝　接続状態によって表示を変更  2. 改良版アプリ ～ver.7b～ 2.1. 外観 　こちらが改良後のアプリです。外観は ver.7a とほとんど変わっていませんが、実は細かい改良点があります（笑）
+  画面上部の接続状態表示を変更（英語にして絵文字を追加）
+  接続ボタンの表示を「CONNECT」と短くシンプルにした（今までは「ここにタッチして接続機器を選ぶ」という横長なボタンだった）
+  スロットルのスライダ長さを調整（縦に長すぎたので）
+  ステアのスライダを短くして右側に寄せた（左折時にスロットルを操作する指と、ステアを操作する指が干渉したから）
+  ST.TRIM のプラスマイナスボタンの文字を半角から全角に変更（ー＋のボタンサイズがそろって操作しやすい。あとボタンが大きくなる）
+  STOPボタンを大きくした（即座に停止動作をしやすいように）
+  ☝　アプリ外観（デザイン編集タブ）    2.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第10回-スライダ操作式のラジコンアプリに]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/</link>
