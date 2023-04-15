@@ -90,9 +90,9 @@
 <p>　今回の作業は Happy_RC_Driver_7b のApp Inventor プロジェクトファイルを使って行いました。<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/Happy_RC_Driver_7b.aia">こちらのリンク</a>からプロジェクトファイル（.aia）をダウンロードできます。</p>
 <p>　ダウンロードした .aia ファイルをApp Inventorで「プロジェクト＞ローカルコンピューターからプロジェクト（.aia）をインポート」とすれば、デザイン作業から始めることができます。</p>
 <h2 id="21-スイッチの色を変える">2.1. スイッチの色を変える</h2>
-<p>　ST.REV、TH.REV の部分の色を変えています。設定項目は、</p>
+<p>　ST.REV、TH.REV の部分の色を変えます。設定項目は、</p>
 <ul>
-<li><strong>ThumbColorActive</strong>`：スイッチがONのときのつまみの色</li>
+<li><strong>ThumbColorActive</strong>：スイッチがONのときのつまみの色</li>
 <li><strong>ThumbColorInactive</strong>：スイッチがOFFのときのつまみの色</li>
 <li><strong>TrackColorActive</strong>：スイッチがONのときの溝の色</li>
 <li><strong>TrackColorInactive</strong>：スイッチがOFFのときの溝の色</li>
@@ -163,6 +163,7 @@
   ☝　アプリの画面背景を変更
   </div>
 <h1 id="3-完成">3. 完成！</h1>
+<p>　こちらが完成したアプリになります。背景が無かったときに比べると、かなりオシャレな雰囲気になりました(&lsquo;ω&rsquo;)</p>
   <div align="center">
   <figure><img src="app_design_ex1.jpg"
          alt="完成したデザイン例"/>
@@ -179,7 +180,7 @@
 <p>　下のイラストはスマホでよくある<strong>解像度</strong> FHD+（フルHD<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>＋、ピクセル数が 2412×1080 ）、<strong>アスペクト比</strong>※ 20:9の画面の例です。私が現在使っている、OPPO Reno8 Pro 5G はこの解像度とアスペクト比です。（以前は Moto g proというスマホを使っていて、アスペクト比が19.5:1でした）<br><br></p>
 <blockquote>
 <p>※ <strong>アスペクト比</strong><br>
-　画面の縦と横の長さの比です。19.5:9、21:9など色々なアスペクト比があるみたいですが、現状（2023年時点）では20:9が主流みたいです<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。</p>
+　画面の縦と横の長さの比です。19.5:9、21:9など色々なアスペクト比があるみたいですが、現状（2023年4月時点）では20:9が主流みたいです<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。</p>
 </blockquote>
   <div align="center">
   <figure><img src="what_is_pixel.svg"
@@ -193,8 +194,8 @@
 <h2 id="42-ボタン背景">4.2. ボタン背景</h2>
 <p>　ボタンの大きさは、MIT App Inventor のデザイン編集タブに表示されているスマホを基に決めます。このスマホは、解像度が 505×320 px です。</p>
 <p>　どこの部分が 505×320 px なのかというと、時刻などは表示されている画面上部から、戻るボタンなどがある画面下部までの範囲になります。</p>
-<p>　ここでは、Snipping Toolを使ってその範囲を切り取っています。<kbd>Windows</kbd>＋<kbd>Shift＋<kbd>S</kbd>を押すとSnipping Toolを起動できます。</p>
-<p>　Windows11の場合は、スクリーンショットが自動的に「スクリーンショットフォルダ」に保存されます。</p>
+<p>　ここでは、Snipping Toolを使ってその範囲を切り取っています。<kbd>Windows</kbd>＋<kbd>Shift</kbd>＋<kbd>S</kbd>を押すとSnipping Toolを起動できます。</p>
+<p>　Windows 11の場合は、スクリーンショットが自動的に「スクリーンショットフォルダ」に保存されます。</p>
   <div align="center">
   <figure><img src="take_a_screenshot.gif"
          alt="画面部分だけを切り取る"/>
@@ -204,7 +205,7 @@
   <div style="text-align: center;">
   ☝　画面部分だけを切り取る
   </div>
-<p>　ただ切り取っただけでは 505×320 px になっていないので、横幅が 320 px になるようにリサイズ（LibreOffice Draw を使用。Web上のツールなどでも良い）しています。</p>
+<p>　ただ切り取っただけでは 505×320 px になっていないので、横幅が 320 px になるようにリサイズしています。（LibreOffice Draw を使用。ペイントやWeb上のリサイズツールなどでも良い）</p>
   <div align="center">
   <figure><img src="resize_image.gif"
          alt="画像の横幅が320pxになるようにリサイズ"/>
