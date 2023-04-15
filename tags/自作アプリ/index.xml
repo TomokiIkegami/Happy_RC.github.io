@@ -6,7 +6,21 @@
     <description>Recent content in 自作アプリ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 03 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/08/</link>
+      <pubDate>Sat, 08 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/08/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. アプリのデザイン変更  2.1. スイッチの色を変える 2.2. スライダの色を変える 2.3. ボタン形状を変更 2.4. ボタン背景画像の追加 2.5. 画面背景画像の追加   3. 完成！ 4. 補足：背景画像を作るときのコツ  4.1. 画像を作る前に ～ピクセルとは～ 4.2. ボタン背景 4.3. 画面背景   5. サンプルファイル   1. 今回やりたいこと 　前回まではボタンやスライダを配置しただけなので無垢な感じでした（笑）
+　せっかくアプリを自作しているので、自分好みのデザインに改良したいものです。
+　今回はデザインの変更例を紹介します！
+  ☝　アプリを好みのデザインにカスタム！  2. アプリのデザイン変更 　MIT App Inventorでは、アプリのデザインを変更する機能が豊富に用意されています。今回はその中のいくつかの機能を紹介します！
+　今回の作業は Happy_RC_Driver_7b のApp Inventor プロジェクトファイルを使って行いました。こちらのリンクからプロジェクトファイル（.aia）をダウンロードできます。
+　ダウンロードした .aia ファイルをApp Inventorで「プロジェクト＞ローカルコンピューターからプロジェクト（.aia）をインポート」とすれば、デザイン作業から始めることができます。</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/</link>

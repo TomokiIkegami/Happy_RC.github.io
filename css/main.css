@@ -7,7 +7,7 @@
   --primary: #52d3a8;
   --highlight: #013af7;
   --shadow: var(--mainText);
-  --inactive: #949494;
+  --inactive: #e3e3e3;
 }
 html {
   font-size: 18px;
@@ -136,7 +136,7 @@ code {
   line-height: 1.3em;
 }
 kbd {
-  background-color: var(--bgLight);
+  background-color: var(--inactive);
   border-radius: 5px;
   padding: 4px;
   margin: 0 3px;
