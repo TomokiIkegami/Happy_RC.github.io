@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     研究室用の報告書テンプレ作成！ -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      研究室用の報告書テンプレ作成！
+    </h1>
+    
+    <p class="document-date">
+      2023-05-07 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"報告書を効率良く・綺麗に書けるテンプレを作りたい"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
+<li><a href="#2-%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E4%BD%9C%E6%88%90">2. テンプレ作成</a>
+<ul>
+<li><a href="#21-%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A">2.1. フォントの設定</a></li>
+<li><a href="#22-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AE%E8%A8%AD%E5%AE%9A">2.2. アウトラインの設定</a></li>
+</ul>
+</li>
+<li><a href="#3-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">3. サンプルファイル</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
+<p>　私の研究室では毎週報告会があり、その報告会に使う報告書を作成します。</p>
+<p>　報告書は書式が指定されていて、例えば</p>
+<ul>
+<li>章、節、図、表題：MSゴシック 12[pt]</li>
+<li>英数字：Times New Roman 12[pt]</li>
+<li>本文の日本語：MS明朝 12[pt]</li>
+<li>本文の英数字：Times New Roman 12[pt]</li>
+<li>グラフの目盛り：縦軸 → 内向き、横軸 → 交差</li>
+<li>グラフの目盛り、文字色：黒（グレーは不可）</li>
+</ul>
+<p>　などなど&hellip; 色々あります(;´･ω･)。下の画像が報告書の作成例（中身は架空なので参考にしないでくださいw）です。</p>
+  <div align="center">
+  <figure><img src="%e5%a0%b1%e5%91%8a%e6%9b%b8%e3%81%ae%e8%a8%98%e5%85%a5%e4%be%8b.png"
+         alt="報告書の記入例"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　報告書の記入例
+  </div>
+<h1 id="2-テンプレ作成">2. テンプレ作成</h1>
+<p>　ここではテンプレ作成の方法を紹介しますが（労力と時間の必要な作業です）、早速テンプレをダウンロードして使えばいいと思います。テンプレ作成の労力と時間は、自分の大切なことに使ってほしいです。</p>
+<p>　テンプレは<a href="#3-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">「3. サンプルファイル」</a>のところに載せたので使ってください。</p>
+<h2 id="21-フォントの設定">2.1. フォントの設定</h2>
+<p>　フォントやタイトルが自動的に設定されるテンプレを作ります。</p>
+<p>　まずは、表題の範囲の文字を選択してフォントを設定します。「ホーム」タブの右側に「スタイル」という項目があるので見に行きます。</p>
+<p>　スタイルの中から&quot;表題&quot;を探して、その上で左クリックします。選択していた範囲のフォントとか文字の大きさが少し変わったと思います。</p>
+<p>　フォントや文字サイズを変更したいので、もう一度「スタイル」から&quot;表題&quot;を探して、右クリックします。メニューが出てくるので「変更」をクリックします。</p>
+  <div align="center">
+  <figure><img src="%e8%a1%a8%e9%a1%8c%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%861.png"
+         alt="表題の変更手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　表題の変更手順1
+  </div>
+　
+<p>　ダイアログが表示されるので、まずは日本語のフォントを設定します。「書式」の項目で一番右側の&quot;日本語&quot;を選んで、フォントサイズ、フォントなどを設定します。</p>
+<p>　設定が完了したら、画面右下の「OK」を押します。日本語のフォント設定と同じようやり方で、英数字も設定します。</p>
+  <div align="center">
+  <figure><img src="%e8%a1%a8%e9%a1%8c%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%862.png"
+         alt="表題の変更手順2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　表題の変更手順2
+  </div>
+  <div align="center">
+  <figure><img src="%e8%a1%a8%e9%a1%8c%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%863.png"
+         alt="表題の変更手順3"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　表題の変更手順3
+  </div>
+<p>　次に、表題と同じように見出し（章：見出し1、節：見出し2、項:見出し3、目:見出し4の部分）の設定をします。「ホーム」タブの右側に「スタイル」という項目があるので見に行きます。</p>
+<p>　スタイルの中から&quot;見出し1&quot;を探して、その上で右クリックします。そうするとメニューが出てくるので「変更」をクリックします。</p>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%97%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%861.png"
+         alt="見出しの変更手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出しの変更手順1
+  </div>
+<p>　ダイアログが表示されるので、まずは日本語のフォントを設定します。「書式」の項目で一番右側の&quot;日本語&quot;を選んで、フォントサイズ、フォントなどを設定します。</p>
+<p>　英数字も同様に設定します。</p>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%97%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%862.png"
+         alt="見出しの変更手順2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出しの変更手順2
+  </div>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%97%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%863.png"
+         alt="見出しの変更手順3"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出しの変更手順3
+  </div>
+<p>　見出し2も同じ感じで設定すれば大丈夫です。</p>
+<p>　見出し3、4はインデントが大きいので変更します。まず、「スタイル」から&quot;見出し3&quot;を探して右クリックします。見出し表示されたダイアログで見出し1,2と同じようにフォントなどを設定したら、ダイアログ左下の「書式」をクリックします。</p>
+<p>　「書式」をクリックしたら「段落」を開きます。　</p>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%973%e3%80%814%e3%81%ae%e3%82%a4%e3%83%b3%e3%83%87%e3%83%b3%e3%83%88%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%861.png"
+         alt="見出し3、4のインデント変更手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出し3、4のインデント変更手順1
+  </div>
+<p>　「段落」のダイアログが開いたら、&ldquo;インデント&quot;の&quot;左&quot;を「0字」にします。</p>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%973%e3%80%814%e3%81%ae%e3%82%a4%e3%83%b3%e3%83%87%e3%83%b3%e3%83%88%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%862.png"
+         alt="見出し3、4のインデント変更手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出し3、4のインデント変更手順2
+  </div>
+<p>　最後に本文のフォントも設定します。これでフォント設定は完了です。やり方は今までとほとんど同じです。</p>
+<p>　スタイルの中から&quot;標準&quot;を探して、その上で右クリックします。そうするとメニューが出てくるので「変更」をクリックします。</p>
+  <div align="center">
+  <figure><img src="%e6%9c%ac%e6%96%87%e3%83%95%e3%82%a9%e3%83%b3%e3%83%88%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%861.png"
+         alt="本文フォントの変更手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出しの変更手順1
+  </div>
+<p>　ダイアログが表示されるので、まずは日本語のフォントを設定します。「書式」の項目で一番右側の&quot;日本語&quot;を選んで、フォントサイズ、フォントなどを設定します。</p>
+<p>　英数字も同じように設定します。</p>
+  <div align="center">
+  <figure><img src="%e6%9c%ac%e6%96%87%e3%83%95%e3%82%a9%e3%83%b3%e3%83%88%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%862.png"
+         alt="本文フォントの変更手順2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　本文フォントの変更手順2
+  </div>
+  <div align="center">
+  <figure><img src="%e6%9c%ac%e6%96%87%e3%83%95%e3%82%a9%e3%83%b3%e3%83%88%e3%81%ae%e5%a4%89%e6%9b%b4%e6%89%8b%e9%a0%863.png"
+         alt="本文フォントの変更手順3"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　本文フォントの変更手順3
+  </div>
+<h2 id="22-アウトラインの設定">2.2. アウトラインの設定</h2>
+<p>　次は見出しの先頭に、自動的に番号を入れる設定をします。まずは、表示タブの真下にあるアイコンをクリックします。</p>
+<p>　アイコンをクリックしたら、一番下から二番目にある「新しいアウトラインの定義」を選びます。</p>
+  <div align="center">
+  <figure><img src="%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a%e6%89%8b%e9%a0%861.png"
+         alt="アウトライン設定手順1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アウトライン設定手順1
+  </div>
+<p>　そうすると、ダイアログが表示されるので下側の「オプション&raquo;」をクリックします。クリックすると右側に細かい設定項目が表示されます。</p>
+  <div align="center">
+  <figure><img src="%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a%e6%89%8b%e9%a0%862.png"
+         alt="アウトライン設定手順2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アウトライン設定手順2
+  </div>
+<p>　下の画像のように設定します。まずは、レベル1を見出し1に対応づけるように設定します。</p>
+<p>　その次は、番号右側の空白をスペースに変更、左インデントからの距離を0[mm]に、インデント位置を7.5[mm]にします。</p>
+<p>　章番号の右側にはピリオドを表示させたいので、&ldquo;番号書式&quot;の入力欄に表示されている番号の隣にピリオドを打ちます。</p>
+  <div align="center">
+  <figure><img src="%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a%e6%89%8b%e9%a0%863.png"
+         alt="アウトライン設定手順3"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アウトライン設定手順3
+  </div>
+<p>　見出し2～4もピリオド以外は同じ設定です。</p>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%972%e3%81%ae%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a.png"
+         alt="見出し2のアウトライン設定"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出し2のアウトライン設定
+  </div>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%973%e3%81%ae%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a.png"
+         alt="見出し3のアウトライン設定"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出し3のアウトライン設定
+  </div>
+  <div align="center">
+  <figure><img src="%e8%a6%8b%e5%87%ba%e3%81%974%e3%81%ae%e3%82%a2%e3%82%a6%e3%83%88%e3%83%a9%e3%82%a4%e3%83%b3%e8%a8%ad%e5%ae%9a.png"
+         alt="見出し4のアウトライン設定"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　見出し4のアウトライン設定
+  </div>
+<p>「OK」を押して設定を適用すると、見出しのとこに自動的に番号が入ってます！</p>
+<p>　元々の番号は不要なので削除します。（名前や日付もこの時に右寄せにしました）</p>
+  <div align="center">
+  <figure><img src="%e4%b8%8d%e8%a6%81%e3%81%aa%e7%95%aa%e5%8f%b7%e3%82%92%e5%89%8a%e9%99%a4.png"
+         alt="不要な番号を削除"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　不要な番号を削除
+  </div>
+<p>　最後に表題の行間を調整してテンプレの完成です！</p>
+  <div align="center">
+  <figure><img src="%e8%a1%8c%e9%96%93%e3%81%ae%e8%aa%bf%e6%95%b4%e6%96%b9%e6%b3%951.png"
+         alt="行間の調整方法1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　行間の調整方法1
+  </div>
+  <div align="center">
+  <figure><img src="%e8%a1%8c%e9%96%93%e3%81%ae%e8%aa%bf%e6%95%b4%e6%96%b9%e6%b3%952.png"
+         alt="行間の調整方法2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　行間の調整方法2
+  </div>
+  <div align="center">
+  <figure><img src="%e5%ae%8c%e6%88%90%e3%81%97%e3%81%9f%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac.png"
+         alt="完成したテンプレ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　完成したテンプレ
+  </div>
+<h1 id="3-サンプルファイル">3. サンプルファイル</h1>
+<p>　作成したテンプレのデータはこちらになります！</p>
+<p>　「lab_report_template.docx」は記入されていないテンプレートで、「example.docx」は記入例の入ったテンプレートです。どちらも MS Word ファイルです。</p>
+<p><strong>～ 未記入のテンプレートファイル(.docx) ～</strong></p>
+<ul>
+<li><a href="lab_report_template.docx">lab_report_template.docx</a></li>
+</ul>
+<p><strong>～ 記入済みのテンプレートファイル(.docx) ～</strong></p>
+<ul>
+<li><a href="example.docx">example.docx</a></li>
+</ul>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2023/04/15/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/">研究室用の報告書テンプレ作成！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/">Motoメモの保存先</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第10回-スライダ操作式のラジコンアプリに]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">ラジコンカー用スピードメータ開発！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/">スマホからサーボモータをPWM制御してみた!!</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2023</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

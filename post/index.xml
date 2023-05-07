@@ -6,7 +6,24 @@
     <description>Recent content in Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>研究室用の報告書テンプレ作成！</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/</link>
+      <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. テンプレ作成  2.1. フォントの設定 2.2. アウトラインの設定   3. サンプルファイル   1. 今回やりたいこと 　私の研究室では毎週報告会があり、その報告会に使う報告書を作成します。
+　報告書は書式が指定されていて、例えば
+ 章、節、図、表題：MSゴシック 12[pt] 英数字：Times New Roman 12[pt] 本文の日本語：MS明朝 12[pt] 本文の英数字：Times New Roman 12[pt] グラフの目盛り：縦軸 → 内向き、横軸 → 交差 グラフの目盛り、文字色：黒（グレーは不可）  　などなど&amp;hellip; 色々あります(;´･ω･)。下の画像が報告書の作成例（中身は架空なので参考にしないでくださいw）です。
+  ☝　報告書の記入例  2. テンプレ作成 　ここではテンプレ作成の方法を紹介しますが（労力と時間の必要な作業です）、早速テンプレをダウンロードして使えばいいと思います。テンプレ作成の労力と時間は、自分の大切なことに使ってほしいです。
+　テンプレは「3. サンプルファイル」のところに載せたので使ってください。
+2.1. フォントの設定 　フォントやタイトルが自動的に設定されるテンプレを作ります。
+　まずは、表題の範囲の文字を選択してフォントを設定します。「ホーム」タブの右側に「スタイル」という項目があるので見に行きます。
+　スタイルの中から&amp;quot;表題&amp;quot;を探して、その上で左クリックします。選択していた範囲のフォントとか文字の大きさが少し変わったと思います。
+　フォントや文字サイズを変更したいので、もう一度「スタイル」から&amp;quot;表題&amp;quot;を探して、右クリックします。メニューが出てくるので「変更」をクリックします。</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/</link>
