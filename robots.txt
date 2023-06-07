@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: {{ .Site.BaseURL }}sitemap.xml
+Sitemap: https://tomokiikegami.github.io/Happy_RC.github.io/sitemap.xml
