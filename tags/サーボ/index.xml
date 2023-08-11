@@ -6,7 +6,21 @@
     <description>Recent content in サーボ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 15 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第13回-ラジコンアプリに車速を表示]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/</link>
+      <pubDate>Fri, 11 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. 動作原理  2.1. 並列処理（マルチコアを使用） 2.2. スマホアプリと受信機（ESP32）の処理   3. 改良の過程  3.1. スマホアプリの改良 3.2. レシーバ側プログラムの改良   4. 実験動画 5. サンプルファイル 6. 関連記事 7. 参考文献   1. 今回やりたいこと 　ラジコン操縦アプリに車速を表示して、運転してる感を満喫できるように改良しました！
+  ☝　ラジコン操縦アプリに車速を表示？？  2. 動作原理 2.1. 並列処理（マルチコアを使用） 　スマホ側、マイコン（ラジコンカー受信機）側にそれぞれ並行処理を入れました。
+　今回はスマホ側とマイコン側でどちらも送受信の処理をする必要があったので、並列処理を使いました。マイコン側にはマルチコア1という並列処理を使いました。マルチスレッドという並行処理の方法もあるのですが、今回の場合は上手くいきませんでした。
+　スマホ側がマルチコアかマルチスレッドかは分かりませんでした。（Androidアプリ側がプロセスをコントロールことはないらしい？2）
+  ☝　マルチスレッドとマルチコアの違い  2.2. スマホアプリと受信機（ESP32）の処理 　フローチャートを書きました↓↓。スマホ側と受信機側でそれぞれ2つの処理をしています。
+  ☝　操縦アプリ側と受信機（ESP32）側の処理  ～ スマホ側 ～</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/</link>
