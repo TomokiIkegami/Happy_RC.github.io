@@ -6,7 +6,23 @@
     <description>Recent content in MIT App Inventor on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 11 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第14回-走行用バッテリーからマイコンに給電]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/</link>
+      <pubDate>Fri, 08 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/</guid>
+      <description>～ 目次 ～   1. 今回やったこと 2. 回路図 3. 実際に回路を改良  3.1. 使用した三端子レギュレータについて 3.2. 作業手順   4. 車体に取り付け 5. 参考文献   1. 今回やったこと 　今まではバッテリーを2つ（走行用とマイコン用）積んでいたので重たくて困ってました。
+　そこで今回はバッテリーを1つにして軽量化したいと思います！
+  ☝　自作RCレシーバ、進化の過程  2. 回路図 　下の画像は、走行用バッテリーのみから全ての電源を供給する回路です。この回路は第7回（詳しくはこちら）の回路を改良しただけでなく、車速測定（詳しくはこちら）もできるようになってます。
+　回路図中の三端子レギュレータは、ESCの内臓BECから出てくる6[V]電源を5[V]に降圧するために使ってます。前まではこの5[V]電源をモバイルバッテリーから供給していたので、余分にバッテリーが必要でした。（今回のようにすれば走行用バッテリーだけでいい）
+  ☝　サーボモータ＆ESC制御用回路（走行用バッテリーのみから給電）  3. 実際に回路を改良 　回路図を参考に実際の回路を改良します！
+　今回は回路に三端子レギュレータを追加して、モバイルバッテリーからの給電を不要にします。
+3.1. 使用した三端子レギュレータについて 　下の画像のような電子部品で、3本の足がついています。秋月でJRC製のNJU7223F50を買いました。これなら18[V]までの入力電圧を5[V]に降圧できます。（データシート1より）
+  ☝　用意したもの    ☝　三端子レギュレータの各ピンの説明（画像はデータシートより抜粋して追記）  3.2. 作業手順 　部品のレイアウトを決めてから、3つの端子を回路図に対応するよう半田付けしていきます。</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第13回-ラジコンアプリに車速を表示]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/</link>
