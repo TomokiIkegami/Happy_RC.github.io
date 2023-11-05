@@ -6,7 +6,20 @@
     <description>Recent content in 無線通信 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 08 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ラジコン操縦アプリ「Happy RC Driver」のIOS対応化に向けて</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/11/04/</link>
+      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/11/04/</guid>
+      <description>～ 目次 ～   1. Happy RC Driver ー 遂に Android＆IOS 両対応化？ 2. 開発環境  2.1. 色々な開発環境を試す&amp;hellip; 2.2. Thunkableについて   3. 作ったスマホアプリ 4. ESP32側のソースコード 5. まとめ 6. サンプルファイル 7. 参考資料   1. Happy RC Driver ー 遂に Android＆IOS 両対応化？ 　1年半ほど前から、自作のラジコン操縦アプリ「Happy RC Driver」の開発を行っていましたが、Android版 のみの対応でした。
+　2ヵ月ほどの試行錯誤の末、やっとAndroid＆IOS両対応の操縦アプリができました！ 現状では動作テストをAndroidのみでしか行っていないので、今度はIOS端末でもテストしようと考えています。
+　AndroidとIOS両対応のクロスプラットフォームアプリということで、アプリ名を「Happy RC Driver CROSS」にしました！
+　下の画像は新アプリのアイコンです～☟
+  ☝　アプリのアイコン  2. 開発環境 2.1. 色々な開発環境を試す&amp;hellip; 　AndroidとIOSの両対応アプリを開発する方法は、React Native、Flutter、Xamarin など色々あることが調べてみて分かりました。友人が Flutter をやっていたので、まずは Android Studio に「Flutter」の開発環境を整えて色々やってみました。</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第14回-走行用バッテリーからマイコンに給電]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/</link>
