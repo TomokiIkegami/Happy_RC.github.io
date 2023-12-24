@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     ラジコン用スピードメータの高速化 -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      ラジコン用スピードメータの高速化
+    </h1>
+    
+    <p class="document-date">
+      2023-12-24 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"スピードの更新間隔が遅いので高速化してみた"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
+<li><a href="#2-%E3%83%9E%E3%82%A4%E3%82%B3%E3%83%B3%E3%81%A8%E3%82%BB%E3%83%B3%E3%82%B5%E3%81%AE%E9%99%90%E7%95%8C">2. マイコンとセンサの限界</a></li>
+<li><a href="#3-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E5%A4%89%E6%9B%B4%E7%82%B9">3. ハードウェアの変更点</a></li>
+<li><a href="#4-%E3%83%9E%E3%82%A4%E3%82%B3%E3%83%B3%E5%81%B4%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0">4. マイコン側プログラム</a></li>
+<li><a href="#5-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%A2%E3%83%97%E3%83%AA">5. スマホアプリ</a></li>
+<li><a href="#6-%E5%8B%95%E7%94%BB">6. 動画</a></li>
+<li><a href="#7-%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B">7. 関連記事</a></li>
+<li><a href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">8. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
+<p>　今年の初めごろにラジコンカー用のスピードメータを自作しましたが、スピードの更新間隔が遅い（0.5 [ms]）と感じていました。</p>
+<p>　当時はこれでも問題ないと感じてたのですが、最近はラジコンカーにクルコン（クルーズコントロール）を実装しようと考え始めました。</p>
+<p>　クルコンの制御に車速を使うのですが、車速の計算間隔 0.5 [ms] で車速制御すると少し遅れが出そうだなと思いました。</p>
+<p>　今回は今まで作ったスピードメータを、車速制御に十分なスピードメータに改良します！</p>
+<h1 id="2-マイコンとセンサの限界">2. マイコンとセンサの限界</h1>
+<p>　センサの応答速度は計算すると 66,666 [Hz] が限界っぽいです（$T_r$ = 15 [μs]）。なのでESP32マイコンのサンプリング周期をこれより早くしても意味なさそうです。プログラムでサンプリング周期を $T$ = 1 [ms] したら丁度いい感じで値が取れたので、これで行こうと思います。サンプリング周波数 $f$ は、サンプリング周期の逆数になるので、</p>
+<p>${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</p>
+<p>となります。</p>
+<h1 id="3-ハードウェアの変更点">3. ハードウェアの変更点</h1>
+<p>　<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">前回</a>とほとんど同じですが、シャフトに貼る紙の枚数が2枚になりました（車速の分解能を上げるため）。なので、紙の枚数を2枚に増やさないと車速が半分で表示されます（笑）</p>
+<h1 id="4-マイコン側プログラム">4. マイコン側プログラム</h1>
+<p>　改良後のマイコン側プログラムはこちらになります。サンプリング周期を設定すると、サンプリング数が変化するようになっています。センサ出力を格納する配列yの大きさNは<br>　N = 速度の計算周期 ÷ サンプリング周期 <br>で計算して設定してください。 配列サイズを大きくしすぎるとプログラムが動かなくなるみたいですが、今回のプログラムでは数万個にしないとその問題は起こらなそうです<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/* RC speedometer using reflective object sensor (for a shaft 4WD car) ************************************
+</span><span style="color:#75715e">  Download a speedometer app:https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/rc_speedometer_4.apk
+</span><span style="color:#75715e">  About this Project:https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/
+</span><span style="color:#75715e">  ◆ 動作
+</span><span style="color:#75715e">  1. シャフトに貼り付けられた2枚の目印をセンサ（フォトリフレクタ）で読み取り、シャフトの回転数（周波数）を計算します。
+</span><span style="color:#75715e">  2. シャフトの回転数をBluetooth通信でスマホに送信します。
+</span><span style="color:#75715e">  ◆ 補足
+</span><span style="color:#75715e">  ・プログラム中で★マークがついている部分は、自分の装置に合わせて調整
+</span><span style="color:#75715e">************************************************************************************************************/</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;BluetoothSerial.h&#34;</span> <span style="color:#75715e">//ESP32のBluetooth通信に使用
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span>define PI 3<span style="color:#f92672">.</span><span style="color:#a6e22e">141592653589793</span> <span style="color:#75715e">//円周率
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*パラメータ設定*/</span>
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> sense_pin <span style="color:#f92672">=</span> 25<span style="color:#f92672">;</span>  <span style="color:#75715e">//★回路に合わせる。今回は25番ピンを使用。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> z1<span style="color:#f92672">=</span>14<span style="color:#f92672">;</span> <span style="color:#75715e">//ベベルギアの歯数[枚]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> z2<span style="color:#f92672">=</span>38<span style="color:#f92672">;</span> <span style="color:#75715e">//リングギアの歯数[枚]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> D<span style="color:#f92672">=</span>95<span style="color:#f92672">;</span> <span style="color:#75715e">//タイヤの直径[mm]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*センサ関連の設定*/</span>
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> th <span style="color:#f92672">=</span> 3800<span style="color:#f92672">;</span>    <span style="color:#75715e">//センサ閾値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> val <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>            <span style="color:#75715e">//センサ出力値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> output <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>         <span style="color:#75715e">//パルス出力（0/1）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> y<span style="color:#f92672">[</span>200<span style="color:#f92672">];</span>            <span style="color:#75715e">//パルス列を保存する配列
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//パルスのカウント値
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> T <span style="color:#f92672">=</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">2</span><span style="color:#f92672">;</span>         <span style="color:#75715e">//速度の算出周期[s]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> Ts <span style="color:#f92672">=</span> 1<span style="color:#f92672">*</span>pow<span style="color:#f92672">(</span>10<span style="color:#f92672">,-</span>3<span style="color:#f92672">);</span> <span style="color:#75715e">//センサのサンプリング周期[s]
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*速度計算関連の変数*/</span>
+<span style="color:#66d9ef">double</span> f <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//周波数[Hz]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> v<span style="color:#f92672">,</span>v_kmh <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>          <span style="color:#75715e">//速度v:[m/s], 速度v_kmh:[km/h]
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> f_int <span style="color:#f92672">=</span> 0 <span style="color:#f92672">;</span>       <span style="color:#75715e">//周波数（整数）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> v_kmh_int <span style="color:#f92672">=</span> 0 <span style="color:#f92672">;</span>       <span style="color:#75715e">//周波数（整数）
+</span><span style="color:#75715e"></span>uint8_t f_uint8 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>  <span style="color:#75715e">//周波数（符号なし8bit[2byte]整数）
+</span><span style="color:#75715e"></span>uint8_t v_kmh_uint8 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>  <span style="color:#75715e">//周波数（符号なし8bit[2byte]整数）
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">/*プログラムの流れ制御用*/</span>
+<span style="color:#66d9ef">int</span> i<span style="color:#f92672">;</span>                <span style="color:#75715e">//カウンタ変数
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*Bluetooth通信に必要*/</span>
+BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#75715e">//ESP_BTという名前でオブジェクトを定義
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>115200<span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタで確認用
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ESP32_RC_Receiver&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//接続画面で表示される名前を設定 ★好きな名前にしてよい
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">int</span> An <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>T<span style="color:#f92672">/</span>Ts<span style="color:#f92672">);</span> <span style="color:#75715e">//パルスの読み取り回数（パルス配列yの要素数と同じ）
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">/*フォトリフレクタから値を読み取り、パルスの生成*/</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> An<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//0.01×50=0.5[s] 間隔で周波数を計算
+</span><span style="color:#75715e"></span>    val <span style="color:#f92672">=</span> analogRead<span style="color:#f92672">(</span>sense_pin<span style="color:#f92672">);</span>  <span style="color:#75715e">//センサの値などを読む
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/**パルス作成**/</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>val <span style="color:#f92672">&lt;</span> th<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//センサの前にシャフトの目印が通過したらパルス値を1にする
+</span><span style="color:#75715e"></span>      output <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      output <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    y<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> output<span style="color:#f92672">;</span>  <span style="color:#75715e">//パルス出力値を保存
+</span><span style="color:#75715e"></span>    delay<span style="color:#f92672">((</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>Ts<span style="color:#f92672">*</span>pow<span style="color:#f92672">(</span>10<span style="color:#f92672">,</span>3<span style="color:#f92672">)));</span> <span style="color:#75715e">//Ts[s] ごとに測定。※単位をmsに直すために、10^(3)を掛けている
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/**パルス数計算*/</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> An<span style="color:#f92672">-</span>1<span style="color:#f92672">;</span> i<span style="color:#f92672">++){</span> <span style="color:#75715e">//0.01×50=0.5[s] 間隔で周波数を計算
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span><span style="color:#f92672">((</span>y<span style="color:#f92672">[</span>i<span style="color:#f92672">]^</span>y<span style="color:#f92672">[</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">])==</span>1<span style="color:#f92672">){</span>
+      count<span style="color:#f92672">++;</span> <span style="color:#75715e">//排他的論理和（EX-OR）でパルスの立ち上がり/立ち下がりを計算
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>    
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/*周波数の計算、スマホに値を送信*/</span>
+  f<span style="color:#f92672">=((</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>count<span style="color:#f92672">/</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">)*(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">/</span>T<span style="color:#f92672">)*(</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">/</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span> <span style="color:#75715e">//周波数f[Hz]を計算
+</span><span style="color:#75715e"></span>  v<span style="color:#f92672">=(</span>D<span style="color:#f92672">*</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">001</span><span style="color:#f92672">/</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">)*</span>2<span style="color:#f92672">*</span>PI<span style="color:#f92672">*</span>f<span style="color:#f92672">*(</span>z1<span style="color:#f92672">/</span>z2<span style="color:#f92672">);</span> <span style="color:#75715e">//周波数から速度[m/s]を計算
+</span><span style="color:#75715e"></span>  v_kmh<span style="color:#f92672">=</span>v<span style="color:#f92672">*</span>3600<span style="color:#f92672">/</span>1000<span style="color:#f92672">;</span> <span style="color:#75715e">//[m/s]から[km/h]に換算
+</span><span style="color:#75715e"></span>  v_kmh_int <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>v_kmh<span style="color:#f92672">*</span>10<span style="color:#f92672">);</span> <span style="color:#75715e">//速度を整数値に変換（10倍してスケール速度に変換）
+</span><span style="color:#75715e"></span>  v_kmh_uint8 <span style="color:#f92672">=</span>  v_kmh_int<span style="color:#f92672">;</span> <span style="color:#75715e">//速度を符号なし8bit整数に変換
+</span><span style="color:#75715e"></span>  ESP_BT<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>v_kmh_uint8<span style="color:#f92672">);</span> <span style="color:#75715e">//速度をスマホに送信
+</span><span style="color:#75715e"></span>
+  f_int <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>f<span style="color:#f92672">;</span> <span style="color:#75715e">//周波数を整数に変換
+</span><span style="color:#75715e"></span>  f_uint8 <span style="color:#f92672">=</span> f_int<span style="color:#f92672">;</span> <span style="color:#75715e">//周波数を符号なし8bit整数に変換
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;f = &#34;</span><span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>f<span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; [Hz], &#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタに周波数（シャフト回転数）と速度を表示
+</span><span style="color:#75715e"></span>  Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;v_kmh = &#34;</span><span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>v_kmh<span style="color:#f92672">);</span> Serial<span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; [km/h]\n&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//シリアルモニタに周波数（シャフト回転数）と速度を表示
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//ESP_BT.write(f_uint8); //周波数をスマホに送信ESP_BT.write(f_uint8); //周波数をスマホに送信
+</span><span style="color:#75715e"></span>
+  count<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> <span style="color:#75715e">//カウント値をリセット
+</span><span style="color:#75715e"></span>  
+<span style="color:#f92672">}</span></code></pre></div>
+<h1 id="5-スマホアプリ">5. スマホアプリ</h1>
+<p>　画面に速度だけをでっかく表示したかったので、2画面構成にしました。アプリ起動後に「CONNENCT」ボタンを押すと、速度表示画面に遷移する仕組みです。</p>
+<p>　必ずマイコン側の電源が入っている状態で「CONNECT」ボタンを押してください。マイコンに接続できないと、「CONNECT」画面に戻る仕組みになっています。</p>
+  <div align="center">
+  <figure><img src="UI_connect.png"
+         alt="アプリ外観（デザイン編集タブ）、接続画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリ外観（デザイン編集タブ）、接続画面
+  </div>
+  <div align="center">
+  <figure><img src="UI_main.png"
+         alt="アプリ外観（デザイン編集タブ）、車速表示画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリ外観（デザイン編集タブ）、車速表示画面
+  </div>
+  <div align="center">
+  <figure><img src="blocks_connect.png"
+         alt="アプリの中身（ブロック編集タブ）、接続画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリの中身（ブロック編集タブ）、接続画面
+  </div>
+  <div align="center">
+  <figure><img src="blocks_main.png"
+         alt="アプリの中身（ブロック編集タブ）、車速表示画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリの中身（ブロック編集タブ）、車速表示画面
+  </div>
+<h1 id="6-動画">6. 動画</h1>
+<p>　動作の比較結果がこちらになります。前のバージョン比べて、速度の更新周期が速くなっていることが確認できると思います。これで車速制御に応用できそうです！</p>
+<p><br><br>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/4o0ayMLeHDk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
+<ul>
+<li><a href="rc_speedometer_4.aia">rc_speedometer_4.aia</a></li>
+</ul>
+<p><strong>～ Androidアプリのファイル(.apk) ～</strong></p>
+<ul>
+<li><a href="rc_speedometer_4.apk">rc_speedometer_4.apk</a></li>
+</ul>
+<h1 id="7-関連記事">7. 関連記事</h1>
+<ul>
+<li>前回 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">ラジコンカー用スピードメータ開発！</a></li>
+</ul>
+<h1 id="8-参考文献">8. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>mgo-tec電子工作「Arduino / ESP8266 の使用できるRAM 領域を再考」、(<a href="https://www.mgo-tec.com/blog-entry-arduino-esp8266-ram-size.html">https://www.mgo-tec.com/blog-entry-arduino-esp8266-ram-size.html</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2023/11/04/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/">ラジコン用スピードメータの高速化</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/11/04/">ラジコン操縦アプリ「Happy RC Driver」のIOS対応化に向けて</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第14回-走行用バッテリーからマイコンに給電]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第13回-ラジコンアプリに車速を表示]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/">OPPO Reno8 Pro 5G 中国版とグローバル版、実はかなり違う</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/">OPPO Reno8 Pro 5G（中国版）レビュー</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/">研究室用の報告書テンプレ作成！</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2023</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

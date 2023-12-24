@@ -6,7 +6,22 @@
     <description>Recent content in 無線通信 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 04 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ラジコン用スピードメータの高速化</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/</link>
+      <pubDate>Sun, 24 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/</guid>
+      <description>～ 目次 ～   1. 今回やりたいこと 2. マイコンとセンサの限界 3. ハードウェアの変更点 4. マイコン側プログラム 5. スマホアプリ 6. 動画 7. 関連記事 8. 参考文献   1. 今回やりたいこと 　今年の初めごろにラジコンカー用のスピードメータを自作しましたが、スピードの更新間隔が遅い（0.5 [ms]）と感じていました。
+　当時はこれでも問題ないと感じてたのですが、最近はラジコンカーにクルコン（クルーズコントロール）を実装しようと考え始めました。
+　クルコンの制御に車速を使うのですが、車速の計算間隔 0.5 [ms] で車速制御すると少し遅れが出そうだなと思いました。
+　今回は今まで作ったスピードメータを、車速制御に十分なスピードメータに改良します！
+2. マイコンとセンサの限界 　センサの応答速度は計算すると 66,666 [Hz] が限界っぽいです（$T_r$ = 15 [μs]）。なのでESP32マイコンのサンプリング周期をこれより早くしても意味なさそうです。プログラムでサンプリング周期を $T$ = 1 [ms] したら丁度いい感じで値が取れたので、これで行こうと思います。サンプリング周波数 $f$ は、サンプリング周期の逆数になるので、
+${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$
+となります。</description>
+    </item>
+    
     <item>
       <title>ラジコン操縦アプリ「Happy RC Driver」のIOS対応化に向けて</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/11/04/</link>
