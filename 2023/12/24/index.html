@@ -57,17 +57,18 @@
 <li><a href="#4-%E3%83%9E%E3%82%A4%E3%82%B3%E3%83%B3%E5%81%B4%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0">4. マイコン側プログラム</a></li>
 <li><a href="#5-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%A2%E3%83%97%E3%83%AA">5. スマホアプリ</a></li>
 <li><a href="#6-%E5%8B%95%E7%94%BB">6. 動画</a></li>
-<li><a href="#7-%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B">7. 関連記事</a></li>
-<li><a href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">8. 参考文献</a></li>
+<li><a href="#7-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">7. サンプルファイル</a></li>
+<li><a href="#8-%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B">8. 関連記事</a></li>
+<li><a href="#9-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">9. 参考文献</a></li>
 </ul>
 <hr>
 <h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
 <p>　今年の初めごろにラジコンカー用のスピードメータを自作しましたが、スピードの更新間隔が遅い（0.5 [ms]）と感じていました。</p>
 <p>　当時はこれでも問題ないと感じてたのですが、最近はラジコンカーにクルコン（クルーズコントロール）を実装しようと考え始めました。</p>
-<p>　クルコンの制御に車速を使うのですが、車速の計算間隔 0.5 [ms] で車速制御すると少し遅れが出そうだなと思いました。</p>
-<p>　今回は今まで作ったスピードメータを、車速制御に十分なスピードメータに改良します！</p>
+<p>　クルコンの制御に車速を使うのですが、車速の計算間隔 0.5 [ms] で制御すると、遅れが出そうだなと思いました。</p>
+<p>　今回は<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">前回</a>作ったスピードメータを、車速制御に十分なスピードメータに改良します！</p>
 <h1 id="2-マイコンとセンサの限界">2. マイコンとセンサの限界</h1>
-<p>　センサの応答速度は計算すると 66,666 [Hz] が限界っぽいです（$T_r$ = 15 [μs]）。なのでESP32マイコンのサンプリング周期をこれより早くしても意味なさそうです。プログラムでサンプリング周期を $T$ = 1 [ms] したら丁度いい感じで値が取れたので、これで行こうと思います。サンプリング周波数 $f$ は、サンプリング周期の逆数になるので、</p>
+<p>　センサの応答速度は計算すると 66,666 [Hz] が限界っぽいです（<a href="https://akizukidenshi.com/download/lbr127hld.pdf">LBR-127Dのデータシート</a>を見ると、$T_r$ = 15 [μs]）。なのでESP32マイコンのサンプリング周期をこれより早くしても意味なさそうです。プログラムでサンプリング周期を $T$ = 1 [ms] したら丁度いい感じで値が取れたので、これで行こうと思います。サンプリング周波数 $f$ は、サンプリング周期の逆数になるので、</p>
 <p>${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</p>
 <p>となります。</p>
 <h1 id="3-ハードウェアの変更点">3. ハードウェアの変更点</h1>
@@ -166,34 +167,34 @@ BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#7
 </span><span style="color:#75715e"></span>  
 <span style="color:#f92672">}</span></code></pre></div>
 <h1 id="5-スマホアプリ">5. スマホアプリ</h1>
-<p>　画面に速度だけをでっかく表示したかったので、2画面構成にしました。アプリ起動後に「CONNENCT」ボタンを押すと、速度表示画面に遷移する仕組みです。</p>
+<p>　画面に速度だけを<strong>でっかく</strong>表示したかったので、2画面構成にしました。アプリ起動後に「CONNECT」ボタンを押すと、速度表示画面に遷移する仕組みです。</p>
 <p>　必ずマイコン側の電源が入っている状態で「CONNECT」ボタンを押してください。マイコンに接続できないと、「CONNECT」画面に戻る仕組みになっています。</p>
   <div align="center">
   <figure><img src="UI_connect.png"
-         alt="アプリ外観（デザイン編集タブ）、接続画面"/>
+         alt="アプリ外観（デザイン編集タブ）：接続画面"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　アプリ外観（デザイン編集タブ）、接続画面
+  ☝　アプリ外観（デザイン編集タブ）：接続画面
   </div>
   <div align="center">
   <figure><img src="UI_main.png"
-         alt="アプリ外観（デザイン編集タブ）、車速表示画面"/>
+         alt="アプリ外観（デザイン編集タブ）：車速表示画面"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　アプリ外観（デザイン編集タブ）、車速表示画面
+  ☝　アプリ外観（デザイン編集タブ）：車速表示画面（プレビュー画面では、htmlタグがでっかく表示されてしまってますw）
   </div>
   <div align="center">
   <figure><img src="blocks_connect.png"
-         alt="アプリの中身（ブロック編集タブ）、接続画面"/>
+         alt="アプリの中身（ブロック編集タブ）、接続画面（ここで必要なアプリ権限を与えています）"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　アプリの中身（ブロック編集タブ）、接続画面
+  ☝　アプリの中身（ブロック編集タブ）：接続画面（ここで必要なアプリ権限を与えています）
   </div>
   <div align="center">
   <figure><img src="blocks_main.png"
@@ -206,11 +207,13 @@ BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#7
   </div>
 <h1 id="6-動画">6. 動画</h1>
 <p>　動作の比較結果がこちらになります。前のバージョン比べて、速度の更新周期が速くなっていることが確認できると思います。これで車速制御に応用できそうです！</p>
-<p><br><br>
+<p><br>
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="https://www.youtube.com/embed/4o0ayMLeHDk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 </p>
+<h1 id="7-サンプルファイル">7. サンプルファイル</h1>
+<p>　作成したアプリのデータはこちらになります。自由に変えて遊んでみてください！</p>
 <p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
 <ul>
 <li><a href="rc_speedometer_4.aia">rc_speedometer_4.aia</a></li>
@@ -219,11 +222,11 @@ BluetoothSerial ESP_BT<span style="color:#f92672">;</span> <span style="color:#7
 <ul>
 <li><a href="rc_speedometer_4.apk">rc_speedometer_4.apk</a></li>
 </ul>
-<h1 id="7-関連記事">7. 関連記事</h1>
+<h1 id="8-関連記事">8. 関連記事</h1>
 <ul>
 <li>前回 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/">ラジコンカー用スピードメータ開発！</a></li>
 </ul>
-<h1 id="8-参考文献">8. 参考文献</h1>
+<h1 id="9-参考文献">9. 参考文献</h1>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
