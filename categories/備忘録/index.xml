@@ -6,7 +6,20 @@
     <description>Recent content in 備忘録 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自分のWebサイトを作りました！</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</link>
+      <pubDate>Sat, 27 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</guid>
+      <description>作成したサイトの外観 　Djangoとbootstrap5を使って、自分の取り組みを紹介するサイトを作りました！
+　下の画像が作ったページの外観です。スマホでもPCでも見やすいレイアウトとなるように工夫しました。
+  ☝　作ったサイト  　色々なサイトや友達の意見を参考にしながら、ページのデザインから動作の作成、デプロイまで行いました。
+サイトへのアクセス 　PythonAnywhereにデプロイしました。下のリンクをクリックすると、作ったサイトがご覧いただけます。
+ https://tikegami.pythonanywhere.com/  参考文献  Bootstrap公式ドキュメント、(https://getbootstrap.jp/) Quita（@Saku231）「Django(Python)でシステム開発できるようになる記事_入門編」、(https://qiita.com/Saku731/items/ed64190a12a4498b9446) 電脳世界「8.Djangoでモデルからデータを取り出して表示」、(https://denno-sekai.com/django-objects-get/) Django Girls「デプロイ！」、(https://tutorial.djangogirls.org/ja/deploy/) Quita（@mizu4my）「【Django】DjangoアプリをPythonAnywhereにデプロイする方法」、(https://qiita.com/mizu4my/items/ffd4281016d656421762)  </description>
+    </item>
+    
     <item>
       <title>「Command &#39;cmd&#39; not found, but there are 18 similar ones.」と表示されてPythonが実行できない</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/</link>
