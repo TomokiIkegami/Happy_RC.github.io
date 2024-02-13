@@ -6,7 +6,16 @@
     <description>Recent content in Arduino on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 24 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Qiita Hackathon [予選]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/13/</link>
+      <pubDate>Tue, 13 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/13/</guid>
+      <description>～ 目次 ～   1. イベント概要 2. アイデア出し 3. 決まった製品コンセプト 4. コンセプト決定の背景 5. 製作の流れ  5.1. システム構成 5.2. 役割分担   6. 使用したもの  6.1. 使った装置  6.1.1. ソフトウェア 6.1.2. ハードウェア     7. 構成  7.1. ハードウェア 7.2. ソフトウェア  7.2.1. プログラムの概要、動作フロー     8. ソースコード  8.1. PC側プログラムA 8.2. PC側プログラムB 8.3. レシーバ(ESP32マイコン)側プログラム   9. 動画 10. まとめ 11. 今後の予定 12. おまけ 13. 謝辞 14.</description>
+    </item>
+    
     <item>
       <title>ラジコン用スピードメータの高速化</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/</link>
