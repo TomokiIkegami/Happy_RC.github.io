@@ -10,7 +10,7 @@
    stroke-linejoin="round"
    xml:space="preserve"
    id="svg28507"
-   sodipodi:docname="rc_control_using_esp32_bluetooth_with_speedometer_v2.svg"
+   sodipodi:docname="rc_control_using_esp32_bluetooth_with_speedometer_v2_eng.svg"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -27,7 +27,7 @@
    inkscape:document-units="mm"
    showgrid="false"
    inkscape:zoom="1.748977"
-   inkscape:cx="322.18834"
+   inkscape:cx="302.17664"
    inkscape:cy="253.29092"
    inkscape:window-width="1920"
    inkscape:window-height="1094"
@@ -97209,7 +97209,7 @@
      style="stroke-width:27.6535"
      x="20070.238"
      y="4654.751"
-     id="tspan63937">regulater (6→5 [V])</tspan></text><text
+     id="tspan63937">regulator (6→5 [V])</tspan></text><text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:423.333px;font-family:'Liberation Sans', sans-serif;-inkscape-font-specification:'Liberation Sans, sans-serif';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke-width:27.6535;stroke-linecap:round;stroke-linejoin:round"
    x="27477.158"
