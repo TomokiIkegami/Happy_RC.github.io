@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PCトラブル on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/</link>
+    <description>Recent content in PCトラブル on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 25 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ノートPCのキーボードが入力できない</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/</link>
+      <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/</guid>
+      <description>症状 　お気に入りのノートPC「Lenovo YOGA 670」を使っていたところ、卒論発表資料の作成中にキーボードの主要キーが使えなくなった（これはヤバい）。
+ 1日目：カッコ（）が入力できなくなる、そこでShiftキーが使えなくなったことに気が付く 2-3日目：5と6以外の数字キーが入力できなくなる 4-5日目：バックスペースキー、スペースキー、エンターキーも使えなくなった。（おわったわ &amp;hellip;）  解決方法 　グーグル検索やGPTやらを使って解決を試みましたが、中々大変でした。というかキーボードの反応悪いから、そもそも検索しにくい（苦笑）
+　最終的には、Lenovoのトラブルシューティングページ「Lenovo PCでキーボードのキーが動作しない」を参考にして修正にトライしました。
+　「手順4 - ドライバーを確認する」の項目でLenovoのサポートページから、ドライバなどの更新をしたらだんだん良くなりました。なぜか Dolby Vision 関連のソフトウェアだけ更新インストールして、再起動したら数字キーが打てるようになりました。
+　でも数字キーはタイムラグがあって不自然な感じでした。変なので、とりあえず シャットダウン (Shift押しながら) してからまた起動しました。タイムラグが相変わらず治っていなかったので、キー長押ししてみました。そうするとなぜか、だんだん数字キーが速く入力されるようになってきました。バックスペースも長押ししてみると、初めは遅かったのですが、こちらもだんだん速く反応するようになりました。
+　結局こんな感じで、全部のキーが使えるようになりました～～ （原因は最終的に不明だが、ハードウェア側の問題じゃなかったことは分かった）
+　同じく変な症状に悩んでいる人がいたら、諦めずにトラブルシューティングにトライしてみてください！ (/・ω・)/</description>
+    </item>
+    
+  </channel>
+</rss>
