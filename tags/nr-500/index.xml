@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NR-500 on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/</link>
+    <description>Recent content in NR-500 on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>オートメーションサーバでオートバランスできない</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</link>
+      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</guid>
+      <description>オートメーションサーバ機能とは 　キーエンス製データロガーの専用ソフトウェア「WAVE LOGGER X」を、Python, C#, VBAで操作できる機能です（Webアプリケーションで言うところのAPI? みたいな感じです）。WAVE LOGGER X 自体は、マウスでポチポチ操作できるソフトです（綺麗なGUI）。このようにマウスで操作するところを、他のプログラミング言語（Python, C#, VBA）で自動的に操作するのが、オートメーションサーバ機能です。とても便利です(&amp;lsquo;ω&amp;rsquo;)
+  ☝　WAVE LOGGER X の画面はこんな感じ  オートバランスできない&amp;hellip; 　キーエンス製データロガー（今回はNR-500を使用）でひずみ計測ユニット（NR-ST04）を使うときは、測定開始前に必ず「オートバランス」（ブリッジ回路のゼロ点補正）をする必要があります。WAVE LOGGER Xを使っているときは、「オートバランス」ボタンをただポチっとするだけでよいのですが、オートメーションサーバ機能ではこれにかなり苦労しました。
+　ネット情報がほとんど見当たらなかったので（現状では驚くほど情報が少ない）、今回はその解決方法を共有したいと思います！
+　下の画像は（研究室の）実験室にある、キーエンスのNR-500とNR-ST04です。（NR-ST04がなんかたくさんある ← もちろん理由はあります）
+  ☝　一番左がNR-500、右がNR-ST04(×5個)  解決策 　初めにサンプルコード全体を載せます。他のシステムとの統合を考えていたので、コードはPythonで作成しています。
+　基本的にはキーエンスのサンプルプログラム（「C:\program files\KEYENCE\WAVE LOGGER X\samples\Automation.zip」に入ってる）と同じ感じですが、オートバランスを自動で行う、測定データを自動保存する処理を追加しています。
+　オートバランスの進捗状態を確認してから、次の処理を実行するというのがポイントです。
+⇩⇩⇩ ソースコード ⇩⇩⇩  import os # ファイルパスの取得などに使用 import time # 待ち時間などを制御するために使用 import win32com.client # Windowsでアプリを操作するためのAPI from pathlib import Path # ファイルパスの取得などに使用 # 初期設定 NR500_USB_ID_START = 0 NR500_USB_ID_END = 3 STATE_START_WAIT = 2 STATE_TRIGGER_WAIT = 3 STATE_RUN = 4 STATE_REPEAT_RUN = 5 STATE_PRE_TRIGGER = 6 STATE_POST_TRIGGER = 7 STATE_STOP_WAIT = 8 STATE_READ_WAIT = 10 STATE_PROCEDURE_WAIT = 12 UNIT_NUMBER = 1 GROUP_NUMBER = 0 CHANNEL_NUMBER = 0 # Pythonファイル名、収集設定ファイル名、（ロガーの）グループ番号を設定 argv = [&amp;#34;python_file_path&amp;#34;, &amp;#34;xdt_file_path&amp;#34;, &amp;#34;group_number&amp;#34;] argv[0] = str(Path.</description>
+    </item>
+    
+  </channel>
+</rss>
