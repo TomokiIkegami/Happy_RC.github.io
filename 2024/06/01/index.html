@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     バックアップに失敗して新PCが1日目で起動しなくなった【絶望】 -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      バックアップに失敗して新PCが1日目で起動しなくなった【絶望】
+    </h1>
+    
+    <p class="document-date">
+      2024-06-01 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"何とか解決できたので、解決方法まとめます"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="行ったバックアップの内容">行ったバックアップの内容</h1>
+<p>　使っているうちにメイン機の Lenovo YOGA 670 の不具合が多くなってきた（キーボードが壊れる、バッテリーが充電できなくなる）ので、PCを新しくすることにしました。新しいPCは ASUS ROG FLOW Z13にしました。</p>
+<p>　開発で色んなソフト（機械系・電気系CAD、プログラミングのIDE、シミュレーションソフト、3DCG、動画編集ソフトなど&hellip;）を使っているので、新しいPCにインストールし直そうと思うと、かなり時間がかっちゃって設定も大変です(;&lsquo;∀&rsquo;)</p>
+<p>　そこで、EaseUSを使って YOGA 670 のシステムバックアップを作成し、新しいPC（ROG FLOW）に移行することにしました。</p>
+<p>　システムの移行にはかなり時間がかかっていたので、そのまま寝ることにしました（寝る子は育つ）。</p>
+  <div align="center">
+  <figure><img src="transfered_system_from_hdd.jpg"
+         alt="システム移行中の様子（PCが届いた日の夜）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　システム移行中の様子（PCが届いた日の夜）
+  </div>
+<h1 id="朝を迎える">朝を迎える</h1>
+<p>　ワクワクして新しいPCを起動すると、ブルスク（ブルースクリーンエラー）が発生した。一時的なエラーだろうと思って、何回も試したがやっぱり起動しない。絶望。</p>
+  <div align="center">
+  <figure><img src="bluescreen.jpg"
+         alt="ブルースクリーンエラーが発生。PCが起動しなくなった..."/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ブルースクリーンエラーが発生。PCが起動しなくなった...
+  </div>
+<h1 id="解決方法">解決方法</h1>
+<p>　色々調べて試した結果、VMDコントローラ（Intel製のPCIeバスからNVMe SSDを制御するための機能みたいです）を無効にすることで解決できました。手順を画像付きで説明します！（BIOSのスクショの撮り方が分からなかったので写真で失礼します&hellip;  F12でスクショはできなかった）</p>
+<p>　まずパソコンを起動してF2キーを連打し、BIOSを開きます。<br><br></p>
+<blockquote>
+<p>インテル® VMD は、インテル® Xeon® スケーラブル・プロセッサーの機能で、追加のハードウェア・アダプターなしに PCIe バスから 直接 NVMe SSD を制御、管理できるようにします。（<a href="https://www.intel.co.jp/content/www/jp/ja/architecture-and-technology/intel-volume-management-device-overview.html">インテル公式HP</a>より）</p>
+</blockquote>
+  <div align="center">
+  <figure><img src="step1.jpg"
+         alt="BIOS画面（ホーム）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　BIOS画面（ホーム）
+  </div>
+<p>　画面右下の「アドバンスモード」をクリック（または&quot;F7キー&quot;を押す）</p>
+  <div align="center">
+  <figure><img src="step2.jpg"
+         alt="アドバンスモードの画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アドバンスモードの画面（メイン）
+  </div>
+<p>　アドバンスモードが開いたら「詳細」タブを押して、詳細画面に移動します</p>
+  <div align="center">
+  <figure><img src="step3.jpg"
+         alt="アドバンスモードの詳細画面に移動"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アドバンスモードの詳細画面に移動
+  </div>  
+<p>　詳細画面を下に移動して、「VMD設定メニュー」を探します。</p>
+  <div align="center">
+  <figure><img src="step4.jpg"
+         alt="下に移動し、「VMD設定メニュー」を見つける"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　下に移動し、VMD設定メニューを見つける
+  </div>  
+<p>　「VMD設定メニュー」を見つけたらクリック（またはEnter）して、メニューを開きます。</p>
+  <div align="center">
+  <figure><img src="step5.jpg"
+         alt="VMD設定メニューを開く"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　VMD設定メニューを開く（初期状態ではVMDコントローラが「有効」になっている）
+  </div>  
+<p>　プルダウンメニューから、VMDコントローラを「無効」に設定します。警告画面が出てきますが、「OK」を押します。</p>
+  <div align="center">
+  <figure><img src="step6.jpg"
+         alt="VMDコントローラを「無効」に設定する（警告画面が出てくるが「OK」を押す）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　VMDコントローラを「無効」に設定する（警告画面が出てくるが「OK」を押す）
+  </div>  
+<p>　VMDコントローラが「無効」になったことを確認してください。確認出来たら、画面右上の「保存して終了する」タブを押します。</p>
+  <div align="center">
+  <figure><img src="step8.jpg"
+         alt="VMDコントローラが「無効」になったことを確認し、画面右上の「保存して終了する」のメニューに移動"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　VMDコントローラが「無効」になったことを確認し、画面右上の「保存して終了する」のメニューに移動
+  </div>  
+<p>　一番上の「変更を保存して終了する」を選美ます。　</p>
+  <div align="center">
+  <figure><img src="step9.jpg"
+         alt="「変更を保存して終了する」を選ぶ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　「変更を保存して終了する」を選ぶ
+  </div>  
+<p>　確認画面が出てくるので「OK」を押します。</p>
+  <div align="center">
+  <figure><img src="step9.jpg"
+         alt="「OK」を押すとBIOSが閉じて再起動する"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　「OK」を押すとBIOSが閉じて再起動する
+  </div>  
+<p>　再起動すると、ロゴが表示されます。</p>
+  <div align="center">
+  <figure><img src="step10.jpg"
+         alt="再起動するとロゴが表示される"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　再起動するとロゴが表示される
+  </div>  
+<p>　「回復」と書かれた青い画面が出てきたら、Enterを押して再起動してください。何回再起動してもうまく行かない場合は、この方法ではうまく行かないかもしれないです。（違うところに原因があるかも）</p>
+  <div align="center">
+  <figure><img src="step11.jpg"
+         alt="起動直後にロゴが表示される"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　起動直後にロゴが表示される
+  </div>  
+  <div align="center">
+  <figure><img src="step12.jpg"
+         alt="「回復」と書かれた青い画面が出た場合は、Enterを押して再起動"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　「回復」と書かれた青い画面が出た場合は、Enterを押して再起動
+  </div>  
+<p>　うまく行けば、Windowsのログイン画面が表示されます。このときPINの再設定が求められるので、インターネットに接続する必要があります。</p>
+  <div align="center">
+  <figure><img src="step13.jpg"
+         alt="無事 Windows が起動する"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　無事 Windows が起動する
+  </div>
+<p>　私の場合は、Wi-Fiを有効にできなかったので USBテザリングで設定を進めました。</p>
+  <div align="center">
+  <figure><img src="step13_2.jpg"
+         alt="Wi-Fiに接続できなかったので、スマホのUSBテザリングで設定を進めた"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　Wi-Fiに接続できなかったので、スマホのUSBテザリングで設定を進めた
+  </div>  
+<p>　Windowsが無事起動しました。やったー！</p>
+<p>　前のパソコンで使ってたアプリを再インストールすることなく、そのまま使うことができます。めっちゃ便利！</p>
+  <div align="center">
+  <figure><img src="step15.jpg"
+         alt="システム移行が成功（なぜか壁紙は真っ黒）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　システム移行が成功（なぜか壁紙は真っ黒）
+  </div>  
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/04/17/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/">オートメーションサーバでオートバランスできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/">ノートPCのキーボードが入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/13/">Qiita Hackathon [予選]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/">自分のWebサイトを作りました！</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/">「Command &#39;cmd&#39; not found, but there are 18 similar ones.」と表示されてPythonが実行できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/">ラジコン用スピードメータの高速化</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2024</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

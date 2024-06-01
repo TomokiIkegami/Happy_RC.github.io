@@ -6,7 +6,26 @@
     <description>Recent content in PCトラブル on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 25 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/</link>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/</guid>
+      <description>行ったバックアップの内容 　使っているうちにメイン機の Lenovo YOGA 670 の不具合が多くなってきた（キーボードが壊れる、バッテリーが充電できなくなる）ので、PCを新しくすることにしました。新しいPCは ASUS ROG FLOW Z13にしました。
+　開発で色んなソフト（機械系・電気系CAD、プログラミングのIDE、シミュレーションソフト、3DCG、動画編集ソフトなど&amp;hellip;）を使っているので、新しいPCにインストールし直そうと思うと、かなり時間がかっちゃって設定も大変です(;&amp;lsquo;∀&amp;rsquo;)
+　そこで、EaseUSを使って YOGA 670 のシステムバックアップを作成し、新しいPC（ROG FLOW）に移行することにしました。
+　システムの移行にはかなり時間がかかっていたので、そのまま寝ることにしました（寝る子は育つ）。
+  ☝　システム移行中の様子（PCが届いた日の夜）  朝を迎える 　ワクワクして新しいPCを起動すると、ブルスク（ブルースクリーンエラー）が発生した。一時的なエラーだろうと思って、何回も試したがやっぱり起動しない。絶望。
+  ☝　ブルースクリーンエラーが発生。PCが起動しなくなった...  解決方法 　色々調べて試した結果、VMDコントローラ（Intel製のPCIeバスからNVMe SSDを制御するための機能みたいです）を無効にすることで解決できました。手順を画像付きで説明します！（BIOSのスクショの撮り方が分からなかったので写真で失礼します&amp;hellip; F12でスクショはできなかった）
+　まずパソコンを起動してF2キーを連打し、BIOSを開きます。
+ インテル® VMD は、インテル® Xeon® スケーラブル・プロセッサーの機能で、追加のハードウェア・アダプターなしに PCIe バスから 直接 NVMe SSD を制御、管理できるようにします。（インテル公式HPより）
+   ☝　BIOS画面（ホーム）  　画面右下の「アドバンスモード」をクリック（または&amp;quot;F7キー&amp;quot;を押す）
+  ☝　アドバンスモードの画面（メイン）  　アドバンスモードが開いたら「詳細」タブを押して、詳細画面に移動します
+  ☝　アドバンスモードの詳細画面に移動  　詳細画面を下に移動して、「VMD設定メニュー」を探します。</description>
+    </item>
+    
     <item>
       <title>ノートPCのキーボードが入力できない</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/</link>
