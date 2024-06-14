@@ -6,7 +6,24 @@
     <description>Recent content in 備忘録 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 01 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LabVIEWをインストールしたらPCが起動しなくなった</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/</link>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/</guid>
+      <description>起こった現象 　研究で使用するNI製のソフトウェアLabVIEWをインストールし、昼ごはんから帰ってきてスリープから復帰しようとしたらPCが起動できなくなった（なぬ!? これはヤバい）
+　ブルスクになって、
+　停止コード：SECURE_PCI_CONFIG_SPACE_VIOLATION）
+失敗した内容：nipcibrd.sys
+　と表示されました。たまたま研究室でPCに詳しいドクターの先輩が近くにいたので、一緒に調べて解決することができました（先輩には感謝してます）
+  ☝　昼休みから帰ってきてPC開いたらブルスク（涙）  解決方法 　Intel Virtualization Technology（VTとも呼ばれるらしい）を無効（Disabled）にすることで解決できました（ちなみにこの解決方法はNIの公式HPに解決方法がのっていた）。VTは並列処理に使うIntelの技術みたいです（難しくてあまり詳細は分かりませんでした、性能上がるらしい） BIOSを開いて（パソコンを起動してF2キーを連打）し、
+　「アドバンスモード(F7)&amp;gt;詳細&amp;gt;インテル バーチャライゼーション・テクノロジー」を「無効」にすることで解決できます。
+ インテル® バーチャライゼーション・テクノロジーは複数の作業負荷が共通のリソースセットを共有できるようにするハードウェアを抽象化します。共有仮想化ハードウェアでは、さまざまなワークロードを相互に完全分離しながら共存させ、インフラ・ストラクチャー間にて自由に移行し、必要に応じて拡張できます。（インテル公式HPより）
+   ☝　Intel Virtualization Technology（インテル バーチャライゼーション・テクノロジー）の設定  </description>
+    </item>
+    
     <item>
       <title>バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/</link>
