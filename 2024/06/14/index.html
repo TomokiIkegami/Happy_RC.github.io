@@ -65,9 +65,8 @@
   ☝　昼休みから帰ってきてPC開いたらブルスク（涙）
   </div>
 <h1 id="解決方法">解決方法</h1>
-<p>　Intel Virtualization Technology（VTとも呼ばれるらしい）を無効（Disabled）にすることで解決できました（ちなみにこの解決方法は<a href="https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q0000019l42CAA&amp;l=ja-JP">NIの公式HPに解決方法</a>がのっていた）。VTは並列処理に使うIntelの技術みたいです（難しくてあまり詳細は分かりませんでした、性能上がるらしい）
-　
-　BIOSを開いて（パソコンを起動してF2キーを連打）し、</p>
+<p>　Intel Virtualization Technology（VTとも呼ばれるらしい）を無効（Disabled）にすることで解決できました（ちなみにこの解決方法は<a href="https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q0000019l42CAA&amp;l=ja-JP">NIの公式HPに解決方法</a>がのっていた）。VTは並列処理に使うIntelの技術みたいです（難しくてあまり詳細は分かりませんでした、性能上がるらしい）</p>
+<p>　BIOSを開いて（パソコンを起動してF2キーを連打）し、</p>
 <p>　「アドバンスモード(F7)&gt;詳細&gt;インテル バーチャライゼーション・テクノロジー」を「無効」にすることで解決できます。<br><br></p>
 <blockquote>
 <p>インテル® バーチャライゼーション・テクノロジーは複数の作業負荷が共通のリソースセットを共有できるようにするハードウェアを抽象化します。共有仮想化ハードウェアでは、さまざまなワークロードを相互に完全分離しながら共存させ、インフラ・ストラクチャー間にて自由に移行し、必要に応じて拡張できます。（<a href="https://www.intel.co.jp/content/www/jp/ja/support/articles/000005486/processors.html">インテル公式HP</a>より）</p>
