@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flask on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/</link>
+    <description>Recent content in Flask on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 26 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>簡易な会計アプリを作ってみた</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</link>
+      <pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</guid>
+      <description>1. 開発の背景 　一昨年の大学祭の模擬店ではフライドポテトを販売していましたが、会計がかなり大変でした。
+　具体的には、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。
+　今年は私自身が模擬店の担当になったわけではなかったのですが、少しでも負担を減らして楽にできたら良いなと思い、開発することに決めました。
+2. 実装までの流れ 　初めはDjangoでやろうと思ったのですが、URLの設定や画面遷移などに失敗してしまいました。修正しようと思ったのですが、中々うまく行きませんでした。留学生の友達（インドネシア人の方です）がFlaskの方が簡単という話をしていたのを思い出し、Flaskでの実装に切り替えました。
+　コーディングはChatGPT(4o)とGitHub Copilotを使いながら爆速で開発を進めます。
+3. 実装した画面の説明 3.1. 「売上計算」画面 　メインの画面です。お客様の購入数量に応じて合計金額を計算します。
+  ☝　売上計算画面  3.2. 「売上履歴」画面 「売上計算」画面で計算した売上の履歴が保存されています。
+  ☝　売上履歴  3.3. 「商品一覧」画面 「売上計算」画面で表示される商品名と金額を登録・編集します。
+  ☝　売上計算画面  3.4. 「売上ダッシュボード」画面 合計数量や時間ごとの売り上げなどを、数値とグラフで表示します。
+  ☝　売上ダッシュボード画面  4. 動画 　こちらが完成したアプリの動画です！ Render.comにデプロイして動かしてみました。
+  5. ソースコード 　今回のアプリはFlaskで作ったので、画面遷移やデータベースの処理をするPythonコードと、各画面のhtmlファイルを掲載を一部掲載します。全ソースコードはGitHubに載せました。
+⇩⇩⇩ ソースコード(app.py) ⇩⇩⇩  from flask import Flask, render_template, request, redirect, url_for, flash, send_file, send_from_directory from flask_sqlalchemy import SQLAlchemy from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user from werkzeug.</description>
+    </item>
+    
+  </channel>
+</rss>
