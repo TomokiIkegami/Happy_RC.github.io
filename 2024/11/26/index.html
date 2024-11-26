@@ -51,7 +51,7 @@
     <main class="card shadow round-corner">
 <h1 id="1-開発の背景">1. 開発の背景</h1>
 <p>　一昨年の大学祭の模擬店ではフライドポテトを販売していましたが、会計がかなり大変でした。</p>
-<p>　具体的には、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。</p>
+<p>　そのときは、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。</p>
 <p>　今年は私自身が模擬店の担当になったわけではなかったのですが、少しでも負担を減らして楽にできたら良いなと思い、開発することに決めました。</p>
 <h1 id="2-実装までの流れ">2. 実装までの流れ</h1>
 <p>　初めはDjangoでやろうと思ったのですが、URLの設定や画面遷移などに失敗してしまいました。修正しようと思ったのですが、中々うまく行きませんでした。留学生の友達（インドネシア人の方です）がFlaskの方が簡単という話をしていたのを思い出し、Flaskでの実装に切り替えました。</p>
@@ -69,7 +69,7 @@
   ☝　売上計算画面
   </div>
 <h2 id="32-売上履歴画面">3.2. 「売上履歴」画面</h2>
-<p>「売上計算」画面で計算した売上の履歴が保存されています。</p>
+<p>　「売上計算」画面で計算した売上の履歴が保存されています。「CSVでダウンロード」を押すと、売上履歴をダウンロードして後で分析することができます。</p>
   <div align="center">
   <figure><img src="%e5%a3%b2%e4%b8%8a%e5%b1%a5%e6%ad%b4%e7%94%bb%e9%9d%a2.png"
          alt="売上履歴画面"/>
@@ -77,10 +77,10 @@
 
   </div>
   <div style="text-align: center;">
-  ☝　売上履歴
+  ☝　売上履歴画面
   </div>
 <h2 id="33-商品一覧画面">3.3. 「商品一覧」画面</h2>
-<p>「売上計算」画面で表示される商品名と金額を登録・編集します。</p>
+<p>　「売上計算」画面で表示される商品名と金額を登録・編集します。</p>
   <div align="center">
   <figure><img src="%e5%95%86%e5%93%81%e4%b8%80%e8%a6%a7%e7%94%bb%e9%9d%a2.png"
          alt="商品一覧画面"/>
@@ -91,7 +91,7 @@
   ☝　売上計算画面
   </div>
 <h2 id="34-売上ダッシュボード画面">3.4. 「売上ダッシュボード」画面</h2>
-<p>合計数量や時間ごとの売り上げなどを、数値とグラフで表示します。</p>
+<p>　合計数量や時間ごとの売り上げなどを、数値とグラフで表示します。</p>
   <div align="center">
   <figure><img src="%e5%a3%b2%e4%b8%8a%e3%83%80%e3%83%83%e3%82%b7%e3%83%a5%e3%83%9c%e3%83%bc%e3%83%89%e7%94%bb%e9%9d%a2.png"
          alt="売上ダッシュボード画面"/>
@@ -109,7 +109,7 @@
 </div>
 
 <h1 id="5-ソースコード">5. ソースコード</h1>
-<p>　今回のアプリはFlaskで作ったので、画面遷移やデータベースの処理をするPythonコードと、各画面のhtmlファイルを掲載を一部掲載します。全ソースコードは<a href="https://github.com/TomokiIkegami/my_flask_pos">GitHub</a>に載せました。</p>
+<p>　今回のアプリはFlaskで作ったので、ここでは画面遷移やデータベースの処理をするPythonコードと、各画面のhtmlファイルを掲載を一部掲載します。全ソースコードは<a href="https://github.com/TomokiIkegami/my_flask_pos">GitHub</a>に載せました。</p>
   <br>
   <div style="text-align: center;">
 ⇩⇩⇩ ソースコード(app.py) ⇩⇩⇩
@@ -729,34 +729,6 @@ def <span style="color:#a6e22e">robots</span><span style="color:#f92672">():</sp
         &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary&#34;</span>&gt;更新&lt;/<span style="color:#f92672">button</span>&gt;
         &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary&#34;</span>&gt;戻る&lt;/<span style="color:#f92672">a</span>&gt;
     &lt;/<span style="color:#f92672">form</span>&gt;
-{% endblock %}
-  </code></pre></div>
-  <br>
-  <div style="text-align: center;">
-⇩⇩⇩ 商品追加画面(add_item.html) ⇩⇩⇩
-  </div>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
-
-{% block title %}模擬店会計App.{% endblock %}
-
-{% block content %}
-    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;商品を追加&lt;/<span style="color:#f92672">h1</span>&gt;
-
-    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span>&gt;
-        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group mt-3&#34;</span>&gt;
-            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt;商品名:&lt;/<span style="color:#f92672">label</span>&gt;
-            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">required</span>&gt;
-        &lt;/<span style="color:#f92672">div</span>&gt;
-
-        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group mt-3&#34;</span>&gt;
-            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span>&gt;価格:&lt;/<span style="color:#f92672">label</span>&gt;
-            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">required</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>&gt;
-        &lt;/<span style="color:#f92672">div</span>&gt;
-
-        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary mt-3&#34;</span>&gt;追加&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">form</span>&gt;
-
-    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;items&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary mt-3&#34;</span>&gt;商品一覧に戻る&lt;/<span style="color:#f92672">a</span>&gt;
 {% endblock %}
   </code></pre></div>
   <br>
