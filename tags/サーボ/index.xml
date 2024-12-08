@@ -6,7 +6,17 @@
     <description>Recent content in サーボ on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 04 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/</link>
+      <pubDate>Sun, 08 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/</guid>
+      <description>～ 目次 ～   1. 今回やったこと 2. 拡張機能開発の手順  2.1. Javaの勉強 2.2. 開発環境の構築 2.3. Java 8、Apache Antのインストール 2.4. 拡張機能のビルド   3. プログラム  3.1. 拡張機能のソースコード：Joystick.java 3.2. AI2(MIT App Inventor 2)のプログラム  3.2.1. 外観 3.2.2. 中身     4. 動画 5. サンプルファイル 6. まとめ 7. 関連記事 8. 参考文献   1. 今回やったこと 　今まではスライダを使ってラジコンを操縦していましたが、スライダをやめてジョイスティックで操作できるようにしました！
+  ☝　ジョイスティックに変更し、本格的な操作感を手に入れた...  2. 拡張機能開発の手順 2.1. Javaの勉強 　ラジコンアプリ（Happy_RC_Driver）は MIT App Inventor 2(AI2)を使って開発を進めていたので、AI2の拡張機能としてジョイスティックを実装しようと考えました。</description>
+    </item>
+    
     <item>
       <title>ラジコン操縦アプリ「Happy RC Driver」のIOS対応化に向けて</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/11/04/</link>

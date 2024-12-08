@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]
+    </h1>
+    
+    <p class="document-date">
+      2024-12-08 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"ジョイスティックを実装して本格的な操作感を実現"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8">1. 今回やったこと</a></li>
+<li><a href="#2-%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD%E9%96%8B%E7%99%BA%E3%81%AE%E6%89%8B%E9%A0%86">2. 拡張機能開発の手順</a>
+<ul>
+<li><a href="#21-java%E3%81%AE%E5%8B%89%E5%BC%B7">2.1. Javaの勉強</a></li>
+<li><a href="#22-%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89">2.2. 開発環境の構築</a></li>
+<li><a href="#23-java-8apache-ant%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">2.3. Java 8、Apache Antのインストール</a></li>
+<li><a href="#24-%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD%E3%81%AE%E3%83%93%E3%83%AB%E3%83%89">2.4. 拡張機能のビルド</a></li>
+</ul>
+</li>
+<li><a href="#3-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0">3. プログラム</a>
+<ul>
+<li><a href="#31-%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89joystickjava">3.1. 拡張機能のソースコード：Joystick.java</a></li>
+<li><a href="#32-ai2mit-app-inventor-2%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0">3.2. AI2(MIT App Inventor 2)のプログラム</a>
+<ul>
+<li><a href="#321-%E5%A4%96%E8%A6%B3">3.2.1. 外観</a></li>
+<li><a href="#322-%E4%B8%AD%E8%BA%AB">3.2.2. 中身</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-%E5%8B%95%E7%94%BB">4. 動画</a></li>
+<li><a href="#5-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">5. サンプルファイル</a></li>
+<li><a href="#6-%E3%81%BE%E3%81%A8%E3%82%81">6. まとめ</a></li>
+<li><a href="#7-%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B">7. 関連記事</a></li>
+<li><a href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">8. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-今回やったこと">1. 今回やったこと</h1>
+<p>　今まではスライダを使ってラジコンを操縦していましたが、スライダをやめてジョイスティックで操作できるようにしました！</p>
+  <div align="center">
+  <figure><img src="update_8a_to_9a.png"
+         alt="ジョイスティックに変更し、本格的な操作感を手に入れた..."/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ジョイスティックに変更し、本格的な操作感を手に入れた...
+  </div>
+<h1 id="2-拡張機能開発の手順">2. 拡張機能開発の手順</h1>
+<h2 id="21-javaの勉強">2.1. Javaの勉強</h2>
+<p>　ラジコンアプリ（<a href="https://github.com/TomokiIkegami/Happy_RC_Driver">Happy_RC_Driver</a>）は MIT App Inventor 2(AI2)を使って開発を進めていたので、AI2の拡張機能としてジョイスティックを実装しようと考えました。</p>
+<p>　AI2はノーコードでアプリを開発することができますが、拡張機能の開発にはJavaによるコーディングが必要でした。Javaは使ったことがなかったので、Paizaラーニングを使ってJavaの勉強から始めました。</p>
+<p>　拡張機能の作成方法も分からなかったので、インターネットの記事やYouTube動画を参考にしながら勉強しました。</p>
+<h2 id="22-開発環境の構築">2.2. 開発環境の構築</h2>
+<h2 id="23-java-8apache-antのインストール">2.3. Java 8、Apache Antのインストール</h2>
+<p>　インストールはYouTube動画<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><sup>,</sup><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>を見ながらやりました。環境変数の設定などがあるので少し難しかったですが、動画を確認しながら作業したら開発環境を無事セットアップできました。</p>
+<p>　環境のセットアップができたら、構築した環境で拡張機能をビルドできることを確認しました。拡張機能のビルド方法は次に説明します。</p>
+<h2 id="24-拡張機能のビルド">2.4. 拡張機能のビルド</h2>
+<p>　拡張機能の開発、ビルドはインターネットの記事<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>を参考に行いました。まず、GitHubのewpatton氏が作成したAI2の拡張機能用のテンプレート<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>をクローンします。</p>
+<p>　拡張機能開発用のプロジェクトのディレクトリ構成はこんな感じです↓</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">├─build（☆）
+│  ├─classes
+│  │  └─com
+│  │      └─extensions
+│  │          └─joystick
+│  ├─externalComponents
+│  │  └─com.extensions.joystick
+│  │      └─files
+│  └─externalComponents-classes
+│      └─com.extensions.joystick
+│          └─com
+│              └─extensions
+│                  └─joystick
+├─lib（☆）
+│  ├─ant-contrib
+│  ├─appinventor
+│  │  ├─arm64-v8a
+│  │  ├─armeabi-v7a
+│  │  └─x86_64
+│  ├─deps
+│  └─proguard
+├─out（☆）
+├─src（☆）
+│  └─com
+│      └─extensions
+│          └─gradient
+│              └─aiwebres
+  </code></pre></div>
+<p>　Windowsであれば、PowerShell 7などでホームディレクトリに移動してからlsコマンドを押すと、（☆）のフォルダ名が表示（「build」, 「lib」,「out」,「src」の4つ ）されます。</p>
+<p>　拡張機能のソースコード名をJoystick.javaとすると、「src/com/extensions/gradient/Joystick.java」の位置にソースコードを作成します。このソースコードに拡張機能として実装したい処理を記述するという流れです。</p>
+<p>　処理が記述できたら、拡張機能のホームディレクトリでコンソールを（今回はPowershell 7を使用）開いて「ant extensions」というコマンドを打ちます。</p>
+<p>　拡張機能のホームディレクトリをCドライブの直下にした場合は、下のような感じでビルドします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">C:\[拡張機能のホームディレクトリ名]<span style="color:#f92672">&gt;</span> ant extensions</code></pre></div>
+<p>　ビルドのコマンドを打つと、「out」ディレクトリに拡張機能のファイルが生成します。</p>
+<p>　今回の場合は、ソースコードJoystick.javaのpackage名で指定した「com.extensions.gradient.aix」が拡張機能のファイル名になります。ちなみにインポートしたときの拡張機能名はJavaのソースファイル名になります。</p>
+<p>　なので今回の場合は、AI2上では「Joystick」という名前でインポートした拡張機能が表示されます。</p>
+<h1 id="3-プログラム">3. プログラム</h1>
+<p>　ここでは拡張機能のソースコード、アプリのブロックを載せます。ラジコンに搭載されているマイコンのプログラムは<a href="https://github.com/TomokiIkegami/Happy_RC_Driver">Happy_RC_Driver</a>のver.8aと同じものを使います。</p>
+<h2 id="31-拡張機能のソースコードjoystickjava">3.1. 拡張機能のソースコード：Joystick.java</h2>
+<p>　AI2の任意のレイアウトコンポーネントにJoystickを生成する拡張機能です。プログラムの説明はコメント文に書きました。Android関連のクラスに関する詳細な説明は、Android Developersのページやブログに書かれています<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup><sup>,</sup><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup><sup>,</sup><sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>。</p>
+<p>　このした拡張機能は、AI2(MIT App Inventor 2)内で指定した横並びレイアウトや縦並びレイアウトにJoystickを生成することができます。</p>
+<p>　こちらをApache Antを使ってビルド（<a href="#24-%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD%E3%81%AE%E3%83%93%E3%83%AB%E3%83%89">2.4. 拡張機能のビルド</a>）することで、拡張機能のファイル（.aix）を作成できます。ビルドした拡張機能をAI2にインポートすることで、ジョイスティックが利用できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#75715e">/* AI2用のジョイスティック拡張機能 */</span>
+<span style="color:#f92672">package</span> com.extensions.joystick<span style="color:#f92672">;</span> <span style="color:#75715e">// 一番右が.aixの名前になる
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 拡張機能を作るためのクラスやアノテーション
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> com.google.appinventor.components.annotations.DesignerComponent<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.annotations.SimpleObject<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.annotations.SimpleFunction<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.annotations.SimpleEvent<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.annotations.SimpleProperty<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.common.ComponentCategory<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.runtime.AndroidNonvisibleComponent<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.runtime.AndroidViewComponent<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.runtime.ComponentContainer<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> com.google.appinventor.components.runtime.EventDispatcher<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 詳細がAndroid developersのページに書いてある
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.graphics.Canvas<span style="color:#f92672">;</span> <span style="color:#75715e">// キャンバスを扱うためのクラス
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.graphics.Paint<span style="color:#f92672">;</span> <span style="color:#75715e">// ペイントを扱うためのクラス
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.graphics.Color<span style="color:#f92672">;</span> <span style="color:#75715e">// 色を扱うためのクラス
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.view.MotionEvent<span style="color:#f92672">;</span> <span style="color:#75715e">// タッチイベントを扱うためのクラス
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.view.View<span style="color:#f92672">;</span> <span style="color:#75715e">// 文字やボタンなどの部品を扱うためのクラス
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> android.view.ViewGroup<span style="color:#f92672">;</span> <span style="color:#75715e">// レイアウトを扱うためのクラス
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//「拡張機能」カテゴリーの下部に表示されるアノテーション
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@DesignerComponent</span><span style="color:#f92672">(</span>version <span style="color:#f92672">=</span> 1<span style="color:#f92672">,</span> 
+                   category <span style="color:#f92672">=</span> ComponentCategory<span style="color:#f92672">.</span><span style="color:#a6e22e">EXTENSION</span><span style="color:#f92672">,</span>
+                   description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;This is an extension to generate a joystick on your layout component.&#34;</span><span style="color:#f92672">,</span>
+                   nonVisible <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span>
+                   iconName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://github.com/TomokiIkegami/Happy_RC_Driver_extentions/blob/main/icon.png?raw=true&#34;</span><span style="color:#f92672">)</span>
+
+<span style="color:#75715e">// 拡張機能と内部コンポーネントの区別に使うアノテーション
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">@SimpleObject</span><span style="color:#f92672">(</span>external <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
+
+<span style="color:#75715e">// 自作の拡張機能に関するメインクラス
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Joystick</span> <span style="color:#66d9ef">extends</span> AndroidNonvisibleComponent <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">// コンストラクタ（インスタンス生成時に実行される）
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Joystick</span><span style="color:#f92672">(</span>ComponentContainer container<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>container<span style="color:#f92672">.</span><span style="color:#a6e22e">$form</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// Write your code here.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Error Occured メソッドはここで定義
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// @SimpleEventは黄色のイベントブロックになる
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@SimpleEvent</span><span style="color:#f92672">(</span>description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;This event will be triggered when an error occures&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ErrorOccured</span><span style="color:#f92672">(</span>String error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 引数1:&#34;this&#34;は現在イベントが発生しているスクリーンを指す
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 引数2:&#34;ErrorCccured&#34;はイベント名
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 引数3:&#34;error&#34;をパスする。メソッドが持つ引数をすべてパスする必要がある（今回はerrorだけだけど）。
+</span><span style="color:#75715e"></span>        EventDispatcher<span style="color:#f92672">.</span><span style="color:#a6e22e">dispatchEvent</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ErrorOccured&#34;</span><span style="color:#f92672">,</span> error<span style="color:#f92672">);</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ジョイスティックをレイアウトコンポーネントにアタッチするメソッド
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// @SimpleFuncitonは紫いろのブロックになる
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@SimpleFunction</span><span style="color:#f92672">(</span>description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;This block will attach the joystick to a layout component&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">AttachJoystick</span><span style="color:#f92672">(</span>AndroidViewComponent component<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            JoystickView joystickView <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JoystickView<span style="color:#f92672">(</span>component<span style="color:#f92672">.</span><span style="color:#a6e22e">getView</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getContext</span><span style="color:#f92672">(),</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">((</span>ViewGroup<span style="color:#f92672">)</span> component<span style="color:#f92672">.</span><span style="color:#a6e22e">getView</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">addView</span><span style="color:#f92672">(</span>joystickView<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            ErrorOccured<span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">// ジョイスティックの移動イベント
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// @SimpleEventは黄色のイベントブロックになる
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@SimpleEvent</span><span style="color:#f92672">(</span>description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;This event will be triggered when the joystick is moved&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">JoystickMoved</span><span style="color:#f92672">(</span><span style="color:#66d9ef">float</span> x<span style="color:#f92672">,</span> <span style="color:#66d9ef">float</span> y<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        EventDispatcher<span style="color:#f92672">.</span><span style="color:#a6e22e">dispatchEvent</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;JoystickMoved&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">);</span> <span style="color:#75715e">// ジョイスティックが移動したらイベントを発生
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ジョイスティック機能のための内部クラス
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JoystickView</span> <span style="color:#66d9ef">extends</span> View <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">float</span> centerX<span style="color:#f92672">,</span> centerY<span style="color:#f92672">,</span> baseRadius<span style="color:#f92672">,</span> hatRadius<span style="color:#f92672">;</span> <span style="color:#75715e">// centerX, Y: 中心座標（x, y）、baseRadius: ジョイスティックのベース部分の半径、hatRadius: ジョイスティックのハットの半径
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> Paint basePaint<span style="color:#f92672">,</span> hatPaint<span style="color:#f92672">;</span> <span style="color:#75715e">// basePaint: ベース半径、hatPaint: ハット半径
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">float</span> joystickX<span style="color:#f92672">,</span> joystickY<span style="color:#f92672">;</span> <span style="color:#75715e">// ジョイスティックのx, y 座標
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">boolean</span> isTouched<span style="color:#f92672">;</span> <span style="color:#75715e">// タッチされているかどうかのフラグ
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> Joystick parent<span style="color:#f92672">;</span> <span style="color:#75715e">// 親クラスのインスタンスを保持する変数
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// コンストラクタ
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">JoystickView</span><span style="color:#f92672">(</span>android<span style="color:#f92672">.</span><span style="color:#a6e22e">content</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Context</span> context<span style="color:#f92672">,</span> Joystick parent<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>context<span style="color:#f92672">);</span> <span style="color:#75715e">// 親クラスのコンストラクタを呼び出す
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">parent</span> <span style="color:#f92672">=</span> parent<span style="color:#f92672">;</span> <span style="color:#75715e">// 親クラスのインスタンスを取得
+</span><span style="color:#75715e"></span>            initJoystick<span style="color:#f92672">();</span> <span style="color:#75715e">// ジョイスティックの初期化メソッドを呼び出す
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">// ジョイスティックの初期化メソッド
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initJoystick</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 色と塗りつぶしを指定
+</span><span style="color:#75715e"></span>            basePaint <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Paint<span style="color:#f92672">();</span>
+            basePaint<span style="color:#f92672">.</span><span style="color:#a6e22e">setColor</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">GRAY</span><span style="color:#f92672">);</span>
+            basePaint<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span>Paint<span style="color:#f92672">.</span><span style="color:#a6e22e">Style</span><span style="color:#f92672">.</span><span style="color:#a6e22e">FILL_AND_STROKE</span><span style="color:#f92672">);</span>
+            hatPaint <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Paint<span style="color:#f92672">();</span>
+            hatPaint<span style="color:#f92672">.</span><span style="color:#a6e22e">setColor</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">BLUE</span><span style="color:#f92672">);</span>
+            hatPaint<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span>Paint<span style="color:#f92672">.</span><span style="color:#a6e22e">Style</span><span style="color:#f92672">.</span><span style="color:#a6e22e">FILL_AND_STROKE</span><span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 初めはタッチされていない状態に設定
+</span><span style="color:#75715e"></span>            isTouched <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#a6e22e">@Override</span> 
+        <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onDraw</span><span style="color:#f92672">(</span>Canvas canvas<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  <span style="color:#75715e">// このクラスは現在のクラスとサブクラスからのみアクセスできる（protectedなので）
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onDraw</span><span style="color:#f92672">(</span>canvas<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>isTouched<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// タッチされていないときにジョイスティックを中心に戻す
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// x, y の中心座標を計算(Width: コンポーネントの横幅、Height: コンポーネントの縦幅)
+</span><span style="color:#75715e"></span>                centerX <span style="color:#f92672">=</span> getWidth<span style="color:#f92672">()</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">;</span>
+                centerY <span style="color:#f92672">=</span> getHeight<span style="color:#f92672">()</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">;</span>
+                <span style="color:#75715e">// ベース部分とハット部分半径を設定
+</span><span style="color:#75715e"></span>                baseRadius <span style="color:#f92672">=</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">min</span><span style="color:#f92672">(</span>getWidth<span style="color:#f92672">(),</span> getHeight<span style="color:#f92672">())</span> <span style="color:#f92672">/</span> 3<span style="color:#f92672">;</span>
+                hatRadius <span style="color:#f92672">=</span> baseRadius <span style="color:#f92672">/</span> 2<span style="color:#f92672">;</span>
+                joystickX <span style="color:#f92672">=</span> centerX<span style="color:#f92672">;</span>
+                joystickY <span style="color:#f92672">=</span> centerY<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#75715e">// ジョイスティックの描画
+</span><span style="color:#75715e"></span>            canvas<span style="color:#f92672">.</span><span style="color:#a6e22e">drawCircle</span><span style="color:#f92672">(</span>centerX<span style="color:#f92672">,</span> centerY<span style="color:#f92672">,</span> baseRadius<span style="color:#f92672">,</span> basePaint<span style="color:#f92672">);</span>
+            canvas<span style="color:#f92672">.</span><span style="color:#a6e22e">drawCircle</span><span style="color:#f92672">(</span>joystickX<span style="color:#f92672">,</span> joystickY<span style="color:#f92672">,</span> hatRadius<span style="color:#f92672">,</span> hatPaint<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#a6e22e">@Override</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">onTouchEvent</span><span style="color:#f92672">(</span>MotionEvent event<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// ジョイスティックがタッチされた時の処理
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// タッチされた位置のx,y座標を取得
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">float</span> x <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span><span style="color:#a6e22e">getX</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">float</span> y <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span><span style="color:#a6e22e">getY</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">switch</span> <span style="color:#f92672">(</span>event<span style="color:#f92672">.</span><span style="color:#a6e22e">getAction</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">case</span> MotionEvent<span style="color:#f92672">.</span><span style="color:#a6e22e">ACTION_DOWN</span><span style="color:#f92672">:</span> <span style="color:#75715e">// タッチ押下時
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">case</span> MotionEvent<span style="color:#f92672">.</span><span style="color:#a6e22e">ACTION_MOVE</span><span style="color:#f92672">:</span> <span style="color:#75715e">// 指を持ち上げずにスライドした時
+</span><span style="color:#75715e"></span>                    <span style="color:#66d9ef">float</span> distance <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">float</span><span style="color:#f92672">)</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">sqrt</span><span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span>x <span style="color:#f92672">-</span> centerX<span style="color:#f92672">,</span> 2<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span>y <span style="color:#f92672">-</span> centerY<span style="color:#f92672">,</span> 2<span style="color:#f92672">));</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>distance <span style="color:#f92672">&lt;</span> baseRadius<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// タッチされた位置がベース部分の範囲内なら、x,y 座標をそのまま代入
+</span><span style="color:#75715e"></span>                        joystickX <span style="color:#f92672">=</span> x<span style="color:#f92672">;</span>
+                        joystickY <span style="color:#f92672">=</span> y<span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// タッチされた位置がベース部分の範囲外なら、ベース部分の範囲内に収める
+</span><span style="color:#75715e"></span>                        <span style="color:#66d9ef">float</span> ratio <span style="color:#f92672">=</span> baseRadius <span style="color:#f92672">/</span> distance<span style="color:#f92672">;</span>
+                        joystickX <span style="color:#f92672">=</span> centerX <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>x <span style="color:#f92672">-</span> centerX<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">;</span>
+                        joystickY <span style="color:#f92672">=</span> centerY <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>y <span style="color:#f92672">-</span> centerY<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                    isTouched <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span> <span style="color:#75715e">// タッチされているフラグを立てる
+</span><span style="color:#75715e"></span>                    parent<span style="color:#f92672">.</span><span style="color:#a6e22e">JoystickMoved</span><span style="color:#f92672">(</span>getJoystickX<span style="color:#f92672">(),</span> getJoystickY<span style="color:#f92672">());</span> <span style="color:#75715e">// ジョイスティックが移動したらイベントを発生
+</span><span style="color:#75715e"></span>                    <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+                <span style="color:#66d9ef">case</span> MotionEvent<span style="color:#f92672">.</span><span style="color:#a6e22e">ACTION_UP</span><span style="color:#f92672">:</span> <span style="color:#75715e">// 指を離したとき
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// ハットの位置を中心に戻す
+</span><span style="color:#75715e"></span>                    joystickX <span style="color:#f92672">=</span> centerX<span style="color:#f92672">;</span> 
+                    joystickY <span style="color:#f92672">=</span> centerY<span style="color:#f92672">;</span>
+                    isTouched <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+                    parent<span style="color:#f92672">.</span><span style="color:#a6e22e">JoystickMoved</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            invalidate<span style="color:#f92672">();</span> <span style="color:#75715e">// 既に開始されているセッションを無効にする
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#75715e">// ジョイスティックのx, y 座標を取得するメソッド（baseRadiusで割っているのは正規化のため）
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getJoystickX</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>joystickX <span style="color:#f92672">-</span> centerX<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> baseRadius<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getJoystickY</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>joystickY <span style="color:#f92672">-</span> centerY<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> baseRadius<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+  </code></pre></div>
+<h2 id="32-ai2mit-app-inventor-2のプログラム">3.2. AI2(MIT App Inventor 2)のプログラム</h2>
+<h3 id="321-外観">3.2.1. 外観</h3>
+<p>　下の画像は、AI2の「デザイン編集」タブで見たアプリの外観です。拡張機能で画面下部の余白（「水平配置1」コンポーネント）にジョイスティックを生成しますが、この画面では見た目を確認することができません。<a href="https://appinventor.tmsoftwareinc.com/setup-device">AIコンパニオン</a>でエミュレートして、実機のスマホで見た目を確認しながら開発するのが良いと思います。</p>
+  <div align="center">
+  <figure><img src="UI9a.png"
+         alt="アプリ外観（デザイン編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリ外観（デザイン編集タブ）
+  </div>
+<h3 id="322-中身">3.2.2. 中身</h3>
+<p>　こちらが「ブロック編集タブ」で表示したアプリの中身です。アプリの主な動作としては主に</p>
+<ul>
+<li>アプリ起動時に画面上にジョイスティック生成</li>
+<li>ジョイスティックのx,y座標からラジコンの制御命令（PWMのパルス幅）を生成</li>
+<li>制御命令の送信</li>
+</ul>
+<p>　を行っています。ラジコンのコントローラー（プロポ）でよく見るトリム（TRIM）やデュアルレート（D/R）の処理を入れているので、制御命令生成用の関数の中身が少しぐちゃぐちゃしてます（笑）</p>
+  <div align="center">
+  <figure><img src="blocks9a.png"
+         alt="アプリの中身（ブロック編集タブ）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリの中身（ブロック編集タブ）
+  </div>
+<h1 id="4-動画">4. 動画</h1>
+<p>　アプリ開発の様子から、アプリのインストール、操縦実験までの流れを動画にまとめました！<br><br></p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/jOP30ZitDa0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h1 id="5-サンプルファイル">5. サンプルファイル</h1>
+<p>　今回の記事で紹介したアプリのサンプルファイルはこちらになります。好きなデザインに変更するなり自由に使っていただければと思います。</p>
+<p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
+<ul>
+<li><a href="Happy_RC_Driver_9a.aia">Happy_RC_Driver_9a.aia</a></li>
+</ul>
+<p><strong>～ ビルド済み Androidアプリのファイル(.apk) ～</strong></p>
+<ul>
+<li><a href="Happy_RC_Driver_9a.apk">Happy_RC_Driver_9a.apk</a></li>
+</ul>
+<h1 id="6-まとめ">6. まとめ</h1>
+<p>　MIT App Inventor 2の拡張機能開発はずっと前からやってみたかったので、できて嬉しかったです。手軽に開発できるノーコードのメリットと、かゆい所に手が届くテキストベースのコード開発を組み合わせて開発できるのは便利だなと感じました。テキストベースのコーディングも、ネット記事とかChatGPTとかのおかげでスムーズに開発できて技術の進歩による恩恵を感じました。</p>
+<p>　今回開発したジョイスティックはラジコン以外にもゲームとか色んな用途に使えるので、作れて良かったなと思いました！</p>
+  <div align="center">
+  <figure><img src="rc_app_and_car_9a.jpg"
+         alt="完成したアプリとラジコンカー"/>
+</figure>
+
+  </div>
+<h1 id="7-関連記事">7. 関連記事</h1>
+<ul>
+<li>前回 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第14回-走行用バッテリーからマイコンに給電]</a></li>
+</ul>
+<h1 id="8-参考文献">8. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Dreamers Lab、「4-Setting Up Environment - Installing Java 8 | Extension Development Course」、YouTube、(<a href="https://www.youtube.com/watch?v=HoQFcWg4UkI">https://www.youtube.com/watch?v=HoQFcWg4UkI</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Dreamers Lab、「5-Setting Up Environment - Installing Apache Ant | Extension Development Course」、YouTube、(<a href="https://www.youtube.com/watch?v=r7RcWTLDt1E&amp;list=PLhwxj7g1ZSM2VQ96F9dx3mVjv79eq5-_C&amp;index=6">https://www.youtube.com/watch?v=r7RcWTLDt1E&amp;list=PLhwxj7g1ZSM2VQ96F9dx3mVjv79eq5-_C&amp;index=6</a>)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Shreyash Saitwal、「Writing your first App Inventor 2 extention」、Medium、(<a href="https://saitwalshreyash19.medium.com/">https://saitwalshreyash19.medium.com/</a>)&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>ewpatton、「MIT App Inventor Extensions」、GitHub、(<a href="https://github.com/mit-cml/extension-template/tree/master">https://github.com/mit-cml/extension-template/tree/master</a>)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>Google、「Develop &gt; Reference &gt; Color」、Android Developers、(<a href="https://developer.android.com/reference/android/graphics/Color#color-instances">https://developer.android.com/reference/android/graphics/Color#color-instances</a>)&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>IKURA　TATSUO、「ビューとビューグループ」、JavaDrive、(<a href="https://www.javadrive.jp/android/activity/index4.html#google_vignette">https://www.javadrive.jp/android/activity/index4.html#google_vignette</a>)&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>@mhidaka、「タッチイベントを取得する」、TechBooster、(<a href="https://techbooster.org/android/application/715/">https://techbooster.org/android/application/715/</a>)&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/11/26/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/">簡易な会計アプリを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/">オートメーションサーバでオートバランスできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/">ノートPCのキーボードが入力できない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/13/">Qiita Hackathon [予選]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2024</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
