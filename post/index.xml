@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自作の車をゲーム内で動かす [Unreal Engine 5]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</link>
+      <pubDate>Sat, 18 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</guid>
+      <description>～ 目次 ～   1. 本記事の目的 2. 使用ソフトウェア 3. 3Dモデルの作成  3.1. 作成するモデル 3.2. Blenderでモデリング  3.2.1. Blenderの起動 3.2.2. ボディのモデリング 3.2.3. タイヤのモデリング 3.2.4. 単位の設定 3.2.5. 回転とスケールの適用 3.2.6. ボディとタイヤの親子関係設定 3.2.7. fbxファイルのエクスポート     4. ゲーム内で動かす  4.1. Unreal Engine の起動 4.2. Vehicle Template を使う 4.3. Chaos Vehicle プラグインの有効化 4.4. ホイールブループリントの作成 4.5. エンジントルクカーブの作成 4.6. 物理アセットの作成 4.7. アニメーションブループリントの作成 4.8. ビークルブループリントの作成 4.9. ゲームモードの作成   5. 動かしてみる 6. まとめ 7. 参考文献   1.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/</link>
@@ -105,7 +114,8 @@
 　同じく変な症状に悩んでいる人がいたら、諦めずにトラブルシューティングにトライしてみてください！ (/・ω・)/
 追記（2024/03/17） 結局キーボードの故障だった 　この後、数字キーが入力できなくなりLenovoの修理に出しました（なぜか「5」,「6」だけは入力できた）。初めはソフトウェアの不具合を疑っていたのですが、最終的にハードウェアの故障であることが判明（Lenovoの修理担当エンジニアの検査によって）しました。
 　修理前にLenovoのサイトでハードウェアスキャンをしたところ、下の画像のようにキーボードのテストが失敗していました。
-  ☝　ハードウェアスキャンでキーボードのエラーが出た  ## 修理内容と費用 アッパーケース（キーボード一体）の故障だったため、この部分を交換することになりました。 　修理費用は、部品代（10970円：税別）+ 作業料 (17200円：税別) + 配送料 (3100円：税別)　= 31200円（税込み34397円）でした。
+  ☝　ハードウェアスキャンでキーボードのエラーが出た  修理内容と費用 　アッパーケース（キーボード一体）の故障だったため、この部分を交換することになりました。
+　修理費用は、部品代（10970円：税別）+ 作業料 (17200円：税別) + 配送料 (3100円：税別)　= 31200円（税込み34397円）でした。
 　新しいパソコン買うよりは全然安いですし、環境のセットアップもやり直さなくてよかったのでとても良かったです(&amp;lsquo;ω&amp;rsquo;)
 修理にかかった時間 　修理依頼の送付が3月8日（Webフォームの入力＋注文者情報や故障状況を指定のExcelへ記入）でした。PCが家を旅立ったのは3月10日、PCが戻ってきたのが3月16日だったので、思ったよりかからなくてよかったなという印象です。
 　修理済みのPCは無事使うことができました！ よかったー</description>
