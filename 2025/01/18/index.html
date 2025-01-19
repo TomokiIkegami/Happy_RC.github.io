@@ -522,7 +522,7 @@
 <p>　ボディとタイヤの大きさを一気に変更したいので、ボディとタイヤを全て選択します。</p>
 <p>　全選択するためには、</p>
 <ol>
-<li>ワークスペース上部のObjectタブをクリック</li>
+<li>ワークスペース上部のSelectタブをクリック</li>
 <li>Allを選択</li>
 </ol>
 <p>　します。これでボディとタイヤが全て選択された状態になります。</p>
@@ -609,7 +609,7 @@
 </ul>
 <p>などの現象が発生しました。</p>
 </blockquote>
-<p>　回転とスケールの適用は下の画像のように、</p>
+<p>　回転とスケールの適用は下の画像のようにモデルを全選択した状態で、</p>
 <ol>
 <li>ワークスペース上部のObjectタブをクリック</li>
 <li>Applyをクリック</li>
@@ -998,6 +998,7 @@
 <ol>
 <li>右クリックして Miscellaneous を選ぶ</li>
 <li>その中の Curve をクリック</li>
+<li>Pick Curve Class という画面が出てくるので、CurveFloat を選択</li>
 </ol>
 <p>　してファイルを作成します。ファイル名は、MyVehicle_TorqueCurve にしました。</p>
 <div align="center">
@@ -1019,6 +1020,9 @@
 図 4.17 作成した Curveファイル
 </div>
 <p>　次は作成した Curveファイル を開きます。カーブの通過点を追加するためには、右クリックして「Add Key」を選択します。</p>
+<blockquote>
+<p>便利なカーブエディタの操作方法は <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-curve-editor-in-unreal-engine">Unreal Engine公式ページ</a> に載っているので参考にすると便利です。</p>
+</blockquote>
 <div align="center">
 <figure><img src="vehicle_model_import_and_programming_19.png"
          alt="カーブの通過点を追加"/>
@@ -1427,7 +1431,8 @@
 図 4.51 カメラ位置の調整
 </div>
 <p>　次に車輪の設定をしていきます。</p>
-<p>　Wheel Setups の横にあるプラスボタンで 4つの配列要素を追加して、Wheel Class と Bone Name を下の画像のように設定してください。</p>
+<p>　ツリー上で Vehicle Movement Component をクリックした後、Wheel Setups の横にあるプラスボタンで 4つの配列要素を追加してください。</p>
+<p>　配列要素を追加できたら、Wheel Class と Bone Name を下の画像のように設定してください。</p>
 <div align="center">
 <figure><img src="vehicle_model_import_and_programming_53.png"
          alt="Wheel の設定"/>
