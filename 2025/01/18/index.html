@@ -800,7 +800,7 @@
 <h1 id="4-ゲーム内で動かす">4. ゲーム内で動かす</h1>
 <p>　ここからは、UNREAL ENGINE公式サイトにあるドキュメント「<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">How to Set up Vehicles</a>」を参考に作業を進めます。</p>
 <h2 id="41-unreal-engine-の起動">4.1. Unreal Engine の起動</h2>
-<p>　Epic games launcher から Unreal Engine (今回は Version 5.4.4を使用) を起動します。</p>
+<p>　Epic Games Launcher から Unreal Engine (今回は Version 5.4.4を使用) を起動します。</p>
 <div align="center">
 <figure><img src="vehicle_model_import_and_programming_2.png"
          alt="Unreal Engineの起動"/>
@@ -1297,7 +1297,7 @@
 
 </div>
 <div style="text-align: center;">
-図 4.40 「Component to Local」ノードの追加
+図 4.40 「Component To Local」ノードの追加
 </div>
 <p>　全部のノードが追加できたら、追加したノードを下の画像の順番（Mesh Space Ref Pose → Wheel Controller for WheeledVehicle → Component to Local → Output Pose）で並べてください。</p>
 <div align="center">
@@ -1371,7 +1371,7 @@
 </div>
 <p>　ビークルブループリントにアニメーションブループリントとメッシュを紐づけます。作成したビークルブループリントを開いて、</p>
 <ol>
-<li>Anim Class を Myvehicle_AnimBlueprint_C に設定</li>
+<li>Anim Class を MyVehicle_AnimBlueprint_C に設定</li>
 <li>Skeltal Mesh Asset を car に設定</li>
 </ol>
 <p>　してください。</p>
@@ -1563,7 +1563,7 @@
 <div style="text-align: center;">
 図 4.62 不要なノードを削除する
 </div>
-<p>　次は、入力に応じて車が動くように設定していきます。</p>
+<p>　次は、キーボードやゲームパッド入力に応じて車が動くように設定していきます。</p>
 <p>　まずは、イベントグラフにツリーにある「Vehicle Movement Component」をイベントグラフにドラッグ＆ドロップします。</p>
 <div align="center">
 <figure><img src="vehicle_model_import_and_programming_64.png"
@@ -1574,7 +1574,7 @@
 <div style="text-align: center;">
 図 4.63 Vehicle Movement Componentの作成
 </div>
-<p>　次に、</p>
+<p>　Vehicle Movement Component が配置できたら、</p>
 <ol>
 <li>Vehicle Movement Component の右側にあるピンをマウスでドラッグして</li>
 <li>適当なグラフエディタ上の場所で離します。離した直後に検索画面が出てくると思うので「Set Throttle」と検索し、</li>
@@ -1589,7 +1589,7 @@
 <div style="text-align: center;">
 図 4.64 スロットル入力の作成
 </div>
-<p>　Throttle Input のノードが追加できたら、</p>
+<p>　続けて、</p>
 <ol start="4">
 <li>Event Graph上で右クリックして「Throttle」と検索して</li>
 <li>Axis Events の「Throttle」をクリック</li>
@@ -1605,7 +1605,7 @@
 図 4.65 スロットル入力イベントの作成
 </div>
 <p>　これでスロットル入力に必要なノードは全て揃ったので、</p>
-<ol start="7">
+<ol start="6">
 <li>InputAxis イベントの「Axis Value」と Set Throttle Input の「Throttle」を接続</li>
 <li>InputAxis イベントの「Exec（白い右向き矢印みたいな）」と Set Throttle Input の「（白い右向き矢印みたいな）」を接続</li>
 </ol>
@@ -1695,7 +1695,8 @@
 </div>
 <p>　次に、作成したゲームモードを開いて</p>
 <ol>
-<li>Default Pawn Class を「BP_MyVehicle」（<a href="#49-%E3%83%93%E3%83%BC%E3%82%AF%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.9. ビークルブループリントの作成</a>作った）にして</li>
+<li>Default Pawn Class を「BP_MyVehicle」（<a href="#49-%E3%83%93%E3%83%BC%E3%82%AF%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.9. ビークルブループリントの作成</a>で作った）にして</li>
+<li>コンパイル</li>
 <li>保存</li>
 </ol>
 <p>　をします。</p>
