@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     自作の車をゲーム内で動かす [Blender × Unreal Engine 5] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      自作の車をゲーム内で動かす [Blender × Unreal Engine 5]
+    </h1>
+    
+    <p class="document-date">
+      2025-01-18 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"簡単な車の3Dモデルを自作し、ゲーム内で動かす手順を解説します"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E6%9C%AC%E8%A8%98%E4%BA%8B%E3%81%AE%E7%9B%AE%E7%9A%84">1. 本記事の目的</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2">2. 使用ソフトウェア</a></li>
+<li><a href="#3-3d%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90">3. 3Dモデルの作成</a>
+<ul>
+<li><a href="#31-%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B%E3%83%A2%E3%83%87%E3%83%AB">3.1. 作成するモデル</a></li>
+<li><a href="#32-blender%E3%81%A7%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0">3.2. Blenderでモデリング</a>
+<ul>
+<li><a href="#321-blender%E3%81%AE%E8%B5%B7%E5%8B%95">3.2.1. Blenderの起動</a></li>
+<li><a href="#322-%E3%83%9C%E3%83%87%E3%82%A3%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0">3.2.2. ボディのモデリング</a></li>
+<li><a href="#323-%E3%82%BF%E3%82%A4%E3%83%A4%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0">3.2.3. タイヤのモデリング</a></li>
+<li><a href="#324-%E5%8D%98%E4%BD%8D%E3%81%AE%E8%A8%AD%E5%AE%9A">3.2.4. 単位の設定</a></li>
+<li><a href="#325-%E5%9B%9E%E8%BB%A2%E3%81%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%AB%E3%81%AE%E9%81%A9%E7%94%A8">3.2.5. 回転とスケールの適用</a></li>
+<li><a href="#326-%E3%83%9C%E3%83%87%E3%82%A3%E3%81%A8%E3%82%BF%E3%82%A4%E3%83%A4%E3%81%AE%E8%A6%AA%E5%AD%90%E9%96%A2%E4%BF%82%E8%A8%AD%E5%AE%9A">3.2.6. ボディとタイヤの親子関係設定</a></li>
+<li><a href="#327-fbx%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88">3.2.7. fbxファイルのエクスポート</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-%E3%82%B2%E3%83%BC%E3%83%A0%E5%86%85%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99">4. ゲーム内で動かす</a>
+<ul>
+<li><a href="#41-unreal-engine-%E3%81%AE%E8%B5%B7%E5%8B%95">4.1. Unreal Engine の起動</a></li>
+<li><a href="#42-vehicle-template-%E3%82%92%E4%BD%BF%E3%81%86">4.2. Vehicle Template を使う</a></li>
+<li><a href="#43-chaos-vehicle-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96">4.3. Chaos Vehicle プラグインの有効化</a></li>
+<li><a href="#44-%E3%83%9B%E3%82%A4%E3%83%BC%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.4. ホイールブループリントの作成</a></li>
+<li><a href="#45-%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%83%88%E3%83%AB%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%96%E3%81%AE%E4%BD%9C%E6%88%90">4.5. エンジントルクカーブの作成</a></li>
+<li><a href="#46-%E7%89%A9%E7%90%86%E3%82%A2%E3%82%BB%E3%83%83%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.6. 物理アセットの作成</a></li>
+<li><a href="#47-%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.7. アニメーションブループリントの作成</a></li>
+<li><a href="#48-%E3%83%93%E3%83%BC%E3%82%AF%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.8. ビークルブループリントの作成</a></li>
+<li><a href="#49-%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E4%BD%9C%E6%88%90">4.9. ゲームモードの作成</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%8B%95%E3%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B">5. 動かしてみる</a></li>
+<li><a href="#6-%E3%81%BE%E3%81%A8%E3%82%81">6. まとめ</a></li>
+<li><a href="#7-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">7. 参考文献</a></li>
+</ul>
+<hr>
+<h1 id="1-本記事の目的">1. 本記事の目的</h1>
+<p>　自分で作ったオリジナルの車の3Dモデルを、ゲーム内で走らせる手順について説明します。</p>
+<p>　色々な記事を読んでみると、リアルな3Dモデルや緻密なプログラミングをしていてハイクオリティなものも沢山ありました。</p>
+<p>　私にとっては難しく少し混乱してしまった部分もあるので、この記事では3Dモデルやプログラムの構築は必要最低限の労力でやります笑</p>
+<p>　3Dモデルやプログラムをしっかりやれば高品質なゲームになると思うので、今回はとりあえず動かすことを目的に説明したいと思います。</p>
+  <div align="center">
+  <figure><img src="drive_your_vehicle_model.gif"
+         alt="自作の車の3Dモデルをゲーム内で動かす"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　自作の車の3Dモデルをゲーム内で動かす
+  </div>
+<h1 id="2-使用ソフトウェア">2. 使用ソフトウェア</h1>
+<p>　今回の開発で使ったソフトウェアとバージョンです。（※バージョンは多少違っても大丈夫だと思います）</p>
+<ul>
+<li>Blender 4.1 (公式サイト: <a href="https://www.blender.org/">https://www.blender.org/</a>)</li>
+<li>Unreal Engine 5.4.4 (公式サイト: <a href="https://www.unrealengine.com/">https://www.unrealengine.com/</a>)</li>
+</ul>
+<p>　3Dモデルの作成にはBlender、ゲーム開発にはUnreal Engineを使います。公式サイトにアクセスして、それぞれインストールを進めてください。</p>
+<p>　今回の記事ではソフトの言語設定は英語でやりますが、好みに応じて別の言語にしてもよいです。（海外の記事とか動画を見たときにマネしやすいように英語にしています）</p>
+<p>　インストール方法が分からないという方は、下の記事とかを見ながらやればできると思います。</p>
+<ul>
+<li>Blenderのインストール → <a href="https://www.pc-koubou.jp/magazine/68319?srsltid=AfmBOoop6ZpQF8_u6_WhaIgGhg0NL8DInaD7bhfUBDLzChj8U1g2taf6">パソコン工房 NEXMAG, Blenderインストール方法と基本的なオブジェクトの作り方</a></li>
+<li>Unreal Engineのインストール → <a href="https://gamemakers.jp/howto/">ゲームメーカーズ, UE5版 ゲームづくりを始めよう！</a></li>
+</ul>
+<h1 id="3-3dモデルの作成">3. 3Dモデルの作成</h1>
+<h2 id="31-作成するモデル">3.1. 作成するモデル</h2>
+<p>　まずは動かしたい車の3Dモデルを作ります。作成するモデルは 図 3.1 のような感じで、人間が車だといわれて理解できるギリギリの形です（笑）。製図などをやっている方は三面図のほうが理解しやすいかもしれないので、図 3.2 をご覧ください（図 3.1 も 図 3.2 も中身は同じです）。</p>
+<p>　<strong>座標系の向きは重要</strong>なので色付きで書いています。車の進行方向（前進）をX軸、車の鉛直上向きがZ軸になるようにモデリングします。</p>
+<div align="center">
+<figure><img src="model_dimensions_simple.svg"
+         alt="図 3.1 作成するモデルの寸法"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.1 作成するモデルの寸法
+</div>
+<div align="center">
+<figure><img src="model_dimensions_add_note.svg"
+         alt="作成するモデルの寸法（三面図、数値の単位は [mm]）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.2 作成するモデルの寸法（三面図、数値の単位は [mm]）
+</div>
+<p>　構成部品はボディ（部品番号①）とタイヤ4輪（部品番号②~⑤）のみです。後でBlender や Unreal Engine で分かりやすいように、各部品に下の 表 3.1 のように名前をつけます。早速モデリングBlenderを使って車のモデリングを始めます！</p>
+<p>　　　表 3.1 作成するモデルの寸法</p>
+<table>
+<thead>
+<tr>
+<th>部品番号</th>
+<th>部品名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Body (車のボディ)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Wheel_FL (左フロントタイヤ)　</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Wheel_FR (右フロントタイヤ)　</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Wheel_RL (左リアタイヤ)　</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Wheel_RR (右リアタイヤ)　</td>
+</tr>
+</tbody>
+</table>
+<h2 id="32-blenderでモデリング">3.2. Blenderでモデリング</h2>
+<h3 id="321-blenderの起動">3.2.1. Blenderの起動</h3>
+<p>　今回はBlenderを使ってモデリングするので、まずはソフトを起動します。画面下のタスクバーにある検索窓で「blender」と入力して、Enterキーを押します。</p>
+<p>　初めて起動したときは言語の設定とかが出てくると思いますが、特に設定せずデフォルトのまま行きます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_2.png"
+         alt="Blender起動後の画面"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.3 Blender起動後の画面
+</div>
+<h3 id="322-ボディのモデリング">3.2.2. ボディのモデリング</h3>
+<p>　Blenderを起動すると画面の中央にキューブが置かれていると思います。このキューブを変形して、そのまま車のボディとして使いたいと思います。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_3.png"
+         alt="ボディの元形状（デフォルトで置かれているキューブ）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.4 ボディの元形状（デフォルトで置かれているキューブ）
+</div>
+<p>　X軸が車の進行方向、Z軸が車の上向きになるようにします。</p>
+<p>　まず、車は進行方向に細長くしたいので、X軸方向のスケールを2倍します。高さが少し高いので、続けてZ方向に0.5倍します。</p>
+<blockquote>
+<p>座標の向きはUnreal Engineにインポートしたときに重要になってくるので、注意しながら作業を進めたほうが良いです（私はあまり考えてなかったので後で困りました&hellip;）。</p>
+</blockquote>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_4.png"
+         alt="スケールの変更"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.5 スケールの変更
+</div>
+<p>　今のままだと車の進行方向が分からないので、前方が低くなるようにボディ形状を修正します。</p>
+<p>　そのためにまずは、ボディを全体的にZ方向へ +0.5 m 動かします。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_5.png"
+         alt="位置の移動"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.6 位置の移動
+</div>
+<p>　次にボディを変形させます。変形させるためには、</p>
+<ol>
+<li>Object ModeからEdit Modeに変更</li>
+<li>辺のマークを選択</li>
+<li>前方の辺を選択</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_6.png"
+         alt="Edit Modeで辺を選択する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.7 Edit Modeで辺を選択する
+</div>
+<p>　辺が選択できたら、画面左にある移動コマンドのボタンを押します。そうすると辺が自由に移動できるようになります。</p>
+<p>　Ctrlキーを押すと移動が1グリッド間隔になるので、その状態でZ軸方向に移動させてボディ前方をへこませます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_7.png"
+         alt="辺をZ方向に移動させてボディ前方を低くする"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.8 辺をZ方向に移動させてボディ前方を低くする
+</div>
+<p>　かなり単純な形ですけど、これでボディの形ができました。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_8.png"
+         alt="これでボディ形状が完成（超シンプルな形...）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.9 これでボディ形状が完成（超シンプルな形...）
+</div>
+<p>　これだと少しさみしいのでボディの色を変えたいと思います。そのために、</p>
+<ol>
+<li>Material Propertyを選択</li>
+<li>Material名の上で2回クリックし、名前を Body に変更</li>
+<li>Base Colorの色の上でクリック</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_9.png"
+         alt="Bodyの色を変更する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.10 Bodyの色を変更する
+</div>
+<p>　そうするとカラーパレットが現れるので、自分の好きな色に設定します。</p>
+<p>　デフォルトの表示だと色が分からないので、画像中の①のようにViewport Shadingに表示を切り替えた方が調整しやすいと思います。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_10.png"
+         alt="Bodyの色を確認しながら調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.11 Bodyの色を確認しながら調整
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_11.png"
+         alt="Bodyの色の変更後"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.12 Bodyの色の変更後
+</div>
+<p>　以上でボディのモデリングが完了になります！</p>
+<h3 id="323-タイヤのモデリング">3.2.3. タイヤのモデリング</h3>
+<p>　次はタイヤを作っていきます。タイヤの元形状を次の手順で挿入します。</p>
+<ol>
+<li>ワークスペース上部のAddをクリック</li>
+<li>Meshを選ぶ</li>
+<li>Meshの中のCylinderをクリック</li>
+</ol>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_12.png"
+         alt="タイヤの元形状を挿入"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.13 タイヤの元形状を挿入
+</div>
+<p>　元形状の寸法と位置を確認します。ワークスペース下部にあるAdd Cylinderの項目をクリックしてください。</p>
+<p>　そうすると、円柱の半径（Radius）や深さ（Depth）などの設定項目が表示されると思います。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_13.png"
+         alt="ワークスペース下部のAdd Cylinderの項目をクリック"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.14 ワークスペース下部のAdd Cylinderの項目をクリック
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_14.png"
+         alt="ワークスペース下部のAdd Cylinderの項目をクリック"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.15 ワークスペース下部のAdd Cylinderの項目をクリック
+</div>
+<p>　この円柱からタイヤを作ります。Add Cylinderの項目を以下の項目を変更してください。</p>
+<ul>
+<li>Radiusを 0.3 m に設定（これがタイヤの半径になります）</li>
+<li>Depthを 0.2 m に設定（これがタイヤの幅になります）</li>
+</ul>
+<p>　これだとタイヤがボディの真ん中くらいに配置（座標原点）に表示されているので動かす必要があります。そのために、</p>
+<ul>
+<li>Location X を 2 m</li>
+<li>Location Y を 1 m</li>
+<li>Location Z を 0 m</li>
+<li>Rotation X を 90°</li>
+</ul>
+<p>　に設定してください。これは左フロントタイヤの場合なので、他の3輪も作成していきます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_15.png"
+         alt="左フロントタイヤ（Wheel_FL）の作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.16 左フロントタイヤ（Wheel_FL）の作成
+</div>
+<p>　他の3輪の位置は下の図のようになります。</p>
+<p>　左フロントタイヤはP<SUB>1</SUB>の位置だったので、他の3輪はP<SUB>2</SUB>, P<SUB>3</SUB>, P<SUB>4</SUB>の位置に配置すれば良いです。</p>
+<div align="center">
+<figure><img src="model_dimensions_simple_parts_transform.svg"
+         alt="各車輪の位置"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.17 各車輪の位置
+</div>
+<p>　まずP<SUB>2</SUB>の位置に右フロントタイヤを配置します。先ほど作成した部品を複製するので、</p>
+<ol>
+<li>ワークスペース上部のObjectタブをクリック</li>
+<li>Duplicate Objectsをクリック</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_16.png"
+         alt="左フロントタイヤを複製"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.18 左フロントタイヤを複製
+</div>
+<p>　これで部品が複製できたので画面右側のTransformの項目から、右フロントタイヤをP<SUB>2</SUB>の座標位置 P(2, -1, 0) m に配置します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_17.png"
+         alt="右フロントタイヤを配置"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.19 右フロントタイヤを配置
+</div>
+<p>　同様の手順で部品を複製して、P<SUB>3</SUB>, P<SUB>4</SUB>の位置にそれぞれ左リアタイヤ、右リアタイヤを配置します。</p>
+<p>ちなみにP<SUB>3</SUB>, P<SUB>4</SUB>の座標は、</p>
+<ul>
+<li>P<SUB>3</SUB>= P(-2, 1, 0) m</li>
+<li>P<SUB>4</SUB>= P(-2, -1, 0) m</li>
+</ul>
+<p>　です。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_18.png"
+         alt="左リアタイヤを配置"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.20 左リアタイヤを配置
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_19.png"
+         alt="右リアタイヤを配置"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.21 右リアタイヤを配置
+</div>
+<p>　タイヤの色を黒っぽくします。ボディの色を変えたときと同じ手順で、</p>
+<ol>
+<li>Material Propertyを選択</li>
+<li>Material名の上で2回クリックし、名前を Tire に変更</li>
+<li>Base Colorの色の上でクリック</li>
+</ol>
+<p>　します。そうするとカラーパレットが現れるので、グレーに設定します（グレーでなくても好きな色にしても大丈夫です。瞬足バギーみたいにタイヤの色を青とかオレンジにしてもOK）。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_20.png"
+         alt="マテリアルの設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.22 マテリアルの設定
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_21.png"
+         alt="色の調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.23 色の調整
+</div>
+<p>　他のタイヤも同じ色に設定します。</p>
+<p>　まずは色を設定していないタイヤを選んで、最後に色を設定したタイヤを選択してください。Shiftキーを押しながら選ぶと同時に選択することができます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_22.png"
+         alt="全てのタイヤを選択（色なし→あり の順番で）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.24 全てのタイヤを選択（色なし→あり の順番で）
+</div>
+<p>　タイヤを全て選択した状態で、</p>
+<ol>
+<li>ワークスペース上部のObjectタブをクリック</li>
+<li>Link/Transfer Data</li>
+<li>Link Materials</li>
+</ol>
+<p>　をクリックする。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_23.png"
+         alt="全てのタイヤを同じマテリアルに設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.25 全てのタイヤを同じマテリアルに設定
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_24.png"
+         alt="全てのタイヤが同じ色と質感になった"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.26 全てのタイヤが同じ色と質感になった
+</div>
+<p>　以上で車のモデリングは完了です！ この後はUnreal Engine用のモデルをエクスポートするための色々な設定をしていきます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_25.png"
+         alt="モデリング完了！"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.27 モデリング完了！
+</div>
+<h3 id="324-単位の設定">3.2.4. 単位の設定</h3>
+<p>　Unreal Engineにインポートするためには、単位のスケールを変更する必要があります。下の画像のように、</p>
+<ol>
+<li>シーンタブを開く</li>
+<li>Unit Scaleを0.01に設定</li>
+</ol>
+<p>　してください。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_27.png"
+         alt="単位スケールの変更"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.28 単位スケールの変更
+</div>
+<p>　そうすると車の大きさが0.01倍になってしまうので、元の大きさに戻すために100倍する必要があります。</p>
+<p>　まず、不要なオブジェクトは削除します。今回はCameraとLightが必要ないのでこの2つを削除します（レンダリングするときはカメラとライトが必要です）。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_28.png"
+         alt="CameraとLightを選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.29 CameraとLightを選択
+</div>
+<p>　CameraとLightを削除すると、下の画像のようにボディとタイヤのMeshだけが残ります（合計5パーツ）。下向きの三角形(▽)みたいなマークがMeshです。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_29.png"
+         alt="CameraとLightを削除して、Meshのみが残った"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.30 CameraとLightを削除して、Meshのみが残った
+</div>
+<p>　不要なパーツを削除できたので、スケールの変更を進めます。</p>
+<p>　ボディとタイヤの大きさを一気に変更したいので、ボディとタイヤを全て選択します。</p>
+<p>　全選択するためには、</p>
+<ol>
+<li>ワークスペース上部のSelectタブをクリック</li>
+<li>Allを選択</li>
+</ol>
+<p>　します。これでボディとタイヤが全て選択された状態になります。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_30.png"
+         alt="ボディとタイヤを全選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.31 ボディとタイヤを全選択
+</div>
+<p>　この状態で、</p>
+<ol>
+<li>画面左のスケール（上下左右矢印）のボタンを長押し</li>
+<li>そのままマウスのカーソルを右に移動してScaleを選択</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_31.png"
+         alt="ボディとタイヤを全選択してスケールを変更"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.32 ボディとタイヤを全選択してスケールを変更
+</div>
+<p>　画面上にX, Y, Z軸と白い円が現れるので、白い円をクリックしたままマウスのカーソルを動かします（ボディとタイヤのスケールが変更されるのを確認します）。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_32.png"
+         alt="スケールのボタンを押した後の表示"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.33 スケールのボタンを押した後の表示
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_33.png"
+         alt="白い円をドラッグするとスケールが変更できる"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.34 白い円をドラッグするとスケールが変更できる
+</div>
+<p>　クリックを解除すると、画面左下にResizeのウィンドウが現れます。ここで、Scale X, Y, Zを全て100に設定してください。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_34.png"
+         alt="マウスのクリックを解除するとResizeウィンドウが出現"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.35 マウスのクリックを解除するとResizeウィンドウが出現
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_35.png"
+         alt="ScaleのX, Y, Zに100と入力（これでモデルが100倍なり、元の大きさに戻る）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.36 ScaleのX, Y, Zに100と入力（これでモデルが100倍なり、元の大きさに戻る）
+</div>
+<p>　モデルが大きくなりすぎて見えなくなりましたが、表示範囲を縮小（マウスホイールを回すとかで）するとしっかり全体を確認できます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_36.png"
+         alt="モデルの全体像"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.37 モデルの全体像
+</div>
+<h3 id="325-回転とスケールの適用">3.2.5. 回転とスケールの適用</h3>
+<p>　今のモデル位置と大きさが基準になるように設定します。これを行わないとUnreal Engineにモデルをインポートしたときに、座標系の向きとかモデルの大きさが変になったりします。</p>
+<blockquote>
+<p>これを忘れていて Unreal Engineに車をインポートしたときに、</p>
+<ul>
+<li>車輪が路面に食い込む</li>
+<li>車が前方ではなく横向きに走る</li>
+<li>車のボディのスケルタルメッシュが表示されない</li>
+</ul>
+<p>などの現象が発生しました。</p>
+</blockquote>
+<p>　回転とスケールの適用は下の画像のようにモデルを全選択した状態で、</p>
+<ol>
+<li>ワークスペース上部のObjectタブをクリック</li>
+<li>Applyをクリック</li>
+<li>Rotation＆Scaleをクリック</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_37.png"
+         alt="回転とスケールの適用"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.38 回転とスケールの適用
+</div>
+<p>　回転とスケールの変更適用したら、画面左下にApply Object Transformの設定項目が現れます。ここで、RotationとScaleとApply Propertiesにチェックが入っているか確認してください。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_38.png"
+         alt="モデルの全体像"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.39 モデルの全体像
+</div>
+<h3 id="326-ボディとタイヤの親子関係設定">3.2.6. ボディとタイヤの親子関係設定</h3>
+<p>　ボディとタイヤの間に親子関係（ペアレント）を設定していきます。今のままでは部品名がCubeやCylinderになっていて分かりにくいので、名前を変更します。</p>
+<ul>
+<li>Body (車のボディ)</li>
+<li>Wheel_FL (左フロントタイヤ)　</li>
+<li>Wheel_FR (右フロントタイヤ)　</li>
+<li>Wheel_RL (左リアタイヤ)　</li>
+<li>Wheel_RR (右リアタイヤ)　</li>
+</ul>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_39.png"
+         alt="パーツ名を分かりやすい名前に変更"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.40 パーツ名を分かりやすい名前に変更
+</div>
+<p>　パーツ名が変更できたら親子関係を設定していきます。まず、下の画像のように Wheel_FR(子) → Body(親) の順番に選択（Shiftキーを押しながら）します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_40.png"
+         alt="パーツの選択（子→親 の順番で）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.41 パーツの選択（子→親 の順番で）
+</div>
+<p>　子と親のパーツを両方選択したら右クリックし、</p>
+<ol>
+<li>Parentの中の</li>
+<li>Objectをクリック
+します。これでボディとタイヤの間に親子関係を設定することができます。</li>
+</ol>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_41.png"
+         alt="親子関係（ペアレント）の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.42 親子関係（ペアレント）の設定
+</div>
+<p>　他の3輪も同じように、Wheel(子) → Body(親) の順番で選択してから親子関係を設定していきます。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_42.png"
+         alt="親子関係（ペアレント）の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.43 親子関係（ペアレント）の設定
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_43.png"
+         alt="親子関係（ペアレント）の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.44 親子関係（ペアレント）の設定
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_44.png"
+         alt="親子関係（ペアレント）の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.45 親子関係（ペアレント）の設定
+</div>
+<p>　親子関係が設定できると、画面右上のツリー（アウトライナー）が下の画像のようになると思います。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_45.png"
+         alt="親子関係（ペアレント）の設定後のツリー"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.46 親子関係（ペアレント）の設定後のツリー
+</div>
+<p>　こんな感じのツリーになっていればOKです。</p>
+<ul>
+<li>Body (車のボディ)
+<ul>
+<li>|&mdash; Wheel_FL (左フロントタイヤ)　</li>
+<li>|&mdash; Wheel_FR (右フロントタイヤ)　</li>
+<li>|&mdash; Wheel_RL (左リアタイヤ)　</li>
+<li>|&mdash; Wheel_RR (右リアタイヤ)　</li>
+</ul>
+</li>
+</ul>
+<h3 id="327-fbxファイルのエクスポート">3.2.7. fbxファイルのエクスポート</h3>
+<p>　ここまででBlenderのファイルを保存していない場合は、</p>
+<ol>
+<li>Fileタブをクリック</li>
+<li>Saveをクリック</li>
+</ol>
+<p>　してファイルをします。ダイアログが出てきたら、ファイル名を設定（ここでは car とした）して、「Save Blender File」を押してください。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_46.png"
+         alt="Blenderファイルの保存"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.47 Blenderファイルの保存
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_47.png"
+         alt="保存先と名前を設定（fbxファイルも同じパスに保存されます）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.48 保存先と名前を設定（fbxファイルも同じパスに保存されます）
+</div>
+<p>　いよいよBlenderで作ったモデルをUnreal Engine用に出力（エクスポート）します。</p>
+<p>　まずは3Dモデルのエクスポートするために、</p>
+<ol>
+<li>Fileタブをクリック</li>
+<li>Exportを押す</li>
+<li>FBX(.fbx)を選択</li>
+</ol>
+<p>します。</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_48.png"
+         alt="fbxファイルのエクスポート"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.49 fbxファイルのエクスポート
+</div>
+<p>　そうするとダイアログが出てくるので、</p>
+<ol>
+<li>Include &gt; Object Types を Mesh に設定</li>
+<li>Transform &gt; Forward を X Forward に、Up を Z UP に変更</li>
+<li>Geomerty &gt; Smoothing を Face に変更</li>
+<li>Armature の Bake Animation を無効にする</li>
+<li>設定項目を確認して Export FBXを押す</li>
+</ol>
+<p>　という流れでエクスポートしてください。</p>
+<p>　これでUnreal Engineにインポートする準備は整いました。お疲れ様です！ 疲れたら休憩しましょう～</p>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_49.png"
+         alt="エクスポート設定その1"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.50 エクスポート設定その1
+</div>
+<div align="center">
+<figure><img src="how_to_create_the_car_model_50.png"
+         alt="エクスポート設定その2"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 3.51 エクスポート設定その2
+</div>
+<h1 id="4-ゲーム内で動かす">4. ゲーム内で動かす</h1>
+<p>　ここからは、UNREAL ENGINE公式サイトにあるドキュメント「<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">How to Set up Vehicles</a>」を参考に作業を進めます。</p>
+<h2 id="41-unreal-engine-の起動">4.1. Unreal Engine の起動</h2>
+<p>　Epic Games Launcher から Unreal Engine (今回は Version 5.4.4を使用) を起動します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_2.png"
+         alt="Unreal Engineの起動"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.1 Unreal Engineの起動
+</div>
+<h2 id="42-vehicle-template-を使う">4.2. Vehicle Template を使う</h2>
+<p>　今回はとりあえず車を動かすことが目的なので、Vehicle Templateのコースを使います。Vehicle Template を使ってプロジェクトを作成するには、</p>
+<ol>
+<li>Unreal Engine のホーム画面左にある 「GAMES」タブをクリック</li>
+<li>「Vehicle」のテンプレートを選択</li>
+<li>Project Defaults を「BLUEPRINT」に設定</li>
+<li>Project Name を「OriginalVehicle」にして</li>
+<li>画面右下にある「Create」ボタンをクリック</li>
+</ol>
+<p>　してください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_3.png"
+         alt="Vehicleテンプレートからプロジェクトを作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.2 Vehicleテンプレートからプロジェクトを作成
+</div>
+<p>　プロジェクトが起動したら、画面上にあるプレイボタンを押して遊んでみてください（元々入っている車はかなりいい感じです）</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_4.png"
+         alt="ゲームをプレイしてみる"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.3 ゲームをプレイしてみる
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_5.png"
+         alt="プレイ中の様子（楽しい）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.4 プレイ中の様子（楽しい）
+</div>
+<h2 id="43-chaos-vehicle-プラグインの有効化">4.3. Chaos Vehicle プラグインの有効化</h2>
+<p>　車を動かす方法は色々あるみたいですが、今回は Chaos Vehicle というプラグインを使って動かしたいと思います。物理演算がしっかり入っているので、かなりリアルな動きをします。</p>
+<p>　Chaos Vehicle プラグインを有効化するためには、</p>
+<ol>
+<li>Edit タブの</li>
+<li>Plugins をクリック</li>
+<li>検索欄で「Chaos Vehicle」と検索</li>
+<li>プラグインが有効にする（私はすでに有効になっていました）</li>
+</ol>
+<p>　という手順で行います。手順4のタイミングでUnreal Engineの再起動が求められるので、再起動を行ってください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_6.png"
+         alt="プラグインの設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.5 プラグインの設定を開く
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_7.png"
+         alt="ChaosVehiclesPlugin を有効化"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.6 ChaosVehiclesPlugin を有効化
+</div>
+<h2 id="44-ホイールブループリントの作成">4.4. ホイールブループリントの作成</h2>
+<p>　タイヤやサスペンションの設定を行うために、ホイールブループリントを作成します。</p>
+<p>　ホイールブループリントの他にも後で色々なファイルを作成するので、フォルダを作成します。フォルダを作成するためには、</p>
+<ol>
+<li>画面下側にある Content Drawer を開き</li>
+<li>Vehicles フォルダを探してクリック</li>
+<li>Vehicles フォルダ内で右クリックして 「New Folder」をクリックする。</li>
+<li>フォルダ名を設定（ここでは MyVehiclesとした）</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_8.png"
+         alt="アセット用のフォルダ作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.7 アセット用のフォルダ作成
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_9.png"
+         alt="フォルダが作成できた"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.8 フォルダが作成できた
+</div>
+<p>　作成したフォルダ内（MyVehicles）で右クリックし、Blueprint Class を押す。そうすると、親クラスの選択画面が出てくるので</p>
+<ol>
+<li>ALL CLASSES をクリックし</li>
+<li>検索窓で Chaos と検索して</li>
+<li>ChaosVehicleWheel を選択</li>
+<li>Slect をクリックする</li>
+</ol>
+<p>　という手順でホイールブループリントを作成します。今回は前輪用のブループリント（ファイル名：BP_MyVehicle_FrontWheel）と後輪用のブループリント（ファイル名：BP_MyVehicle_RearWheel）を作成しました。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_10.png"
+         alt="Blueprint Classの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.9 Blueprint Classの作成
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_11.png"
+         alt="ホイールブループリントを作成する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.10 ホイールブループリントを作成する
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_12.png"
+         alt="前輪用と後輪用のブループリントを作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.11 前輪用と後輪用のブループリントを作成
+</div>
+<p>　まずは前輪の設定をします。前輪のホイールブループリント（ファイル名：BP_MyVehicle_FrontWheel）を開いて、</p>
+<ol>
+<li>Axle Type を Front に</li>
+<li>Wheel Radius を 30.0 (単位は cm)</li>
+<li>Frinction Force Multiplier を 1.9 に（デフォルト値でも良いです。アンダーステア気味にしたほうが操作しやすいので1.9にしました。）</li>
+<li>Affected By Steering を有効に（前輪に操舵角を入れるため）</li>
+</ol>
+<p>　してください。後輪も続けて設定します。後輪のホイールブループリント（ファイル名：BP_MyVehicle_RearWheel）を開いて、</p>
+<ol>
+<li>Axle Type を Rear に</li>
+<li>Wheel Radius を 30.0 (単位は cm)</li>
+<li>Affected By HandBrake を有効に（サイドブレーキを引いたときに後輪がロックするようにするため）</li>
+<li>Affected By Engine を有効に（後輪駆動にするため）</li>
+</ol>
+<p>　と設定します。これで足回りの設定は完了になります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_13.png"
+         alt="前輪の設定（その1）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.12 前輪の設定（その1）
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_14.png"
+         alt="前輪の設定（その2）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.13 前輪の設定（その2）
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_15.png"
+         alt="後輪の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.14 後輪の設定
+</div>
+<h2 id="45-エンジントルクカーブの作成">4.5. エンジントルクカーブの作成</h2>
+<p>　エンジンの特性を設定するために、エンジントルクカーブを作成します。エンジントルクカーブは、横軸がエンジンの回転数（単位は [rpm]）、縦軸がエンジンのトルク（単位は [Nm]）となります。</p>
+<p>　エンジンのトルクカーブはインターネットに出ているのでそれを参考に作成すれば良いです。</p>
+<p>　私は Performance Torqueというサイトの <a href="https://www.p-torque.co.uk/vehicle-database/">VEHICLE DATABASE</a> にある、BMW M8 のエンジン特性を参考にして作りました。参考にするのは赤線のカーブになります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_16.png"
+         alt="BMW M8のエンジントルクカーブ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.15 BMW M8のエンジントルクカーブ（Performance Torque - VEHICLE DATABASEより）
+</div>
+<p>　それでは 図 4.15 を見ながら実際にトルクカーブを作っていきます。まずは Content Drawer上で</p>
+<ol>
+<li>右クリックして Miscellaneous を選ぶ</li>
+<li>その中の Curve をクリック</li>
+<li>Pick Curve Class という画面が出てくるので、CurveFloat を選択</li>
+</ol>
+<p>　してファイルを作成します。ファイル名は、MyVehicle_TorqueCurve にしました。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_17.png"
+         alt="Curveファイル を作成する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.16 Curveファイル を作成する
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_18.png"
+         alt="作成した Curveファイル"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.17 作成した Curveファイル
+</div>
+<p>　次は作成した Curveファイル を開きます。カーブの通過点を追加するためには、右クリックして「Add Key」を選択します。</p>
+<blockquote>
+<p>便利なカーブエディタの操作方法は <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-curve-editor-in-unreal-engine">Unreal Engine公式ページ</a> に載っているので参考にすると便利です。</p>
+</blockquote>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_19.png"
+         alt="カーブの通過点を追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.18 カーブの通過点を追加
+</div>
+<p>　そうすると、三角形（△）の点が追加されます。これがカーブの通過点（制御点）になります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_20.png"
+         alt="追加されたカーブの通過点"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.19 Curve の通過点を追加
+</div>
+<p>　トルクカーブは原点を通るので（エンジンの回転数がゼロの時は発生するトルクもゼロなので）、通過点をマウスでドラッグして移動させます。</p>
+<p>　点の動く方向は、グラフ編集画面上側にある Lock Axisボタン（上下矢印の）で制限できます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_21.png"
+         alt="追加されたカーブの通過点"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.20 Curve の通過点を追加
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_22.png"
+         alt="Lock Axis で点の動く方向を制限"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.21 Lock Axis で点の動く方向を制限
+</div>
+<p>　同じ手順でカーブの通過点を追加していきます。カーブの通過点が追加できたら、自動補間ボタン（Cubic Auto Tangent）を押します。<br><br></p>
+<blockquote>
+<p>補間ボタンを押すと 3次のスプライン補間が実行されます。</p>
+</blockquote>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_23.png"
+         alt="カーブの通過点を追加して補間ボタンを押す"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.22 カーブの通過点を追加して補間ボタンを押す
+</div>
+<p>　補間を押しただけだと少し変化が急な部分もあるので、通過点部分の曲線の接線を編集します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_24.png"
+         alt="曲線の接線を編集"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.23 曲線の接線を編集
+</div>
+<p>　少し通過点の数は少ないですが、これでトルクカーブが完成です！</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_25.png"
+         alt="トルクカーブ完成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.24 トルクカーブ完成
+</div>
+<h2 id="46-物理アセットの作成">4.6. 物理アセットの作成</h2>
+<p>　Blenderで自作した車のモデルをインポートして、物理アセットを作成します。まずは、</p>
+<ol>
+<li>Content Drawer で</li>
+<li>Import をクリックし</li>
+<li>Blenderからエクスポートした3Dモデル（ここでは car.fbx）を選択して</li>
+<li>「開く(O)」ボタン</li>
+</ol>
+<p>　を押します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_26.png"
+         alt="フォルダに物理アセットを追加する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.25 フォルダに物理アセットを追加する
+</div>
+<p>　インポートの設定が表示されるので、</p>
+<ol>
+<li>Skeletal Mesh にチェックを入れる</li>
+<li>Import Content Type が Geomerty and Skinning Weights になっていることを確認</li>
+<li>Import をクリック</li>
+</ol>
+<p>　すれば、物理アセット（Physics Asset）がフォルダ内に生成します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_27.png"
+         alt="インポートの設定（Skeltal Mesh にチェックを入れる）"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.26 インポートの設定（Skeletal Mesh にチェックを入れる）
+</div>
+<p>　物理アセット以外にも Skeletal Mesh や Skeleton も生成されますが、まずは 物理アセット(Physics Asset)を開いてください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_28.png"
+         alt="物理アセットが生成した"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.27 物理アセットが生成した
+</div>
+<p>　開くと、自動的に作成された物理アセットを確認することができます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_29.png"
+         alt="編集前の様子"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.28 編集前の様子
+</div>
+<p>　Wheel とか Body のプリミティブ（画像中で半透明で表示されている物体の形状）が変なのでこれを直したい思います。</p>
+<p>　削除するには、画面左側のSkeleton Treeでスケルトンを全部選んで Deleteキー で消します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_30.png"
+         alt="スケルトンを全て選んで削除"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.29 スケルトンを全て選んで削除
+</div>
+<p>　ここからは、Wheel と Body に適切なプリミティブのボディ（←この説明横文字ばっかりですが）を割り当てます。</p>
+<p>　ボディは各部品のボーン（骨）に対して割り当てるので、Skeleton Tree でボーンが確認できるようにします。</p>
+<p>　Skeleton Tree 上で右クリックして「Show All Bones」とするとボーンが見れるようになります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_31.png"
+         alt="ボーンの表示"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.30 ボーンの表示
+</div>
+<p>　ボーンが表示されたら、</p>
+<ol>
+<li>Wheel 四輪のボーン（Wheel_FL, Wheel_FR, Wheel_RL, Wheel_RR）を選択</li>
+<li>右下の設定の Primitive Type を 「Sphere」にして</li>
+<li>Create</li>
+</ol>
+<p>を押します。これでタイヤに球状のボディが生成されます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_32.png"
+         alt="タイヤのボーンにボディを追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.31 タイヤのボーンにボディを追加
+</div>
+<p>　同様にして車のBodyもやっていきます。</p>
+<ol>
+<li>車のBodyのボーン（Body）を選択</li>
+<li>右下の設定の Primitive Type を 「Single Convex Hull」にして</li>
+<li>Create</li>
+</ol>
+<p>を押します。これで車のBodyにも正しい形のボディ生成されます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_33.png"
+         alt="車のBodyのボーンにボディを追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.32 車のBodyのボーンにボディを追加
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_34.png"
+         alt="物理アセットの作成が完了した"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.33 物理アセットの作成が完了した
+</div>
+<h2 id="47-アニメーションブループリントの作成">4.7. アニメーションブループリントの作成</h2>
+<p>　車に動き（タイヤの上下動、ボディの揺れとか）を入れるために、アニメーションブループリントを作成します。Content Browser内で右クリックして、</p>
+<ol>
+<li>Animation の項目から</li>
+<li>Animation Brueprint を選択</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_35.png"
+         alt="アニメーションブループリントの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.34 アニメーションブループリントの作成
+</div>
+<p>　そうするとウィンドウが表示されるので、</p>
+<ol>
+<li>作成したスケルトン(今回は car_Skeleton)を指定</li>
+<li>検索窓で Vehicle と検索</li>
+<li>VehicleAnimationInstance を選ぶ</li>
+<li>Create を押す</li>
+</ol>
+<p>　という手順でアニメーションブループリントを作成します。ここでは名前を Myvehicle_AnimBlueprint としました。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_36.png"
+         alt="スケルトンの選択と親クラスの指定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.35 スケルトンの選択と親クラスの指定
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_37.png"
+         alt="作成されたアニメーションブループリント"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.36 作成されたアニメーションブループリント
+</div>
+<p>　作成したファイルを開くと、Output Pose というノードだけが置かれていると思います。このノードが最終的な姿勢の出力になるので、この前に色々なノードを追加していきます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_38.png"
+         alt="初期のアニメーションブループリントの中身"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.37 初期のアニメーションブループリントの中身
+</div>
+<p>　それではノードを追加していきます。まずはAnimGraph内の空いているところで右クリックして、</p>
+<ol>
+<li>検索窓で Mesh Space と検索して</li>
+<li>Mesh Space Ref Pose</li>
+</ol>
+<p>　を選びます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_39.png"
+         alt="「Mesh Space Ref Pose」ノードの追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.38 「Mesh Space Ref Pose」ノードの追加
+</div>
+<p>　同じ手順で 「Wheel Controller for WheeledVehicle」 と 「Component to Local」のノードも追加します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_40.png"
+         alt="「Wheel Controller for WheeledVehicle」ノードの追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.39 「Wheel Controller for WheeledVehicle」ノードの追加
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_41.png"
+         alt="「Component to Local」ノードの追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.40 「Component To Local」ノードの追加
+</div>
+<p>　全部のノードが追加できたら、追加したノードを下の画像の順番（Mesh Space Ref Pose → Wheel Controller for WheeledVehicle → Component to Local → Output Pose）で並べてください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_42.png"
+         alt="ノードを並べる"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.41 ノードを並べる
+</div>
+<p>　ノードを並べたら、ノードとノードを人のアイコンの部分で繋ぎます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_43.png"
+         alt="ノードの接続"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.42 ノードの接続
+</div>
+<p>　全部のノードが接続出来たら、アニメーションブループリントの作成は完了になります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_44.png"
+         alt="アニメーションブループリントが完成した"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.43 アニメーションブループリントが完成した
+</div>
+<h2 id="48-ビークルブループリントの作成">4.8. ビークルブループリントの作成</h2>
+<p>　車関係の設定はこれが最後になります。</p>
+<p>　<a href="#44-%E3%83%9B%E3%82%A4%E3%83%BC%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.4. ホイールブループリントの作成</a>ではタイヤやサスペンションなど足回りの設定をしましたが、ここでは エンジンやトランスミッション など駆動系の設定をしていきます。</p>
+<p>　足回りの設定だけでなく今まで作成したもの（エンジントルクカーブ、アニメーションブループリントなど）をビークルブループリントに紐づけていって、最終的に動く車を作って行きます。</p>
+<p>　それではビークルブループリントを作成します。ビークルブループリントを作成するには Content Browser 内で右クリックして、Blueprint Class を選んで下さい。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_45.png"
+         alt="ビークルブループリントの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.44 ビークルブループリントの作成
+</div>
+<p>　そうすると親クラスの選択画面が出てくるので、</p>
+<ol>
+<li>ALL CLASSES で</li>
+<li>「Wheeled」と検索して</li>
+<li>WheeledVehiclePawn を探して</li>
+<li>Select を選択</li>
+</ol>
+<p>　します。ファイル名は BP_MyVehicle とします。（名前は自由です）</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_46.png"
+         alt="親クラスの選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.45 親クラスの選択
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_47.png"
+         alt="ホイールブループリントが作成された"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.46 ホイールブループリントが作成された
+</div>
+<p>　ビークルブループリントにアニメーションブループリントとメッシュを紐づけます。作成したビークルブループリントを開いて、</p>
+<ol>
+<li>Anim Class を MyVehicle_AnimBlueprint_C に設定</li>
+<li>Skeltal Mesh Asset を car に設定</li>
+</ol>
+<p>　してください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_48.png"
+         alt="アニメーションブループリントとメッシュをビークルブループリントに紐づけ"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.47 アニメーションブループリントとメッシュをビークルブループリントに紐づけ
+</div>
+<p>　この設定ができたら、物理シミュレーションを有効にするために「Simulate Physics」にチェックを入れてください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_49.png"
+         alt="物理シミュレーションの有効化"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.48 物理シミュレーションの有効化
+</div>
+<p>　次に車の後方にカメラを追加します。カメラと車の距離を一定に保つように配置します。そのためにまずは、</p>
+<ol>
+<li>画面左側の Components ウィンドウで Add を押して</li>
+<li>検索窓で 「Spring」と検索</li>
+<li>Spring Arm をクリック</li>
+</ol>
+<p>　します。同じ手順で、カメラも追加してください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_50.png"
+         alt="Spring Arm の追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.49 Spring Arm の追加
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_51.png"
+         alt="Camera の追加"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.50 Camera の追加
+</div>
+<p>　カメラが追加できたら、車を操作した時に操作しやすいように位置を調整します。</p>
+<p>　移動のボタンと回転のボタンがあるので、上手く使いながらカメラ位置と角度をセッティングしてください（これで操作する時の視点が決まります）。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_52.png"
+         alt="カメラ位置の調整"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.51 カメラ位置の調整
+</div>
+<p>　次に車輪の設定をしていきます。</p>
+<p>　ツリー上で Vehicle Movement Component をクリックした後、Wheel Setups の横にあるプラスボタンで 4つの配列要素を追加してください。</p>
+<p>　配列要素を追加できたら、Wheel Class と Bone Name を下の画像のように設定してください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_53.png"
+         alt="Wheel の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.52 Wheel の設定
+</div>
+<p>　エンジンの設定をします。Mechanical Setup の Engine Setup を開きます。</p>
+<p>　ここで、Torque Curve の左にある三角形を開いて展開し、<a href="#45-%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%83%88%E3%83%AB%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%96%E3%81%AE%E4%BD%9C%E6%88%90">4.5. エンジントルクカーブの作成</a>で作成したトルクカーブ（MyVehicle_TorqueCurve）を割り当てます。</p>
+<p>　Max Torque（最大トルク） や Max RPM（最大の回転数）は、参考にしたトルクカーブに合わせて設定して下さい。この他のエンジン設定はデフォルトのまま行きました。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_54.png"
+         alt="Engine の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.53 Engine の設定
+</div>
+<p>　デフ（Differential Gear）の設定をします。今回は後輪駆動を想定しているので、Differential Typeを「Rear Wheel Drive」に設定します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_55.png"
+         alt="Differential の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.54 Differential の設定
+</div>
+<p>　トランスミッションの設定も行います。段数や変速のタイミングを色々変更できますが、今回はデフォルトのまま行きました。自分の好みに応じて変更すれば良いと思います。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_56.png"
+         alt="Transmission の設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.55 Transmission の設定
+</div>
+<p>　ここで少し話が変わって、車を操作するためにキーボードやゲームパッドの入力設定をしていきたいと思います。</p>
+<p>　そのために、Edit タブから、Project Settings を開いて下さい。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_57.png"
+         alt="プロジェクト設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.56 プロジェクト設定を開く
+</div>
+<p>　Project Settings が開いたら Input の項目を探します。Input は Engine の項目の中にあります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_58.png"
+         alt="入力設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.57 入力設定を開く
+</div>
+<p>　Inputの設定で、キーボードとゲームパッドの設定をしていきます。設定方法は、</p>
+<ol>
+<li>Axis Mappings の横にあるプラスボタンを押し</li>
+<li>入力変数の名前を付けます（後のプログラムで使います）</li>
+<li>変数名の左にある三角ボタンを押して展開して</li>
+<li>割り当てるキーを選択（キーボードのマークを押してから任意のキーを押すか、プルダウンから選ぶか検索する）</li>
+<li>Scaleを設定</li>
+</ol>
+<p>　という流れになります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_59.png"
+         alt="入力設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.58 入力設定を開く
+</div>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_60.png"
+         alt="入力設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.59 入力設定を開く
+</div>
+<p>　1~4 の手順で他の入力設定も行います。入力設定ができると下の画像のようになります（今回使うのは赤枠で囲っているところだけです）。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_61.png"
+         alt="今回設定した入力設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.60 今回設定した入力設定
+</div>
+<p>　次は、先ほど設定したキーボード入力で車を操作できるようにプログラムを作成します。</p>
+<p>　まずはビークルブループリント（ここでは BP_MyVehicle）を開いて、</p>
+<ol>
+<li>Componentsのツリーから Mesh (VehicleMesh) をクリックし</li>
+<li>Event Graph のタブを選択</li>
+</ol>
+<p>　してください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_62.png"
+         alt="ビークルブループリントのイベントグラフ（Event Graph）開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.61 ビークルブループリントのイベントグラフ（Event Graph）開く
+</div>
+<p>　そうすると、3つくらいノードが既に置かれていると思います。今回はこれらのノードを使わないので、</p>
+<ol>
+<li>マウスで範囲選択して</li>
+<li>削除</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_63.png"
+         alt="不要なノードを削除する"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.62 不要なノードを削除する
+</div>
+<p>　次は、キーボードやゲームパッド入力に応じて車が動くように設定していきます。</p>
+<p>　まずは、イベントグラフにツリーにある「Vehicle Movement Component」をイベントグラフにドラッグ＆ドロップします。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_64.png"
+         alt="Vehicle Movement Componentの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.63 Vehicle Movement Componentの作成
+</div>
+<p>　Vehicle Movement Component が配置できたら、</p>
+<ol>
+<li>Vehicle Movement Component の右側にあるピンをマウスでドラッグして</li>
+<li>適当なグラフエディタ上の場所で離します。離した直後に検索画面が出てくると思うので「Set Throttle」と検索し、</li>
+<li>Set Throttle Input を選びます。</li>
+</ol>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_65.png"
+         alt="スロットル入力の作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.64 スロットル入力の作成
+</div>
+<p>　続けて、</p>
+<ol start="4">
+<li>Event Graph上で右クリックして「Throttle」と検索して</li>
+<li>Axis Events の「Throttle」をクリック</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_66.png"
+         alt="スロットル入力イベントの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.65 スロットル入力イベントの作成
+</div>
+<p>　これでスロットル入力に必要なノードは全て揃ったので、</p>
+<ol start="6">
+<li>InputAxis イベントの「Axis Value」と Set Throttle Input の「Throttle」を接続</li>
+<li>InputAxis イベントの「Exec（白い右向き矢印みたいな）」と Set Throttle Input の「（白い右向き矢印みたいな）」を接続</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_67.png"
+         alt="ノードの接続"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.66 ノードの接続
+</div>
+<p>　1~8の手順でステアリングとブレーキの入力も作成します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_68.png"
+         alt="ステアリングとブレーキの入力も作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.67 ステアリングとブレーキの入力も作成
+</div>
+<p>　ここまでできれば車を操作することはできるのですが、せっかくなのでハンドブレーキも追加します。</p>
+<p>　ハンドブレーキのプログラムは下の画像のようになります。ボタンが押されたときにハンドブレーキを有効にして、離すと無効にするというプログラムになります。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_69.png"
+         alt="ハンドブレーキの設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.68 ハンドブレーキの設定
+</div>
+<p>　ブループリントが作成できたら、①コンパイルと②保存を行ってください。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_70.png"
+         alt="ビークルブループリントのコンパイル"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.69 ビークルブループリントのコンパイル
+</div>
+<p>　アニメーションブループリントのコンパイルと保存をしていなかった場合は、同じように行います。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_71.png"
+         alt="アニメーションブループリントのコンパイル"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.70 アニメーションブループリントのコンパイル
+</div>
+<p>　これでビークルブループリントの作成は完了です！</p>
+<h2 id="49-ゲームモードの作成">4.9. ゲームモードの作成</h2>
+<p>　最後にゲームモードを作成していきます。今のままでは、デフォルトのかっちょいい車が走る状態になっています。</p>
+<p>　ゲームモードを作成するには、まずはContent Browser上で右クリックして「BlueprintClass」を選びます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_72.png"
+         alt="BlueprintClassの作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.71 BlueprintClassの作成
+</div>
+<p>　次に親クラスの選択画面が出てくるので、「Game ModeBase」を選びます。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_73.png"
+         alt="親クラスとしてGame ModeBaseを選択"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.72 親クラスとしてGame ModeBaseを選択
+</div>
+<p>ここでは、「MyVehicle_GameMode」という名前でファイルを作成します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_74.png"
+         alt="ゲームモードを作成"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.73 ゲームモードを作成
+</div>
+<p>　次に、作成したゲームモードを開いて</p>
+<ol>
+<li>Default Pawn Class を「BP_MyVehicle」（<a href="#49-%E3%83%93%E3%83%BC%E3%82%AF%E3%83%AB%E3%83%96%E3%83%AB%E3%83%BC%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">4.9. ビークルブループリントの作成</a>で作った）にして</li>
+<li>コンパイル</li>
+<li>保存</li>
+</ol>
+<p>　をします。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_75.png"
+         alt="ゲームモードに自作ビークルブループリントを設定"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.74 ゲームモードに自作ビークルブループリントを設定
+</div>
+<p>　ゲームモードが設定出来たら、ワールド設定を開きます。ワールド設定を開くには、</p>
+<ol>
+<li>Window をクリックして</li>
+<li>World Settings を選択</li>
+</ol>
+<p>　します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_76.png"
+         alt="ワールド設定を開く"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.75 ワールド設定を開く
+</div>
+<p>　最後にゲームモードの上書きを行います。ゲームモードの上書きを行うには、</p>
+<ol>
+<li>GameMode Override をクリックして（デフォルトはAdvVehicleGameMode）</li>
+<li>自分で作成したゲームモード（ここでは「MyVehicle_GameMode」）に</li>
+</ol>
+<p>　変更します。</p>
+<div align="center">
+<figure><img src="vehicle_model_import_and_programming_77.png"
+         alt="ゲームモードの上書き"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.76 ゲームモードの上書き
+</div>
+<p>　これで全ての設定が完了しました。実際に動かしてみましょう！</p>
+<h1 id="5-動かしてみる">5. 動かしてみる</h1>
+<p>　画面上にある再生ボタンを押すか、「Alt + P」プレイできます。車の操作をはじめるには、画面を一度クリックする必要があります。</p>
+<p>　自分で作った車をサーキットで走らせることができます。これは楽しい！！</p>
+<div align="center">
+<figure><img src="play_your_vehicle.gif"
+         alt="実際にプレイしてみる"/>
+</figure>
+
+</div>
+<div style="text-align: center;">
+図 4.77 実際にプレイしてみる
+</div>
+<h1 id="6-まとめ">6. まとめ</h1>
+<p>　車の3Dモデルの作成から1本の記事に書いたので長い記事になってしまいました&hellip;</p>
+<p>　車の自作3Dモデルを運転して走らせたいときに、少しでも参考になれば嬉しいです！</p>
+<h1 id="7-参考文献">7. 参考文献</h1>
+<ol>
+<li>UNREAL ENGINE(Epic Games)「How to Set up Vehicles」、(<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">https://dev.epicgames.com/documentation/en-us/unreal-engine/how-to-set-up-vehicles-in-unreal-engine</a>)</li>
+<li>YouTube（@Math B）「01 - Rig and export vehicles from Blender to the UE5. (UE5 Vehicle Tutorial)」、(<a href="https://youtu.be/CXm8Ruu9saA?si=2JnJTWx-YTTxP1D5">https://youtu.be/CXm8Ruu9saA?si=2JnJTWx-YTTxP1D5</a>)</li>
+<li>YouTube（@Math B）「02 - Make your imported vehicle drivable! (UE5 Vehicle Tutorial)」、(<a href="https://youtu.be/VC_9hRRTWdM?si=Hh5fBAwFluGSE84I">https://youtu.be/VC_9hRRTWdM?si=Hh5fBAwFluGSE84I</a>)</li>
+<li>パソコン工房 NEXMAG「Blenderインストール方法と基本的なオブジェクトの作り方」、(<a href="https://www.pc-koubou.jp/magazine/68319?srsltid=AfmBOoop6ZpQF8_u6_WhaIgGhg0NL8DInaD7bhfUBDLzChj8U1g2taf6">https://www.pc-koubou.jp/magazine/68319?srsltid=AfmBOoop6ZpQF8_u6_WhaIgGhg0NL8DInaD7bhfUBDLzChj8U1g2taf6</a>)</li>
+<li>岡田和也「猫でも分かるUnreal Engineの学び方 - 超初心者向け編 - 2023 v1.0」、(<a href="https://www.docswell.com/s/EpicGamesJapan/KW1WNR-HowToLearnUE5_2023">https://www.docswell.com/s/EpicGamesJapan/KW1WNR-HowToLearnUE5_2023</a>)</li>
+<li>ゲームメーカーズ「UE5版 ゲームづくりを始めよう！」、(<a href="https://gamemakers.jp/howto/">https://gamemakers.jp/howto/</a>)</li>
+<li>Performance Torque「VEHICLE DATABASE」、(<a href="https://www.p-torque.co.uk/vehicle-database/">https://www.p-torque.co.uk/vehicle-database/</a>)</li>
+</ol>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/">簡易な会計アプリを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/">オートメーションサーバでオートバランスできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/">ノートPCのキーボードが入力できない</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

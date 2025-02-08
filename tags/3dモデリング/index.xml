@@ -9,19 +9,19 @@
     <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</link>
       <pubDate>Sat, 18 Jan 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</guid>
       <description>～ 目次 ～   1. 本記事の目的 2. 使用ソフトウェア 3. 3Dモデルの作成  3.1. 作成するモデル 3.2. Blenderでモデリング  3.2.1. Blenderの起動 3.2.2. ボディのモデリング 3.2.3. タイヤのモデリング 3.2.4. 単位の設定 3.2.5. 回転とスケールの適用 3.2.6. ボディとタイヤの親子関係設定 3.2.7. fbxファイルのエクスポート     4. ゲーム内で動かす  4.1. Unreal Engine の起動 4.2. Vehicle Template を使う 4.3. Chaos Vehicle プラグインの有効化 4.4. ホイールブループリントの作成 4.5. エンジントルクカーブの作成 4.6. 物理アセットの作成 4.7. アニメーションブループリントの作成 4.8. ビークルブループリントの作成 4.9. ゲームモードの作成   5. 動かしてみる 6. まとめ 7. 参考文献   1.</description>
     </item>
     
     <item>
       <title>GS02のタイヤを浮かせたい！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/lifting_and_protecting_the_gs02_tire/</link>
       <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/lifting_and_protecting_the_gs02_tire/</guid>
       <description>～ 目次 ～   1. やりたいこと 2. 完成品の寸法 3. 部品の製作  3.1. 使った道具 3.2. 部品① 3.3. 部品②と③   4. 組み立て 5. 取り付けた様子 6. サンプルファイル   1. やりたいこと 　数カ月ぶりに、愛車の GS02bom を見てみるとタイヤが潰れてました( ;∀;)( ;∀;)( ;∀;)。
   ☝　潰れたタイヤのイメージ  　抜けた空気は自然に入らず、変形したタイヤはすぐに戻らないので大変です。（ホイールを組み立て直して、走行すれば段々良くなりますが&amp;hellip;）
 　今回はタイヤを浮かせて保管（飾っておける）できるGS02専用の土台を作ってみました！
@@ -35,10 +35,10 @@
     
     <item>
       <title>壊れたRCのギアを作りたい [製作編]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/rc_gear_design_4/</link>
       <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/rc_gear_design_4/</guid>
       <description>～ 目次 ～   1. 3Dプリントの流れ 2. 3Dプリント作業の様子  2.1. 3Dモデルの準備 2.2. 印刷用データの作成 2.3. 印刷 2.4. サポート材の除去 2.5. 完成品   3. 組み立て 4. 取り付けた様子 5. 関連記事 6. 参考文献   1. 3Dプリントの流れ 　前回でギアの設計が終わったので、今回はギアを実際に製作したいと思います。
 　本格的なプラスチック歯車なら、射出成形で製造されている1（切削加工で製造している場合もある2）みたいですが、工具と機械をそろえると凄い金額（ノウハウもかなり必要）なってしまいます。
 　そこで今回は、3Dプリンタを使ってギアを作ってみます。3Dプリンタを使った方法は付加製造と呼ばれています。
@@ -51,10 +51,10 @@
     
     <item>
       <title>壊れたRCのギアを作りたい [3Dモデリング編2]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/rc_gear_design_3/</link>
       <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/05/rc_gear_design_3/</guid>
       <description>～ 目次 ～   1. 設計作業の続き 2. 完成した3Dモデル 3. 関連記事 4. 参考文献   1. 設計作業の続き 　前回に引き続き、3Dモデリング作業を進めていきます。前回はギアの大まかな形状を作ることができたので、今回は細かい部分を作りました。
   ☝　前回までの進捗  　大まかな形状は完成していますが、ベベルギアが入る空間がないのでまずはそこを作っていきます。
   ☝　ベベルギア用の穴をあける（スケッチ作成）    ☝　ベベルギア用の穴をあける（ポケットを実行）  　ベベルギアにはシャフトが通っているので、そのシャフトが入る部分を作っていきます。
@@ -63,10 +63,10 @@
     
     <item>
       <title>壊れたRCのギアを作りたい [3Dモデリング編1]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/rc_gear_design_2/</link>
       <pubDate>Thu, 24 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/24/rc_gear_design_2/</guid>
       <description>～ 目次 ～   1. 設計に入る前に  1.1. 前回の振り返り 1.2. 壊れた歯車のモジュールは？   2. FreeCADでギア設計  2.1. Involute gear 機能で大まかな形状を作成 2.2. 細かいところを作っていく   3. 関連記事 4. 参考文献   1. 設計に入る前に 1.1. 前回の振り返り 　前回はギアの設計に必要な理論を調べました。今回は実際に歯車の設計をしていきたいと思います！
 　前回の最後に掲載した計算式1をここにも書いておきます。この式を使っていきます。
 \begin{equation} \label{mod_using_da} m = \frac{d_a}{z+2} \end{equation}
@@ -76,10 +76,10 @@
     
     <item>
       <title>3Dプリンタでホイールを作ってみた</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/wheel-making_using_3d-printer/</link>
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/wheel-making_using_3d-printer/</guid>
       <description>自分でホイールを作ったきっかけ 　初めはホイールを自分で設計・製作することはあまり考えていなかったのですが、買ったタイヤが少し特殊だったのでそれに合わせて設計することにしました。
 ボディ変更とタイヤの購入 　クローララジコン ECX Barrage 1.9 純正のボディに満足いかず、PROLINE の F-100 ボディに変更することがありました。そのときに、タイヤを 1.9インチのものから 1.55インチに変更することを考えました。
 　ECX Barrage 1.9 の後継機として ECX Barrage Gen2 売られています。Gen2 は ホイールサイズが 1.9 → 1.55インチに変更されていました。そこで、これに使われている純正タイヤを購入しました。
@@ -96,10 +96,10 @@
     
     <item>
       <title>ポリカボディ風の3Dモデルを作る</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/lexan-body_painting_simulation/</link>
       <pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/01/27/lexan-body_painting_simulation/</guid>
       <description>なぜこれをやろうと思ったのか？ 　京商のOutlaw rampage Pro を購入したときに、ボディ塗装のデザインに悩んだことがきっかけです。 ラジコンのポリカボディは再塗装が難しい(透明なボディ裏面から塗装を重ねていく)ので、失敗したくないと思い、PC上で塗装結果をイメージ出来たら良いと考えました。
 　そこで FreeCAD（オープンソースの3DCADソフト）を使って、ラジコンのボディを作ってみることにしました。
 FreeCADでボディ形状作成 製作過程 　FreeCADのサーフェス機能を使って、モデリングを行いました。サーフェス機能の使い方はこちらの記事が参考になりま した。

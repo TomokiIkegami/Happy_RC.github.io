@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>オートメーションサーバでオートバランスできない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/</link>
       <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/</guid>
       <description>オートメーションサーバ機能とは 　キーエンス製データロガーの専用ソフトウェア「WAVE LOGGER X」を、Python, C#, VBAで操作できる機能です（Webアプリケーションで言うところのAPI? みたいな感じです）。WAVE LOGGER X 自体は、マウスでポチポチ操作できるソフトです（綺麗なGUI）。このようにマウスで操作するところを、他のプログラミング言語（Python, C#, VBA）で自動的に操作するのが、オートメーションサーバ機能です。とても便利です(&amp;lsquo;ω&amp;rsquo;)
   ☝　WAVE LOGGER X の画面はこんな感じ  オートバランスできない&amp;hellip; 　キーエンス製データロガー（今回はNR-500を使用）でひずみ計測ユニット（NR-ST04）を使うときは、測定開始前に必ず「オートバランス」（ブリッジ回路のゼロ点補正）をする必要があります。WAVE LOGGER Xを使っているときは、「オートバランス」ボタンをただポチっとするだけでよいのですが、オートメーションサーバ機能ではこれにかなり苦労しました。
 　ネット情報がほとんど見当たらなかったので（現状では驚くほど情報が少ない）、今回はその解決方法を共有したいと思います！

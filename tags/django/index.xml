@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 27 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自分のWebサイトを作りました！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</link>
       <pubDate>Sat, 27 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</guid>
       <description>作成したサイトの外観 　Djangoとbootstrap5を使って、自分の取り組みを紹介するサイトを作りました！
 　下の画像が作ったページの外観です。スマホでもPCでも見やすいレイアウトとなるように工夫しました。
   ☝　作ったサイト  　色々なサイトや友達の意見を参考にしながら、ページのデザインから動作の作成、デプロイまで行いました。

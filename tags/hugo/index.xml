@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 21 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hugoで上付き・下付き文字が入力できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</link>
       <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</guid>
       <description>現状 記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。
 記事ファイル「index.md」の中身 x&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; + y&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; = r&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt;　 出力結果 　hugoのserverコマンドで確認した出力結果がこちらです。
    出力結果（現状） 正しい結果（理想）            解決方法 　調べてみると、「config.json」に数行付け足すことで解決出来ることが分かりました。configファイルの形式が.jsonの場合は、以下の数行を付け足します。

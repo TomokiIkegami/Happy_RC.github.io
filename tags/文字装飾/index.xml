@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 27 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自分のWebサイトを作りました！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</link>
       <pubDate>Sat, 27 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</guid>
       <description>作成したサイトの外観 　Djangoとbootstrap5を使って、自分の取り組みを紹介するサイトを作りました！
 　下の画像が作ったページの外観です。スマホでもPCでも見やすいレイアウトとなるように工夫しました。
   ☝　作ったサイト  　色々なサイトや友達の意見を参考にしながら、ページのデザインから動作の作成、デプロイまで行いました。
@@ -22,10 +22,10 @@
     
     <item>
       <title>「Command &#39;cmd&#39; not found, but there are 18 similar ones.」と表示されてPythonが実行できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/cannot_execute_python_in_the_vscode_console/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/cannot_execute_python_in_the_vscode_console/</guid>
       <description>解決方法 　解決方法は単純。
  「Ctrl + Shift + P」でコマンドパレットを開き、「Terminal:Select Default Profile」を選択 「Command Prompt あるいは Windows PowerShell」を選択    ☝　解決方法（GIFアニメ）  エラーの概略 　昔に授業でC言語のプログラミングをしよう思い、VS CodeでwlsのUbunutuを使えるようにしました。
 　当時はC言語のみだったので気にしてなかったのですが、PythonをVS Codeで使うようにセットアップしたところ「Command &amp;lsquo;cmd&amp;rsquo; not found, but there are 18 similar ones.」と表示されてプログラムが実行されませんでした。しばらく待つと、「Timed out wating for lancher to connect」と書かれたポップアップが出てきます。
@@ -36,10 +36,10 @@
     
     <item>
       <title>hugoで上付き・下付き文字が入力できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</link>
       <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</guid>
       <description>現状 記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。
 記事ファイル「index.md」の中身 x&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; + y&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; = r&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt;　 出力結果 　hugoのserverコマンドで確認した出力結果がこちらです。
    出力結果（現状） 正しい結果（理想）            解決方法 　調べてみると、「config.json」に数行付け足すことで解決出来ることが分かりました。configファイルの形式が.jsonの場合は、以下の数行を付け足します。

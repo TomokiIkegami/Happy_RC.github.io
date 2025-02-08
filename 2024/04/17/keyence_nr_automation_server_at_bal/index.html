@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     オートメーションサーバでオートバランスできない -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      オートメーションサーバでオートバランスできない
+    </h1>
+    
+    <p class="document-date">
+      2024-04-17 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"キーエンスのオートメーションサーバ機能で、ひずみ測定ユニットのオートバランスをする方法"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="オートメーションサーバ機能とは">オートメーションサーバ機能とは</h1>
+<p>　キーエンス製データロガーの専用ソフトウェア「WAVE LOGGER X」を、Python, C#, VBAで操作できる機能です（Webアプリケーションで言うところのAPI? みたいな感じです）。WAVE LOGGER X 自体は、マウスでポチポチ操作できるソフトです（綺麗なGUI）。このようにマウスで操作するところを、他のプログラミング言語（Python, C#, VBA）で自動的に操作するのが、オートメーションサーバ機能です。とても便利です(&lsquo;ω&rsquo;)</p>
+  <div align="center">
+  <figure><img src="wave_logger_x_gui.png"
+         alt="WAVE LOGGER X の画面はこんな感じ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　WAVE LOGGER X の画面はこんな感じ
+  </div>
+<h1 id="オートバランスできない">オートバランスできない&hellip;</h1>
+<p>　キーエンス製データロガー（今回はNR-500を使用）でひずみ計測ユニット（NR-ST04）を使うときは、測定開始前に必ず「オートバランス」（ブリッジ回路のゼロ点補正）をする必要があります。WAVE LOGGER Xを使っているときは、「オートバランス」ボタンをただポチっとするだけでよいのですが、オートメーションサーバ機能ではこれにかなり苦労しました。</p>
+<p>　ネット情報がほとんど見当たらなかったので（現状では驚くほど情報が少ない）、今回はその解決方法を共有したいと思います！</p>
+<p>　下の画像は（研究室の）実験室にある、キーエンスのNR-500とNR-ST04です。（NR-ST04がなんかたくさんある ← もちろん理由はあります）</p>
+  <div align="center">
+  <figure><img src="keyence_nr_500_and_st.jpg"
+         alt="一番左がNR-500、右がNR-ST04(×5個)"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　一番左がNR-500、右がNR-ST04(×5個)
+  </div>
+<h1 id="解決策">解決策</h1>
+<p>　初めにサンプルコード全体を載せます。他のシステムとの統合を考えていたので、コードはPythonで作成しています。</p>
+<p>　基本的にはキーエンスのサンプルプログラム（「C:\program files\KEYENCE\WAVE LOGGER X\samples\Automation.zip」に入ってる）と同じ感じですが、オートバランスを自動で行う、測定データを自動保存する処理を追加しています。</p>
+<p>　オートバランスの進捗状態を確認してから、次の処理を実行するというのがポイントです。</p>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> os   <span style="color:#960050;background-color:#1e0010">#</span> ファイルパスの取得などに使用
+<span style="color:#f92672">import</span> time <span style="color:#960050;background-color:#1e0010">#</span> 待ち時間などを制御するために使用
+<span style="color:#f92672">import</span> win32com.client  <span style="color:#960050;background-color:#1e0010">#</span> Windowsでアプリを操作するためのAPI
+from pathlib <span style="color:#f92672">import</span> Path    <span style="color:#960050;background-color:#1e0010">#</span> ファイルパスの取得などに使用
+
+<span style="color:#960050;background-color:#1e0010">#</span> 初期設定
+NR500_USB_ID_START <span style="color:#f92672">=</span> 0
+NR500_USB_ID_END <span style="color:#f92672">=</span> 3
+STATE_START_WAIT <span style="color:#f92672">=</span> 2
+STATE_TRIGGER_WAIT <span style="color:#f92672">=</span> 3
+STATE_RUN <span style="color:#f92672">=</span> 4
+STATE_REPEAT_RUN <span style="color:#f92672">=</span> 5
+STATE_PRE_TRIGGER <span style="color:#f92672">=</span> 6
+STATE_POST_TRIGGER <span style="color:#f92672">=</span> 7
+STATE_STOP_WAIT <span style="color:#f92672">=</span> 8
+STATE_READ_WAIT <span style="color:#f92672">=</span> 10
+STATE_PROCEDURE_WAIT <span style="color:#f92672">=</span> 12
+UNIT_NUMBER <span style="color:#f92672">=</span> 1
+GROUP_NUMBER <span style="color:#f92672">=</span> 0
+CHANNEL_NUMBER <span style="color:#f92672">=</span> 0
+
+<span style="color:#960050;background-color:#1e0010">#</span> Pythonファイル名<span style="color:#960050;background-color:#1e0010">、</span>収集設定ファイル名<span style="color:#960050;background-color:#1e0010">、（</span>ロガーの<span style="color:#960050;background-color:#1e0010">）</span>グループ番号を設定
+argv <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;python_file_path&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;xdt_file_path&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;group_number&#34;</span><span style="color:#f92672">]</span>
+argv<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> str<span style="color:#f92672">(</span>Path<span style="color:#f92672">.</span><span style="color:#a6e22e">cwd</span><span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#e6db74">&#34;\logging.py&#34;</span>   <span style="color:#960050;background-color:#1e0010">#</span>　収集用のプログラムの場所<span style="color:#960050;background-color:#1e0010">（</span>オートメーションサーバのコマンドを使う側のプログラム<span style="color:#960050;background-color:#1e0010">）</span>
+argv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> str<span style="color:#f92672">(</span>Path<span style="color:#f92672">.</span><span style="color:#a6e22e">cwd</span><span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#e6db74">&#34;\logger_test.xdt&#34;</span>     <span style="color:#960050;background-color:#1e0010">#</span>  WAVE LOGGER X の収集設定ファイルの場所<span style="color:#960050;background-color:#1e0010">（</span>上のプログラムと同じ階層<span style="color:#960050;background-color:#1e0010">）</span>
+argv<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> GROUP_NUMBER                              <span style="color:#960050;background-color:#1e0010">#</span>  グループ番号<span style="color:#960050;background-color:#1e0010">（</span>NR<span style="color:#f92672">-</span>500の場合は<span style="color:#960050;background-color:#1e0010">「</span>0<span style="color:#960050;background-color:#1e0010">」）</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> パスとグループ番号の表示<span style="color:#960050;background-color:#1e0010">（</span>絶対パスが正しいか確認<span style="color:#960050;background-color:#1e0010">）</span>
+print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;argv[0]:&#34;</span><span style="color:#f92672">,</span> argv<span style="color:#f92672">[</span>0<span style="color:#f92672">],</span> <span style="color:#e6db74">&#34;argv[1]:&#34;</span><span style="color:#f92672">,</span> argv<span style="color:#f92672">[</span>1<span style="color:#f92672">],</span> <span style="color:#e6db74">&#34;argv[2]:&#34;</span><span style="color:#f92672">,</span> argv<span style="color:#f92672">[</span>2<span style="color:#f92672">])</span>
+
+def <span style="color:#a6e22e">main</span><span style="color:#f92672">():</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> ファイルのパスを取得
+    file_path <span style="color:#f92672">=</span> argv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#960050;background-color:#1e0010">#</span> 収集設定ファイル名
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 収集設定ファイルが存在するか確認
+    <span style="color:#66d9ef">if</span> not os<span style="color:#f92672">.</span><span style="color:#a6e22e">path</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isfile</span><span style="color:#f92672">(</span>file_path<span style="color:#f92672">):</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;File not exist&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">return</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> グループ番号の取得
+    id <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>argv<span style="color:#f92672">[</span>2<span style="color:#f92672">])</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> WAVE LOGGER X のアプリ起動<span style="color:#960050;background-color:#1e0010">＆</span>初期化
+    wave_logger <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span><span style="color:#a6e22e">client</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Dispatch</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;WaveLoggerX.Application&#34;</span><span style="color:#f92672">)</span>   <span style="color:#960050;background-color:#1e0010">#</span> WAVE LOGGER X のアプリを起動
+    wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Initialize</span><span style="color:#f92672">()</span>    <span style="color:#960050;background-color:#1e0010">#</span> アプリ初期化
+    wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Visible</span> <span style="color:#f92672">=</span> True  <span style="color:#960050;background-color:#1e0010">#</span> Trueにすると<span style="color:#960050;background-color:#1e0010">、</span>WAVE LOGGERの画面が見えるようになる<span style="color:#960050;background-color:#1e0010">（</span>アプリの画面が起動してくる<span style="color:#960050;background-color:#1e0010">）</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> 収集設定ファイルを開く
+    <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;収集設定ファイルを開きます&#34;</span><span style="color:#f92672">)</span>
+    open_result <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">OpenFile</span><span style="color:#f92672">(</span>file_path<span style="color:#f92672">)</span>   
+    <span style="color:#960050;background-color:#1e0010">#</span> 取集設定ファイルが開けなかった場合は<span style="color:#960050;background-color:#1e0010">、</span>エラーを表示して終了
+    <span style="color:#66d9ef">if</span> open_result <span style="color:#f92672">!=</span> 0<span style="color:#f92672">:</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;File open error [error code: %d]&#34;</span> <span style="color:#f92672">%</span>open_result<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">return</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> 機器IDを取得<span style="color:#960050;background-color:#1e0010">（※</span>複数の WAVE LOGGER が起動していると取得に失敗するので注意<span style="color:#960050;background-color:#1e0010">）</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;IDをセット&#34;</span><span style="color:#f92672">)</span>
+    id_result <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">SetIdentifier</span><span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>       
+    <span style="color:#960050;background-color:#1e0010">#</span> IDの取得に失敗した場合はエラーを表示して終了
+    <span style="color:#66d9ef">if</span> id_result <span style="color:#f92672">!=</span> 0<span style="color:#f92672">:</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Failed to set the device ID [error code: %d]&#34;</span> <span style="color:#f92672">%</span>id_result<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">return</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> オートバランス
+    <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;オートバランス開始&#34;</span><span style="color:#f92672">)</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> オートバランスの実行<span style="color:#960050;background-color:#1e0010">（</span>3CH分<span style="color:#960050;background-color:#1e0010">）</span>
+    AT_BAL_RESULT <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">AutoBalance</span><span style="color:#f92672">(</span>GROUP_NUMBER<span style="color:#f92672">,</span> UNIT_NUMBER<span style="color:#f92672">,</span> 0 <span style="color:#f92672">|</span> 1 <span style="color:#f92672">|</span> 2<span style="color:#f92672">)</span>   <span style="color:#960050;background-color:#1e0010">#</span> 3つめの引数に 0<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>2 は CH1<span style="color:#f92672">,</span> CH2<span style="color:#f92672">,</span> CH3 を表す
+    AT_BAL_PROGRESS <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetAdjustStatus</span>   <span style="color:#960050;background-color:#1e0010">#</span> オートバランスの進捗状況を取得
+
+    <span style="color:#960050;background-color:#1e0010">#</span> オートバランスの進捗状況を表示しながら<span style="color:#960050;background-color:#1e0010">、</span>処理が完了するまで待つ
+    <span style="color:#66d9ef">while</span> AT_BAL_PROGRESS <span style="color:#f92672">!=</span> 0<span style="color:#f92672">:</span>
+        AT_BAL_PROGRESS <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetAdjustStatus</span>
+        <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;オートバランス中です... 進捗：&#34;</span><span style="color:#f92672">,</span> AT_BAL_PROGRESS <span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;[%]&#34;</span><span style="color:#f92672">)</span>
+
+    <span style="color:#66d9ef">if</span> AT_BAL_RESULT <span style="color:#f92672">==</span> True<span style="color:#f92672">:</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CH1,2,3のオートバランスに成功しました&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">:</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CH1,2,3のオートバランスに失敗しました&#34;</span><span style="color:#f92672">)</span>
+   
+    <span style="color:#960050;background-color:#1e0010">#</span> 収集開始
+    start_result <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Start</span>
+    <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;収集開始&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">if</span> start_result <span style="color:#f92672">!=</span> 0<span style="color:#f92672">:</span>
+        print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Starting acquisition failed [error code: %d]&#34;</span> <span style="color:#f92672">%</span>start_result<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">return</span>
+
+    document <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetActiveFile</span>    <span style="color:#960050;background-color:#1e0010">#</span> 起動しているファイルから情報<span style="color:#960050;background-color:#1e0010">（</span>WAVE LOGGER の起動状態<span style="color:#960050;background-color:#1e0010">，</span>収集しているデータ数などを取得<span style="color:#960050;background-color:#1e0010">）</span>
+    state <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetState</span>            <span style="color:#960050;background-color:#1e0010">#</span> WAVE LOGGER の動作状態を取得<span style="color:#960050;background-color:#1e0010">（</span>この数字によって動作状態が分かる<span style="color:#960050;background-color:#1e0010">。</span>詳しくは公式マニュアルを参照<span style="color:#960050;background-color:#1e0010">）</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;動作状態：&#34;</span><span style="color:#f92672">,</span> state<span style="color:#f92672">)</span>               <span style="color:#960050;background-color:#1e0010">#</span> 動作状態を表示
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> 現在のデータサンプル数を取得
+    <span style="color:#66d9ef">try</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">while</span> is_running<span style="color:#f92672">(</span>wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetState</span><span style="color:#f92672">):</span>
+            print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\r&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;The amount of sampling data: &#34;</span> <span style="color:#f92672">+</span> str<span style="color:#f92672">(</span>document<span style="color:#f92672">.</span><span style="color:#a6e22e">GetDataCount</span><span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, Value:&#34;</span><span style="color:#f92672">+</span>str<span style="color:#f92672">(</span>document<span style="color:#f92672">.</span><span style="color:#a6e22e">GetCurrentData</span><span style="color:#f92672">(</span>UNIT_NUMBER<span style="color:#f92672">,</span>CHANNEL_NUMBER<span style="color:#f92672">))+</span>
+                  <span style="color:#e6db74">&#34; (Press &#39;Ctrl + C&#39; to stop acquisition)&#34;</span><span style="color:#f92672">,</span> end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span>
+
+
+    <span style="color:#960050;background-color:#1e0010">#</span> キーボードからの割り込み入力<span style="color:#960050;background-color:#1e0010">「</span>Ctrl<span style="color:#f92672">+</span>C<span style="color:#960050;background-color:#1e0010">」</span>があったら収集を停止する
+    except KeyboardInterrupt<span style="color:#f92672">:</span>
+        wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Stop</span><span style="color:#f92672">()</span>
+        <span style="color:#66d9ef">while</span> is_running<span style="color:#f92672">(</span>wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetState</span><span style="color:#f92672">):</span>
+            time<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> ループを抜けたら<span style="color:#960050;background-color:#1e0010">、</span>測定データをcsv保存
+    document<span style="color:#f92672">.</span><span style="color:#a6e22e">SaveCsvFile</span><span style="color:#f92672">(</span> str<span style="color:#f92672">(</span>Path<span style="color:#f92672">.</span><span style="color:#a6e22e">cwd</span><span style="color:#f92672">())</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\\sample_data.csv&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;測定データを保存しました&#34;</span><span style="color:#f92672">)</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> データ数<span style="color:#960050;background-color:#1e0010">，</span>収集停止用のメッセージを表示
+    <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\r&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;The amount of sampling data: &#34;</span> <span style="color:#f92672">+</span> str<span style="color:#f92672">(</span>document<span style="color:#f92672">.</span><span style="color:#a6e22e">GetDataCount</span><span style="color:#f92672">)</span> <span style="color:#f92672">+</span> 
+          <span style="color:#e6db74">&#34; point (Press &#39;Ctrl + C&#39; to stop acquisition)&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Press Enter to exit&#34;</span><span style="color:#f92672">)</span>
+    input<span style="color:#f92672">()</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> ソフトの起動状態を調べる関数
+def <span style="color:#a6e22e">is_running</span><span style="color:#f92672">(</span>state<span style="color:#f92672">):</span>
+    <span style="color:#66d9ef">return</span> state in <span style="color:#f92672">{</span>STATE_START_WAIT<span style="color:#f92672">,</span>
+                     STATE_TRIGGER_WAIT<span style="color:#f92672">,</span>
+                     STATE_RUN<span style="color:#f92672">,</span>
+                     STATE_REPEAT_RUN<span style="color:#f92672">,</span>
+                     STATE_PRE_TRIGGER<span style="color:#f92672">,</span>
+                     STATE_POST_TRIGGER<span style="color:#f92672">,</span>
+                     STATE_STOP_WAIT<span style="color:#f92672">,</span>
+                     STATE_READ_WAIT<span style="color:#f92672">,</span>
+                     STATE_PROCEDURE_WAIT<span style="color:#f92672">}</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> ヘルプを表示するための関数
+def <span style="color:#a6e22e">show_help</span><span style="color:#f92672">():</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&lt;Operation explanation&gt;&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Reads the specified setting file, &#34;</span>
+          <span style="color:#e6db74">&#34;confirms the connection, and starts acquisition&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">()</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&lt;How to use&gt;&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;$ python Sample1.py &lt;Settings file path&gt; &#34;</span>
+          <span style="color:#e6db74">&#34;&lt;Connection identifier&gt; &lt;IP address(option)&gt; &lt;port number(option)&gt;&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    [Settings file path]&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    xcf, xdt, ycf, ydt, kdt File&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    [Connection identifier]&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    0 : NR-500 USB ID0&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    1 : NR-500 USB ID1&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    2 : NR-500 USB ID2&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    3 : NR-500 USB ID3&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    4 : NR-X100 USB ID0&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    5 : NR-X100 USB ID1&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    6 : NR-X100 USB ID2&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    7 : NR-X100 USB ID3&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    8 : NR-X100 LAN ID0&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    9 : NR-X100 LAN ID1&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    10: NR-X100 LAN ID2&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    11: NR-X100 LAN ID3&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    [IP address]&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    IP address of the NRX-100 to be connected&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;    Must be specified in the case of &#34;</span>
+          <span style="color:#e6db74">&#34;Connection identifier is 8 to 11 (LAN Connection)&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">()</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&lt;Example&gt;&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sample1.py C:\\NR-500Sample.xdt 0&#34;</span><span style="color:#f92672">)</span>
+    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sample1.py C:\\NR-X100Sample.ydt 8 192.168.100.100 24682&#34;</span><span style="color:#f92672">)</span>
+    print
+
+
+<span style="color:#a6e22e">main</span><span style="color:#f92672">()</span></code></pre></div>
+<h1 id="プログラム解説">プログラム解説</h1>
+<p>　上のプログラムの要点を解説します！</p>
+<h2 id="モジュールのインポート">モジュールのインポート</h2>
+<p>　プログラムで使用するいくつかのモジュールをインポートしています。3つめの win32com.client は 「pywin32」 というモジュールで、pipコマンドなどでインストールする必要があります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> os   <span style="color:#960050;background-color:#1e0010">#</span> ファイルパスの取得などに使用
+<span style="color:#f92672">import</span> time <span style="color:#960050;background-color:#1e0010">#</span> 待ち時間などを制御するために使用
+<span style="color:#f92672">import</span> win32com.client  <span style="color:#960050;background-color:#1e0010">#</span> Windowsでアプリを操作するためのAPI
+from pathlib <span style="color:#f92672">import</span> Path    <span style="color:#960050;background-color:#1e0010">#</span> ファイルパスの取得などに使用</code></pre></div>
+<h2 id="初期設定">初期設定</h2>
+<p>　NR-500の場合は、ほぼこれのコピペでいいと思います。UNIT_NUMBERとCHANNEL_NUMBERは下のイラストみたいに、データを読み出したい測定ユニットの場所や、使用するチャンネルによって変更します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">NR500_USB_ID_START <span style="color:#f92672">=</span> 0
+NR500_USB_ID_END <span style="color:#f92672">=</span> 3
+STATE_START_WAIT <span style="color:#f92672">=</span> 2
+STATE_TRIGGER_WAIT <span style="color:#f92672">=</span> 3
+STATE_RUN <span style="color:#f92672">=</span> 4
+STATE_REPEAT_RUN <span style="color:#f92672">=</span> 5
+STATE_PRE_TRIGGER <span style="color:#f92672">=</span> 6
+STATE_POST_TRIGGER <span style="color:#f92672">=</span> 7
+STATE_STOP_WAIT <span style="color:#f92672">=</span> 8
+STATE_READ_WAIT <span style="color:#f92672">=</span> 10
+STATE_PROCEDURE_WAIT <span style="color:#f92672">=</span> 12
+UNIT_NUMBER <span style="color:#f92672">=</span> 1             <span style="color:#960050;background-color:#1e0010">#</span> 測定器ユニットの構成によって変更
+GROUP_NUMBER <span style="color:#f92672">=</span> 0            
+CHANNEL_NUMBER <span style="color:#f92672">=</span> 0          <span style="color:#960050;background-color:#1e0010">#</span> ユニットの使用チャンネル数に応じて変更</code></pre></div>
+  <div align="center">
+  <figure><img src="device_connection.svg"
+         alt="ユニット番号とチャンネル番号の見方"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　ユニット番号とチャンネル番号の見方
+  </div>
+<h2 id="pythonファイル名収集設定ファイル名ロガーのグループ番号を設定">Pythonファイル名、収集設定ファイル名、（ロガーの）グループ番号を設定</h2>
+<p>　特に argv[1] のところが大事で、WAVE LOGGER X の収集設定ファイルの絶対パスを出しておく必要があります。このプログラムでは、Pythonファイル（logging.py）と同じフォルダに収集設定ファイルを置いておくことで、プログラムを実行できるようにしています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">argv <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;python_file_path&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;xdt_file_path&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;group_number&#34;</span><span style="color:#f92672">]</span>
+argv<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> str<span style="color:#f92672">(</span>Path<span style="color:#f92672">.</span><span style="color:#a6e22e">cwd</span><span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#e6db74">&#34;\logging.py&#34;</span>   <span style="color:#960050;background-color:#1e0010">#</span>　収集用のプログラムの場所<span style="color:#960050;background-color:#1e0010">（</span>オートメーションサーバのコマンドを使う側のプログラム<span style="color:#960050;background-color:#1e0010">）</span>
+argv<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> str<span style="color:#f92672">(</span>Path<span style="color:#f92672">.</span><span style="color:#a6e22e">cwd</span><span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#e6db74">&#34;\logger_test.xdt&#34;</span>     <span style="color:#960050;background-color:#1e0010">#</span>  WAVE LOGGER X の収集設定ファイルの場所<span style="color:#960050;background-color:#1e0010">（</span>上のプログラムと同じ階層<span style="color:#960050;background-color:#1e0010">）</span>
+argv<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> GROUP_NUMBER                              <span style="color:#960050;background-color:#1e0010">#</span>  グループ番号<span style="color:#960050;background-color:#1e0010">（</span>NR<span style="color:#f92672">-</span>500の場合は<span style="color:#960050;background-color:#1e0010">「</span>0<span style="color:#960050;background-color:#1e0010">」）</span></code></pre></div>
+<h1 id="wave-logger-x-のアプリ起動初期化">WAVE LOGGER X のアプリ起動＆初期化</h1>
+<p>　ここで pywin32を使って、「WAVE LOGGER X」のアプリケーションを起動します。そして、WAVE LOGGERオブジェクトを、「wave_logger」というオブジェクト名で保存して、保存したオブジェクトを使って初期化（Initialize）を行っています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">wave_logger <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span><span style="color:#a6e22e">client</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Dispatch</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;WaveLoggerX.Application&#34;</span><span style="color:#f92672">)</span>   <span style="color:#960050;background-color:#1e0010">#</span> WAVE LOGGER X のアプリを起動
+wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Initialize</span><span style="color:#f92672">()</span>    <span style="color:#960050;background-color:#1e0010">#</span> アプリ初期化
+wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">Visible</span> <span style="color:#f92672">=</span> True  <span style="color:#960050;background-color:#1e0010">#</span> Trueにすると<span style="color:#960050;background-color:#1e0010">、</span>WAVE LOGGERの画面が見えるようになる<span style="color:#960050;background-color:#1e0010">（</span>アプリの画面が起動してくる<span style="color:#960050;background-color:#1e0010">）</span></code></pre></div>
+<h1 id="機器idを取得">機器IDを取得</h1>
+<p>　PCに接続されているNRの機器IDを取得します。このときに、複数の WAVE LOGGER が起動していると取得に失敗するので注意してください。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">id_result <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">SetIdentifier</span><span style="color:#f92672">(</span>id<span style="color:#f92672">)</span> </code></pre></div>
+<h1 id="オートバランス">オートバランス</h1>
+<p>　中々うまく行かず、一番苦労した処理です(;&lsquo;∀&rsquo;)。ひずみ測定ユニット（今回はST04を使用）を使うときは、測定前に必ず実行します。</p>
+<p>　この処理のポイントは下側のwhileループの部分で、進捗が 0 %（100 % から 0 %に変化します）になるまで、次の処理に行かないようにしているところです。進捗の取得には GetAdjustStatus メソッドを使ってます。</p>
+<p>　一番上の行の wave_logger.AutoBalanceの一番右側の引数に、オートバランスの対象にしたいチャンネルを or記号「|」 でつなげて書きます。今回は、3軸加速度計（東京測器：ARF-20A-T）の X, Y, Z軸 方向の出力をそれぞれ、CH1, 2, 3（引数に書くときは、0 | 1 | 2 ） に接続しました。<br><br></p>
+<blockquote>
+<p>GetAdjustStatus メソッドは、AutoBalance中のチャンネルで最も遅いチャンネルの結果を返します。</p>
+</blockquote>
+  <div align="center">
+  <figure><img src="device_connection_each_channel.svg"
+         alt="今回の機器接続"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　今回の機器接続
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#960050;background-color:#1e0010">#</span> オートバランスの実行<span style="color:#960050;background-color:#1e0010">（</span>3CH分<span style="color:#960050;background-color:#1e0010">）</span>
+AT_BAL_RESULT <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">AutoBalance</span><span style="color:#f92672">(</span>GROUP_NUMBER<span style="color:#f92672">,</span> UNIT_NUMBER<span style="color:#f92672">,</span> 0 <span style="color:#f92672">|</span> 1 <span style="color:#f92672">|</span> 2<span style="color:#f92672">)</span>   <span style="color:#960050;background-color:#1e0010">#</span> 3つめの引数に 0<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>2 は CH1<span style="color:#f92672">,</span> CH2<span style="color:#f92672">,</span> CH3 を表す
+AT_BAL_PROGRESS <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetAdjustStatus</span>   <span style="color:#960050;background-color:#1e0010">#</span> オートバランスの進捗状況を取得
+<span style="color:#960050;background-color:#1e0010">#</span> オートバランスの進捗状況を表示しながら<span style="color:#960050;background-color:#1e0010">、</span>処理が完了するまで待つ
+<span style="color:#66d9ef">while</span> AT_BAL_PROGRESS <span style="color:#f92672">!=</span> 0<span style="color:#f92672">:</span>
+    AT_BAL_PROGRESS <span style="color:#f92672">=</span> wave_logger<span style="color:#f92672">.</span><span style="color:#a6e22e">GetAdjustStatus</span>
+    <span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;オートバランス中です... 進捗：&#34;</span><span style="color:#f92672">,</span> AT_BAL_PROGRESS <span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;[%]&#34;</span><span style="color:#f92672">)</span></code></pre></div>
+<h1 id="まとめ">まとめ</h1>
+<p>　今回は WAVE LOGGER X のオートメーションサーバ機能で、オートバランスを実行する方法について紹介しました。</p>
+<p>　少しでも参考になれば幸いです！</p>
+<h1 id="サンプルファイル">サンプルファイル</h1>
+<p>　この記事で紹介した、オートメーションサーバ機能を使うPythonコード（logging.py）と、NR-ST04の 1~3CH に加速度計（ひずみゲージを3個つないでるのと同じです）の出力を読み取るための収集設定ファイル（logger_test.xdt）です。動作テストや開発のベースにするなど、自由に使っていただければと思います(&lsquo;ω&rsquo;)</p>
+<ul>
+<li>Pythonコード：<a href="logging.py">logging.py</a></li>
+<li>WAVE LOGGERの収集設定ファイル：<a href="logger_test.xdt">logger_test.xdt</a></li>
+</ul>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/"
+      aria-label="Next Article"
+      ><i class="bi bi-arrow-right-circle-fill"></i
+    ></a>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/">簡易な会計アプリを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/">オートメーションサーバでオートバランスできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/">ノートPCのキーボードが入力できない</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

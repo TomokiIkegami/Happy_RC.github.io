@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</link>
       <pubDate>Sat, 18 Jan 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</guid>
       <description>～ 目次 ～   1. 本記事の目的 2. 使用ソフトウェア 3. 3Dモデルの作成  3.1. 作成するモデル 3.2. Blenderでモデリング  3.2.1. Blenderの起動 3.2.2. ボディのモデリング 3.2.3. タイヤのモデリング 3.2.4. 単位の設定 3.2.5. 回転とスケールの適用 3.2.6. ボディとタイヤの親子関係設定 3.2.7. fbxファイルのエクスポート     4. ゲーム内で動かす  4.1. Unreal Engine の起動 4.2. Vehicle Template を使う 4.3. Chaos Vehicle プラグインの有効化 4.4. ホイールブループリントの作成 4.5. エンジントルクカーブの作成 4.6. 物理アセットの作成 4.7. アニメーションブループリントの作成 4.8. ビークルブループリントの作成 4.9. ゲームモードの作成   5. 動かしてみる 6. まとめ 7. 参考文献   1.</description>
     </item>
     

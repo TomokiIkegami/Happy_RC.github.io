@@ -9,20 +9,20 @@
     <lastBuildDate>Sun, 08 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/</link>
       <pubDate>Sun, 08 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/</guid>
       <description>～ 目次 ～   1. 今回やったこと 2. 拡張機能開発の手順  2.1. Javaの勉強 2.2. 開発環境の構築 2.3. Java 8、Apache Antのインストール 2.4. 拡張機能のビルド   3. プログラム  3.1. 拡張機能のソースコード：Joystick.java 3.2. AI2(MIT App Inventor 2)のプログラム  3.2.1. 外観 3.2.2. 中身     4. 動画 5. サンプルファイル 6. まとめ 7. 関連記事 8. 参考文献   1. 今回やったこと 　今まではスライダを使ってラジコンを操縦していましたが、スライダをやめてジョイスティックで操作できるようにしました！
   ☝　ジョイスティックに変更し、本格的な操作感を手に入れた...  2. 拡張機能開発の手順 2.1. Javaの勉強 　ラジコンアプリ（Happy_RC_Driver）は MIT App Inventor 2(AI2)を使って開発を進めていたので、AI2の拡張機能としてジョイスティックを実装しようと考えました。</description>
     </item>
     
     <item>
       <title>ラジコン用スピードメータの高速化</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/rc_speedometer_using_reflective_object_sensor_2/</link>
       <pubDate>Sun, 24 Dec 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/12/24/rc_speedometer_using_reflective_object_sensor_2/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. マイコンとセンサの限界 3. ハードウェアの変更点 4. マイコン側プログラム 5. スマホアプリ 6. 動画 7. サンプルファイル 8. 関連記事 9. 参考文献   1. 今回やりたいこと 　今年の初めごろにラジコンカー用のスピードメータを自作しましたが、スピードの更新間隔が遅い（0.5 [ms]）と感じていました。
 　当時はこれでも問題ないと感じてたのですが、最近はラジコンカーにクルコン（クルーズコントロール）を実装しようと考え始めました。
 　クルコンの制御に車速を使うのですが、車速の計算間隔 0.5 [ms] で制御すると、遅れが出そうだなと思いました。
@@ -33,10 +33,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第14回-走行用バッテリーからマイコンに給電]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/rc_electronics_control_using_bt-module_14/</link>
       <pubDate>Fri, 08 Sep 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/09/08/rc_electronics_control_using_bt-module_14/</guid>
       <description>～ 目次 ～   1. 今回やったこと 2. 回路図 3. 実際に回路を改良  3.1. 使用した三端子レギュレータについて 3.2. 作業手順   4. 車体に取り付け 5. 関連記事 6. 参考文献   1. 今回やったこと 　今まではバッテリーを2つ（走行用とマイコン用）積んでいたので重たくて困ってました。
 　そこで今回はバッテリーを1つにして軽量化したいと思います！
   ☝　自作RCレシーバ、進化の過程  2. 回路図 　下の画像は、走行用バッテリーのみから全ての電源を供給する回路です。この回路は第7回（詳しくはこちら）の回路を改良しただけでなく、車速測定（詳しくはこちら）もできるようになってます。
@@ -49,10 +49,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第13回-ラジコンアプリに車速を表示]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/rc_electronics_control_using_bt-module_13/</link>
       <pubDate>Fri, 11 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/08/11/rc_electronics_control_using_bt-module_13/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 動作原理  2.1. 並列処理（マルチコアを使用） 2.2. スマホアプリと受信機（ESP32）の処理   3. 改良の過程  3.1. スマホアプリの改良 3.2. レシーバ側プログラムの改良   4. 実験動画 5. サンプルファイル 6. 関連記事 7. 参考文献   1. 今回やりたいこと 　ラジコン操縦アプリに車速を表示して、運転してる感を満喫できるように改良しました！
   ☝　ラジコン操縦アプリに車速を表示？？  2. 動作原理 2.1. 並列処理（マルチコアを使用） 　スマホ側、マイコン（ラジコンカー受信機）側にそれぞれ並行処理を入れました。
 　今回はスマホ側とマイコン側でどちらも送受信の処理をする必要があったので、並列処理を使いました。マイコン側にはマルチコア1という並列処理を使いました。マルチスレッドという並行処理の方法もあるのですが、今回の場合は上手くいきませんでした。
@@ -63,10 +63,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/rc_electronics_control_using_bt-module_12/</link>
       <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/rc_electronics_control_using_bt-module_12/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. アプリのデザイン変更  2.1. スイッチの色を変える 2.2. スライダの色を変える 2.3. ボタン形状を変更 2.4. ボタン背景画像の追加 2.5. 画面背景画像の追加   3. 完成！ 4. 補足：背景画像を作るときのコツ  4.1. 画像を作る前に ～ピクセルとは～ 4.2. ボタン背景 4.3. 画面背景   5. サンプルファイル 6. 関連記事   1. 今回やりたいこと 　前回まではボタンやスライダを配置しただけなので無垢な感じでした（笑）
 　せっかくアプリを自作しているので、自分好みのデザインに改良したいものです。
 　今回はデザインの変更例を紹介します！
@@ -77,10 +77,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/rc_electronics_control_using_bt-module_11/</link>
       <pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/rc_electronics_control_using_bt-module_11/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 改良版アプリ ～ver.7b～  2.1. 外観 2.2. 中身   3. サンプルファイル 4. 関連記事 5. 参考文献   1. 今回やりたいこと 　前回までのアプリ（ver.7a）では、RCカー側に搭載されている受信機（ESP32マイコン）の電源が切れたときの状況を考慮していませんでした。
 　前回のアプリだと受信機電源が切れても、表示が「RCに接続済み」のままでした。（これはまずいw）
 　今回は接続状態（つながっているか/切れているか）によって、スマホアプリの表示が切り替わるように（アプリ側のみを）改良しました！
@@ -96,10 +96,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第10回-スライダ操作式のラジコンアプリに]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/rc_electronics_control_using_bt-module_10/</link>
       <pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/rc_electronics_control_using_bt-module_10/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 動作原理 3. 改良の過程  3.1. スマホアプリの改良  3.1.1. アプリの全体像 3.1.2. ステアリングトリム（ST. TRIM）機能 3.1.3. 動作方向反転（ST. REV、TH. REV）機能   3.2. レシーバ側プログラムの改良   4. 実験動画 5. サンプルファイル 6. 関連記事 7. 参考文献   1. 今回やりたいこと 　今まで（本連載の4～9回）は9つのボタンを押すことでラジコンを操縦していました。このボタン式のコントローラだと滑らかに操縦ができません(;^ω^)
 　今回からスライダ式に変更して、滑らかに操縦できるようにしました！
   ☝　ボタン式からスライダ式に（本格的！！）  2. 動作原理 　基本的な動作原理はこちらの記事で紹介したものと同じですが、今回はステアだけでなくスロットルの信号も追加しました。これでラジコンのハンドルとアクセルの両方が操作できるようになります。（下図）
@@ -110,19 +110,19 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>ラジコンカー用スピードメータ開発！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/rc_speedometer_using_reflective_object_sensor_1/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/02/20/rc_speedometer_using_reflective_object_sensor_1/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. シャフト4駆のラジコンカーについて（設計の前に）  2.1. 定番のレイアウト 2.2. 駆動部分を詳細に   3. 設計  3.1. システム概要 3.2. 使った装置  3.2.1. ソフトウェア 3.2.2. ハードウェア   3.3. 車速の計算  3.3.1. 車速の計算原理 3.3.2. 歯数はどうする？ 3.3.3. シャフト周波数（回転数）はどうする？   3.4. 回路設計 3.5. 部品レイアウト   4. 製作  4.1. 回路 4.2. 部品の固定 4.3. スマホアプリ 4.4. プログラム（ソースコード）   5. 実験  5.1. 実験の概要 5.2. 実験動画 5.3. 実験結果   6.</description>
     </item>
     
     <item>
       <title>スマホからサーボモータをPWM制御してみた!!</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/pwm_servo_control_via_smartphone/</link>
       <pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/pwm_servo_control_via_smartphone/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 使った技術  2.1. PWM制御 2.2. シリアル通信   3. 使ったもの  3.1. ソフトウェア 3.2. ハードウェア   4. 回路図 5. スマホアプリ 6. プログラム（ソースコード） 7. 動作確認 8. サンプルファイル 9. 参考文献   1. 今回やりたいこと 　いやぁ～（※）新年(2023)一発目の投稿ですね!!（※いやぁ～は東北とか北海道の人が使いがちみたいで、私もその一人です笑。特に深い意味はないです笑）
 　今回はスマホからラジコン用サーボモータを操作します!
 　スマホでスライダを操作し、その操作量に応じてサーボモータの角度をコントロールしました。
@@ -135,10 +135,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>自作アプリでBluetooth接続できない！[Runtime Error]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</link>
       <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</guid>
       <description>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
 　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。
   ☝　Bluetooth接続しようと「ここをタッチしてRCに接続」ボタンを押したらエラーが....  　説明をよく読むと、Androidの権限が必要みたいです。
@@ -149,10 +149,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第9回-外出先でもプログラムを編集したい]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/rc_electronics_control_using_bt-module_9/</link>
       <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/11/06/rc_electronics_control_using_bt-module_9/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. ArduinoDroidでESP32開発  2.1. アプリのインストール 2.2. ライブラリの追加 2.3. ボードの設定 2.4. プログラムのコンパイル 2.5. 書き込み   3. 関連記事 4. 参考文献   1. 今回やりたいこと 　この連載では、自作ラジコンコントローラーとレシーバをずっと作ってます(^^)/。
 　操縦用スマホアプリはMIT App Inventorで開発しているので外出先でもアプリの修正ができますが、ラジコン（レシーバ）側のマイコン（ESP32）はWindowsのArduino IDEなのでPCが必要です（泣）
 　始めはUMPC（超小型のPC、Windowsが使える）を買って対応しようとも思ったのですが、スマホでできることが分かったのでスマホでやることにしました！
@@ -167,10 +167,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第8回-ターボ機能を追加]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/rc_electronics_control_using_bt-module_8/</link>
       <pubDate>Sun, 09 Oct 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/10/09/rc_electronics_control_using_bt-module_8/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 改良の過程  2.1. スマホアプリの改良 2.2. レシーバ側プログラムの改良   3. サンプルファイル 4. 関連記事   1. 今回やりたいこと 　前回は自作Rcレシーバ（Happy RC Receiver）を実際のラジコンに搭載できるように、ユニバーサル基板を使って回路を小型化しました。
 　今回は前々回に引き続き、レシーバ側のプログラムと操作用アプリの改良を行います‼
 　現状では走行時のスピードを1つしか設定することができないので、今回は2種類の速度を切り替えられるようにします！ 2. 改良の過程 　使った装置は前回と同じです。今回のバージョンは6c（前々回は6a,6b）とします。
@@ -184,10 +184,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第7回-回路をシンプル＆コンパクトに]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/rc_electronics_control_using_bt-module_7/</link>
       <pubDate>Thu, 29 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/29/rc_electronics_control_using_bt-module_7/</guid>
       <description>～ 目次 ～   1. 今回やったこと 2. シンプルにした回路図 3. 小型な回路を作る  3.1. 使ったもの 3.2. 作業手順   4. 車体に取り付け 5. サンプルファイル 6. 関連記事   1. 今回やったこと 　今まではジャンパ線で回路の配線をしていて、見た目がかなりゴチャゴチャしてました(;&amp;lsquo;∀&amp;rsquo;)
 　今回はユニバーサル基板を使って、ゴチャゴチャしてた配線をスッキリします！（一番下の画像みたいに）
   ☝　自作RCレシーバの変遷  2. シンプルにした回路図 　下の画像がその回路図です。
@@ -203,10 +203,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第6回-動きを滑らかに]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/rc_electronics_control_using_bt-module_6/</link>
       <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/27/rc_electronics_control_using_bt-module_6/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 改良の過程  2.1. ◆ ver.6a ～delay()を使ってゆっくり動かす～　 2.2. ◆ ver.6b ～millis()を使ってゆっくり動かす～　   3. 関連記事 4. 参考資料   1. 今回やりたいこと 　前回は安全性をアップさせるためにラジコンカーの停止処理を工夫しました。
 　前回は動きがカクカクだったので、今回は滑らかに動くように改良します！
 2. 改良の過程 　この記事のタイトルは ”bluetoothモジュールで&amp;hellip;&amp;quot; となっていますが、今回もESP32を使ってBluetooth接続をします。
@@ -219,10 +219,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第5回-安全性の向上]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/rc_electronics_control_using_bt-module_5/</link>
       <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/30/rc_electronics_control_using_bt-module_5/</guid>
       <description>～ 目次 ～   1. 前回までの課題 2. なぜ遅延が起こったのか 3. フォーラムの内容 4. 改良の過程  4.1. ◆ ver.5a ～ESP32用にプログラムと回路を変更～　  4.1.1. 使ったもの 4.1.2. 作った回路 4.1.3. ソースコード 4.1.4. スマホアプリ   4.2. ◆ ver.5b ～ESP32用にプログラムと回路を変更～　  4.2.1. ソースコード 4.2.2. スマホアプリ     5. サンプルファイル 6. 使い方  6.1. 手順 6.2. トラブルシューティング   7. 謝辞 8. 関連記事 9. 参考資料   1. 前回までの課題 　前回はRCの操作性を向上させるために色々工夫をしました。
 　記事の最後のほうでは、bluetooth通信に謎の遅延が発生する問題について触れました。
 　まずは、この問題について調べた内容や解決策について書きます！</description>
@@ -230,10 +230,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第4回-操作性の向上]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/rc_electronics_control_using_bt-module_4/</link>
       <pubDate>Sat, 20 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/20/rc_electronics_control_using_bt-module_4/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. 実際にやった改良の流れ 3. 改良の過程  3.1. ◆ ver.2 ～とりあえず文字打ち込みはやめよう～  3.1.1. スマホアプリ 3.1.2. マイコンプログラム   3.2. ◆ ver.3 ～片手で操作したいな～  3.2.1. スマホアプリ 3.2.2. マイコンプログラム   3.3. ◆ ver.4 ～ver.3の改良版～  3.3.1. スマホアプリ 3.3.2. マイコンプログラム     4. 課題点と今後に向けて 5. サンプルファイル 6. 関連記事 7. 参考資料   1. 今回やりたいこと 　前回は MIT App Inventor を使ってラジコン操縦アプリの試作を行いました。
 　前回作成したスマホアプリは、スマホキーボードから文字を打ち込んで（前進なら&amp;quot;F&amp;quot;、右折なら&amp;quot;R&amp;quot;、停止なら&amp;quot;N&amp;quot;など）操縦するというものでした（笑）。
 　実際これでラジコンを操縦してみると、全然操縦できませんでした！
@@ -242,10 +242,10 @@ ${ f = 1/T = 1/(1 \times 10^{-3}) = 1000 = 1 \space [\rm{kHz}] }$</description>
     
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第3回-ESCを使ったモータ駆動＆スマホ向けコントローラアプリ試作]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/rc_electronics_control_using_bt-module_3/</link>
       <pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/15/rc_electronics_control_using_bt-module_3/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. ESCについて 3. ハードウェアのセットアップ  3.1. 使ったもの 3.2. 作った回路 3.3. ソースコード   4. ソフトウェア（操作用アプリ）のセットアップ  4.1. アプリ開発環境 4.2. 試作したアプリ   5. 動画 6. 関連記事 7. 参考資料   1. 今回やりたいこと 　前回はサーボモータの電源問題を解決したので、ラジコンのステアをサクサク動かせるようになりました。
 　ステアを操作するだけではラジコンは走行できないので、今回は駆動用のモータを制御したいと思います。モータの駆動にはESCという装置を使います。
 2. ESCについて 　Electronic Speed Controller の略で、ラジコンのモータの回転速度を制御するために使われる装置です。昔のラジコンではスピコン（Mechanical speed controllers1）という装置を使っていましたが、現在はこのESCを使われています。

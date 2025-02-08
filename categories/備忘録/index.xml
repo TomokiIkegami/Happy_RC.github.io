@@ -9,19 +9,19 @@
     <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</link>
       <pubDate>Sat, 18 Jan 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</guid>
       <description>～ 目次 ～   1. 本記事の目的 2. 使用ソフトウェア 3. 3Dモデルの作成  3.1. 作成するモデル 3.2. Blenderでモデリング  3.2.1. Blenderの起動 3.2.2. ボディのモデリング 3.2.3. タイヤのモデリング 3.2.4. 単位の設定 3.2.5. 回転とスケールの適用 3.2.6. ボディとタイヤの親子関係設定 3.2.7. fbxファイルのエクスポート     4. ゲーム内で動かす  4.1. Unreal Engine の起動 4.2. Vehicle Template を使う 4.3. Chaos Vehicle プラグインの有効化 4.4. ホイールブループリントの作成 4.5. エンジントルクカーブの作成 4.6. 物理アセットの作成 4.7. アニメーションブループリントの作成 4.8. ビークルブループリントの作成 4.9. ゲームモードの作成   5. 動かしてみる 6. まとめ 7. 参考文献   1.</description>
     </item>
     
     <item>
       <title>簡易な会計アプリを作ってみた</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/</link>
       <pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/</guid>
       <description>1. 開発の背景 　一昨年の大学祭の模擬店ではフライドポテトを販売していましたが、会計がかなり大変でした。
 　そのときは、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。
 　今年は私自身が模擬店の担当になったわけではなかったのですが、少しでも負担を減らして楽にできたら良いなと思い、開発することに決めました。
@@ -38,10 +38,10 @@
     
     <item>
       <title>LabVIEWをインストールしたらPCが起動しなくなった</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/</link>
       <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/</guid>
       <description>起こった現象 　研究で使用するNI製のソフトウェアLabVIEWをインストールし、昼ごはんから帰ってきてスリープから復帰しようとしたらPCが起動できなくなった（なぬ!? これはヤバい）
 　ブルスクになって、
 　停止コード：SECURE_PCI_CONFIG_SPACE_VIOLATION）
@@ -56,10 +56,10 @@
     
     <item>
       <title>バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/</link>
       <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/</guid>
       <description>行ったバックアップの内容 　使っているうちにメイン機の Lenovo YOGA 670 の不具合が多くなってきた（キーボードが壊れる、バッテリーが充電できなくなる）ので、PCを新しくすることにしました。新しいPCは ASUS ROG FLOW Z13にしました。
 　開発で色んなソフト（機械系・電気系CAD、プログラミングのIDE、シミュレーションソフト、3DCG、動画編集ソフトなど&amp;hellip;）を使っているので、新しいPCにインストールし直そうと思うと、かなり時間がかっちゃって設定も大変です(;&amp;lsquo;∀&amp;rsquo;)
 　そこで、EaseUS Todo Backup Free（ホームページはこちら）を使って YOGA 670 のシステムバックアップを作成し、新しいPC（ROG FLOW）に移行することにしました。
@@ -75,10 +75,10 @@
     
     <item>
       <title>オートメーションサーバでオートバランスできない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/</link>
       <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/</guid>
       <description>オートメーションサーバ機能とは 　キーエンス製データロガーの専用ソフトウェア「WAVE LOGGER X」を、Python, C#, VBAで操作できる機能です（Webアプリケーションで言うところのAPI? みたいな感じです）。WAVE LOGGER X 自体は、マウスでポチポチ操作できるソフトです（綺麗なGUI）。このようにマウスで操作するところを、他のプログラミング言語（Python, C#, VBA）で自動的に操作するのが、オートメーションサーバ機能です。とても便利です(&amp;lsquo;ω&amp;rsquo;)
   ☝　WAVE LOGGER X の画面はこんな感じ  オートバランスできない&amp;hellip; 　キーエンス製データロガー（今回はNR-500を使用）でひずみ計測ユニット（NR-ST04）を使うときは、測定開始前に必ず「オートバランス」（ブリッジ回路のゼロ点補正）をする必要があります。WAVE LOGGER Xを使っているときは、「オートバランス」ボタンをただポチっとするだけでよいのですが、オートメーションサーバ機能ではこれにかなり苦労しました。
 　ネット情報がほとんど見当たらなかったので（現状では驚くほど情報が少ない）、今回はその解決方法を共有したいと思います！
@@ -91,10 +91,10 @@
     
     <item>
       <title>ノートPCのキーボードが入力できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/</link>
       <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/</guid>
       <description>症状 　お気に入りのノートPC「Lenovo YOGA 670」を使っていたところ、卒論発表資料の作成中にキーボードの主要キーが使えなくなった（これはヤバい）。
  1日目：カッコ（）が入力できなくなる、そこでShiftキーが使えなくなったことに気が付く 2-3日目：5と6以外の数字キーが入力できなくなる 4-5日目：バックスペースキー、スペースキー、エンターキーも使えなくなった。（おわったわ &amp;hellip;）  解決方法 　グーグル検索やGPTやらを使って解決を試みましたが、中々大変でした。というかキーボードの反応悪いから、そもそも検索しにくい（苦笑）
 　最終的には、Lenovoのトラブルシューティングページ「Lenovo PCでキーボードのキーが動作しない」を参考にして修正にトライしました。
@@ -113,10 +113,10 @@
     
     <item>
       <title>自分のWebサイトを作りました！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</link>
       <pubDate>Sat, 27 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/27/deployed_my_project_page/</guid>
       <description>作成したサイトの外観 　Djangoとbootstrap5を使って、自分の取り組みを紹介するサイトを作りました！
 　下の画像が作ったページの外観です。スマホでもPCでも見やすいレイアウトとなるように工夫しました。
   ☝　作ったサイト  　色々なサイトや友達の意見を参考にしながら、ページのデザインから動作の作成、デプロイまで行いました。
@@ -126,10 +126,10 @@
     
     <item>
       <title>「Command &#39;cmd&#39; not found, but there are 18 similar ones.」と表示されてPythonが実行できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/cannot_execute_python_in_the_vscode_console/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/01/01/cannot_execute_python_in_the_vscode_console/</guid>
       <description>解決方法 　解決方法は単純。
  「Ctrl + Shift + P」でコマンドパレットを開き、「Terminal:Select Default Profile」を選択 「Command Prompt あるいは Windows PowerShell」を選択    ☝　解決方法（GIFアニメ）  エラーの概略 　昔に授業でC言語のプログラミングをしよう思い、VS CodeでwlsのUbunutuを使えるようにしました。
 　当時はC言語のみだったので気にしてなかったのですが、PythonをVS Codeで使うようにセットアップしたところ「Command &amp;lsquo;cmd&amp;rsquo; not found, but there are 18 similar ones.」と表示されてプログラムが実行されませんでした。しばらく待つと、「Timed out wating for lancher to connect」と書かれたポップアップが出てきます。
@@ -140,10 +140,10 @@
     
     <item>
       <title>OPPO Reno8 Pro 5G 中国版とグローバル版、実はかなり違う</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/oppo_reno8_pro_5g_chinese_ver_and_global_ver/</link>
       <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/oppo_reno8_pro_5g_chinese_ver_and_global_ver/</guid>
       <description>OPPO Reno8 Pro 5G（グローバル版）のケースを購入したら&amp;hellip; 本体色と合ったオシャレなスマホケースを付けたいと、アリエクでケースを注文しました。購入したのはこちらのケース。数週間待ってたら届きました。
   ☝　届いたケース（オシャレでうれしい）  ワクワクしてケースを付けてみると&amp;hellip;
 なんだこれ！合わないじゃねーか 笑笑( ;∀;)
@@ -161,10 +161,10 @@
     
     <item>
       <title>OPPO Reno8 Pro 5G（中国版）レビュー</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/oppo_reno8_pro_5g_review/</link>
       <pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/oppo_reno8_pro_5g_review/</guid>
       <description>OPPO Reno8 Pro 5G（中国版） を買った理由 　前回使っていたMoto G Pro（Motorola社製）のNFCが壊れてしまったので、新しいスマホを買うことにしました。
 　スペックとデザインを見て、納得のいくスマホを色々と探していたらOPPO Reno9にたどり着きました。アリエクでReno9とReno8 Proが同じくらいの値段（約5万円）で売っていたので、Reno8 Proを買うことにしました。
 外観 　Aliexpress Srandard Shipping で2週間くらいで届きました。もう少し時間がかかると思っていたので驚きました。
@@ -176,10 +176,10 @@
     
     <item>
       <title>研究室用の報告書テンプレ作成！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/report_template_msword/</link>
       <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/05/07/report_template_msword/</guid>
       <description>～ 目次 ～   1. 今回やりたいこと 2. テンプレ作成  2.1. フォントの設定 2.2. アウトラインの設定   3. 追記 4. サンプルファイル   1. 今回やりたいこと 　私の研究室では毎週報告会があり、そのために報告書を作成する必要があります。
 　報告書は書式が指定されていて、例えば
  章、節、図、表題：MSゴシック 12[pt] 英数字：Times New Roman 12[pt] 本文の日本語：MS明朝 12[pt] 本文の英数字：Times New Roman 12[pt] グラフの目盛り：縦軸 → 内向き、横軸 → 交差 グラフの目盛り、文字色：黒（グレーは不可）  　などなど&amp;hellip; 色々あります(;´･ω･)。下の画像が報告書の作成例（中身は架空なので参考にしないでくださいw）です。
@@ -192,10 +192,10 @@
     
     <item>
       <title>Motoメモの保存先</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/moto-memo_buckup/</link>
       <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/moto-memo_buckup/</guid>
       <description>Motoメモについて 　Motoメモ は motorola製 のスタイラスペン付きスマホについている、純正メモアプリです。
 　私は moto g proというスタイラスペン付きスマホを使っていて、授業や趣味のメモにかなり重宝しています(&amp;lsquo;ω&amp;rsquo;)
 　大事なこともたくさんメモしているので、もしスマホを紛失したり壊すと大変です！
@@ -209,10 +209,10 @@ PC\moto g pro\内部共有ストレージ\Android\data\com.motorola.stylus\files
     
     <item>
       <title>自作アプリでBluetooth接続できない！[Runtime Error]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</link>
       <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</guid>
       <description>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
 　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。
   ☝　Bluetooth接続しようと「ここをタッチしてRCに接続」ボタンを押したらエラーが....  　説明をよく読むと、Androidの権限が必要みたいです。
@@ -223,19 +223,19 @@ PC\moto g pro\内部共有ストレージ\Android\data\com.motorola.stylus\files
     
     <item>
       <title>LibreOffice Draw を使って教科書みたいなカッコイイ図を作る！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/diagram_making_using_libre-office-draw/</link>
       <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/08/16/diagram_making_using_libre-office-draw/</guid>
       <description>～ 目次 ～   1. はじめに 2. LibreOffice Drawとは？ 3. LibreOfficeのインストール 4. LibreOffice Drawの起動と設定  4.1. ソフトの起動 4.2. 用紙サイズの設定 4.3. グリッドの設定   5. 図を作ってみよう  5.1. 作りたい図 5.2. 作図手順  5.2.1. 長方形の描画 5.2.2. 線の描画 5.2.3. ハッチング 5.2.4. 矢印 5.2.5. 文字 5.2.6. 数式 5.2.7. レイヤーの確認と移動（おまけ）     6. Wordに挿入  6.1. Draw から Word に図を貼る手順 6.2. 高速で貼り付け（おまけ） 6.3. 別のファイル形式で保存[エクスポート]＆貼り付け（おまけ） 6.4. pdf として出力   7. まとめ 8. サンプルファイル 9.</description>
     </item>
     
     <item>
       <title>hugoで上付き・下付き文字が入力できない</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</link>
       <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/21/cannot_use_html-tags_in_hugo/</guid>
       <description>現状 記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。
 記事ファイル「index.md」の中身 x&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; + y&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt; = r&amp;lt;sup&amp;gt;2&amp;lt;/sup&amp;gt;　 出力結果 　hugoのserverコマンドで確認した出力結果がこちらです。
    出力結果（現状） 正しい結果（理想）            解決方法 　調べてみると、「config.json」に数行付け足すことで解決出来ることが分かりました。configファイルの形式が.jsonの場合は、以下の数行を付け足します。

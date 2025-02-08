@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 26 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>簡易な会計アプリを作ってみた</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/</link>
       <pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/</guid>
       <description>1. 開発の背景 　一昨年の大学祭の模擬店ではフライドポテトを販売していましたが、会計がかなり大変でした。
 　そのときは、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。
 　今年は私自身が模擬店の担当になったわけではなかったのですが、少しでも負担を減らして楽にできたら良いなと思い、開発することに決めました。

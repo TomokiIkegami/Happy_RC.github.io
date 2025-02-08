@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GS02のタイヤを浮かせたい！</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/lifting_and_protecting_the_gs02_tire/</link>
       <pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/09/12/lifting_and_protecting_the_gs02_tire/</guid>
       <description>～ 目次 ～   1. やりたいこと 2. 完成品の寸法 3. 部品の製作  3.1. 使った道具 3.2. 部品① 3.3. 部品②と③   4. 組み立て 5. 取り付けた様子 6. サンプルファイル   1. やりたいこと 　数カ月ぶりに、愛車の GS02bom を見てみるとタイヤが潰れてました( ;∀;)( ;∀;)( ;∀;)。
   ☝　潰れたタイヤのイメージ  　抜けた空気は自然に入らず、変形したタイヤはすぐに戻らないので大変です。（ホイールを組み立て直して、走行すれば段々良くなりますが&amp;hellip;）
 　今回はタイヤを浮かせて保管（飾っておける）できるGS02専用の土台を作ってみました！
@@ -26,10 +26,10 @@
     
     <item>
       <title>壊れたRCのギアを作りたい [製作編]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/rc_gear_design_4/</link>
       <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/25/rc_gear_design_4/</guid>
       <description>～ 目次 ～   1. 3Dプリントの流れ 2. 3Dプリント作業の様子  2.1. 3Dモデルの準備 2.2. 印刷用データの作成 2.3. 印刷 2.4. サポート材の除去 2.5. 完成品   3. 組み立て 4. 取り付けた様子 5. 関連記事 6. 参考文献   1. 3Dプリントの流れ 　前回でギアの設計が終わったので、今回はギアを実際に製作したいと思います。
 　本格的なプラスチック歯車なら、射出成形で製造されている1（切削加工で製造している場合もある2）みたいですが、工具と機械をそろえると凄い金額（ノウハウもかなり必要）なってしまいます。
 　そこで今回は、3Dプリンタを使ってギアを作ってみます。3Dプリンタを使った方法は付加製造と呼ばれています。
@@ -42,10 +42,10 @@
     
     <item>
       <title>使っている3Dプリンタの紹介</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/my_first_3d_printer/</link>
       <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/03/09/my_first_3d_printer/</guid>
       <description>1. 機種について 　BIBO2 という3Dプリンタです。金属のボディだったり、印刷台がガラスだったりするところがカッコイイです(^^)
   ☝　外観  2. 使ってみた感じ 　まだ付属のフィラメント（PLA）と標準設定でしか印刷してませんが、仕上がりがきれいでびっくりしました。
 　エッジも丸くならず、穴もきれいな形状です。積層面同士が強く密着しているのも良いと感じました。
@@ -60,10 +60,10 @@
     
     <item>
       <title>3Dプリンタでホイールを作ってみた</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/wheel-making_using_3d-printer/</link>
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/02/02/wheel-making_using_3d-printer/</guid>
       <description>自分でホイールを作ったきっかけ 　初めはホイールを自分で設計・製作することはあまり考えていなかったのですが、買ったタイヤが少し特殊だったのでそれに合わせて設計することにしました。
 ボディ変更とタイヤの購入 　クローララジコン ECX Barrage 1.9 純正のボディに満足いかず、PROLINE の F-100 ボディに変更することがありました。そのときに、タイヤを 1.9インチのものから 1.55インチに変更することを考えました。
 　ECX Barrage 1.9 の後継機として ECX Barrage Gen2 売られています。Gen2 は ホイールサイズが 1.9 → 1.55インチに変更されていました。そこで、これに使われている純正タイヤを購入しました。

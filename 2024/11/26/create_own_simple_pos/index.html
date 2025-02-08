@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     簡易な会計アプリを作ってみた -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      簡易な会計アプリを作ってみた
+    </h1>
+    
+    <p class="document-date">
+      2024-11-26 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"大学祭の模擬店用に会計アプリを作りました"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="1-開発の背景">1. 開発の背景</h1>
+<p>　一昨年の大学祭の模擬店ではフライドポテトを販売していましたが、会計がかなり大変でした。</p>
+<p>　そのときは、紙に正の字を書いて数量を計算するという方法を採用していました（去年の模擬店も同様です）。</p>
+<p>　今年は私自身が模擬店の担当になったわけではなかったのですが、少しでも負担を減らして楽にできたら良いなと思い、開発することに決めました。</p>
+<h1 id="2-実装までの流れ">2. 実装までの流れ</h1>
+<p>　初めはDjangoでやろうと思ったのですが、URLの設定や画面遷移などに失敗してしまいました。修正しようと思ったのですが、中々うまく行きませんでした。留学生の友達（インドネシア人の方です）がFlaskの方が簡単という話をしていたのを思い出し、Flaskでの実装に切り替えました。</p>
+<p>　コーディングはChatGPT(4o)とGitHub Copilotを使いながら爆速で開発を進めます。</p>
+<h1 id="3-実装した画面の説明">3. 実装した画面の説明</h1>
+<h2 id="31-売上計算画面">3.1. 「売上計算」画面</h2>
+<p>　メインの画面です。お客様の購入数量に応じて合計金額を計算します。</p>
+  <div align="center">
+  <figure><img src="%e5%a3%b2%e4%b8%8a%e8%a8%88%e7%ae%97%e7%94%bb%e9%9d%a2.png"
+         alt="売上計算画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　売上計算画面
+  </div>
+<h2 id="32-売上履歴画面">3.2. 「売上履歴」画面</h2>
+<p>　「売上計算」画面で計算した売上の履歴が保存されています。「CSVでダウンロード」を押すと、売上履歴をダウンロードして後で分析することができます。</p>
+  <div align="center">
+  <figure><img src="%e5%a3%b2%e4%b8%8a%e5%b1%a5%e6%ad%b4%e7%94%bb%e9%9d%a2.png"
+         alt="売上履歴画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　売上履歴画面
+  </div>
+<h2 id="33-商品一覧画面">3.3. 「商品一覧」画面</h2>
+<p>　「売上計算」画面で表示される商品名と金額を登録・編集します。</p>
+  <div align="center">
+  <figure><img src="%e5%95%86%e5%93%81%e4%b8%80%e8%a6%a7%e7%94%bb%e9%9d%a2.png"
+         alt="商品一覧画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　売上計算画面
+  </div>
+<h2 id="34-売上ダッシュボード画面">3.4. 「売上ダッシュボード」画面</h2>
+<p>　合計数量や時間ごとの売り上げなどを、数値とグラフで表示します。</p>
+  <div align="center">
+  <figure><img src="%e5%a3%b2%e4%b8%8a%e3%83%80%e3%83%83%e3%82%b7%e3%83%a5%e3%83%9c%e3%83%bc%e3%83%89%e7%94%bb%e9%9d%a2.png"
+         alt="売上ダッシュボード画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　売上ダッシュボード画面
+  </div>
+<h1 id="4-動画">4. 動画</h1>
+<p>　こちらが完成したアプリの動画です！ Render.comにデプロイして動かしてみました。<br><br></p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/TxguujTp1fU" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h1 id="5-ソースコード">5. ソースコード</h1>
+<p>　今回のアプリはFlaskで作ったので、ここでは画面遷移やデータベースの処理をするPythonコードと、各画面のhtmlファイルを掲載を一部掲載します。全ソースコードは<a href="https://github.com/TomokiIkegami/my_flask_pos">GitHub</a>に載せました。</p>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ソースコード(app.py) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">from flask <span style="color:#f92672">import</span> Flask<span style="color:#f92672">,</span> render_template<span style="color:#f92672">,</span> request<span style="color:#f92672">,</span> redirect<span style="color:#f92672">,</span> url_for<span style="color:#f92672">,</span> flash<span style="color:#f92672">,</span> send_file<span style="color:#f92672">,</span> send_from_directory
+from flask_sqlalchemy <span style="color:#f92672">import</span> SQLAlchemy
+from flask_login <span style="color:#f92672">import</span> LoginManager<span style="color:#f92672">,</span> UserMixin<span style="color:#f92672">,</span> login_user<span style="color:#f92672">,</span> logout_user<span style="color:#f92672">,</span> login_required<span style="color:#f92672">,</span> current_user
+from werkzeug<span style="color:#f92672">.</span><span style="color:#a6e22e">security</span> <span style="color:#f92672">import</span> generate_password_hash<span style="color:#f92672">,</span> check_password_hash
+from flask_wtf <span style="color:#f92672">import</span> FlaskForm
+from wtforms <span style="color:#f92672">import</span> StringField<span style="color:#f92672">,</span> PasswordField
+from wtforms<span style="color:#f92672">.</span><span style="color:#a6e22e">validators</span> <span style="color:#f92672">import</span> DataRequired
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> csv
+<span style="color:#f92672">import</span> io
+from datetime <span style="color:#f92672">import</span> datetime<span style="color:#f92672">,</span> timedelta
+
+app <span style="color:#f92672">=</span> Flask<span style="color:#f92672">(</span>__name__<span style="color:#f92672">)</span>
+app<span style="color:#f92672">.</span><span style="color:#a6e22e">config</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;SECRET_KEY&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span><span style="color:#a6e22e">environ</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>SECRET_KEY<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>secret<span style="color:#f92672">-</span>key<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> SQLite データベースの設定
+basedir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span><span style="color:#a6e22e">path</span><span style="color:#f92672">.</span><span style="color:#a6e22e">abspath</span><span style="color:#f92672">(</span>os<span style="color:#f92672">.</span><span style="color:#a6e22e">path</span><span style="color:#f92672">.</span><span style="color:#a6e22e">dirname</span><span style="color:#f92672">(</span>__file__<span style="color:#f92672">))</span>
+app<span style="color:#f92672">.</span><span style="color:#a6e22e">config</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>SQLALCHEMY_DATABASE_URI<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>sqlite<span style="color:#f92672">:</span><span style="color:#75715e">///&#39; + os.path.join(basedir, &#39;sales.db&#39;)
+</span><span style="color:#75715e"></span>app<span style="color:#f92672">.</span><span style="color:#a6e22e">config</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>SQLALCHEMY_TRACK_MODIFICATIONS<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> False
+
+db <span style="color:#f92672">=</span> SQLAlchemy<span style="color:#f92672">(</span>app<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> Flask<span style="color:#f92672">-</span>login の設定
+login_manager <span style="color:#f92672">=</span> LoginManager<span style="color:#f92672">()</span>
+login_manager<span style="color:#f92672">.</span><span style="color:#a6e22e">init_app</span><span style="color:#f92672">(</span>app<span style="color:#f92672">)</span>
+login_manager<span style="color:#f92672">.</span><span style="color:#a6e22e">login_view</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>login<span style="color:#960050;background-color:#1e0010">&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> ユーザーモデル
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">(</span>UserMixin<span style="color:#f92672">,</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Model</span><span style="color:#f92672">):</span>
+    id <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> primary_key<span style="color:#f92672">=</span>True<span style="color:#f92672">)</span>
+    username <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>80<span style="color:#f92672">),</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">,</span> unique<span style="color:#f92672">=</span>True<span style="color:#f92672">)</span>
+    password_hash <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>120<span style="color:#f92672">),</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+
+    def <span style="color:#a6e22e">set_password</span><span style="color:#f92672">(</span>self<span style="color:#f92672">,</span> password<span style="color:#f92672">):</span>
+        self<span style="color:#f92672">.</span><span style="color:#a6e22e">password_hash</span> <span style="color:#f92672">=</span> generate_password_hash<span style="color:#f92672">(</span>password<span style="color:#f92672">)</span>
+
+    def <span style="color:#a6e22e">check_password</span><span style="color:#f92672">(</span>self<span style="color:#f92672">,</span> password<span style="color:#f92672">):</span>
+        <span style="color:#66d9ef">return</span> check_password_hash<span style="color:#f92672">(</span>self<span style="color:#f92672">.</span><span style="color:#a6e22e">password_hash</span><span style="color:#f92672">,</span> password<span style="color:#f92672">)</span>
+
+<span style="color:#a6e22e">@login_manager.user_loader</span>
+def <span style="color:#a6e22e">load_user</span><span style="color:#f92672">(</span>user_id<span style="color:#f92672">):</span>
+    <span style="color:#66d9ef">return</span> User<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>user_id<span style="color:#f92672">))</span>
+
+def <span style="color:#a6e22e">init_admin_user</span><span style="color:#f92672">():</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> 環境変数から取得
+    admin_username <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span><span style="color:#a6e22e">environ</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>ADMIN_USERNAME<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+    admin_password <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span><span style="color:#a6e22e">environ</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>ADMIN_PASSWORD<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+
+    <span style="color:#66d9ef">if</span> not admin_username or not admin_password<span style="color:#f92672">:</span>
+        raise <span style="color:#a6e22e">ValueError</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;環境変数 &#39;ADMIN_USERNAME&#39; および &#39;ADMIN_PASSWORD&#39; を設定してください。&#34;</span><span style="color:#f92672">)</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> すでに管理者ユーザーが存在しない場合にのみ追加
+    <span style="color:#66d9ef">if</span> not User<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">filter_by</span><span style="color:#f92672">(</span>username<span style="color:#f92672">=</span>admin_username<span style="color:#f92672">).</span><span style="color:#a6e22e">first</span><span style="color:#f92672">():</span>
+        admin <span style="color:#f92672">=</span> User<span style="color:#f92672">(</span>username<span style="color:#f92672">=</span>admin_username<span style="color:#f92672">)</span>
+        admin<span style="color:#f92672">.</span><span style="color:#a6e22e">set_password</span><span style="color:#f92672">(</span>admin_password<span style="color:#f92672">)</span>  <span style="color:#960050;background-color:#1e0010">#</span> ハッシュ化してパスワードを設定
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>admin<span style="color:#f92672">)</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+        print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;Admin user &#39;{admin_username}&#39; added.&#34;</span><span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品情報のモデル
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Item</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Model</span><span style="color:#f92672">):</span>
+    id <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> primary_key<span style="color:#f92672">=</span>True<span style="color:#f92672">)</span>
+    name <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>80<span style="color:#f92672">),</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+    price <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 売り上げ情報のモデル
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sale</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Model</span><span style="color:#f92672">):</span>
+    id <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> primary_key<span style="color:#f92672">=</span>True<span style="color:#f92672">)</span>
+    item_name <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>80<span style="color:#f92672">),</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+    price <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+    quantity <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+    total <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">Integer</span><span style="color:#f92672">,</span> nullable<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span>
+    created_at <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">Column</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">DateTime</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">default</span><span style="color:#f92672">=</span>lambda<span style="color:#f92672">:</span> datetime<span style="color:#f92672">.</span><span style="color:#a6e22e">utcnow</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> timedelta<span style="color:#f92672">(</span>hours<span style="color:#f92672">=</span>9<span style="color:#f92672">))</span>  <span style="color:#960050;background-color:#1e0010">#</span> JST に変更
+
+    def <span style="color:#a6e22e">__repr__</span><span style="color:#f92672">(</span>self<span style="color:#f92672">):</span>
+        <span style="color:#66d9ef">return</span> f<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">&lt;</span>Sale <span style="color:#f92672">{</span>self<span style="color:#f92672">.</span><span style="color:#a6e22e">item_name</span><span style="color:#f92672">},</span> <span style="color:#f92672">{</span>self<span style="color:#f92672">.</span><span style="color:#a6e22e">total</span><span style="color:#f92672">}&gt;</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品データをデータベースに初期化する関数
+def <span style="color:#a6e22e">init_items</span><span style="color:#f92672">():</span>
+    item_data <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
+        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;白玉団子（黒蜜きなこ）&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">:</span> 200<span style="color:#f92672">},</span>
+        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;白玉団子（みたらし）&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">:</span> 200<span style="color:#f92672">},</span>
+        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;白玉団子（五郎島金時＆あんこ）&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">:</span> 200<span style="color:#f92672">},</span>
+    <span style="color:#f92672">]</span>
+    <span style="color:#66d9ef">for</span> item in item_data<span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">if</span> not Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">filter_by</span><span style="color:#f92672">(</span>name<span style="color:#f92672">=</span>item<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">]).</span><span style="color:#a6e22e">first</span><span style="color:#f92672">():</span>
+            new_item <span style="color:#f92672">=</span> Item<span style="color:#f92672">(</span>name<span style="color:#f92672">=</span>item<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">],</span> price<span style="color:#f92672">=</span>item<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;price&#34;</span><span style="color:#f92672">])</span>
+            db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>new_item<span style="color:#f92672">)</span>
+    db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> データベースの初期化
+<span style="color:#a6e22e">@app.before_request</span>
+def <span style="color:#a6e22e">setup_database</span><span style="color:#f92672">():</span>
+    db<span style="color:#f92672">.</span><span style="color:#a6e22e">create_all</span><span style="color:#f92672">()</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> init_items<span style="color:#f92672">()</span>
+    init_admin_user<span style="color:#f92672">()</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> ログインフォーム
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LoginForm</span><span style="color:#f92672">(</span>FlaskForm<span style="color:#f92672">):</span>
+    username <span style="color:#f92672">=</span> StringField<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>Username<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> validators<span style="color:#f92672">=[</span>DataRequired<span style="color:#f92672">()])</span>
+    password <span style="color:#f92672">=</span> PasswordField<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>Password<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> validators<span style="color:#f92672">=[</span>DataRequired<span style="color:#f92672">()])</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> ログインルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>login<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+def <span style="color:#a6e22e">login</span><span style="color:#f92672">():</span>
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span>
+        username <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>username<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span>
+        password <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>password<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span>
+
+        <span style="color:#960050;background-color:#1e0010">#</span> ユーザーが存在するか確認
+        user <span style="color:#f92672">=</span> User<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">filter_by</span><span style="color:#f92672">(</span>username<span style="color:#f92672">=</span>username<span style="color:#f92672">).</span><span style="color:#a6e22e">first</span><span style="color:#f92672">()</span>
+        
+        <span style="color:#960050;background-color:#1e0010">#</span> デバッグメッセージを追加
+        <span style="color:#66d9ef">if</span> user<span style="color:#f92672">:</span>
+            print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;User &#39;{username}&#39; found.&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">else</span><span style="color:#f92672">:</span>
+            print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;User &#39;{username}&#39; not found.&#34;</span><span style="color:#f92672">)</span>
+
+        <span style="color:#960050;background-color:#1e0010">#</span> パスワードが一致するか確認
+        <span style="color:#66d9ef">if</span> user and user<span style="color:#f92672">.</span><span style="color:#a6e22e">check_password</span><span style="color:#f92672">(</span>password<span style="color:#f92672">):</span>
+            print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Password matched!&#34;</span><span style="color:#f92672">)</span>  <span style="color:#960050;background-color:#1e0010">#</span> パスワードが一致した場合のデバッグメッセージ
+            <span style="color:#a6e22e">login_user</span><span style="color:#f92672">(</span>user<span style="color:#f92672">)</span>
+            <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span>url_for<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>index<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">))</span>
+        <span style="color:#66d9ef">else</span><span style="color:#f92672">:</span>
+            print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Password did not match or user not found.&#34;</span><span style="color:#f92672">)</span>  <span style="color:#960050;background-color:#1e0010">#</span> 一致しなかった場合のデバッグメッセージ
+            <span style="color:#a6e22e">flash</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>Invalid username or password<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>danger<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>  <span style="color:#960050;background-color:#1e0010">#</span> ログイン失敗メッセージ
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">render_template</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>login<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+
+
+<span style="color:#960050;background-color:#1e0010">#</span> ログアウトルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>logout<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">logout</span><span style="color:#f92672">():</span>
+    logout_user<span style="color:#f92672">()</span>
+    flash<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>ログアウトしました<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>info<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span>url_for<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>login<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">))</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> メインページのルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">index</span><span style="color:#f92672">():</span>
+    items <span style="color:#f92672">=</span> Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span>
+    total <span style="color:#f92672">=</span> 0
+    sales_records <span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>
+    message <span style="color:#f92672">=</span> None  <span style="color:#960050;background-color:#1e0010">#</span> 初期化
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 商品が登録されていない場合のメッセージを設定
+    <span style="color:#66d9ef">if</span> not items<span style="color:#f92672">:</span>
+        message <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;「商品一覧」ページから商品を登録してください&#34;</span>
+
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span> and items<span style="color:#f92672">:</span>
+        quantities <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getlist</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>quantities<span style="color:#f92672">[]</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">for</span> item in items<span style="color:#f92672">:</span>
+            quantity <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>f<span style="color:#960050;background-color:#1e0010">&#39;</span>quantities<span style="color:#f92672">[{</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">}]</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">)</span>
+            quantity <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>quantity<span style="color:#f92672">)</span>
+            <span style="color:#66d9ef">if</span> quantity <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">:</span>
+                total <span style="color:#f92672">+=</span> item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> quantity
+                new_sale <span style="color:#f92672">=</span> Sale<span style="color:#f92672">(</span>item_name<span style="color:#f92672">=</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">,</span> price<span style="color:#f92672">=</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span><span style="color:#f92672">,</span> quantity<span style="color:#f92672">=</span>quantity<span style="color:#f92672">,</span> total<span style="color:#f92672">=</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> quantity<span style="color:#f92672">)</span>
+                db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>new_sale<span style="color:#f92672">)</span>
+                sales_records<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">({</span><span style="color:#960050;background-color:#1e0010">&#39;</span>item_name<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> item<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>price<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>quantity<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> quantity<span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>total<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> quantity<span style="color:#f92672">})</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>index<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> items<span style="color:#f92672">=</span>items<span style="color:#f92672">,</span> total<span style="color:#f92672">=</span>total<span style="color:#f92672">,</span> sales_records<span style="color:#f92672">=</span>sales_records<span style="color:#f92672">,</span> message<span style="color:#f92672">=</span>message<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 売上履歴のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>sales<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">sales</span><span style="color:#f92672">():</span>
+    items <span style="color:#f92672">=</span> Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span>
+    total_sales <span style="color:#f92672">=</span> 0
+    sales_records <span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>
+
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span>
+        quantities <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getlist</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>quantities<span style="color:#f92672">[]</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">for</span> item in items<span style="color:#f92672">:</span>
+            quantity <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>f<span style="color:#960050;background-color:#1e0010">&#39;</span>quantities<span style="color:#f92672">[{</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">}]</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">)</span>
+            quantity <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>quantity<span style="color:#f92672">)</span>
+            <span style="color:#66d9ef">if</span> quantity <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">:</span>
+                total <span style="color:#f92672">=</span> item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span> <span style="color:#f92672">*</span> quantity
+                total_sales <span style="color:#f92672">+=</span> total
+                new_sale <span style="color:#f92672">=</span> Sale<span style="color:#f92672">(</span>item_name<span style="color:#f92672">=</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">,</span> price<span style="color:#f92672">=</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span><span style="color:#f92672">,</span> quantity<span style="color:#f92672">=</span>quantity<span style="color:#f92672">,</span> total<span style="color:#f92672">=</span>total<span style="color:#f92672">)</span>
+                db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>new_sale<span style="color:#f92672">)</span>
+                sales_records<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span>new_sale<span style="color:#f92672">)</span>
+
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 作成日時で昇順にソートして売上データを取得
+    sales_records <span style="color:#f92672">=</span> Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">order_by</span><span style="color:#f92672">(</span>Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">created_at</span><span style="color:#f92672">.</span><span style="color:#a6e22e">desc</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span>
+    total_sales <span style="color:#f92672">=</span> sum<span style="color:#f92672">(</span>record<span style="color:#f92672">.</span><span style="color:#a6e22e">total</span> <span style="color:#66d9ef">for</span> record in sales_records<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>sales<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> items<span style="color:#f92672">=</span>items<span style="color:#f92672">,</span> total_sales<span style="color:#f92672">=</span>total_sales<span style="color:#f92672">,</span> sales_records<span style="color:#f92672">=</span>sales_records<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 売上履歴の削除ルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>delete<span style="color:#f92672">/&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">:</span>id<span style="color:#f92672">&gt;</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>id<span style="color:#f92672">):</span>
+    sale_to_delete <span style="color:#f92672">=</span> Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get_or_404</span><span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">try</span><span style="color:#f92672">:</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>sale_to_delete<span style="color:#f92672">)</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+        <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>sales<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+    except Exception as e<span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">return</span> f<span style="color:#960050;background-color:#1e0010">&#39;</span>削除に失敗しました<span style="color:#f92672">:</span> <span style="color:#f92672">{</span>str<span style="color:#f92672">(</span>e<span style="color:#f92672">)}</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品情報編集のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>edit_item<span style="color:#f92672">/&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">:</span>id<span style="color:#f92672">&gt;</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">edit_item</span><span style="color:#f92672">(</span>id<span style="color:#f92672">):</span>
+    item_to_edit <span style="color:#f92672">=</span> Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get_or_404</span><span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>
+
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span>
+        item_to_edit<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>item_name<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span>
+        item_to_edit<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>price<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+        <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span>url_for<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>index<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">))</span>
+
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>edit_item<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> item<span style="color:#f92672">=</span>item_to_edit<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品一覧のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>items<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">items</span><span style="color:#f92672">():</span>
+    all_items <span style="color:#f92672">=</span> Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span>
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>items<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> items<span style="color:#f92672">=</span>all_items<span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品追加のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>add_item<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>GET<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">add_item</span><span style="color:#f92672">():</span>
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span>
+        item_name <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>name<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">]</span>
+        item_price <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">(</span>request<span style="color:#f92672">.</span><span style="color:#a6e22e">form</span><span style="color:#f92672">[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>price<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+
+        new_item <span style="color:#f92672">=</span> Item<span style="color:#f92672">(</span>name<span style="color:#f92672">=</span>item_name<span style="color:#f92672">,</span> price<span style="color:#f92672">=</span>item_price<span style="color:#f92672">)</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>new_item<span style="color:#f92672">)</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+        
+        <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span>url_for<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>items<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">))</span>
+
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>add_item<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 商品削除のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>delete_item<span style="color:#f92672">/&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">:</span>id<span style="color:#f92672">&gt;</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> methods<span style="color:#f92672">=[</span><span style="color:#960050;background-color:#1e0010">&#39;</span>POST<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">@login_required</span>
+def <span style="color:#a6e22e">delete_item</span><span style="color:#f92672">(</span>id<span style="color:#f92672">):</span>
+    item_to_delete <span style="color:#f92672">=</span> Item<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">get_or_404</span><span style="color:#f92672">(</span>id<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">try</span><span style="color:#f92672">:</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>item_to_delete<span style="color:#f92672">)</span>
+        db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">()</span>
+        <span style="color:#66d9ef">return</span> redirect<span style="color:#f92672">(</span>url_for<span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>items<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">))</span>
+    except Exception as e<span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">return</span> f<span style="color:#960050;background-color:#1e0010">&#39;</span>削除に失敗しました<span style="color:#f92672">:</span> <span style="color:#f92672">{</span>str<span style="color:#f92672">(</span>e<span style="color:#f92672">)}</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 売上ダッシュボードの<span style="color:#960050;background-color:#1e0010">√</span>
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>dashboard<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+def <span style="color:#a6e22e">dashboard</span><span style="color:#f92672">():</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> 合計売上個数<span style="color:#960050;background-color:#1e0010">、</span>売上額<span style="color:#960050;background-color:#1e0010">、</span>直近1時間の売上額
+    total_quantity <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">func</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">(</span>Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">quantity</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">scalar</span><span style="color:#f92672">()</span> or 0
+    total_sales <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">func</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">(</span>Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">total</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">scalar</span><span style="color:#f92672">()</span> or 0
+
+    <span style="color:#960050;background-color:#1e0010">#</span> JST に直近1時間の時間を取得
+    one_hour_ago <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span><span style="color:#a6e22e">utcnow</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> timedelta<span style="color:#f92672">(</span>hours<span style="color:#f92672">=</span>9<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> timedelta<span style="color:#f92672">(</span>hours<span style="color:#f92672">=</span>1<span style="color:#f92672">)</span>
+    sales_last_hour <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">func</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">(</span>Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">total</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">created_at</span> <span style="color:#f92672">&gt;=</span> one_hour_ago<span style="color:#f92672">).</span><span style="color:#a6e22e">scalar</span><span style="color:#f92672">()</span> or 0
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 時間ごとの売上個数の取得
+    sales <span style="color:#f92672">=</span> Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span>
+    hourly_sales <span style="color:#f92672">=</span> <span style="color:#f92672">{}</span>
+    product_sales <span style="color:#f92672">=</span> <span style="color:#f92672">{}</span>
+
+    <span style="color:#66d9ef">for</span> sale in sales<span style="color:#f92672">:</span>
+        <span style="color:#960050;background-color:#1e0010">#</span> JST に変換して時間ごとの売上
+        hour <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>sale<span style="color:#f92672">.</span><span style="color:#a6e22e">created_at</span><span style="color:#f92672">).</span><span style="color:#a6e22e">strftime</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">%</span>m<span style="color:#f92672">/%</span>d <span style="color:#f92672">%</span>H<span style="color:#f92672">:</span>00<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">if</span> hour not in hourly_sales<span style="color:#f92672">:</span>
+            hourly_sales<span style="color:#f92672">[</span>hour<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 0
+        hourly_sales<span style="color:#f92672">[</span>hour<span style="color:#f92672">]</span> <span style="color:#f92672">+=</span> sale<span style="color:#f92672">.</span><span style="color:#a6e22e">quantity</span>
+
+        <span style="color:#960050;background-color:#1e0010">#</span> 商品ごとの売上<span style="color:#960050;background-color:#1e0010">（</span>円グラフ用<span style="color:#960050;background-color:#1e0010">）</span>
+        <span style="color:#66d9ef">if</span> sale<span style="color:#f92672">.</span><span style="color:#a6e22e">item_name</span> not in product_sales<span style="color:#f92672">:</span>
+            product_sales<span style="color:#f92672">[</span>sale<span style="color:#f92672">.</span><span style="color:#a6e22e">item_name</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 0
+        product_sales<span style="color:#f92672">[</span>sale<span style="color:#f92672">.</span><span style="color:#a6e22e">item_name</span><span style="color:#f92672">]</span> <span style="color:#f92672">+=</span> sale<span style="color:#f92672">.</span><span style="color:#a6e22e">quantity</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 時間順に並べ替え
+    sorted_hours <span style="color:#f92672">=</span> sorted<span style="color:#f92672">(</span>hourly_sales<span style="color:#f92672">.</span><span style="color:#a6e22e">keys</span><span style="color:#f92672">())</span>
+    quantities <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>hourly_sales<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>hour<span style="color:#f92672">,</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> hour in sorted_hours<span style="color:#f92672">]</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 累計売上個数の計算
+    cumulative_quantities <span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>
+    cumulative_sum <span style="color:#f92672">=</span> 0
+    <span style="color:#66d9ef">for</span> q in quantities<span style="color:#f92672">:</span>
+        cumulative_sum <span style="color:#f92672">+=</span> q
+        cumulative_quantities<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span>cumulative_sum<span style="color:#f92672">)</span>
+
+    <span style="color:#960050;background-color:#1e0010">#</span> 商品名と売上数量<span style="color:#960050;background-color:#1e0010">（</span>円グラフ用<span style="color:#960050;background-color:#1e0010">）</span>
+    product_names <span style="color:#f92672">=</span> list<span style="color:#f92672">(</span>product_sales<span style="color:#f92672">.</span><span style="color:#a6e22e">keys</span><span style="color:#f92672">())</span>
+    product_quantities <span style="color:#f92672">=</span> list<span style="color:#f92672">(</span>product_sales<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">())</span>
+
+    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span>
+        <span style="color:#960050;background-color:#1e0010">&#39;</span>dashboard<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span>
+        total_quantity<span style="color:#f92672">=</span>total_quantity<span style="color:#f92672">,</span>
+        total_sales<span style="color:#f92672">=</span>total_sales<span style="color:#f92672">,</span>
+        sales_last_hour<span style="color:#f92672">=</span>sales_last_hour<span style="color:#f92672">,</span>
+        sales<span style="color:#f92672">=</span>sales<span style="color:#f92672">,</span>
+        sorted_hours<span style="color:#f92672">=</span>sorted_hours<span style="color:#f92672">,</span>
+        quantities<span style="color:#f92672">=</span>quantities<span style="color:#f92672">,</span>
+        cumulative_quantities<span style="color:#f92672">=</span>cumulative_quantities<span style="color:#f92672">,</span>
+        product_names<span style="color:#f92672">=</span>product_names<span style="color:#f92672">,</span>
+        product_quantities<span style="color:#f92672">=</span>product_quantities
+    <span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> 売上データのCSVダウンロード用のルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>download_csv<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+def <span style="color:#a6e22e">download_csv</span><span style="color:#f92672">():</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> 売上データの取得<span style="color:#960050;background-color:#1e0010">（</span>sales_records など<span style="color:#960050;background-color:#1e0010">）</span>
+    sales_records <span style="color:#f92672">=</span> Sale<span style="color:#f92672">.</span><span style="color:#a6e22e">query</span><span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">()</span> <span style="color:#960050;background-color:#1e0010">#</span> 既存の関数または処理で売上データを取得
+
+    <span style="color:#960050;background-color:#1e0010">#</span> CSVをメモリ上で生成
+    output <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span><span style="color:#a6e22e">StringIO</span><span style="color:#f92672">()</span>
+    writer <span style="color:#f92672">=</span> csv<span style="color:#f92672">.</span><span style="color:#a6e22e">writer</span><span style="color:#f92672">(</span>output<span style="color:#f92672">)</span>
+    <span style="color:#960050;background-color:#1e0010">#</span> CSVのヘッダー行
+    writer<span style="color:#f92672">.</span><span style="color:#a6e22e">writerow</span><span style="color:#f92672">([</span><span style="color:#960050;background-color:#1e0010">&#39;</span>商品名<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>単価<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>数量<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>合計金額<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>日時<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">])</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> CSVのデータ行
+    <span style="color:#66d9ef">for</span> record in sales_records<span style="color:#f92672">:</span>
+        writer<span style="color:#f92672">.</span><span style="color:#a6e22e">writerow</span><span style="color:#f92672">([</span>
+            record<span style="color:#f92672">.</span><span style="color:#a6e22e">item_name</span><span style="color:#f92672">,</span>
+            record<span style="color:#f92672">.</span><span style="color:#a6e22e">price</span><span style="color:#f92672">,</span>
+            record<span style="color:#f92672">.</span><span style="color:#a6e22e">quantity</span><span style="color:#f92672">,</span>
+            record<span style="color:#f92672">.</span><span style="color:#a6e22e">total</span><span style="color:#f92672">,</span>
+            record<span style="color:#f92672">.</span><span style="color:#a6e22e">created_at</span><span style="color:#f92672">.</span><span style="color:#a6e22e">strftime</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">%</span>Y<span style="color:#f92672">-%</span>m<span style="color:#f92672">-%</span>d <span style="color:#f92672">%</span>H<span style="color:#f92672">:%</span>M<span style="color:#f92672">:%</span>S<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">])</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> ポインタを先頭に戻す
+    output<span style="color:#f92672">.</span><span style="color:#a6e22e">seek</span><span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>
+    
+    <span style="color:#960050;background-color:#1e0010">#</span> CSVをダウンロード用にレスポンス
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">send_file</span><span style="color:#f92672">(</span>
+        io<span style="color:#f92672">.</span><span style="color:#a6e22e">BytesIO</span><span style="color:#f92672">(</span>output<span style="color:#f92672">.</span><span style="color:#a6e22e">getvalue</span><span style="color:#f92672">().</span><span style="color:#a6e22e">encode</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span>utf<span style="color:#f92672">-</span>8<span style="color:#f92672">-</span>sig<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)),</span>
+        mimetype<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#39;</span>text<span style="color:#f92672">/</span>csv<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">,</span>
+        as_attachment<span style="color:#f92672">=</span>True<span style="color:#f92672">,</span>
+        download_name<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#39;</span>sales_records<span style="color:#f92672">.</span><span style="color:#a6e22e">csv</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+    <span style="color:#f92672">)</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> クローラー対策用ファイルへのアクセス用ルート
+<span style="color:#a6e22e">@app.route</span><span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">/</span>robots<span style="color:#f92672">.</span><span style="color:#a6e22e">txt</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+def <span style="color:#a6e22e">robots</span><span style="color:#f92672">():</span>
+    <span style="color:#66d9ef">return</span> send_from_directory<span style="color:#f92672">(</span>app<span style="color:#f92672">.</span><span style="color:#a6e22e">static_folder</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>robots<span style="color:#f92672">.</span><span style="color:#a6e22e">txt</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>__main__<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span>
+    app<span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>debug<span style="color:#f92672">=</span>False<span style="color:#f92672">)</span></code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ ベーステンプレート(base.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ja&#34;</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;{% block title %}模擬店会計App{% endblock %}&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">nav</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar navbar-expand-lg navbar-light bg-light&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container-fluid&#34;</span>&gt;
+            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar-brand ms-3&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/#&#34;</span>&gt;模擬店会計App.&lt;/<span style="color:#f92672">a</span>&gt;  <span style="color:#75715e">&lt;!-- 左側に余白を追加 --&gt;</span>
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar-toggler&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">data-bs-toggle</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;collapse&#34;</span> <span style="color:#a6e22e">data-bs-target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#navbarNav&#34;</span> <span style="color:#a6e22e">aria-controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbarNav&#34;</span> <span style="color:#a6e22e">aria-expanded</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Toggle navigation&#34;</span>&gt;
+                &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar-toggler-icon&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+            &lt;/<span style="color:#f92672">button</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;collapse navbar-collapse&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbarNav&#34;</span>&gt;
+                &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar-nav ms-auto me-3&#34;</span>&gt;  <span style="color:#75715e">&lt;!-- 右側に余白を追加 --&gt;</span>
+                    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-item&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-link&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span>&gt;売上計算&lt;/<span style="color:#f92672">a</span>&gt;
+                    &lt;/<span style="color:#f92672">li</span>&gt;
+                    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-item&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-link&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;sales&#39;) }}&#34;</span>&gt;売上履歴&lt;/<span style="color:#f92672">a</span>&gt;
+                    &lt;/<span style="color:#f92672">li</span>&gt;
+                    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-item&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-link&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;items&#39;) }}&#34;</span>&gt;商品一覧&lt;/<span style="color:#f92672">a</span>&gt;
+                    &lt;/<span style="color:#f92672">li</span>&gt;
+                    &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-item&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-link&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;dashboard&#39;) }}&#34;</span>&gt;売上ダッシュボード&lt;/<span style="color:#f92672">a</span>&gt;
+                    &lt;/<span style="color:#f92672">li</span>&gt;
+
+                &lt;/<span style="color:#f92672">ul</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">nav</span>&gt;
+
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container mt-4&#34;</span>&gt;
+        {% block content %}
+        <span style="color:#75715e">&lt;!-- 子テンプレートでコンテンツを定義 --&gt;</span>
+        {% endblock %}
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.jquery.com/jquery-3.6.0.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt; 
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 売上計算画面(index.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span>&gt;売上計算&lt;/<span style="color:#f92672">h1</span>&gt;
+
+    <span style="color:#75715e">&lt;!-- {% if message %}
+</span><span style="color:#75715e">        &lt;div class=&#34;alert alert-warning&#34;&gt;{{ message }}&lt;/div&gt;
+</span><span style="color:#75715e">    {% endif %} --&gt;</span>
+
+    {% if items %}
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mb-3&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;margin-bottom: 20px;&#34;</span>&gt; <span style="color:#75715e">&lt;!-- 下にマージンを追加 --&gt;</span>
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-row&#34;</span>&gt;
+                {% for item in items %}
+                    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group col-md-3 mb-2&#34;</span>&gt; <span style="color:#75715e">&lt;!-- 列の幅を指定し、行間にマージンを追加 --&gt;</span>
+                        &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item_{{ item.id }}&#34;</span>&gt;{{ item.name }} (¥{{ item.price }})&lt;/<span style="color:#f92672">label</span>&gt;
+                        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-group&#34;</span>&gt;
+                            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;quantities[{{ item.id }}]&#34;</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control text-center&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item_{{ item.id }}&#34;</span> <span style="color:#a6e22e">onchange</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;validateQuantity({{ item.id }})&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;max-width: 80px;&#34;</span>&gt; <span style="color:#75715e">&lt;!-- 幅を指定 --&gt;</span>
+                            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-group-append&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;margin-left: 5px;&#34;</span>&gt; <span style="color:#75715e">&lt;!-- 左にマージンを追加 --&gt;</span>
+                                &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changeQuantity({{ item.id }}, -1)&#34;</span>&gt;ー&lt;/<span style="color:#f92672">button</span>&gt;
+                                &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changeQuantity({{ item.id }}, 1)&#34;</span>&gt;+&lt;/<span style="color:#f92672">button</span>&gt;
+                            &lt;/<span style="color:#f92672">div</span>&gt;
+                        &lt;/<span style="color:#f92672">div</span>&gt;
+                    &lt;/<span style="color:#f92672">div</span>&gt;
+                {% endfor %}
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;margin-top: 20px;&#34;</span>&gt;合計金額を計算&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">form</span>&gt;
+    {% else %}
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alert alert-info&#34;</span>&gt;
+            「商品一覧」ページから商品を登録してください &gt;&gt; 
+            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;items&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alert-link&#34;</span>&gt;商品一覧ページへ&lt;/<span style="color:#f92672">a</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    {% endif %}
+
+    &lt;<span style="color:#f92672">br</span>&gt; <span style="color:#75715e">&lt;!-- フォームの間に隙間を作るための改行 --&gt;</span>
+    
+    {% if total &gt; 0 %}
+        &lt;<span style="color:#f92672">h4</span>&gt;購入された商品&lt;/<span style="color:#f92672">h4</span>&gt;
+        &lt;<span style="color:#f92672">table</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table table-bordered&#34;</span>&gt;
+            &lt;<span style="color:#f92672">thead</span>&gt;
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;商品名&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;単価&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;数量&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;合計金額&lt;/<span style="color:#f92672">th</span>&gt;
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+            &lt;/<span style="color:#f92672">thead</span>&gt;
+            &lt;<span style="color:#f92672">tbody</span>&gt;
+                {% for record in sales_records %}
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;{{ record.item_name }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;¥{{ record.price }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;{{ record.quantity }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;¥{{ record.total }}&lt;/<span style="color:#f92672">td</span>&gt;
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+                {% endfor %}
+            &lt;/<span style="color:#f92672">tbody</span>&gt;
+        &lt;/<span style="color:#f92672">table</span>&gt;
+        &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;合計金額: ¥{{ total }}&lt;/<span style="color:#f92672">h2</span>&gt;
+    {% endif %}
+    
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeQuantity</span>(<span style="color:#a6e22e">itemId</span>, <span style="color:#a6e22e">delta</span>) {
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">`item_</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">itemId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">=</span> parseInt(<span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">value</span>) <span style="color:#f92672">||</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">delta</span>;
+
+            <span style="color:#75715e">// 最小値は0に制限
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+                <span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            }
+
+            <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentQuantity</span>;
+        }
+
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">validateQuantity</span>(<span style="color:#a6e22e">itemId</span>) {
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">`item_</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">itemId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">=</span> parseInt(<span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">value</span>) <span style="color:#f92672">||</span> <span style="color:#ae81ff">0</span>;
+
+            <span style="color:#75715e">// 負の値が入力された場合は0にリセット
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">currentQuantity</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+                <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            }
+        }
+    &lt;/<span style="color:#f92672">script</span>&gt;
+{% endblock %}
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 売上履歴画面(sales.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;売上履歴&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary my-2&#34;</span>&gt;メインページに戻る&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;download_csv&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary my-2&#34;</span>&gt;CSVでダウンロード&lt;/<span style="color:#f92672">a</span>&gt; <span style="color:#75715e">&lt;!-- 追加されたボタン --&gt;</span>
+
+    {% if sales_records %}
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table-responsive&#34;</span>&gt;
+            &lt;<span style="color:#f92672">table</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table table-bordered table-striped mt-4&#34;</span>&gt;
+                &lt;<span style="color:#f92672">thead</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;thead-light&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">tr</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;商品名&lt;/<span style="color:#f92672">th</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;単価&lt;/<span style="color:#f92672">th</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;数量&lt;/<span style="color:#f92672">th</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;合計金額&lt;/<span style="color:#f92672">th</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;日時&lt;/<span style="color:#f92672">th</span>&gt;
+                        &lt;<span style="color:#f92672">th</span>&gt;操作&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;/<span style="color:#f92672">tr</span>&gt;
+                &lt;/<span style="color:#f92672">thead</span>&gt;
+                &lt;<span style="color:#f92672">tbody</span>&gt;
+                    {% for record in sales_records %}
+                    &lt;<span style="color:#f92672">tr</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;{{ record.item_name }}&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;¥{{ record.price }}&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;{{ record.quantity }}&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;¥{{ record.total }}&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;{{ record.created_at.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;) }}&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;
+                            &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;delete&#39;, id=record.id) }}&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;d-inline&#34;</span>&gt;
+                                &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-danger btn-sm&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;return confirm(&#39;本当に削除しますか？&#39;)&#34;</span>&gt;削除&lt;/<span style="color:#f92672">button</span>&gt;
+                            &lt;/<span style="color:#f92672">form</span>&gt;
+                        &lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;/<span style="color:#f92672">tr</span>&gt;
+                    {% endfor %}
+                &lt;/<span style="color:#f92672">tbody</span>&gt;
+            &lt;/<span style="color:#f92672">table</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;&lt;<span style="color:#f92672">strong</span>&gt;総売上：¥{{ total_sales }}&lt;/<span style="color:#f92672">strong</span>&gt;&lt;/<span style="color:#f92672">p</span>&gt;
+    {% else %}
+        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;売上履歴はありません&lt;/<span style="color:#f92672">p</span>&gt;
+    {% endif %}
+{% endblock %}
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 商品一覧画面(items.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App.{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;商品一覧&lt;/<span style="color:#f92672">h1</span>&gt;
+
+    {% if items %}
+        &lt;<span style="color:#f92672">table</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table table-striped mt-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">thead</span>&gt;
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;ID&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;商品名&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;価格&lt;/<span style="color:#f92672">th</span>&gt;
+                    &lt;<span style="color:#f92672">th</span>&gt;操作&lt;/<span style="color:#f92672">th</span>&gt;
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+            &lt;/<span style="color:#f92672">thead</span>&gt;
+            &lt;<span style="color:#f92672">tbody</span>&gt;
+                {% for item in items %}
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;{{ item.id }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;{{ item.name }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;¥{{ item.price }}&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;edit_item&#39;, id=item.id) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-warning btn-sm&#34;</span>&gt;編集&lt;/<span style="color:#f92672">a</span>&gt;
+                        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;delete_item&#39;, id=item.id) }}&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display:inline;&#34;</span>&gt;
+                            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-danger btn-sm&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;return confirm(&#39;本当に削除しますか？&#39;)&#34;</span>&gt;削除&lt;/<span style="color:#f92672">button</span>&gt;
+                        &lt;/<span style="color:#f92672">form</span>&gt;
+                    &lt;/<span style="color:#f92672">td</span>&gt;
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+                {% endfor %}
+            &lt;/<span style="color:#f92672">tbody</span>&gt;
+        &lt;/<span style="color:#f92672">table</span>&gt;
+    {% else %}
+        &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alert alert-info&#34;</span>&gt;商品が登録されていません&lt;/<span style="color:#f92672">p</span>&gt;
+    {% endif %}
+
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary&#34;</span>&gt;メインページへ戻る&lt;/<span style="color:#f92672">a</span>&gt;
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;add_item&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary&#34;</span>&gt;商品を追加&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+{% endblock %}
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 商品編集画面(edit_item.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App.{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;商品を編集&lt;/<span style="color:#f92672">h1</span>&gt;
+
+    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mb-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item_name&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-label&#34;</span>&gt;商品名:&lt;/<span style="color:#f92672">label</span>&gt;
+            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item_name&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item_name&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ item.name }}&#34;</span> <span style="color:#a6e22e">required</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+        
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mb-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-label&#34;</span>&gt;価格:&lt;/<span style="color:#f92672">label</span>&gt;
+            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ item.price }}&#34;</span> <span style="color:#a6e22e">required</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary&#34;</span>&gt;更新&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary&#34;</span>&gt;戻る&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">form</span>&gt;
+{% endblock %}
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 商品追加画面(add_item.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App.{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;商品を追加&lt;/<span style="color:#f92672">h1</span>&gt;
+
+    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group mt-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt;商品名:&lt;/<span style="color:#f92672">label</span>&gt;
+            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">required</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group mt-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span>&gt;価格:&lt;/<span style="color:#f92672">label</span>&gt;
+            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-control&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">required</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary mt-3&#34;</span>&gt;追加&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">form</span>&gt;
+
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;items&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary mt-3&#34;</span>&gt;商品一覧に戻る&lt;/<span style="color:#f92672">a</span>&gt;
+{% endblock %}
+  </code></pre></div>
+  <br>
+  <div style="text-align: center;">
+⇩⇩⇩ 売上ダッシュボード画面(dashboard.html) ⇩⇩⇩
+  </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;base.html&#34; %}
+
+{% block title %}模擬店会計App.{% endblock %}
+
+{% block content %}
+    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;売上ダッシュボード&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;index&#39;) }}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-secondary my-2&#34;</span>&gt;メインページに戻る&lt;/<span style="color:#f92672">a</span>&gt;
+
+    <span style="color:#75715e">&lt;!-- カードに累計数量と合計金額を表示 --&gt;</span>
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;row&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card text-white bg-primary mt-2&#34;</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-header&#34;</span>&gt;累計&lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-body&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">h4</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-title&#34;</span>&gt;{{ total_quantity }} 個&lt;/<span style="color:#f92672">h4</span>&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-3&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card text-white bg-success mt-2&#34;</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-header&#34;</span>&gt;合計金額&lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-body&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">h4</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-title&#34;</span>&gt;¥{{ total_sales }}&lt;/<span style="color:#f92672">h4</span>&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    <span style="color:#75715e">&lt;!-- グラフで 売上情報を可視化 --&gt;</span>
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;row&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-lg-6&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+                &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;売上数量（累計）&lt;/<span style="color:#f92672">h2</span>&gt;
+                &lt;<span style="color:#f92672">canvas</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cumulativeSalesChart&#34;</span>&gt;&lt;/<span style="color:#f92672">canvas</span>&gt;    
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-lg-6&#34;</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-4&#34;</span>&gt;1時間ごとの売上数量&lt;/<span style="color:#f92672">h2</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+                &lt;<span style="color:#f92672">canvas</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hourlySalesChart&#34;</span>&gt;&lt;/<span style="color:#f92672">canvas</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mt-2&#34;</span>&gt;商品の人気&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;row&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-lg-6&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+                &lt;<span style="color:#f92672">canvas</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;productSalesChart&#34;</span>&gt;&lt;/<span style="color:#f92672">canvas</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+<span style="color:#75715e">&lt;!-- Chart.js を読み込み --&gt;</span>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/chart.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+    <span style="color:#75715e">// 累計売上数量を表示する折れ線グラフ
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cumulativeCtx</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;cumulativeSalesChart&#39;</span>).<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cumulativeSalesChart</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(<span style="color:#a6e22e">cumulativeCtx</span>, {
+        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">labels</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">sorted_hours</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span> }},
+            <span style="color:#a6e22e">datasets</span><span style="color:#f92672">:</span> [{
+                <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;数量&#39;</span>,
+                <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">cumulative_quantities</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span> }},
+                <span style="color:#a6e22e">borderColor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;rgba(153, 102, 255, 1)&#39;</span>,
+                <span style="color:#a6e22e">borderWidth</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+                <span style="color:#a6e22e">fill</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+            }]
+        },
+        <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">responsive</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+            <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">legend</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;top&#39;</span>,
+                }
+            },
+            <span style="color:#a6e22e">scales</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> {
+                        <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                        <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;時間&#39;</span>
+                    }
+                },
+                <span style="color:#a6e22e">y</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> {
+                        <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                        <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;数量&#39;</span>
+                    }
+                }
+            }
+        }
+    });
+    
+    <span style="color:#75715e">// 単位時間ごとの売上数量を表示する棒グラフ
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hourlyCtx</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;hourlySalesChart&#39;</span>).<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hourlySalesChart</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(<span style="color:#a6e22e">hourlyCtx</span>, {
+        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bar&#39;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">labels</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">sorted_hours</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span> }},
+            <span style="color:#a6e22e">datasets</span><span style="color:#f92672">:</span> [{
+                <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;数量&#39;</span>,
+                <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">quantities</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span> }},
+                <span style="color:#a6e22e">backgroundColor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;rgba(75, 192, 192, 0.2)&#39;</span>,
+                <span style="color:#a6e22e">borderColor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;rgba(75, 192, 192, 1)&#39;</span>,
+                <span style="color:#a6e22e">borderWidth</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
+            }]
+        },
+        <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">responsive</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+            <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">legend</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;top&#39;</span>,
+                }
+            },
+            <span style="color:#a6e22e">scales</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> {
+                        <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                        <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;時間&#39;</span>
+                    }
+                },
+                <span style="color:#a6e22e">y</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> {
+                        <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+                        <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;数量&#39;</span>
+                    }
+                }
+            }
+        }
+    });
+
+    <span style="color:#75715e">// 円グラフを描画 (売れた商品の割合)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">productCtx</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;productSalesChart&#39;</span>).<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">productSalesChart</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(<span style="color:#a6e22e">productCtx</span>, {
+        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;pie&#39;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">labels</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">product_names</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span><span style="color:#f92672">|</span><span style="color:#66d9ef">default</span>(<span style="color:#e6db74">&#39;[]&#39;</span>) }},
+            <span style="color:#a6e22e">datasets</span><span style="color:#f92672">:</span> [{
+                <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;数量&#39;</span>,
+                <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">product_quantities</span><span style="color:#f92672">|</span><span style="color:#a6e22e">tojson</span><span style="color:#f92672">|</span><span style="color:#66d9ef">default</span>(<span style="color:#e6db74">&#39;[]&#39;</span>) }},
+                <span style="color:#a6e22e">backgroundColor</span><span style="color:#f92672">:</span> [
+                    <span style="color:#e6db74">&#39;rgba(255, 99, 132, 0.2)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(54, 162, 235, 0.2)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(255, 206, 86, 0.2)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(75, 192, 192, 0.2)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(153, 102, 255, 0.2)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(255, 159, 64, 0.2)&#39;</span>
+                ],
+                <span style="color:#a6e22e">borderColor</span><span style="color:#f92672">:</span> [
+                    <span style="color:#e6db74">&#39;rgba(255, 99, 132, 1)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(54, 162, 235, 1)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(255, 206, 86, 1)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(75, 192, 192, 1)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(153, 102, 255, 1)&#39;</span>,
+                    <span style="color:#e6db74">&#39;rgba(255, 159, 64, 1)&#39;</span>
+                ],
+                <span style="color:#a6e22e">borderWidth</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
+            }]
+        },
+        <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">responsive</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+            <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">legend</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;top&#39;</span>,
+                },
+                <span style="color:#a6e22e">datalabels</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">formatter</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">ctx</span>) =&gt; {
+                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">chart</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">datasets</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) =&gt; <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>);
+                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">percentage</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>).<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span>;
+                        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">percentage</span>;
+                    },
+                    <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#777&#39;</span>,
+                    <span style="color:#a6e22e">font</span><span style="color:#f92672">:</span> {
+                        <span style="color:#a6e22e">weight</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bold&#39;</span>
+                    }
+                }
+            }
+        },
+        <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">ChartDataLabels</span>] <span style="color:#75715e">// Chart.jsのプラグインとしてdatalabelsを有効化
+</span><span style="color:#75715e"></span>    });
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+{% endblock %}
+  </code></pre></div>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/"
+      aria-label="Next Article"
+      ><i class="bi bi-arrow-right-circle-fill"></i
+    ></a>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/">簡易な会計アプリを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/">オートメーションサーバでオートバランスできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/02/25/cannot_use_keyboard_yoga670/">ノートPCのキーボードが入力できない</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

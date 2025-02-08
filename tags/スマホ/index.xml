@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 18 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OPPO Reno8 Pro 5G 中国版とグローバル版、実はかなり違う</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/oppo_reno8_pro_5g_chinese_ver_and_global_ver/</link>
       <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/18/oppo_reno8_pro_5g_chinese_ver_and_global_ver/</guid>
       <description>OPPO Reno8 Pro 5G（グローバル版）のケースを購入したら&amp;hellip; 本体色と合ったオシャレなスマホケースを付けたいと、アリエクでケースを注文しました。購入したのはこちらのケース。数週間待ってたら届きました。
   ☝　届いたケース（オシャレでうれしい）  ワクワクしてケースを付けてみると&amp;hellip;
 なんだこれ！合わないじゃねーか 笑笑( ;∀;)
@@ -30,10 +30,10 @@
     
     <item>
       <title>OPPO Reno8 Pro 5G（中国版）レビュー</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/oppo_reno8_pro_5g_review/</link>
       <pubDate>Tue, 06 Jun 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/06/06/oppo_reno8_pro_5g_review/</guid>
       <description>OPPO Reno8 Pro 5G（中国版） を買った理由 　前回使っていたMoto G Pro（Motorola社製）のNFCが壊れてしまったので、新しいスマホを買うことにしました。
 　スペックとデザインを見て、納得のいくスマホを色々と探していたらOPPO Reno9にたどり着きました。アリエクでReno9とReno8 Proが同じくらいの値段（約5万円）で売っていたので、Reno8 Proを買うことにしました。
 外観 　Aliexpress Srandard Shipping で2週間くらいで届きました。もう少し時間がかかると思っていたので驚きました。
@@ -45,10 +45,10 @@
     
     <item>
       <title>Motoメモの保存先</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/moto-memo_buckup/</link>
       <pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/moto-memo_buckup/</guid>
       <description>Motoメモについて 　Motoメモ は motorola製 のスタイラスペン付きスマホについている、純正メモアプリです。
 　私は moto g proというスタイラスペン付きスマホを使っていて、授業や趣味のメモにかなり重宝しています(&amp;lsquo;ω&amp;rsquo;)
 　大事なこともたくさんメモしているので、もしスマホを紛失したり壊すと大変です！
@@ -62,10 +62,10 @@ PC\moto g pro\内部共有ストレージ\Android\data\com.motorola.stylus\files
     
     <item>
       <title>自作アプリでBluetooth接続できない！[Runtime Error]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</link>
       <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/</guid>
       <description>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
 　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。
   ☝　Bluetooth接続しようと「ここをタッチしてRCに接続」ボタンを押したらエラーが....  　説明をよく読むと、Androidの権限が必要みたいです。

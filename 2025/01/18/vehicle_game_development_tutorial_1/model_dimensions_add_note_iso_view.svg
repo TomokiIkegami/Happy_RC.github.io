@@ -1,0 +1,1896 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.2"
+   height="210mm"
+   width="297mm"
+   viewBox="0 0 2970 2100"
+   id="svg1460"
+   sodipodi:docname="model_dimensions_add_note_iso_view.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1462"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.8410081"
+     inkscape:cx="765.15315"
+     inkscape:cy="288.34443"
+     inkscape:window-width="1280"
+     inkscape:window-height="778"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3332"
+       enabled="false" />
+    <inkscape:grid
+       type="axonomgrid"
+       id="grid7087" />
+  </sodipodi:namedview>
+  <title
+     id="title2">FreeCAD SVG Export</title>
+  <desc
+     id="desc4">Drawing page: Page exported from FreeCAD document: car</desc>
+  <defs
+     id="defs6">
+    <marker
+       style="overflow:visible"
+       id="marker8344-37-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path8342-4-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker8344-0-1-6"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path8342-1-4-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker8344-37-1-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path8342-4-3-7" />
+    </marker>
+  </defs>
+  <g
+     id="Page"
+     inkscape:label="TechDraw"
+     inkscape:groupmode="layer">
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g292"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m 468.406,175.562 c 7.957,-4.593 12.427,-14.473 12.427,-27.466 0,-19.815 -10.337,-43.646 -26.191,-60.3821 C 438.788,70.9781 420.54,64.6338 408.406,71.6393 l -28.284,16.3299 c 12.134,-7.0055 30.382,-0.6612 46.236,16.0748 15.853,16.736 26.19,40.567 26.19,60.382 0,12.993 -4.47,22.873 -12.426,27.466 -16.569,9.566 -43.432,-5.943 -60,-34.641 L 185.563,269.58 c -16.568,-28.698 -43.431,-44.207 -60,-34.641 l -28.2838,16.33 c -1.2432,0.717 -2.408,1.568 -3.4876,2.547 L -424.264,-194.833 -141.421,-358.132 376.634,90.5172 -141.421,-358.132 -424.264,-194.833 v 100.7815 c -5.966,-1.0088 -11.384,-0.1917 -15.858,2.3914 l -28.284,16.33 c -7.957,4.5937 -12.427,14.4737 -12.427,27.4666 0,19.8145 10.337,43.64597 26.191,60.3818 15.854,16.7358 34.102,23.0801 46.236,16.0746 l 28.284,-16.3299 c 4.474,-2.58315 7.891,-6.86692 10,-12.537593 L 87.2792,263.806 c -6.6066,17.763 0.6048,45.91 17.3698,67.797 16.765,21.887 38.615,31.68 52.63,23.589 l 28.284,-16.33 c 7.957,-4.594 12.427,-14.474 12.427,-27.467 0,-12.993 -4.47,-28.034 -12.427,-41.815 l 194.559,-112.329 44.142,-25.485 -44.142,25.485 c 16.568,28.698 43.431,44.207 60,34.641 l 28.284,-16.33"
+         vector-effect="non-scaling-stroke"
+         id="path290" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g296"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="M -424.264,-194.833 93.7916,253.816 c -2.7957,2.536 -4.9946,5.909 -6.5124,9.99 L -370.122,-0.274593 -398.406,-16.6045 c -4.272,-16.4176 -13.776,-32.879 -25.858,-44.7872 V -94.0515 -194.833"
+         vector-effect="non-scaling-stroke"
+         id="path294" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g300"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m -398.406,-16.6045 c 5.449,20.94195 1.559,38.5239 -10,45.1974 -12.134,7.0055 -30.382,0.6612 -46.236,-16.0746 -15.854,-16.73583 -26.191,-40.5673 -26.191,-60.3818 0,-12.9929 4.47,-22.8729 12.427,-27.4666 11.559,-6.6735 28.73,-1.2514 44.142,13.9384 12.082,11.9082 21.586,28.3696 25.858,44.7872"
+         vector-effect="non-scaling-stroke"
+         id="path298" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g304"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m 157.279,355.192 c 7.957,-4.594 12.427,-14.474 12.427,-27.467 0,-19.815 -10.337,-43.646 -26.191,-60.382 -15.854,-16.736 -34.102,-23.08 -46.2358,-16.074 -1.2432,0.717 -2.408,1.568 -3.4876,2.547 -2.7957,2.536 -4.9946,5.909 -6.5124,9.99 -6.6066,17.763 0.6048,45.91 17.3698,67.797 16.765,21.887 38.615,31.68 52.63,23.589"
+         vector-effect="non-scaling-stroke"
+         id="path302" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g308"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m 157.279,355.192 28.284,-16.33 c 7.957,-4.594 12.427,-14.474 12.427,-27.467 0,-12.993 -4.47,-28.034 -12.427,-41.815 -16.568,-28.698 -43.431,-44.207 -60,-34.641 l -28.2838,16.33 c 12.1338,-7.006 30.3818,-0.662 46.2358,16.074 15.854,16.736 26.191,40.567 26.191,60.382 0,12.993 -4.47,22.873 -12.427,27.467"
+         vector-effect="non-scaling-stroke"
+         id="path306" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g312"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m 468.406,175.562 c 7.957,-4.593 12.427,-14.473 12.427,-27.466 0,-19.815 -10.337,-43.646 -26.191,-60.3821 C 438.788,70.9781 420.54,64.6338 408.406,71.6393 l -28.284,16.3299 c 12.134,-7.0055 30.382,-0.6612 46.236,16.0748 15.853,16.736 26.19,40.567 26.19,60.382 0,12.993 -4.47,22.873 -12.426,27.466 l 28.284,-16.33"
+         vector-effect="non-scaling-stroke"
+         id="path310" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g316"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m -398.406,-16.6045 28.284,16.329907 c -2.109,5.670673 -5.526,9.954443 -10,12.537593 l -28.284,16.3299 c 11.559,-6.6735 15.449,-24.25545 10,-45.1974"
+         vector-effect="non-scaling-stroke"
+         id="path314" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="none"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       font-style="normal"
+       id="g320"
+       style="fill-rule:evenodd;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel">
+      <path
+         fill-rule="evenodd"
+         d="m -468.406,-75.3301 28.284,-16.33 c 4.474,-2.5831 9.892,-3.4002 15.858,-2.3914 v 32.6598 c -15.412,-15.1898 -32.583,-20.6119 -44.142,-13.9384"
+         vector-effect="non-scaling-stroke"
+         id="path318" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g324"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -141.421,-194.833 -424.264,-31.5336"
+         vector-effect="none"
+         id="path322" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g328"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -141.421,-358.132 v 163.299"
+         vector-effect="none"
+         id="path326" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g332"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -424.264,-61.3917 v 29.8581"
+         vector-effect="none"
+         id="path330" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g336"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 185.563,269.58 -44.142,25.485"
+         vector-effect="none"
+         id="path334" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g340"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -141.421,-194.833 424.264,131.766"
+         vector-effect="none"
+         id="path338" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g344"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -424.264,-31.5336 25.858,14.9291"
+         vector-effect="none"
+         id="path342" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g348"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 87.2792,263.806 54.1418,31.259"
+         vector-effect="none"
+         id="path346" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g352"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 376.634,90.5172 47.63,41.2488"
+         vector-effect="none"
+         id="path350" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g356"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 93.7916,253.816 47.6294,41.249"
+         vector-effect="none"
+         id="path354" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g360"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 125.563,234.939 c -16.568,9.565 -16.568,40.584 0,69.282 16.569,28.697 43.432,44.206 60,34.641"
+         vector-effect="none"
+         id="path358" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g364"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 380.122,87.9692 c -16.569,9.5658 -16.569,40.5848 0,69.2818"
+         vector-effect="none"
+         id="path362" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g368"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 408.406,71.6393 c -16.568,9.5658 -16.568,40.5847 0,69.2817 16.569,28.698 43.432,44.207 60,34.641"
+         vector-effect="none"
+         id="path366" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g372"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -452.548,-64.1934 c 0,-12.9929 4.47,-22.873 12.426,-27.4667"
+         vector-effect="none"
+         id="path370" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g376"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -424.264,-94.0515 c 15.412,2.6061 32.583,17.0119 44.142,37.0325 11.559,20.0205 15.449,42.0943 10,56.744407"
+         vector-effect="none"
+         id="path374" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g380"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -380.122,12.263 c -12.134,7.0055 -30.382,0.6611 -46.236,-16.07466 -15.853,-16.73584 -26.19,-40.56724 -26.19,-60.38174"
+         vector-effect="none"
+         id="path378" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g384"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -197.99,-211.163 c 0,-12.993 4.47,-22.873 12.427,-27.466"
+         vector-effect="none"
+         id="path382" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g388"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -185.563,-238.629 c 16.568,-9.566 43.431,5.943 60,34.641 16.568,28.697 16.568,59.716 0,69.282"
+         vector-effect="none"
+         id="path386" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g392"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -125.563,-134.706 c -12.134,7.005 -30.383,0.661 -46.236,-16.075 -15.854,-16.736 -26.191,-40.567 -26.191,-60.382"
+         vector-effect="none"
+         id="path390" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g396"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -169.706,-227.493 c 0,-12.993 4.47,-22.873 12.427,-27.466"
+         vector-effect="none"
+         id="path394" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g400"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -157.279,-254.959 c 16.568,-9.566 43.431,5.943 59.9998,34.641 16.5685,28.697 16.5685,59.716 0,69.282"
+         vector-effect="none"
+         id="path398" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g404"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -97.2792,-151.036 c -12.1338,7.005 -30.3818,0.661 -46.2358,-16.075 -15.854,-16.736 -26.191,-40.567 -26.191,-60.382"
+         vector-effect="none"
+         id="path402" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g408"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -157.279,-254.959 -28.284,16.33"
+         vector-effect="none"
+         id="path406" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g412"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -97.2792,-151.036 -28.2838,16.33"
+         vector-effect="none"
+         id="path410" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g416"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -141.421,-358.132 -282.843,163.299"
+         vector-effect="none"
+         id="path414" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g420"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -424.264,-194.833 V -61.3917"
+         vector-effect="none"
+         id="path418" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g424"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 424.264,131.766 185.563,269.58"
+         vector-effect="none"
+         id="path422" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g428"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -398.406,-16.6045 87.2792,263.806"
+         vector-effect="none"
+         id="path426" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g432"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -141.421,-358.132 376.634,90.5172"
+         vector-effect="none"
+         id="path430" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g436"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -424.264,-194.833 93.7916,253.816"
+         vector-effect="none"
+         id="path434" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g440"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 197.99,311.395 c 0,-19.815 -10.337,-43.646 -26.191,-60.382 -15.853,-16.736 -34.102,-23.08 -46.236,-16.074"
+         vector-effect="none"
+         id="path438" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g444"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 185.563,338.862 c 7.957,-4.594 12.427,-14.474 12.427,-27.467"
+         vector-effect="none"
+         id="path442" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g448"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 169.706,327.725 c 0,-19.815 -10.337,-43.646 -26.191,-60.382 -15.854,-16.736 -34.102,-23.08 -46.2358,-16.074"
+         vector-effect="none"
+         id="path446" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g452"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 97.2792,251.269 c -16.5685,9.565 -16.5685,40.584 0,69.282 16.5688,28.697 43.4318,44.206 59.9998,34.641"
+         vector-effect="none"
+         id="path450" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g456"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 157.279,355.192 c 7.957,-4.594 12.427,-14.474 12.427,-27.467"
+         vector-effect="none"
+         id="path454" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g460"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 452.548,164.426 c 0,-19.815 -10.337,-43.646 -26.19,-60.382 C 410.504,87.308 392.256,80.9637 380.122,87.9692"
+         vector-effect="none"
+         id="path458" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g464"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 380.122,157.251 c 16.568,28.698 43.431,44.207 60,34.641"
+         vector-effect="none"
+         id="path462" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g468"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 440.122,191.892 c 7.956,-4.593 12.426,-14.473 12.426,-27.466"
+         vector-effect="none"
+         id="path466" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g472"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 480.833,148.096 c 0,-19.815 -10.337,-43.646 -26.191,-60.3821 C 438.788,70.9781 420.54,64.6338 408.406,71.6393"
+         vector-effect="none"
+         id="path470" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g476"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 468.406,175.562 c 7.957,-4.593 12.427,-14.473 12.427,-27.466"
+         vector-effect="none"
+         id="path474" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g480"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -440.122,-91.6601 c 4.474,-2.5831 9.892,-3.4002 15.858,-2.3914"
+         vector-effect="none"
+         id="path478" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g484"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -370.122,-0.274593 c -2.109,5.670673 -5.526,9.954443 -10,12.537593"
+         vector-effect="none"
+         id="path482" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g488"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -480.833,-47.8635 c 0,-12.9929 4.47,-22.8729 12.427,-27.4666"
+         vector-effect="none"
+         id="path486" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g492"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -468.406,-75.3301 c 16.568,-9.5659 43.431,5.9434 60,34.641 16.568,28.6975 16.568,59.7162 0,69.282"
+         vector-effect="none"
+         id="path490" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g496"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -408.406,28.5929 c -12.134,7.0055 -30.382,0.6612 -46.236,-16.0746 -15.854,-16.73583 -26.191,-40.5673 -26.191,-60.3818"
+         vector-effect="none"
+         id="path494" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g500"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 157.279,355.192 28.284,-16.33"
+         vector-effect="none"
+         id="path498" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g504"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 97.2792,251.269 28.2838,-16.33"
+         vector-effect="none"
+         id="path502" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g508"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 408.406,71.6393 380.122,87.9692"
+         vector-effect="none"
+         id="path506" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g512"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 468.406,175.562 -28.284,16.33"
+         vector-effect="none"
+         id="path510" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g516"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M -408.406,28.5929 -380.122,12.263"
+         vector-effect="none"
+         id="path514" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="7"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g520"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -468.406,-75.3301 28.284,-16.33"
+         vector-effect="none"
+         id="path518" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g524"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect522" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g528"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 284.946,-356.335 h -50 l -117.34,222.527"
+         vector-effect="none"
+         id="path526" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="rotate(117.80294,983.91541,895.65167)"
+       fill="#000000"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g532"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 0,0 -50,-8.33333 V 8.33333 L 0,0"
+         vector-effect="none"
+         id="path530" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g536"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 380.303,-356.335 c 0,26.332 -21.346,47.679 -47.678,47.679 -26.332,0 -47.679,-21.347 -47.679,-47.679 0,-26.332 21.347,-47.678 47.679,-47.678 26.332,0 47.678,21.346 47.678,47.678"
+         vector-effect="none"
+         id="path534" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2437.58,174.556)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g540"
+       style="fill-rule:evenodd">
+      <text
+         font-family="osifont"
+         fill-opacity="1"
+         y="69.843803"
+         font-size="50px"
+         xml:space="preserve"
+         font-weight="400"
+         stroke="none"
+         fill="#000000"
+         x="4"
+         font-style="normal"
+         id="text538">1</text>
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g544"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect542" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g548"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 610.905,-106.731 h -50 L 459.496,93.2687"
+         vector-effect="none"
+         id="path546" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="rotate(116.88699,1082.7031,1126.4198)"
+       fill="#000000"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g552"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 0,0 -50,-8.33333 V 8.33333 L 0,0"
+         vector-effect="none"
+         id="path550" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g556"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 708.087,-106.731 c 0,26.836 -21.755,48.5911 -48.591,48.5911 -26.836,0 -48.591,-21.7551 -48.591,-48.5911 0,-26.837 21.755,-48.592 48.591,-48.592 26.836,0 48.591,21.755 48.591,48.592"
+         vector-effect="none"
+         id="path554" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2761.34,424.16)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g560"
+       style="fill-rule:evenodd">
+      <text
+         font-family="osifont"
+         fill-opacity="1"
+         y="69.843803"
+         font-size="50px"
+         xml:space="preserve"
+         font-weight="400"
+         stroke="none"
+         fill="#000000"
+         x="4"
+         font-style="normal"
+         id="text558">2</text>
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g564"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect562" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g568"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 327.948,56.5681 h -50 L 176.653,256.568"
+         vector-effect="none"
+         id="path566" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="rotate(116.8609,891.00656,1121.5747)"
+       fill="#000000"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g572"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 0,0 -50,-8.33333 V 8.33333 L 0,0"
+         vector-effect="none"
+         id="path570" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g576"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 425.359,56.5681 c 0,26.8994 -21.806,48.7059 -48.706,48.7059 -26.899,0 -48.705,-21.8065 -48.705,-48.7059 0,-26.8995 21.806,-48.70579 48.705,-48.70579 26.9,0 48.706,21.80629 48.706,48.70579"
+         vector-effect="none"
+         id="path574" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2478.14,587.459)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g580"
+       inkscape:label="g580"
+       style="fill-rule:evenodd">
+      <text
+         font-family="osifont"
+         fill-opacity="1"
+         y="69.843803"
+         font-size="50px"
+         xml:space="preserve"
+         font-weight="400"
+         stroke="none"
+         fill="#000000"
+         x="4"
+         font-style="normal"
+         id="text578">3</text>
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g584"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect582" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g588"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 53.7393,-420.318 h -50 l -101.0185,200"
+         vector-effect="none"
+         id="path586" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="rotate(116.79797,900.4229,799.73497)"
+       fill="#000000"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g592"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 0,0 -50,-8.33333 V 8.33333 L 0,0"
+         vector-effect="none"
+         id="path590" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g596"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m 151.702,-420.318 c 0,27.051 -21.929,48.981 -48.981,48.981 -27.0519,0 -48.9817,-21.93 -48.9817,-48.981 0,-27.052 21.9298,-48.982 48.9817,-48.982 27.052,0 48.981,21.93 48.981,48.982"
+         vector-effect="none"
+         id="path594" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2203.39,110.573)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g600"
+       style="fill-rule:evenodd">
+      <text
+         font-family="osifont"
+         fill-opacity="1"
+         y="69.843803"
+         font-size="50px"
+         xml:space="preserve"
+         font-weight="400"
+         stroke="none"
+         fill="#000000"
+         x="4"
+         font-style="normal"
+         id="text598">4</text>
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g604"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect602" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g608"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -228.965,-257.019 h -50 l -101.157,200"
+         vector-effect="none"
+         id="path606" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="matrix(-0.451337,0.892353,-0.892353,-0.451337,1737.37,519.872)"
+       fill="#000000"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g612"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="M 0,0 -50,-8.33333 V 8.33333 L 0,0"
+         vector-effect="none"
+         id="path610" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       fill-opacity="1"
+       stroke-linecap="round"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="3.5"
+       transform="translate(2117.5,576.891)"
+       fill="#ffffff"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g616"
+       style="fill-rule:evenodd">
+      <path
+         fill-rule="evenodd"
+         d="m -131.279,-257.019 c 0,26.975 -21.867,48.843 -48.843,48.843 -26.975,0 -48.843,-21.868 -48.843,-48.843 0,-26.976 21.868,-48.843 48.843,-48.843 26.976,0 48.843,21.867 48.843,48.843"
+         vector-effect="none"
+         id="path614" />
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(1920.95,273.872)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g620"
+       style="fill-rule:evenodd">
+      <text
+         font-family="osifont"
+         fill-opacity="1"
+         y="69.843803"
+         font-size="50px"
+         xml:space="preserve"
+         font-weight="400"
+         stroke="none"
+         fill="#000000"
+         x="4"
+         font-style="normal"
+         id="text618">5</text>
+    </g>
+    <g
+       font-family="'MS UI Gothic'"
+       stroke-linecap="square"
+       font-size="31.75px"
+       font-weight="400"
+       stroke="#000000"
+       stroke-width="1"
+       transform="translate(845.514,1172.72)"
+       fill="none"
+       stroke-opacity="1"
+       font-style="normal"
+       stroke-linejoin="bevel"
+       id="g624"
+       style="fill-rule:evenodd">
+      <rect
+         y="0"
+         height="0"
+         width="0"
+         x="0"
+         id="rect622" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Annotation">
+    <path
+       style="fill:#999999;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:12, 6.00001, 3, 6.00001;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 1834.6575,463.7077 587.756,313.8563"
+       id="path8336-3"
+       sodipodi:nodetypes="cc" />
+    <text
+       font-family="osifont"
+       fill-opacity="1"
+       y="-521.05872"
+       font-size="50px"
+       xml:space="preserve"
+       font-weight="400"
+       stroke="none"
+       fill="#000000"
+       x="2204.1304"
+       font-style="normal"
+       id="text578-2"
+       style="display:inline;stroke-width:1.49999999;stroke-dasharray:none"
+       transform="rotate(29.042517)"><tspan
+         style="font-weight:bold;stroke:#ffffff;stroke-width:1.49999999;stroke-dasharray:none;stroke-opacity:1"
+         id="tspan40475">X Forward</tspan></text>
+    <text
+       font-family="osifont"
+       fill-opacity="1"
+       y="1592.6027"
+       font-size="50px"
+       xml:space="preserve"
+       font-weight="400"
+       stroke="none"
+       fill="#000000"
+       x="1576.3947"
+       font-style="normal"
+       id="text578-2-2"
+       style="display:inline;stroke-width:1.5;stroke-dasharray:none"
+       transform="rotate(-30.208641)"><tspan
+         style="font-weight:bold;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
+         id="tspan41413">Y Left</tspan></text>
+    <path
+       style="fill:#999999;stroke:#ff0000;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker8344-37-1)"
+       d="m 2127.7255,617.71196 217.075,115.74709"
+       id="path8340-48-5"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#999999;stroke:#55d400;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker8344-37-1-3)"
+       d="M 2127.7255,617.71196 2315.4817,509.43632"
+       id="path8340-48-5-9"
+       sodipodi:nodetypes="cc" />
+    <text
+       font-family="osifont"
+       fill-opacity="1"
+       y="379.11938"
+       font-size="50px"
+       xml:space="preserve"
+       font-weight="400"
+       stroke="none"
+       fill="#000000"
+       x="2138.7258"
+       font-style="normal"
+       id="text578-2-7-3-9-9"
+       style="display:inline;stroke:#ffffff;stroke-opacity:1;stroke-width:1.49999999;stroke-dasharray:none"
+       transform="rotate(0.12889358)"><tspan
+         style="font-weight:bold;stroke-width:1.49999999;stroke-dasharray:none"
+         id="tspan40473">Z Up</tspan></text>
+    <path
+       style="fill:#999999;stroke:#0066ff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker8344-0-1-6)"
+       d="M 2127.7255,617.71196 V 393.20493"
+       id="path8340-1-3-1" />
+    <path
+       style="fill:#999999;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:12, 6.00001, 3, 6.00001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 2258.9215,545.3575 1976.0786,708.6567"
+       id="path8336-4"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
