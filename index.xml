@@ -697,14 +697,5 @@ FreeCADでボディ形状作成 製作過程 　FreeCADのサーフェス機能�
 完成した3Dモデル 　出来上がった塗装イメージは下の画像のような感じです！</description>
     </item>
     
-    <item>
-      <title>Math Typesetting</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2019/03/08/math-typesetting/</link>
-      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2019/03/08/math-typesetting/</guid>
-      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
-    </item>
-    
   </channel>
 </rss>
