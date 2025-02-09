@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
   <title>
-     Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正] -  Happy RC Blog !
+     ARMOURY CRATE のインストールが途中で止まってしまう？ -  Happy RC Blog !
   </title>
   <meta name="theme-color" content="#a3001b" />
   <meta charset="utf-8" />
@@ -35,116 +35,49 @@
   </div>
   <div class="page-title-and-info" style="text-align: center">
     <h1 class="page-title" >
-      Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]
+      ARMOURY CRATE のインストールが途中で止まってしまう？
     </h1>
     
     <p class="document-date">
-      2023-04-03 &middot; Tomoki Ikegami
+      2025-02-09 &middot; Tomoki Ikegami
     </p>
     
-    <p class="document-description">"画面上部にある、RCカーとスマホアプリの接続状態表示のバグを修正"</p>
+    <p class="document-description">"「インストールパッケージを解凍しています」と表示されたままプログレスバーが止まる"</p>
      
   </div>
 </header>
 
     
     <main class="card shadow round-corner">
-<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
-<ul>
-<li><a href="#1-%E4%BB%8A%E5%9B%9E%E3%82%84%E3%82%8A%E3%81%9F%E3%81%84%E3%81%93%E3%81%A8">1. 今回やりたいこと</a></li>
-<li><a href="#2-%E6%94%B9%E8%89%AF%E7%89%88%E3%82%A2%E3%83%97%E3%83%AA-ver7b">2. 改良版アプリ ～ver.7b～</a>
-<ul>
-<li><a href="#21-%E5%A4%96%E8%A6%B3">2.1. 外観</a></li>
-<li><a href="#22-%E4%B8%AD%E8%BA%AB">2.2. 中身</a></li>
-</ul>
-</li>
-<li><a href="#3-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">3. サンプルファイル</a></li>
-<li><a href="#4-%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B">4. 関連記事</a></li>
-<li><a href="#5-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">5. 参考文献</a></li>
-</ul>
-<hr>
-<h1 id="1-今回やりたいこと">1. 今回やりたいこと</h1>
-<p>　前回までのアプリ（<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/">ver.7a</a>）では、RCカー側に搭載されている受信機（ESP32マイコン）の電源が切れたときの状況を考慮していませんでした。</p>
-<p>　前回のアプリだと受信機電源が切れても、表示が「RCに接続済み」のままでした。（これはまずいw）</p>
-<p>　今回は接続状態（つながっているか/切れているか）によって、スマホアプリの表示が切り替わるように（アプリ側のみを）改良しました！</p>
+<h1 id="起こった現象">起こった現象</h1>
+<p>　ディスク容量がいっぱいになってしまったので、ASUS ROG Flow Z13 に新しいSSD（Nextorage SSD NN4ME-2TB3DN）に Windows 11 をクリーンインストールしました。動作モード（Turbo/パフォーマンス/サイレント）を切り替えたかったので<a href="https://www.asus.com/jp/supportonly/armoury%20crate/helpdesk_download/">Armoury Crate Full Installation Package</a> をダウンロードしてインストールしようとしました。</p>
+<p>　ダウンロードしたファイルを解凍してインストールを進めると、インストールのプログレスバーが1/8くらいの場所で動かなくなりました（下の画像）。</p>
   <div align="center">
-  <figure><img src="change_connection_state.png"
-         alt="接続状態によって表示を変更"/>
+  <figure><img src="unzipping_the_installation_package.png"
+         alt="プログレスバーが1/8くらいの場所で動かなくなる"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　接続状態によって表示を変更
+  ☝　プログレスバーが1/8くらいの場所で動かなくなる
   </div>
-<h1 id="2-改良版アプリ-ver7b">2. 改良版アプリ ～ver.7b～</h1>
-<h2 id="21-外観">2.1. 外観</h2>
-<p>　こちらが改良後のアプリです。外観は <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/">ver.7a</a> とほとんど変わっていませんが、実は細かい改良点があります（笑）</p>
-<ul>
-<li>
-<p>画面上部の接続状態表示を変更（英語にして絵文字を追加）</p>
-</li>
-<li>
-<p>接続ボタンの表示を「CONNECT」と短くシンプルにした（今までは「ここにタッチして接続機器を選ぶ」という横長なボタンだった）</p>
-</li>
-<li>
-<p>スロットルのスライダ長さを調整（縦に長すぎたので）</p>
-</li>
-<li>
-<p>ステアのスライダを短くして右側に寄せた（左折時に、スロットルとステアを操作する指が干渉して操作しにくかったから）</p>
-</li>
-<li>
-<p>ST.TRIM のプラスマイナスボタンの文字を半角から全角に変更（ー＋のボタンサイズがそろって操作しやすい。あとボタンが大きくなる）</p>
-</li>
-<li>
-<p>STOPボタンを大きくした（即座に停止動作をしやすいように）</p>
-<div align="center">
-<figure><img src="UI7b.png"
-         alt="アプリ外観（デザイン編集タブ）"/>
-</figure>
-
-</div>
-<div style="text-align: center;">
-☝　アプリ外観（デザイン編集タブ）
-</div>
-</li>
-</ul>
-<h2 id="22-中身">2.2. 中身</h2>
-<p>　接続状態の判定処理はMIT App Invetorのフォーラム<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を参考にしました。下側から2つめのブロック群（タイマーブロックの内部）が今回の重要な変更点です。</p>
-<p>　「Bluetoothクライアント1.IsConnected」という部分が真だったら接続されているということになるので、このときに命令を送信する仕組みにしています。同時に表示を「📶○ Connected」とします。</p>
-<p>　逆に「Bluetoothクライアント1.DisconnectOnError」という部分が真だったら接続されていない（未接続）ことになるので、このときは命令を送信しないようにしています。同時に表示を「📶× NOT connected」とします。</p>
+<h1 id="解決方法">解決方法</h1>
+<p>　待つ（20分くらい）</p>
+<h1 id="仲間がいた">仲間がいた</h1>
+<p>　初めはフリーズしたかと思ってインストーラーを終了して再起動していましたが、調べてみると同じ現象で悩んでいる人たちがいました（reddit - <a href="https://www.reddit.com/r/ASUS/comments/yrpnus/armory_crate_stuck_at_unzipping_the_installation/">armory crate stuck at &ldquo;unzipping the installation package&rdquo;</a>）。</p>
+<p>　これを見て本当かなと思って20分くらい待っていると、プログレスバーが動きはじめて安心しました（よかったー）</p>
   <div align="center">
-  <figure><img src="blocks7b.png"
-         alt="アプリの中身（ブロック編集タブ）"/>
+  <figure><img src="successfully_installed.png"
+         alt="インストール成功"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　アプリの中身（ブロック編集タブ）
+  ☝　インストール成功
   </div>
-<h1 id="3-サンプルファイル">3. サンプルファイル</h1>
-<p>　作成したアプリのデータはこちらになります。自由に改良して使ってください！</p>
-<p><strong>～ MIT App Inventorプロジェクトのファイル(.aia) ～</strong></p>
-<ul>
-<li><a href="Happy_RC_Driver_7b.aia">Happy_RC_Driver_7b.aia</a></li>
-</ul>
-<p><strong>～ ビルド済み Androidアプリのファイル(.apk) ～</strong></p>
-<ul>
-<li><a href="Happy_RC_Driver_7b.apk">Happy_RC_Driver_7b.apk</a></li>
-</ul>
-<h1 id="4-関連記事">4. 関連記事</h1>
-<ul>
-<li>前回 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第10回-スライダ操作式のラジコンアプリに]</a></li>
-<li>次回 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第12回-アプリデザインに関するTips]</a></li>
-</ul>
-<h1 id="5-参考文献">5. 参考文献</h1>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>MIT App Inventor Help「Change Text when Bluetooth disconnected」、(<a href="https://community.appinventor.mit.edu/t/change-text-when-bluetooth-disconnected/5893">https://community.appinventor.mit.edu/t/change-text-when-bluetooth-disconnected/5893</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+<h1 id="その他に起こった不思議な現象">その他に起こった不思議な現象</h1>
+<p>　Armoury Crate Full Installation Package（フルインストールパッケージ、インストールに必要なファイルは事前にダウンロード）を試す前に、Armoury Crate &amp; Aura Creator Installer（インストーラー版、インストールに必要なファイルはダウンロードしながらインストール）を試しました。</p>
+<p>　なぜか私の環境では Armoury Crate &amp; Aura Creator Installer でインストールしようとすると、インストーラーが起動した直後にすぐに消えてしまいインストールできませんでした。Windows Defenderの無効化など色々試したのですが原因は分かりませんでした。最終的にフルインストールパッケージでやったらうまくいきました。</p>
 
 
     </main><footer>
@@ -164,16 +97,11 @@
   <div class="prev-next">
     <a
       class="active icon"
-      href="/Happy_RC.github.io/2023/03/28/moto-memo_buckup/"
+      href="/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/"
       aria-label="Previous Article"
       ><i class="bi bi-arrow-left-circle-fill"></i
     ></a>
-    <a
-      class="active icon"
-      href="/Happy_RC.github.io/2023/04/15/rc_electronics_control_using_bt-module_12/"
-      aria-label="Next Article"
-      ><i class="bi bi-arrow-right-circle-fill"></i
-    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
   </div>
   </div>
   

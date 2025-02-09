@@ -6,7 +6,22 @@
     <description>Recent content in 備忘録 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ARMOURY CRATE のインストールが途中で止まってしまう？</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/</link>
+      <pubDate>Sun, 09 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/</guid>
+      <description>起こった現象 　ディスク容量がいっぱいになってしまったので、ASUS ROG Flow Z13 に新しいSSD（Nextorage SSD NN4ME-2TB3DN）に Windows 11 をクリーンインストールしました。動作モード（Turbo/パフォーマンス/サイレント）を切り替えたかったのでArmoury Crate Full Installation Package をダウンロードしてインストールしようとしました。
+　ダウンロードしたファイルを解凍してインストールを進めると、インストールのプログレスバーが1/8くらいの場所で動かなくなりました（下の画像）。
+  ☝　プログレスバーが1/8くらいの場所で動かなくなる  解決方法 　待つ（20分くらい）
+仲間がいた 　初めはフリーズしたかと思ってインストーラーを終了して再起動していましたが、調べてみると同じ現象で悩んでいる人たちがいました（reddit - armory crate stuck at &amp;ldquo;unzipping the installation package&amp;rdquo;）。
+　これを見て本当かなと思って20分くらい待っていると、プログレスバーが動きはじめて安心しました（よかったー）
+  ☝　インストール成功  その他に起こった不思議な現象 　Armoury Crate Full Installation Package（フルインストールパッケージ、インストールに必要なファイルは事前にダウンロード）を試す前に、Armoury Crate &amp;amp; Aura Creator Installer（インストーラー版、インストールに必要なファイルはダウンロードしながらインストール）を試しました。
+　なぜか私の環境では Armoury Crate &amp;amp; Aura Creator Installer でインストールしようとすると、インストーラーが起動した直後にすぐに消えてしまいインストールできませんでした。Windows Defenderの無効化など色々試したのですが原因は分かりませんでした。最終的にフルインストールパッケージでやったらうまくいきました。</description>
+    </item>
+    
     <item>
       <title>自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</link>
