@@ -6,7 +6,21 @@
     <description>Recent content in PCトラブル on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 09 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Androidエミュレータにアプリがインストールされた直後にPCがフリーズ</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/</link>
+      <pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/</guid>
+      <description>起こった現象 　Visual Studio Code に Flutterの拡張機能を使ってアプリ開発を行い、開発したアプリを Android エミュレータにインストールしようとしたらPCがフリーズしました&amp;hellip;( ;∀;)
+  ☝　アプリインストール直後にエミュレータとPCがフリーズ  解決策 　私の場合は Device Managerから使用しているエミュレータの設定を開き、Emulated Performance を「Software」に変更するとフリーズしてそのまま動かなくなることがなくなりました。 手順 　Emulated Performanceを変更するには、まず Android Studio を起動して Device Manager を開きます。
+　Device Manager を開いたら使っているエミュレータの再生ボタン横にある、縦に3つ並んだ点をクリックして「Edit」を押します。
+  ☝　使っているエミュレータの設定を開く  設定を下にスクロールして、Emulated Performance の Graphics を「Software」に変更し、Finishを押します。
+  ☝　エミュレータのグラフィックス設定を変更  　ここで、下の画像のように Graphics の設定がグレーアウトしており変更できない場合は、次の Android Virtual Device の作成手順 を参考にて別のエミュレータを入れてください。
+  ☝　エミュレータのグラフィックス設定を変更  Android Virtual Device (AVD) の作成手順 　AVDをインストールするときに Google Play のマークがついているものを選ぶと、グラフィックスの設定が変更できないみたいです（こちらの記事を見て知りました）。</description>
+    </item>
+    
     <item>
       <title>ARMOURY CRATE のインストールが途中で止まってしまう？</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/</link>

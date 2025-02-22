@@ -45,6 +45,11 @@
     <main class="card shadow round-corner">
 
 
+<h3><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/04/03/rc_electronics_control_using_bt-module_11/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第11回-接続状態表示のバグ修正]</a></h3>
+<time>2023-04-03</time>
+<p>～ 目次 ～   1. 今回やりたいこと 2. 改良版アプリ ～ver.7b～  2.1. 外観 2.2. 中身   3. サンプルファイル 4. 関連記事 5. 参考文献   1. 今回やりたいこと 　前回までのアプリ（ver.7a）では、RCカー側に搭載されている受信機（ESP32マイコン）の電源が切れたときの状況を考慮していませんでした。
+　前回のアプリだと受信機電源が切れても、表示が「RC …</p>
+
 <h3><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/03/28/moto-memo_buckup/">Motoメモの保存先</a></h3>
 <time>2023-03-28</time>
 <p>Motoメモについて 　Motoメモ は motorola製 のスタイラスペン付きスマホについている、純正メモアプリです。
@@ -63,11 +68,6 @@
 <h3><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2023/01/02/pwm_servo_control_via_smartphone/">スマホからサーボモータをPWM制御してみた!!</a></h3>
 <time>2023-01-02</time>
 <p>～ 目次 ～   1. 今回やりたいこと 2. 使った技術  2.1. PWM制御 2.2. シリアル通信   3. 使ったもの  3.1. ソフトウェア 3.2. ハードウェア   4. 回路図 5. スマホアプリ 6. プログラム（ソースコード） 7. 動作確認 8. サンプルファイル 9. 参考文献   1. 今回やりたいこと 　いやぁ～（※）新年(2023)一発目の投稿ですね!!（※いや …</p>
-
-<h3><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2022/12/30/cannot_connect_bt-device_with_my_own_app/">自作アプリでBluetooth接続できない！[Runtime Error]</a></h3>
-<time>2022-12-30</time>
-<p>～ 目次 ～   1. 何が起こったか 2. 解決方法   1. 何が起こったか 　MIT App InventorでBluetooth通信するアプリ（ラジコンカー用コントローラー）を作ってテストしていたところ、下の画像のようなエラーが出てきました( ;∀;)( ;∀;)
-　使ってる端末は、Moto g pro（OS：Android 12、セキュリティアップデート：2022年12月1日）です。 …</p>
 
 
     </main><footer>
@@ -109,7 +109,7 @@
         <a href="/Happy_RC.github.io/pinnedposts/page/6/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/Happy_RC.github.io/pinnedposts/page/9/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/Happy_RC.github.io/pinnedposts/page/10/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></div>
   
@@ -122,6 +122,8 @@
         <h6>Recent Posts</h6>
         <ol>
           
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/">Androidエミュレータにアプリがインストールされた直後にPCがフリーズ</a></li>
+          
           <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/">ARMOURY CRATE のインストールが途中で止まってしまう？</a></li>
           
           <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
@@ -133,8 +135,6 @@
           <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
           
           <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
-          
-          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/04/17/keyence_nr_automation_server_at_bal/">オートメーションサーバでオートバランスできない</a></li>
           
         </ol>
         <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
@@ -197,13 +197,13 @@
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
   
   
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
   
   
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
-  
-  
-    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
   
   
     <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>

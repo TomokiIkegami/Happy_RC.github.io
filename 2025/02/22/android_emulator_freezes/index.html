@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     Androidエミュレータにアプリがインストールされた直後にPCがフリーズ -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      Androidエミュレータにアプリがインストールされた直後にPCがフリーズ
+    </h1>
+    
+    <p class="document-date">
+      2025-02-22 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"エミュレータにFlutterアプリがインストールされて起動した直後に、PCもフリーズしてしまう"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="起こった現象">起こった現象</h1>
+<p>　Visual Studio Code に Flutterの拡張機能を使ってアプリ開発を行い、開発したアプリを Android エミュレータにインストールしようとしたらPCがフリーズしました&hellip;( ;∀;)</p>
+  <div align="center">
+  <figure><img src="android_emulator_freezes.png"
+         alt="アプリインストール直後にエミュレータとPCがフリーズ"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　アプリインストール直後にエミュレータとPCがフリーズ
+  </div>
+<h1 id="解決策">解決策</h1>
+<p>　私の場合は Device Managerから使用しているエミュレータの設定を開き、Emulated Performance を「Software」に変更するとフリーズしてそのまま動かなくなることがなくなりました。
+　</p>
+<h1 id="手順">手順</h1>
+<p>　Emulated Performanceを変更するには、まず Android Studio を起動して Device Manager を開きます。</p>
+<p>　Device Manager を開いたら使っているエミュレータの再生ボタン横にある、縦に3つ並んだ点をクリックして「Edit」を押します。</p>
+  <div align="center">
+  <figure><img src="edit_the_emulator_settings.png"
+         alt="使っているエミュレータの設定を開く"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　使っているエミュレータの設定を開く
+  </div>
+<p>設定を下にスクロールして、Emulated Performance の Graphics を「Software」に変更し、Finishを押します。</p>
+  <div align="center">
+  <figure><img src="change_the_emulated_performance.png"
+         alt="エミュレータのグラフィックス設定を変更"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　エミュレータのグラフィックス設定を変更
+  </div>
+<p>　ここで、下の画像のように Graphics の設定がグレーアウトしており変更できない場合は、次の Android Virtual Device の作成手順 を参考にて別のエミュレータを入れてください。</p>
+  <div align="center">
+  <figure><img src="cannot_edit_the_emulated_performance.png"
+         alt="グラフィックス設定が変更できない"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　エミュレータのグラフィックス設定を変更
+  </div>
+<h1 id="android-virtual-device-avd-の作成手順">Android Virtual Device (AVD) の作成手順</h1>
+<p>　AVDをインストールするときに Google Play のマークがついているものを選ぶと、グラフィックスの設定が変更できないみたいです（<a href="https://qiita.com/ciao_kaokawa/items/362bd5ca5b7c498ccd10">こちらの記事</a>を見て知りました）。</p>
+<p>　新しい AVD をインストールするためには、まず Device Manager を開いて、「Create Virtual Device」クリックします。</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_1.png"
+         alt="AVDの作成手順1"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順1
+  </div>
+<p>　ここで、Google Play のマークがついていないデバイスを選びます（私は Google Pixel 6 を選びました）</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_2.png"
+         alt="AVDの作成手順2"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順2
+  </div>
+<p>　次に System Image をダウンロードします。Android 14にしたかったので、Release Nameは、UpsideDownCakeを選びます（Upside down cake おいしそう）</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_3.png"
+         alt="AVDの作成手順3"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順3
+  </div>
+<p>　<div align="center">
+<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Pineapple-upside-down-cake.jpg/2560px-Pineapple-upside-down-cake.jpg"
+         alt="パイナップルアップサイドダウンケーキ"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  パイナップルアップサイドダウンケーキ（画像：Wikipedia-アップサイドダウンケーキより）
+  </div>
+<p>　ダウンロードには少し時間がかかるので待ちます。ダウンロードが完了したら、Finishを押してください。</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_4.png"
+         alt="AVDの作成手順4"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順4
+  </div>
+<p>　システムイメージのダウンロードができたら、「Next」を押します。</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_5.png"
+         alt="AVDの作成手順5"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順5
+  </div>
+<p>　ここからはこの記事の初めのほうに説明した Edit Settings で開いた画面と同じになります。</p>
+<p>　設定画面の下のほうにスクロールして、Emulated Performance の Graphics を「Software」に変更し、Finishを押します。</p>
+<p>　<div align="center">
+<figure><img src="avd_installation_6.png"
+         alt="AVDの作成手順6"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順6
+  </div>
+<p>　<div align="center">
+<figure><img src="avd_installation_7.png"
+         alt="AVDの作成手順7"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　AVDの作成手順7
+  </div>
+<p>　これでエミュレータを起動して、<kbd>flutter run</kbd>（Futterアプリを実行するコマンド） したらフリーズせずアプリをインストールできました！</p>
+<h1 id="参考文献">参考文献</h1>
+<ol>
+<li>Medium (@Ipek)「How to Fix AVD Freezes Linux Desktop Problem — android emulator alternatives」、(<a href="https://medium.com/@Kochipek/how-to-fix-adv-freezes-linux-desktop-problem-android-emulator-alternatives-907f3582278d">https://medium.com/@Kochipek/how-to-fix-adv-freezes-linux-desktop-problem-android-emulator-alternatives-907f3582278d</a>)</li>
+<li>Qiita（@ciao_kaokawa (Kawai KAORU)）「GPUが要因でAndroid Virtual Deviceが起動しない」、(<a href="https://qiita.com/ciao_kaokawa/items/362bd5ca5b7c498ccd10">https://qiita.com/ciao_kaokawa/items/362bd5ca5b7c498ccd10</a>)</li>
+</ol>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/">Androidエミュレータにアプリがインストールされた直後にPCがフリーズ</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/">ARMOURY CRATE のインストールが途中で止まってしまう？</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/12/08/rc_electronics_control_using_bt-module_15/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/11/26/create_own_simple_pos/">簡易な会計アプリを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/14/cannot_use_pc_after_installing_labview/">LabVIEWをインストールしたらPCが起動しなくなった</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2024/06/01/windows_system_migration_from_yoga670_to_rogflow/">バックアップに失敗して新PCが1日目で起動しなくなった【絶望】</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
