@@ -50,18 +50,18 @@
     
     <main class="card shadow round-corner">
 <h1 id="起こった現象">起こった現象</h1>
-<p>　Visual Studio Code に Flutterの拡張機能を使ってアプリ開発を行い、開発したアプリを Android エミュレータにインストールしようとしたらPCがフリーズしました&hellip;( ;∀;)</p>
+<p>　Visual Studio CodeでFlutterの拡張機能を使ってアプリ開発を行い、開発したアプリを Android エミュレータにインストールしようとしたらPCがフリーズしました&hellip;( ;∀;)</p>
   <div align="center">
   <figure><img src="android_emulator_freezes.png"
-         alt="アプリインストール直後にエミュレータとPCがフリーズ"/>
+         alt="アプリインストール直後にエミュレータとPCがフリーズ（このまま何もPCが操作できなくなる）"/>
 </figure>
 
   </div>
   <div style="text-align: center;">
-  ☝　アプリインストール直後にエミュレータとPCがフリーズ
+  ☝　アプリインストール直後にエミュレータとPCがフリーズ（このまま何もPCが操作できなくなる）
   </div>
 <h1 id="解決策">解決策</h1>
-<p>　私の場合は Device Managerから使用しているエミュレータの設定を開き、Emulated Performance を「Software」に変更するとフリーズしてそのまま動かなくなることがなくなりました。
+<p>　私の場合は Device Managerから使用しているエミュレータの設定を開き、Emulated Performance を「Software」に変更すると解決しました。
 　</p>
 <h1 id="手順">手順</h1>
 <p>　Emulated Performanceを変更するには、まず Android Studio を起動して Device Manager を開きます。</p>
@@ -85,7 +85,7 @@
   <div style="text-align: center;">
   ☝　エミュレータのグラフィックス設定を変更
   </div>
-<p>　ここで、下の画像のように Graphics の設定がグレーアウトしており変更できない場合は、次の Android Virtual Device の作成手順 を参考にて別のエミュレータを入れてください。</p>
+<p>　ここで、下の画像のように Graphics の設定がグレーアウトしており変更できない場合は、次に説明する Android Virtual Device (AVD) の作成手順 を参考にて別のエミュレータを入れてください。</p>
   <div align="center">
   <figure><img src="cannot_edit_the_emulated_performance.png"
          alt="グラフィックス設定が変更できない"/>
