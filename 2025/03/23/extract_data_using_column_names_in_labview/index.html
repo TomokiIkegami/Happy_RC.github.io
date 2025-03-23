@@ -106,7 +106,28 @@
          alt="Sample_csv_and_waveform" width="400px"/>
 </figure>
 
-</div></li>
+</div>
+</li>
+</ul>
+<h1 id="サブviとして実装">サブVIとして実装</h1>
+<p>　サブVIにしたほうが使いやすそうなので、サブVIとしても実装してみました。上側の入力ピンには 2D Array (String)、下側の入力ピンには抜き出したい列名を指定すると、列のデータが 1D Array (Double) で得られます。2D Arrayの1行目にカラム名、2行目以降に数値データが含まれているデータを入力してください。</p>
+<ul>
+<li>SubVI: <a href="Extract_Column_by_Name.vi">Extract_Column_by_Name.vi</a> (LabVIEW 2021 version)
+<div align="center">
+<figure><img src="Extract_Comuln_by_Name_SubVI_Help.png"
+         alt="Extract_Comuln_by_Name_SubVI_Help.png" width="400px"/>
+</figure>
+
+</div>
+</li>
+<li>SubVIの使用例：<a href="Extract_Column_by_Name_usage_example.vi">Extract_Column_by_Name_usage_example.vi</a> (LabVIEW 2021 version)
+<div align="center">
+<figure><img src="Extract_Comuln_by_Name_SubVI_usage_example.png"
+         alt="Extract_Comuln_by_Name_SubVI_usage_example.png"/>
+</figure>
+
+</div>
+</li>
 </ul>
 
 
