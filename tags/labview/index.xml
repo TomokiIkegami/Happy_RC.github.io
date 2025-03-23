@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LabVIEW on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/</link>
+    <description>Recent content in LabVIEW on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LabVIEWで列名を使ってデータを抽出する方法</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/03/23/extract_data_using_column_names_in_labview/</link>
+      <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/03/23/extract_data_using_column_names_in_labview/</guid>
+      <description>やりたいこと 2次元のデータを扱うときに、Pythonのpandasモジュールを使うとカラム（列）名指定してデータを抜き出すことができますが、LabVIEWでも同じようなことができたら便利だなと思いました。
+  ☝　LabVIEWでPythonのpandasみたいに列データを抜き出したい  作成したVI 　作成したVIのフロントパネルとブロックダイアグラムは下の画像のようになります。① csvのファイルを指定して ② データ抽出したいカラム（列）名を指定して ③ 実行すると ④ フロントパネル下側に抽出されたデータと波形が表示されます。
+  ☝　作成したvi（フロントパネルとブロックダイアグラム）  処理の流れ 　色々な方法があるかと思いますが、こんな手順で処理してみました
+ Read Delimited Spreadsheet.vi を使ってcsvデータを 2D Array に変換（このときデータはすべて String 型） Read Delimited Spreadsheet.vi の 出力として first row（カラム名が含まれている） の 1D Array が得られるので、Search 1D Array を使って、指定したカラム名に対応する列インデックスを取得 Read Delimited Spreadsheet.vi の出力から得た 2D Array から、Index Arrayを使って 手順2で求めた列インデックスで列データを抜き出す Delete from Array を使ってカラム名を削除する（数値データだけを残す） データが String型 になっているので、Fract/Exp String to Number を使って 数値（Double型）に変換する。    ☝　処理手順（ブロックダイアグラム）  サンプルファイル 　作成したviとサンプルのcsvです！</description>
+    </item>
+    
+  </channel>
+</rss>
