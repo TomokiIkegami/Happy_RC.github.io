@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 22 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</title>
-      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/openfoam_simple_pcb_thermal_simulation/</link>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/</link>
       <pubDate>Sun, 22 Jun 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/openfoam_simple_pcb_thermal_simulation/</guid>
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/</guid>
       <description>～ 目次 ～   1. やってみたこと 2. シミュレーションの概要 3. シミュレーション条件  3.1. メッシュ  3.1.1. 計算領域全体 3.1.2. cellZone（計算領域から区切っていく）   3.2. 材料物性 3.3. 境界条件 3.4. 計算の設定   4. シミュレーション結果 5. 参考文献  1. やってみたこと 　基板上の発熱しているチップが冷却される感じのシミュレーションをOpenFOAMを使ってやってみました。アルバイトの装置開発とか趣味のラジコンレシーバ開発に応用したくてトライしました！
 　熱流体シミュレーションもOpenFOAMも初心者なので、足らないところも多いと思いますのでアドバイスいただけると嬉しいです( ;∀;)
 2. シミュレーションの概要 　基板を想定した四角形の薄板の上に、チップを想定した四角形の小さい薄板をのせました。基板の初期温度は 300 K で、チップの初期温度は 400 Kに設定して解析を行います。基板のX軸方向に流速を与えて強制冷却します。
