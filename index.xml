@@ -6,7 +6,18 @@
     <description>Recent content on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 22 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fusion 360でソリッド表面からサーフェスを抽出して保存する方法</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/</link>
+      <pubDate>Sat, 12 Jul 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/</guid>
+      <description>手順 　FEM, FVMシミュレーションなどをやっていると、ソリッドからサーフェスだけを抽出したい場合があります。以下のような手順でやればいいです↓
+ エクスポートしたい面を選択（複数面を選択するときはShift押しながら） 「サーフェス&amp;gt;オフセット」でオフセットの距離を「0 mm」にする サーフェスができるのでツリー上でサーフェスを選び、「メッシュとして保存」を選択 ファイル形式や単位を確認し、「OK」をクリックする ファイル名と保存先を選び「保存」を押すと、選択した保存先にサーフェスのメッシュが保存されます    ☝　サーフェスの抽出手順 その1 (エクスポートしたい面の選択)    ☝　サーフェスの抽出手順 その2 (オフセット距離の指定)    ☝　サーフェスの抽出手順 その3 (生成したサーフェスからメッシュを生成)    ☝　サーフェスの抽出手順 その4(ファイル形式と単位の確認)    ☝　サーフェスの抽出手順 その5 (ファイル名と保存先の指定)  　あとは、シミュレーションソフトやBlenderなどで開くとサーフェスのメッシュが見れます☺（下の画像）
+  ☝　抽出されたサーフェスのメッシュ（Blenderで開いてメッシュ表示した例） </description>
+    </item>
+    
     <item>
       <title>OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/</link>
