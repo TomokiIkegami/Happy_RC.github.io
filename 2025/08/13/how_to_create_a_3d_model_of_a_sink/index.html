@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     洗面台の3Dモデルを作ってみた -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      洗面台の3Dモデルを作ってみた
+    </h1>
+    
+    <p class="document-date">
+      2025-08-13 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"自宅にある洗面台の3Dモデルを作ったので、その手順についてまとめてみました"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="1-動画">1. 動画</h1>
+<p>　洗面台の3Dモデルを作成する様子を動画にまとめました！</p>
+<p>　↓↓ 記事中では省略している一部始終（失敗している部分なども含めて）を載せています ↓↓</p>
+<p>　
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/_4-CWvBFhU8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+<h1 id="2-準備">2. 準備</h1>
+<p>　まず定規を持って自宅の洗面台に向かいます（うぉぉぉー）。</p>
+<p>　寸法を測定して、下の画像のように各部の寸法をメモしていきます（<del>絵心ない</del>）。</p>
+  <div align="center">
+    <img src="sink_dimension.jpg" alt="メモした自宅洗面台の各部寸法" width="500">
+  </div>
+  <div style="text-align: center;">
+  ☝　メモした自宅洗面台の各部寸法
+  </div>
+<h1 id="3-モデリング">3. モデリング</h1>
+<p>　パソコンを開きます。モデリングソフトはなんでもいいですがとりあえず Fusion 360 を起動（研究とかで毎日のように使うのでもはや脊髄反射で起動）します。</p>
+<h2 id="31-洗面台概形の作成">3.1. 洗面台概形の作成</h2>
+<p>　おおまかな形状から作っていきます。まずは蛇口とかが付いていて、コップとか歯ブラシとか洗面用具がおけそうな? 広いスペースの部分を作っていきます。</p>
+  <div align="center">
+    <img src="base_part_sketch.jpg" alt="ベース部分のスケッチを作成">
+  </div>
+  <div style="text-align: center;">
+  ☝　ベース部分のスケッチを作成
+  </div>
+  <div align="center">
+    <img src="base_part_sketch_extrude.jpg" alt="ベース部分のスケッチを押し出す">
+  </div>
+  <div style="text-align: center;">
+  ☝　ベース部分のスケッチを押し出す
+  </div>
+<h2 id="32-曲面壁の作成">3.2. 曲面壁の作成</h2>
+<p>　水が流れる壁面を作成します。複雑な曲面になっているので、楕円形の等高線を作ってロフトで押し出し → シェル化 することで形状を作っていきます。</p>
+  <div align="center">
+    <img src="wall_sketch.jpg" alt="曲面壁の等高線スケッチを作る">
+  </div>
+  <div style="text-align: center;">
+  ☝　曲面壁の等高線スケッチを作る
+  </div>
+  <div align="center">
+    <img src="wall_loft.jpg" alt="等高線を使ってロフト機能で形状を作る">
+  </div>
+  <div style="text-align: center;">
+  ☝　等高線を使ってロフト機能で形状を作る
+  </div>
+  <div align="center">
+    <img src="wall_after_loft.jpg" alt="ロフトコマンド実行後">
+  </div>
+  <div style="text-align: center;">
+  ☝　ロフトコマンド実行後
+  </div>
+  <div align="center">
+    <img src="wall_shell.jpg" alt="シェルを使って空洞化（これで水のたまる部分ができます）">
+  </div>
+  <div style="text-align: center;">
+  ☝　シェルを使って空洞化（これで水のたまる部分ができます）
+  </div>
+<h2 id="33-パイプ穴の作成">3.3. パイプ穴の作成</h2>
+<p>　水が流れ出ていく形状にしたいので、底のほうにパイプ穴をあけます。方法としては底のほうに円を描いて、押し出しコマンドで切り取ります。</p>
+  <div align="center">
+    <img src="hole_sketch.jpg" alt="パイプ穴のスケッチ作成">
+  </div>
+  <div style="text-align: center;">
+  ☝　パイプ穴のスケッチ作成
+  </div>
+  <div align="center">
+    <img src="hole_extrude_all.jpg" alt="パイプ穴の切り取り（これで穴ができます）">
+  </div>
+  <div style="text-align: center;">
+  ☝　パイプ穴の切り取り（これで穴ができます）
+  </div>
+  <div align="center">
+    <img src="hole_after_extrusion_top_iso.jpg" alt="底のほうにパイプ穴ができた（斜め上から）">
+  </div>
+  <div style="text-align: center;">
+  ☝　底のほうにパイプ穴ができた（斜め上から）
+  </div>
+  <div align="center">
+    <img src="hole_after_extrusion_bottom_iso.jpg" alt="底のほうにパイプ穴ができた（斜め下から）">
+  </div>
+  <div style="text-align: center;">
+  ☝　底のほうにパイプ穴ができた（斜め下から）
+  </div>
+<h2 id="34-丸みをつける">3.4. 丸みをつける</h2>
+<p>　元の形状だと角がある感じ（触れたら痛そう笑）なので、実際の洗面台みたいな感じで丸みを帯びた形状にしていきます。ベース部分と曲面部分で部品が分かれていたので、結合する処理も行いました。</p>
+  <div align="center">
+    <img src="base_part_filet.jpg" alt="底のほうにパイプ穴ができた（斜め下から）">
+  </div>
+  <div style="text-align: center;">
+  ☝　底のほうにパイプ穴ができた（斜め下から）
+  </div>
+  <div align="center">
+    <img src="merge_body.jpg" alt="ベース部分と曲面部分のマージ（マージしないとフィレットできなかったので）">
+  </div>
+  <div style="text-align: center;">
+  ☝　ベース部分と曲面部分のマージ（マージしないとフィレットできなかったので）
+  </div>
+  <div align="center">
+    <img src="whole_parts_filet.jpg" alt="部品全体のフィレット（実物に近づくように微調整...）">
+  </div>
+  <div style="text-align: center;">
+  ☝　部品全体のフィレット（実物に近づくように微調整...）
+  </div>
+  <div align="center">
+    <img src="body_filet_bottom.jpg" alt="洗面台の底のほうもフィレット（一番内側のパイプ穴の部分は思い出して後でフィレットしました）">
+  </div>
+  <div style="text-align: center;">
+  ☝　洗面台の底のほうもフィレット（一番内側のパイプ穴の部分は思い出して後でフィレットしました）
+  </div>
+<h2 id="35-パイプの作成">3.5. パイプの作成</h2>
+<p>　私もこれをやるまであまり注目しなかったのですが、洗面台の下にあるパイプって色んな形状していますよね（面白い）。</p>
+<p>　S字形状になっているものが多いのですが、自宅のやつはなんか奥行きのある円弧形状になっていました（珍しいかも??）</p>
+  <div align="center">
+    <img src="sink_pipe_shape.jpg" alt="洗面台下部のパイプ形状" width="500">
+  </div>
+  <div style="text-align: center;">
+  ☝　洗面台下部のパイプ形状
+  </div>　
+<p>　パイプのモデリングはパイプ断面が通るパスを作成し、そのパスに沿ってスイープコマンドで押し出すことで作りました。</p>
+<p>　自宅のパイプ形状が少し変わっていたので、四苦八苦しながら3Dスケッチ機能で直線とスプラインを使いながらパスを作っていきました（一度円弧で作ろうとして失敗してパスを作り直しました笑）。</p>
+  <div align="center">
+    <img src="pipe_path_design.jpg" alt="パイプ断面が通るパスを作成（3Dの曲線描画は超絶難易度...）">
+  </div>
+  <div style="text-align: center;">
+  ☝　パイプ断面が通るパスを作成（3Dの曲線描画は超絶難易度...）
+  </div>　
+  <div align="center">
+    <img src="sweep_command_select_the_profile.jpg" alt="パイプの断面形状を選択">
+  </div>
+  <div style="text-align: center;">
+  ☝　パイプの断面形状を選択
+  </div>　
+  <div align="center">
+    <img src="sweep_command_select_the_path.jpg" alt="パイプ断面が通るパスを選択（おぉパイプになったぞ）">
+  </div>
+  <div style="text-align: center;">
+  ☝　パイプ断面が通るパスを選択（おぉパイプになったぞ）
+  </div>　
+<h2 id="36-物理マテリアルの設定">3.6. 物理マテリアルの設定</h2>
+<p>　今のままでは、全体が鋼でできているような感じになっているので、洗面台のところには磁器の材料を割り当てます。</p>
+<p>　パイプの部分には60Sn40Pbを割り当てました（あまり考えず割り当てたけど、調べてみるとこれってはんだの材料? 文献[<a href="https://dl.ndl.go.jp/view/prepareDownload?itemId=info%3Andljp%2Fpid%2F10742674&amp;contentNo=1">1</a>]）</p>
+  <div align="center">
+    <img src="adopt_the_physical_material_with_annotate.png" alt="物理マテリアルの割り当て（磁器部分）">
+  </div>
+  <div style="text-align: center;">
+  ☝　物理マテリアルの割り当て（磁器部分）
+  </div>　
+  <div align="center">
+    <img src="adopt_the_physical_material_pipe_with_annotate.png" alt="物理マテリアルの割り当て（パイプ部分）">
+  </div>
+  <div style="text-align: center;">
+  ☝　物理マテリアルの割り当て（パイプ部分）
+  </div>　
+<p>　</p>
+<h1 id="4-完成した洗面台モデル">4. 完成した洗面台モデル</h1>
+<p>　こちらが完成した洗面台の3Dモデルになります！　顔洗えそうー</p>
+  <div align="center">
+    <img src="completed_sink_model.jpg" alt="完成した洗面台3Dモデル">
+  </div>
+  <div style="text-align: center;">
+  ☝　完成した洗面台3Dモデル
+  </div>　
+  <div align="center">
+    <img src="sink_render_image_fhd.png" alt="レンダリングした洗面台の3Dモデル">
+  </div>
+  <div style="text-align: center;">
+  ☝　レンダリングした洗面台の3Dモデル
+  </div>　
+  <div align="center">
+    <img src="sink_3d_model.gif" alt="ターンテーブルレンダリングの結果（ぐるぐる）">
+  </div>
+  <div style="text-align: center;">
+  ☝　ターンテーブルレンダリングの結果（ぐるぐる）
+  </div>　
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/">洗面台の3Dモデルを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/">Fusion 360でソリッド表面からサーフェスを抽出して保存する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/">OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/03/23/extract_data_using_column_names_in_labview/">LabVIEWで列名を使ってデータを抽出する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/">Androidエミュレータにアプリがインストールされた直後にPCがフリーズ</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/">ARMOURY CRATE のインストールが途中で止まってしまう？</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/">自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/fusion-360/">Fusion 360</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/cae/">CAE</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/">LabVIEW</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/openfoam/">OpenFOAM</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

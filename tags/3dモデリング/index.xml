@@ -6,7 +6,24 @@
     <description>Recent content in 3Dモデリング on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 18 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>洗面台の3Dモデルを作ってみた</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/</link>
+      <pubDate>Wed, 13 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/</guid>
+      <description>1. 動画 　洗面台の3Dモデルを作成する様子を動画にまとめました！
+　↓↓ 記事中では省略している一部始終（失敗している部分なども含めて）を載せています ↓↓
+　  2. 準備 　まず定規を持って自宅の洗面台に向かいます（うぉぉぉー）。
+　寸法を測定して、下の画像のように各部の寸法をメモしていきます（絵心ない）。
+ ☝　メモした自宅洗面台の各部寸法  3. モデリング 　パソコンを開きます。モデリングソフトはなんでもいいですがとりあえず Fusion 360 を起動（研究とかで毎日のように使うのでもはや脊髄反射で起動）します。
+3.1. 洗面台概形の作成 　おおまかな形状から作っていきます。まずは蛇口とかが付いていて、コップとか歯ブラシとか洗面用具がおけそうな? 広いスペースの部分を作っていきます。
+ ☝　ベース部分のスケッチを作成   ☝　ベース部分のスケッチを押し出す  3.2. 曲面壁の作成 　水が流れる壁面を作成します。複雑な曲面になっているので、楕円形の等高線を作ってロフトで押し出し → シェル化 することで形状を作っていきます。
+ ☝　曲面壁の等高線スケッチを作る   ☝　等高線を使ってロフト機能で形状を作る   ☝　ロフトコマンド実行後   ☝　シェルを使って空洞化（これで水のたまる部分ができます）  3.3. パイプ穴の作成 　水が流れ出ていく形状にしたいので、底のほうにパイプ穴をあけます。方法としては底のほうに円を描いて、押し出しコマンドで切り取ります。
+ ☝　パイプ穴のスケッチ作成   ☝　パイプ穴の切り取り（これで穴ができます）   ☝　底のほうにパイプ穴ができた（斜め上から）   ☝　底のほうにパイプ穴ができた（斜め下から）  3.</description>
+    </item>
+    
     <item>
       <title>自作の車をゲーム内で動かす [Blender × Unreal Engine 5]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/01/18/vehicle_game_development_tutorial_1/</link>
