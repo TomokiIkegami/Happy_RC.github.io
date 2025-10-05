@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF]
+    </h1>
+    
+    <p class="document-date">
+      2025-10-05 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"本格的な流体シミュレーションで、洗面台に流れる水をリアルに再現してみた"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h1 id="-目次-----omit-in-toc---">～ 目次 ～ <!-- omit in toc --></h1>
+<ul>
+<li><a href="#1-%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%93%E3%81%A8">1. やってみたこと</a></li>
+<li><a href="#2-%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E6%A6%82%E8%A6%81">2. シミュレーションの概要</a></li>
+<li><a href="#3-%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%A7%8B%E7%AF%89">3. シミュレーションモデルの構築</a>
+<ul>
+<li><a href="#31-%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E4%BD%9C%E6%88%90">3.1. メッシュの作成</a>
+<ul>
+<li><a href="#311-fusion-360-%E3%81%8B%E3%82%89%E3%82%B5%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%82%92%E6%8A%BD%E5%87%BA">3.1.1. Fusion 360 からサーフェイスを抽出</a></li>
+<li><a href="#312-xsim-%E3%81%A7%E3%83%A1%E3%83%83%E3%82%B7%E3%83%B3%E3%82%B0%E8%A8%AD%E5%AE%9A">3.1.2. XSim でメッシング設定</a></li>
+<li><a href="#313-snappyhexmesh%E3%81%A7%E3%83%A1%E3%83%83%E3%82%B7%E3%83%B3%E3%82%B0">3.1.3. snappyHexMeshでメッシング</a></li>
+</ul>
+</li>
+<li><a href="#32-%E6%9D%90%E6%96%99%E7%89%A9%E6%80%A7">3.2. 材料物性</a></li>
+<li><a href="#33-%E5%A2%83%E7%95%8C%E6%9D%A1%E4%BB%B6">3.3. 境界条件</a></li>
+<li><a href="#34-%E5%88%9D%E6%9C%9F%E6%9D%A1%E4%BB%B60%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AE%E4%B8%AD%E8%BA%AB">3.4. 初期条件（0ディレクトリの中身）</a>
+<ul>
+<li><a href="#341-%E6%B5%81%E9%80%9Fu-%E5%9C%A7%E5%8A%9Bp_rgh-nut-omega%E3%81%AA%E3%81%A9">3.4.1. 流速U, 圧力p_rgh, nut, omegaなど</a></li>
+<li><a href="#342-%E6%B0%B4%E3%81%AE%E9%A0%98%E5%9F%9F%E8%A8%AD%E5%AE%9A">3.4.2. 水の領域設定</a></li>
+</ul>
+</li>
+<li><a href="#35-%E8%A8%88%E7%AE%97%E3%81%AE%E8%A8%AD%E5%AE%9A">3.5. 計算の設定</a></li>
+</ul>
+</li>
+<li><a href="#4-%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E7%B5%90%E6%9E%9C">4. シミュレーション結果</a></li>
+<li><a href="#5-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">5. 参考文献</a></li>
+</ul>
+<h1 id="1-やってみたこと">1. やってみたこと</h1>
+<p>　<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/">前回の記事</a>で作成した洗面台の3Dモデルに水を満たし、パイプから水が流れ出ていくシミュレーションをやってみました。</p>
+  <div align="center">
+  <figure><img src="sink_3d_model.gif"
+         alt="前回記事で作成した洗面台の3Dモデル"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　前回記事で作成した洗面台の3Dモデル
+  </div>
+<h1 id="2-シミュレーションの概要">2. シミュレーションの概要</h1>
+<p>　洗面台に水を張り、水が重力で洗面台下部のパイプから流れ出ていくような解析を、自由表面解析（VOF法）でやっていきます。</p>
+<p>　そこで、incompressibleVoF の公式チュートリアル (waterChannel)<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> をコピーして、メッシュや水の範囲などを変更することでシミュレーションモデルを構築しました。</p>
+<p>　OpenFOAM 12の場合は少し分かりにくいのですが、waterChannelのチュートリアルは、</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#960050;background-color:#1e0010">$</span>FOAM_TUTORIALS<span style="color:#f92672">/</span>incompressibleVoF<span style="color:#f92672">/</span>waterChannel<span style="color:#f92672">/</span></code></pre></div>
+<p>　にあります。ここから、適当なディレクトリにコピーして変更を加えていきました。どこにどのような変更を加えれば良いか、初めは私も分からなかったのですが、Softflow(株)の「いきなりOpenFOAM」の連載<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup><SUP>,</SUP><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup><SUP>,</SUP><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup><SUP>,</SUP><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>がすごく参考になりました。</p>
+  <div align="center">
+  <figure><img src="sink_simulation_overview.svg"
+         alt="シミュレーションの概要"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　シミュレーションの概要
+  </div>
+<h1 id="3-シミュレーションモデルの構築">3. シミュレーションモデルの構築</h1>
+<p>　解析に使用した全ファイルは<a href="https://github.com/TomokiIkegami/sink_simulation_vof">GitHub</a>にあげておきました。使いたい方は、ダウンロードとかクローンするなりして使っていただければと思います。</p>
+<p>　今回はwaterChannelチュートリアルとの差分というか、変更の要点をピックアップして紹介したいと思います。</p>
+<h2 id="31-メッシュの作成">3.1. メッシュの作成</h2>
+<p>　複雑形状のメッシュの頂点や面の定義を手動でやるのは骨が折れるので、Fusion 360（3DCAD）と XSim（プリプロセッサ）、snappyHexMesh（OpenFOAM内臓のメッシャー）を組み合わせてメッシュの作成を行いました。</p>
+<h3 id="311-fusion-360-からサーフェイスを抽出">3.1.1. Fusion 360 からサーフェイスを抽出</h3>
+<p>　まずは、Fusion 360で3Dモデルからサーフェイスを抽出します（詳しいやり方は<a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/">こちらの記事</a>を参照）。抽出したサーフェイスをリネームして、side（排水タンク壁面と底面）, walls（液体が流れる洗面台の壁面）, atmosphere（洗面台の大気開放部分）, atmosphere2（排水タンクの大気開放面）として保存します。</p>
+<p>　walls以外の面は、Fusion 360のサーフェイス機能を使って作成しました（閉じた計算領域を作る必要があるため）。</p>
+  <div align="center">
+  <figure><img src="how_to_create_sink_simulation_model_2.png"
+         alt="Fusion 360からシミュレーションに使うサーフェイスを抽出する"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　Fusion 360からシミュレーションに使うサーフェイスを抽出する
+  </div>
+<h3 id="312-xsim-でメッシング設定">3.1.2. XSim でメッシング設定</h3>
+<p>　<a href="https://xsim.work/">XSimのサイト</a>にアクセスします。アクセスしたら、適当にプロジェクト名を入力して（ここでは「sink_sim」とかにしました）、「作成」ボタンを押すと新規プロジェクトが作成されます。</p>
+  <div align="center">
+  <figure><img src="xsim_initial_window.png"
+         alt="XSimのプロジェクト作成画面"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　XSimのプロジェクト作成画面
+  </div>
+<p>　まずはスケールの変更を適用して、モデル1/1000倍にします。これで、OpenFOAMの世界でメートル(m)単位としてモデルを扱うことができます。</p>
+  <div align="center">
+  <figure><img src="how_to_create_sink_simulation_model_3.png"
+         alt="スケールの変更を適用して単位を合わせる"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　スケールの変更を適用して単位を合わせる
+  </div>
+<p>　その次に、目標ベースメッシュ数をデフォルト値より2桁多くします。</p>
+  <div align="center">
+  <figure><img src="how_to_create_sink_simulation_model_4.png"
+         alt="目標ベースメッシュ数の変更（より細かめに設定）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　目標ベースメッシュ数の変更（より細かめに設定）
+  </div>
+<p>　水が接触する部分には3層のレイヤーメッシュを設定しました。</p>
+  <div align="center">
+  <figure><img src="how_to_create_sink_simulation_model_5.png"
+         alt="レイヤーメッシュの設定（流れる水が触れる壁面に）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　レイヤーメッシュの設定（流れる水が触れる壁面に）
+  </div>
+<p>　あとは物性、初期条件、境界条件などなど&hellip; 色々あるのですが、これらをすっ飛ばしてエクスポートします（メッシュの設定だけが欲しいため）。　他に必要な設定は後で行います。</p>
+<p>　今回使用しているOpenFOAMバージョンがOpenFOAM 12なので、フォーマットを「OpenFOAM 12」に設定してエクスポートします。</p>
+  <div align="center">
+  <figure><img src="how_to_create_sink_simulation_model_6.png"
+         alt="解析ファイルをエクスポート（OpenFOAM 12形式）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　レイヤーメッシュの設定（流れる水が触れる壁面に）
+  </div>
+<h3 id="313-snappyhexmeshでメッシング">3.1.3. snappyHexMeshでメッシング</h3>
+<p>　XSimからエクスポートしたフォルダを開きます。フォルダのルートディレクトリに移動したら、<code>blockMesh → surfaceFeatures → snappyHexMesh</code> の順番でコマンドを実行します。そうすると、constant/triSurface フォルダの中身に生成したメッシュが保存されるので、それをコピーして解析に使いました。</p>
+<p>　snappyHexMeshDictの中身は以下のように少し修正しました。XSimから出てきたものからほとんど変更していませんが、refinementSurfacesのlevelを(1, 1)に設定（このようにしないとParaViewでメッシュが見れなかったため）、locationInMeshの座標を変更しています（これはXSimでも設定できます）。また、regionsのtypeの設定については実際に存在する壁面は wallsとし、それ以外は patch に設定します。</p>
+<p>　ここで重要なのは　locationInMesh の (x, y, z) 座標で、これが正しく設定できないとメッシングがうまくいきません&hellip;（汗汗）。<br><br></p>
+<blockquote>
+<p>失敗したときの現象として、メッシュとメッシュの境界がうまく接続されない（例えば、atomosphereとwallsの接続部分のメッシュが歪んでいる）、Default Facesという謎の直方体メッシュが生成されるなどがあります。同じような現象になったら、計算領域が閉じていない、あるいは locationInMesh が間違えている可能性が高いので参考になさってください。あとは、失敗するときはメッシング時間がやけに長いです&hellip;(snappyHexMeshがうまくいくと150 [秒]くらいですが、 失敗すると400[秒]以上かかりました)</p>
+</blockquote>
+<p>　ケースディレクトリで<code>paraFoam</code>コマンドを打ち、paraViewを起動します。そうすると、メッシングうまくいっているかを視覚的に確認できます（OpenFOAMだと基本的に黒い画面とにらめっこなのでw）。</p>
+<p>　ちなみに先ほど話題にあげた locatioInMeshの座標ですが、paraViewの「Point Source」などを使うと確認できます。この「Point Source」の座標にlocationInMeshの座標を打ち込み、表示された点が計算領域の内部に入っていればOKです(&lsquo;ω&rsquo;)ノ</p>
+  <div align="center">
+  <figure><img src="improper_locationInMesh.png"
+         alt="不適切なlocationInMeshの例（これだと永遠にメッシングうまくいかなかった）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　不適切なlocationInMeshの例（これだと永遠にメッシングうまくいかなかった）
+  </div>
+  <div align="center">
+  <figure><img src="proper_locationInMesh.png"
+         alt="適切なlocationInMeshの例（メッシングがすんなりできてびっくりしました）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　適切なlocationInMeshの例（メッシングがすんなりできてびっくりしました）
+  </div>
+<p><strong>system/snappyHexMeshDict の中身</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">FoamFile
+{
+    version     <span style="color:#ae81ff">2.0</span>;
+    format      ascii;
+    class       dictionary;
+    location    <span style="color:#e6db74">&#34;system&#34;</span>;
+    object      snappyHexMeshDict;
+}
+castellatedMesh true;
+snap            true;
+addLayers       true;
+geometry
+{
+  atmosphere
+  {
+    type triSurfaceMesh;
+    file <span style="color:#e6db74">&#34;atmosphere.stl&#34;</span>;
+    regions
+    {
+      atmosphere
+      {
+        name atmosphere;
+      }
+    }
+  }
+  atmosphere2
+  {
+    type triSurfaceMesh;
+    file <span style="color:#e6db74">&#34;atmosphere2.stl&#34;</span>;
+    regions
+    {
+      atmosphere2
+      {
+        name atmosphere2;
+      }
+    }
+  }
+  side
+  {
+    type triSurfaceMesh;
+    file <span style="color:#e6db74">&#34;side.stl&#34;</span>;
+    regions
+    {
+      side
+      {
+        name side;
+      }
+    }
+  }
+  walls
+  {
+    type triSurfaceMesh;
+    file <span style="color:#e6db74">&#34;walls.stl&#34;</span>;
+    regions
+    {
+      walls
+      {
+        name walls;
+      }
+    }
+  }
+}
+castellatedMeshControls
+{
+  features (
+    {
+      file <span style="color:#e6db74">&#34;atmosphere.eMesh&#34;</span>;
+      level <span style="color:#ae81ff">1</span>;
+    }
+    {
+      file <span style="color:#e6db74">&#34;atmosphere2.eMesh&#34;</span>;
+      level <span style="color:#ae81ff">1</span>;
+    }
+    {
+      file <span style="color:#e6db74">&#34;side.eMesh&#34;</span>;
+      level <span style="color:#ae81ff">1</span>;
+    }
+    {
+      file <span style="color:#e6db74">&#34;walls.eMesh&#34;</span>;
+      level <span style="color:#ae81ff">1</span>;
+    }
+  );
+  refinementSurfaces
+  {
+    atmosphere
+    {
+      level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+      regions
+      {
+        atmosphere
+        {
+          level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+          patchInfo
+          {
+            type patch;
+          }
+        }
+      }
+    }
+    atmosphere2
+    {
+      level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+      regions
+      {
+        atmosphere2
+        {
+          level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+          patchInfo
+          {
+            type patch;
+          }
+        }
+      }
+    }
+    side
+    {
+      level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+      regions
+      {
+        side
+        {
+          level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+          patchInfo
+          {
+            type wall;
+          }
+        }
+      }
+    }
+    walls
+    {
+      level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+      regions
+      {
+        walls
+        {
+          level (<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>);
+          patchInfo
+          {
+            type wall;
+          }
+        }
+      }
+    }
+  }
+  refinementRegions {}
+  locationInMesh (<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0.03</span> <span style="color:#ae81ff">0</span>);
+  maxLocalCells <span style="color:#ae81ff">100000000</span>;
+  maxGlobalCells <span style="color:#ae81ff">100000000</span>;
+  minRefinementCells <span style="color:#ae81ff">1</span>;
+  nCellsBetweenLevels <span style="color:#ae81ff">3</span>;
+  resolveFeatureAngle <span style="color:#ae81ff">30</span>;
+  allowFreeStandingZoneFaces false;
+}
+snapControls
+{
+  nSolveIter <span style="color:#ae81ff">30</span>;
+  nSmoothPatch <span style="color:#ae81ff">3</span>;
+  tolerance <span style="color:#ae81ff">4.0</span>;
+  nRelaxIter <span style="color:#ae81ff">5</span>;
+  nFeatureSnapIter <span style="color:#ae81ff">10</span>;
+}
+addLayersControls
+{
+  layers
+  {
+  atmosphere
+  {
+    nSurfaceLayers <span style="color:#ae81ff">3</span>;
+  }
+  atmosphere2
+  {
+    nSurfaceLayers <span style="color:#ae81ff">3</span>;
+  }
+  side
+  {
+    nSurfaceLayers <span style="color:#ae81ff">3</span>;
+  }
+  walls
+  {
+    nSurfaceLayers <span style="color:#ae81ff">3</span>;
+  }
+
+  }
+  relativeSizes true;
+  expansionRatio <span style="color:#ae81ff">1.0</span>;
+  finalLayerThickness <span style="color:#ae81ff">0.3</span>;
+  minThickness <span style="color:#ae81ff">0.03</span>;
+  nGrow <span style="color:#ae81ff">1</span>;
+  featureAngle <span style="color:#ae81ff">60</span>;
+  nRelaxIter <span style="color:#ae81ff">5</span>;
+  nSmoothSurfaceNormals <span style="color:#ae81ff">1</span>;
+  nSmoothNormals <span style="color:#ae81ff">3</span>;
+  nSmoothThickness <span style="color:#ae81ff">10</span>;
+  maxFaceThicknessRatio <span style="color:#ae81ff">0.5</span>;
+  maxThicknessToMedialRatio <span style="color:#ae81ff">0.3</span>;
+  minMedianAxisAngle <span style="color:#ae81ff">130</span>;
+  nBufferCellsNoExtrude <span style="color:#ae81ff">0</span>;
+  nLayerIter <span style="color:#ae81ff">50</span>;
+  nRelaxedIter <span style="color:#ae81ff">20</span>;
+}
+meshQualityControls
+{
+  maxNonOrtho <span style="color:#ae81ff">65</span>;
+  maxBoundarySkewness <span style="color:#ae81ff">20</span>;
+  maxInternalSkewness <span style="color:#ae81ff">4</span>;
+  maxConcave <span style="color:#ae81ff">80</span>;
+  minFlatness <span style="color:#ae81ff">0.5</span>;
+  minVol <span style="color:#ae81ff">1.00E-13</span>;
+  minTetQuality <span style="color:#f92672">-</span><span style="color:#ae81ff">1e30</span>;
+  minArea <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+  minTwist <span style="color:#ae81ff">0.05</span>;
+  minDeterminant <span style="color:#ae81ff">0.001</span>;
+  minFaceWeight <span style="color:#ae81ff">0.05</span>;
+  minVolRatio <span style="color:#ae81ff">0.01</span>;
+  minTriangleTwist <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+  nSmoothScale <span style="color:#ae81ff">4</span>;
+  errorReduction <span style="color:#ae81ff">0.75</span>;
+  relaxed
+  {
+    maxNonOrtho <span style="color:#ae81ff">180</span>;
+  }
+}
+debug <span style="color:#ae81ff">0</span>;
+mmergeTolerance <span style="color:#ae81ff">1e-5</span>;</code></pre></div></p>
+<p>　メッシングに成功すると defaultFaces は存在せず、下の画像のようなメッシュになります。</p>
+  <div align="center">
+  <figure><img src="meshing_succeeded_example.png"
+         alt="メッシング成功例（defaultFacesは存在しない）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　メッシング成功例（defaultFacesが存在しない）
+  </div>
+<p>　ちなみに失敗したときの画像はしたのような感じです↓</p>
+  <div align="center">
+  <figure><img src="meshing_failed_example.png"
+         alt="メッシング失敗例（非表示にしているが、defaultFacesが存在している）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　メッシング失敗例（defaultFacesは存在する）
+  </div>
+<h2 id="32-材料物性">3.2. 材料物性</h2>
+<p>　WaterChannelチュートリアルのデフォルト値を使いました。なので、粘性係数などもすべてデフォルト値です。</p>
+<h2 id="33-境界条件">3.3. 境界条件</h2>
+<p>　水の表面は大気開放にしていて、壁面は滑りなしの条件を与えています。計算領域全体に重力加速度が設定されているので、水が重力を受けて洗面台や下部のパイプに触れながら流れていく感じになります。</p>
+<h2 id="34-初期条件0ディレクトリの中身">3.4. 初期条件（0ディレクトリの中身）</h2>
+<h3 id="341-流速u-圧力p_rgh-nut-omegaなど">3.4.1. 流速U, 圧力p_rgh, nut, omegaなど</h3>
+<p>　ほぼデフォルトのままなんですが、設定している境界面の名前がデフォルトと異なる場合は変更が必要です。</p>
+<p>　今回は walls, side, atomsphere, atmosphere2 という名前（これらはデフォルトと異なるものが混じっている）になっているので、ファイルを開いて名前や境界条件の種類などを修正していきます。境界条件はtype（静止壁、滑り壁、自然流入出など）やそのvalue（各境界条件の定義に必要な値）を適切に設定します。</p>
+<h3 id="342-水の領域設定">3.4.2. 水の領域設定</h3>
+<p>　今回は自由表面解析なので、計算領域のどの範囲が液体であるか指定する必要があります。</p>
+<p>　洗面台に水を満たすような感じにしたかったので、alpha.water.origファイルとsetFields中身は以下のようにしました。ちなみに「alpha.water = 1 だと全部水」、「alpha.water = 0.5 だと水と空気の境界」を表します。</p>
+<p>　SetFieldsDictで設定した直方体領域と交差する部分に液体部分が生成されます。設定する座標によって水面高さが決まるので、注意して設定していきます（私は桁を間違えて、水面高さがつるつるいっぱいな感じになりましたw）。</p>
+  <div align="center">
+  <figure><img src="filled_water_failed.jpg"
+         alt="水がつるつるいっぱいになってしまった（赤色の領域が水）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　水がつるつるいっぱいになってしまった（赤色の領域が水）
+  </div>
+<p>　<div align="center">
+<figure><img src="filled_water.jpg"
+         alt="水の水面高さを修正した"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　水の水面高さを修正した
+  </div>
+<p><strong>0/alpha.water.orig の中身</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">/*--------------------------------*- C++ -*----------------------------------*\
+</span><span style="color:#75715e">  =========                 |
+</span><span style="color:#75715e">  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+</span><span style="color:#75715e">   \\    /   O peration     | Website:  https://openfoam.org
+</span><span style="color:#75715e">    \\  /    A nd           | Version:  12
+</span><span style="color:#75715e">     \\/     M anipulation  |
+</span><span style="color:#75715e">\*---------------------------------------------------------------------------*/</span>
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    object      alpha.water;
+}
+<span style="color:#75715e">// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+</span><span style="color:#75715e"></span>
+dimensions      [];
+
+internalField   uniform <span style="color:#ae81ff">0</span>;
+
+boundaryField
+{
+    walls
+    {
+        type            zeroGradient;
+    }
+    side
+    {
+        type            zeroGradient;
+    }
+    atmosphere
+    {
+        type            inletOutlet;
+        inletValue      uniform <span style="color:#ae81ff">0</span>;
+        value           uniform <span style="color:#ae81ff">0</span>;
+    }
+    atmosphere2
+    {
+        type            inletOutlet;
+        inletValue      uniform <span style="color:#ae81ff">0</span>;
+        value           uniform <span style="color:#ae81ff">0</span>;
+    }
+}
+
+<span style="color:#75715e">// ************************************************************************* //
+</span></code></pre></div></p>
+<p><strong>system/setFieldsDict の中身</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">/*--------------------------------*- C++ -*----------------------------------*\
+</span><span style="color:#75715e">  =========                 |
+</span><span style="color:#75715e">  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+</span><span style="color:#75715e">   \\    /   O peration     | Website:  https://openfoam.org
+</span><span style="color:#75715e">    \\  /    A nd           | Version:  12
+</span><span style="color:#75715e">     \\/     M anipulation  |
+</span><span style="color:#75715e">\*---------------------------------------------------------------------------*/</span>
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    <span style="color:#e6db74">&#34;system&#34;</span>;
+    object      setFieldsDict;
+}
+<span style="color:#75715e">// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+</span><span style="color:#75715e"></span>
+defaultFieldValues
+(
+    volScalarFieldValue alpha.water <span style="color:#ae81ff">0</span>
+);
+
+regions
+(
+    boxToCell
+    {
+        box (<span style="color:#f92672">-</span><span style="color:#ae81ff">0.200</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.1375</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.070</span>) (<span style="color:#ae81ff">0.200</span> <span style="color:#ae81ff">0.1375</span> <span style="color:#ae81ff">0.030</span>);
+        fieldValues
+        (
+            volScalarFieldValue alpha.water <span style="color:#ae81ff">1</span>
+        );
+    }
+);
+
+
+<span style="color:#75715e">// ************************************************************************* //
+</span></code></pre></div></p>
+<h2 id="35-計算の設定">3.5. 計算の設定</h2>
+<p>　ほとんどwaterChannelのデフォルト設定を使っています。水は思いのほか高速で移動するので、時間の刻み幅deltaT を 0.001 [s]に、計算結果の書き出し間隔（writeInterval）を短くして 0.01 [s]にしました。あとは、洗面台の水は結構な量があったので、計算の終了時間 endTimeを 5 [s]に設定しています。</p>
+<p>　また、system/functionオブジェクトなどをコメントアウトしないとエラーになったので、コメントアウトしておきました（Geminiありがとう）。</p>
+<p><strong>system/controlDict の中身</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">/*--------------------------------*- C++ -*----------------------------------*\
+</span><span style="color:#75715e">  =========                 |
+</span><span style="color:#75715e">  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+</span><span style="color:#75715e">   \\    /   O peration     | Website:  https://openfoam.org
+</span><span style="color:#75715e">    \\  /    A nd           | Version:  12
+</span><span style="color:#75715e">     \\/     M anipulation  |
+</span><span style="color:#75715e">\*---------------------------------------------------------------------------*/</span>
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    <span style="color:#e6db74">&#34;system&#34;</span>;
+    object      controlDict;
+}
+<span style="color:#75715e">// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+</span><span style="color:#75715e"></span>
+application     foamRun;
+
+solver          incompressibleVoF;
+
+startFrom       startTime;
+
+startTime       <span style="color:#ae81ff">0</span>;
+
+stopAt          endTime;
+
+endTime         <span style="color:#ae81ff">5</span>;
+
+deltaT          <span style="color:#ae81ff">0.001</span>;
+
+writeControl    adjustableRunTime;
+
+writeInterval   <span style="color:#ae81ff">0.01</span>;
+
+purgeWrite      <span style="color:#ae81ff">0</span>;
+
+writeFormat     binary;
+
+writePrecision  <span style="color:#ae81ff">6</span>;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   <span style="color:#ae81ff">6</span>;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           <span style="color:#ae81ff">6</span>;
+maxAlphaCo      <span style="color:#ae81ff">6</span>;
+maxDeltaT       <span style="color:#ae81ff">1</span>;
+
+<span style="color:#75715e">// ************************************************************************* //
+</span></code></pre></div>
+<h1 id="4-シミュレーション結果">4. シミュレーション結果</h1>
+<p>　シミュレーション結果は下のGIF画像のようになりました。時間が経つにつれて、水がパイプを通って流れていくことが確認できます。</p>
+<p>　実際に同じような感じで洗面台に水を張って水を流してみたんですけど、もう少しゆっくり流れる印象でした（パイプの入り口に色々部品が付いているせいか、パイプの壁面が汚れとか製造方法の関係で管摩擦が発生するせいか、パイプ直径が実際はもう少し小さいせいか… 原因はいっぱいあるのでよくわからないです）</p>
+  <div align="center">
+  <figure><img src="sink_3d_model_sim.gif"
+         alt="洗面台シミュレーション結果"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　洗面台シミュレーション結果
+  </div>
+<p>　
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/cAs8IB4A2yE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+  <div style="text-align: center;">
+  ☝　GIF画像だと色数が減って変な部分もあるので、動画も載せておきます
+  </div>
+<p>　このシミュレーション結果から、ParaViewで水部分のメッシュを取り出して、Blenderでマテリアルとかライティングをしっかりやると下のようにリアルな画像が作れます！</p>
+  <div align="center">
+  <figure><img src="t_238_render_image_camera_angle_upper_no_side.png"
+         alt="レンダリング画像例1"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　レンダリング画像例1 (時刻t = 1.55 [s])
+  </div>
+  <div align="center">
+  <figure><img src="t_238_glass_thickness_no_side.png"
+         alt="レンダリング画像例2"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　レンダリング画像例2 (時刻t = 2.38 [s])
+  </div>
+  <div align="center">
+  <figure><img src="t_238_render_image_all_glass_material.png"
+         alt="レンダリング画像例3（全部ガラス製にしてみた）"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　レンダリング画像例3（全部ガラス製にしてみた）
+  </div>
+<p><br><br>
+　参考：シミュレーション実行時間（42分）</p>
+<ul>
+<li>
+<p>使用したPCのスペック（ASUS ROG FLOW Z13, GZ301VF.316）<br>
+CPU：13th Gen Intel(R) Core(TM) i9-13900H<br></p>
+<p>基本速度:	2.60 GHz<br>
+ソケット:	1<br>
+コア:	14<br>
+論理プロセッサ数:	20<br>
+仮想化:	有効<br>
+L1 キャッシュ:	1.2 MB<br>
+L2 キャッシュ:	11.5 MB<br>
+L3 キャッシュ:	24.0 MB<br></p>
+</li>
+</ul>
+<p>　※ 20コア（論理）並列計算をしました</p>
+<p>　<div align="center">
+<figure><img src="pc_monitor_during_simulation.jpg"
+         alt="シミュレーション実行中のPC画面（CPU使用率100[%] !?）"/>
+</figure>
+</p>
+  </div>
+  <div style="text-align: center;">
+  ☝　シミュレーション実行中のPC画面（CPU使用率100[%] !?）
+  </div>
+<h1 id="5-参考文献">5. 参考文献</h1>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>GitHub(@OpenFOAM Foundation),「OpenFOAM-12/tutorials/incompressibleVoF/waterChannel」 <a href="https://github.com/OpenFOAM/OpenFOAM-12/tree/master/tutorials/incompressibleVoF/waterChannel">https://github.com/OpenFOAM/OpenFOAM-12/tree/master/tutorials/incompressibleVoF/waterChannel</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>SimFlow, いきなりOpenFOAM, 「逆さにした瓶からの液体の流出」, <a href="https://www.softflow.jp/tech-forum/ikinari-openfoam-49/">https://www.softflow.jp/tech-forum/ikinari-openfoam-49/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>SimFlow, いきなりOpenFOAM, 「ボトルへの注水（その1）」, <a href="https://www.softflow.jp/tech-forum/ikinari-openfoam-42/">https://www.softflow.jp/tech-forum/ikinari-openfoam-42/</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>SimFlow, いきなりOpenFOAM, 「水路解析用のひな形をつくる」 , <a href="https://www.softflow.jp/tech-forum/ikinari-openfoam-35/">https://www.softflow.jp/tech-forum/ikinari-openfoam-35/</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>SimFlow, いきなりOpenFOAM,「液滴落下による波紋の解析」 , <a href="https://www.softflow.jp/tech-forum/ikinari-openfoam-47/">https://www.softflow.jp/tech-forum/ikinari-openfoam-47/</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/10/05/sink_simulation_and_visualization/">洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/">洗面台の3Dモデルを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/">Fusion 360でソリッド表面からサーフェスを抽出して保存する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/">OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/03/23/extract_data_using_column_names_in_labview/">LabVIEWで列名を使ってデータを抽出する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/22/android_emulator_freezes/">Androidエミュレータにアプリがインストールされた直後にPCがフリーズ</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/02/09/armoury_crate_installation_is_stack/">ARMOURY CRATE のインストールが途中で止まってしまう？</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/cae/">CAE</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/fusion-360/">Fusion 360</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/openfoam/">OpenFOAM</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/">LabVIEW</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

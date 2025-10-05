@@ -6,7 +6,19 @@
     <description>Recent content in 備忘録 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 13 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/10/05/sink_simulation_and_visualization/</link>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/10/05/sink_simulation_and_visualization/</guid>
+      <description>～ 目次 ～   1. やってみたこと 2. シミュレーションの概要 3. シミュレーションモデルの構築  3.1. メッシュの作成  3.1.1. Fusion 360 からサーフェイスを抽出 3.1.2. XSim でメッシング設定 3.1.3. snappyHexMeshでメッシング   3.2. 材料物性 3.3. 境界条件 3.4. 初期条件（0ディレクトリの中身）  3.4.1. 流速U, 圧力p_rgh, nut, omegaなど 3.4.2. 水の領域設定   3.5. 計算の設定   4. シミュレーション結果 5. 参考文献  1. やってみたこと 　前回の記事で作成した洗面台の3Dモデルに水を満たし、パイプから水が流れ出ていくシミュレーションをやってみました。
+  ☝　前回記事で作成した洗面台の3Dモデル  2. シミュレーションの概要 　洗面台に水を張り、水が重力で洗面台下部のパイプから流れ出ていくような解析を、自由表面解析（VOF法）でやっていきます。
+　そこで、incompressibleVoF の公式チュートリアル (waterChannel)1 をコピーして、メッシュや水の範囲などを変更することでシミュレーションモデルを構築しました。
+　OpenFOAM 12の場合は少し分かりにくいのですが、waterChannelのチュートリアルは、</description>
+    </item>
+    
     <item>
       <title>洗面台の3Dモデルを作ってみた</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/</link>
