@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KiCad on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/kicad/</link>
+    <description>Recent content in KiCad on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 03 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/kicad/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-プリント基板設計に着手]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/</link>
+      <pubDate>Mon, 03 Nov 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/</guid>
+      <description> 現状の回路図＆基板 　普段の研究開発のこともあり中々最近できていませんでしたが、自作ラジコン操縦用アプリ「Happy_RC_Driver」に対応したレシーバーのプリント基板（PCB）設計に着手しました！
+　現状では、KiCadを使用して「回路図」と「プリント基板のパターン」を作成しています。今はDIP部品で実装を進めていますが、将来的にはSMD（表面実装）でやりたいです。
+　少しずつ形にして、シミュレーションとか実機の動作テストができたらなと考えています。
+　KiCadの操作は覚えながらなので大苦戦中ですが&amp;hellip;笑
+  ☝　現状の回路図    ☝　現状のプリント基板パターン  関連記事  前回記事 →→→ Bluetooth モジュールでRCサーボ・ESCを制御したい [第15回-ジョイスティック実装] ラジコン操縦アプリ「Happy_RC_Driver」のGitHubレポジトリ →→→ https://github.com/TomokiIkegami/Happy_RC_Driver  </description>
+    </item>
+    
+  </channel>
+</rss>
