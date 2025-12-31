@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート] -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]
+    </h1>
+    
+    <p class="document-date">
+      2025-12-31 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"旧プログラムはESP32 Coreのバージョンが2.0系だったので、3.0系対応にアップデート"</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<hr>
+<h1 id="アップデート内容">アップデート内容</h1>
+<p>　自作ラジコン操縦アプリ（Happy_RC_Driver）用のレシーバー側プログラムに関して、ESP32が Core 2.x系から3.x系にアップデートされていたため、旧バージョンのプログラムが使えなくなっていました。</p>
+<p>　主にタイマー割り込みのコードの更新が必要だったため、アップデートを行いました。前よりもプログラムがシンプルになった感じがします（ちょっとうれしい）。プログラムのアップデートは<a href="https://github.com/TomokiIkegami/Happy_RC_Driver">GitHubのレポジトリ</a>に反映しておきました。</p>
+<p>　アップデートしたプログラムは実機（下画像のESP32_DevKitc_V4搭載ラジコン）にも書き込み、動作することを確認しました👍</p>
+<p><strong>アップデート前（タイマー割り込み部分）</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">  timer <span style="color:#f92672">=</span> timerBegin<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 80<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>              <span style="color:#75715e">//80クロック1カウント
+</span><span style="color:#75715e"></span>  timerAttachInterrupt<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> <span style="color:#f92672">&amp;</span>onTimer<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//onTimerという名前の関数で割り込み
+</span><span style="color:#75715e"></span>  timerAlarmWrite<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> 1000000 <span style="color:#f92672">*</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">1</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//80クロック×1000000カウント=1秒、1*0.1=100[ms]
+</span><span style="color:#75715e"></span>  timerAlarmEnable<span style="color:#f92672">(</span>timer<span style="color:#f92672">);</span>                      <span style="color:#75715e">//タイマー有効化
+</span><span style="color:#75715e"></span>  </code></pre></div></p>
+<p><strong>アップデート後（タイマー割り込み部分）</strong>
+　<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">  timer <span style="color:#f92672">=</span> timerBegin<span style="color:#f92672">(</span>1000000<span style="color:#f92672">);</span>              <span style="color:#75715e">//周波数を1MHzに指定（1µs毎にカウントアップする）　※ ESP32 Core 2.x系 → 3.x系に伴い変更した
+</span><span style="color:#75715e"></span>  timerAttachInterrupt<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> <span style="color:#f92672">&amp;</span>onTimer<span style="color:#f92672">);</span>  <span style="color:#75715e">//onTimerという名前の関数で割り込み
+</span><span style="color:#75715e"></span>  timerAlarm<span style="color:#f92672">(</span>timer<span style="color:#f92672">,</span> 100000<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>  <span style="color:#75715e">// (1/周波数)*カウント数=(1/1000000)*100000 = 0.1 [s]ごとに割り込みを発生 ※ ESP32 Core 2.x系 → 3.x系に伴い変更した
+</span><span style="color:#75715e"></span>　</code></pre></div></p>
+  <div align="center">
+  <figure><img src="happy_rc_driver_9a_core3x_test.gif"
+         alt="動作確認の様子"/>
+</figure>
+
+  </div>
+  <div style="text-align: center;">
+  ☝　動作確認の様子
+  </div>
+<h1 id="参考文献">参考文献</h1>
+<ul>
+<li>なんでも独り言「ESP32 (Arduino Core) 2.0系から3.0系への移行」、(<a href="https://ehbtj.com/electronics/migrating-from-esp32-arduino-core-v2-to-v3/">https://ehbtj.com/electronics/migrating-from-esp32-arduino-core-v2-to-v3/</a>)</li>
+</ul>
+<h1 id="関連記事">関連記事</h1>
+<ul>
+<li>前回記事 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-ジョイスティック実装]</a></li>
+<li>ラジコン操縦アプリ「Happy_RC_Driver」のGitHubレポジトリ →→→ <a href="https://github.com/TomokiIkegami/Happy_RC_Driver">https://github.com/TomokiIkegami/Happy_RC_Driver</a></li>
+</ul>
+
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-プリント基板設計に着手]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/10/05/sink_simulation_and_visualization/">洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/">洗面台の3Dモデルを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/">Fusion 360でソリッド表面からサーフェスを抽出して保存する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/">OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/03/23/extract_data_using_column_names_in_labview/">LabVIEWで列名を使ってデータを抽出する方法</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/cae/">CAE</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/fusion-360/">Fusion 360</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/openfoam/">OpenFOAM</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/kicad/">KiCad</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/">LabVIEW</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2025</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

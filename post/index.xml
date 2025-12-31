@@ -6,7 +6,21 @@
     <description>Recent content in Posts on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 03 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/</link>
+      <pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/</guid>
+      <description>アップデート内容 　自作ラジコン操縦アプリ（Happy_RC_Driver）用のレシーバー側プログラムに関して、ESP32が Core 2.x系から3.x系にアップデートされていたため、旧バージョンのプログラムが使えなくなっていました。
+　主にタイマー割り込みのコードの更新が必要だったため、アップデートを行いました。前よりもプログラムがシンプルになった感じがします（ちょっとうれしい）。プログラムのアップデートはGitHubのレポジトリに反映しておきました。
+　アップデートしたプログラムは実機（下画像のESP32_DevKitc_V4搭載ラジコン）にも書き込み、動作することを確認しました👍
+アップデート前（タイマー割り込み部分） timer = timerBegin(0, 80, true); //80クロック1カウント  timerAttachInterrupt(timer, &amp;amp;onTimer, true); //onTimerという名前の関数で割り込み  timerAlarmWrite(timer, 1000000 * 0.1, true); //80クロック×1000000カウント=1秒、1*0.1=100[ms]  timerAlarmEnable(timer); //タイマー有効化  
+アップデート後（タイマー割り込み部分） timer = timerBegin(1000000); //周波数を1MHzに指定（1µs毎にカウントアップする）　※ ESP32 Core 2.x系 → 3.x系に伴い変更した  timerAttachInterrupt(timer, &amp;amp;onTimer); //onTimerという名前の関数で割り込み  timerAlarm(timer, 100000, true, 0); // (1/周波数)*カウント数=(1/1000000)*100000 = 0.1 [s]ごとに割り込みを発生 ※ ESP32 Core 2.x系 → 3.x系に伴い変更した 　
+  ☝　動作確認の様子  参考文献  なんでも独り言「ESP32 (Arduino Core) 2.</description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-プリント基板設計に着手]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/</link>
