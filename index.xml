@@ -6,7 +6,27 @@
     <description>Recent content on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fusion 360で3DPCBを挿入したデザインがアップロードできない</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2026/03/16/fusion360_3dpcb_link_error/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2026/03/16/fusion360_3dpcb_link_error/</guid>
+      <description>起こった現象 　私は現在、装置開発のプロジェクトに従事しています。そこで、機体とPCBの設計を連携させながら開発を進めるために、機体のデザインに設計したPCB（プリント基板）を挿入しています。
+　するとある日突然、機体のデザインがクラウドにアップロードできなくなってしまいました（悲しい&amp;hellip;）。原因は分からず色々調査したところ、どうやら機体のデザインに挿入しているPCB（Fusion Electronicsの3DPCB）が悪さをしているようで、PCBを削除すると正常に機体のデザインがアップロードできるようになりました。
+　でも、PCBと機体を連携して設計が進められてないのは不便なのでどうにかしたいです。
+　ChatGPTに聞くと、3DPCBをアセンブリとして保存し、そのアセンブリを機体のデザインに挿入するという少し回りくどい方法をとればできるらしいけど、どうにかならないものかなあ&amp;hellip;
+スクショ 　リモートワーク時に撮影した実際のスクリーンレコードから、スクリーンショットを保存しました。保存を開始すると、画面左下のデータパネルのプログレスバーが進みます。でもプログレスバーは途中で止まってしまいます。
+ 　☝　保存が失敗したときのデータパネル（ファイルのサムネイル画像が表示されず真っ白になる）  　さらに、プログレスバー右側にあるボタン（四角□の中に右上矢印↗が入ったアイコン）を押すとプログレスバーがポップアップして、Job Status画面が現れます。「Status」の部分の青丸のiマークにマウスカーソルを合わせると、「Save Delayed」と表示されます。
+ 　☝　保存を開始すると「Save Delayed」と表示される  　待っていると、保存が失敗したという通知「Cloud save failed」が来て落ち込みます（苦笑）
+ 　☝　保存が失敗すると「Cloud save failed」という通知がくる  現象を確認したバージョン 　以下のバージョンと環境にて、この現象を確認しました。私が作業していたのは、2026年3月16日の10:40～12:35頃（日本時間）です。こりゃあ困ったなああぁぁぁ&amp;hellip;
+ Fusion 2701.1.18 x86_64
+Active Plan: Student
+Windows 11 Home 25H2 (26200.8037)
+  </description>
+    </item>
+    
     <item>
       <title>Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/</link>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <title>
+     Fusion 360で3DPCBを挿入したデザインがアップロードできない -  Happy RC Blog !
+  </title>
+  <meta name="theme-color" content="#a3001b" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="ラジコンが楽しくなるような工作やレポートを掲載したいと思います！ラジコン以外にもやってみて苦労したことや、面白かったことについても記録していく予定です！" />
+  <meta name="author" content="Tomoki Ikegami" />
+
+  <link rel="stylesheet" href="/Happy_RC.github.io/css/main.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+  />
+</head>
+<body>
+    
+    <header class="regular-page-header shadow round-corner">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      width: 98%;
+      margin-bottom: 0.5em;
+    "
+  >
+    <a class="primary-icon" href="/Happy_RC.github.io/" aria-label="home page">
+      <i class="bi bi-house-fill"></i>
+    </a>
+    
+  </div>
+  <div class="page-title-and-info" style="text-align: center">
+    <h1 class="page-title" >
+      Fusion 360で3DPCBを挿入したデザインがアップロードできない
+    </h1>
+    
+    <p class="document-date">
+      2026-03-16 &middot; Tomoki Ikegami
+    </p>
+    
+    <p class="document-description">"問題解決したわけではありませんが、現状を共有しておきます..."</p>
+     
+  </div>
+</header>
+
+    
+    <main class="card shadow round-corner">
+<h2 id="起こった現象">起こった現象</h2>
+<p>　私は現在、装置開発のプロジェクトに従事しています。そこで、機体とPCBの設計を連携させながら開発を進めるために、機体のデザインに設計したPCB（プリント基板）を挿入しています。</p>
+<p>　するとある日突然、機体のデザインがクラウドにアップロードできなくなってしまいました（悲しい&hellip;）。原因は分からず色々調査したところ、どうやら機体のデザインに挿入しているPCB（Fusion Electronicsの3DPCB）が悪さをしているようで、PCBを削除すると正常に機体のデザインがアップロードできるようになりました。</p>
+<p>　でも、PCBと機体を連携して設計が進められてないのは不便なのでどうにかしたいです。</p>
+<p>　ChatGPTに聞くと、3DPCBをアセンブリとして保存し、そのアセンブリを機体のデザインに挿入するという少し回りくどい方法をとればできるらしいけど、どうにかならないものかなあ&hellip;</p>
+<h1 id="スクショ">スクショ</h1>
+<p>　リモートワーク時に撮影した実際のスクリーンレコードから、スクリーンショットを保存しました。保存を開始すると、画面左下のデータパネルのプログレスバーが進みます。でもプログレスバーは途中で止まってしまいます。</p>
+  <div align="center">
+  <figure><img src="data_panel_upload_failed.jpg"
+         alt="保存が失敗したときのデータパネル（ファイルのサムネイル画像が表示されず真っ白になる）"/>
+</figure>
+
+  </div>　
+  <div style="text-align: center;">
+  ☝　保存が失敗したときのデータパネル（ファイルのサムネイル画像が表示されず真っ白になる）
+  </div>
+<p>　さらに、プログレスバー右側にあるボタン（四角□の中に右上矢印↗が入ったアイコン）を押すとプログレスバーがポップアップして、Job Status画面が現れます。「Status」の部分の青丸のiマークにマウスカーソルを合わせると、「Save Delayed」と表示されます。</p>
+  <div align="center">
+  <figure><img src="save_delayed.jpg"
+         alt="保存を開始すると「Save Delayed」と表示される"/>
+</figure>
+
+  </div>　　　
+  <div style="text-align: center;">
+  ☝　保存を開始すると「Save Delayed」と表示される
+  </div>
+<p>　待っていると、保存が失敗したという通知「Cloud save failed」が来て落ち込みます（苦笑）</p>
+  <div align="center">
+  <figure><img src="cloud_save_failed.jpg"
+         alt="保存が失敗すると「Cloud save failed」という通知がくる"/>
+</figure>
+
+  </div>　
+  <div style="text-align: center;">
+  ☝　保存が失敗すると「Cloud save failed」という通知がくる
+  </div>
+<h2 id="現象を確認したバージョン">現象を確認したバージョン</h2>
+<p>　以下のバージョンと環境にて、この現象を確認しました。私が作業していたのは、2026年3月16日の10:40～12:35頃（日本時間）です。こりゃあ困ったなああぁぁぁ&hellip;<br><br></p>
+<blockquote>
+<p>Fusion 2701.1.18 x86_64<br>
+Active Plan: Student<br>
+Windows 11 Home 25H2 (26200.8037)<br></p>
+</blockquote>
+  <div align="center">
+  <figure><img src="%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88%202026-03-16%20152149.png"
+         alt="現象を確認したバージョン"/>
+</figure>
+
+  </div>
+
+    </main><footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: {autoNumber: "AMS"} },
+      tex2jax: {
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  
+  
+  
+  
+  <div class="prev-next">
+    <a
+      class="active icon"
+      href="/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/"
+      aria-label="Previous Article"
+      ><i class="bi bi-arrow-left-circle-fill"></i
+    ></a>
+    <div class="disabled icon"><i class="bi bi-arrow-right-circle-fill"></i></div>
+  </div>
+  </div>
+  
+  <div class="footer shadow round-corner">
+    
+    <div class="grid-container">
+      <div class="footer-recent-posts">
+        <h6>Recent Posts</h6>
+        <ol>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2026/03/16/fusion360_3dpcb_link_error/">Fusion 360で3DPCBを挿入したデザインがアップロードできない</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/12/31/rc_electronics_control_using_bt-module_17/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-プリント基板設計に着手]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/10/05/sink_simulation_and_visualization/">洗面台の自作3Dモデルに水を流すシミュレーションをしてみた [OpenFOAM --&gt; incompressibleVoF]</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/08/13/how_to_create_a_3d_model_of_a_sink/">洗面台の3Dモデルを作ってみた</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/07/12/fusion360_how_to_extract_surface_from_a_solid/">Fusion 360でソリッド表面からサーフェスを抽出して保存する方法</a></li>
+          
+          <li><a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/06/22/simple_pcb_cooling_simulation_with_openfoam/">OpenFOAMで基板の放熱シミュレーションみたいなのをやってみた [chtMultiRegionFoam]</a></li>
+          
+        </ol>
+        <a href="/Happy_RC.github.io/archive">...ALL POSTS</a>
+        <hr class="mobile white-hr" />
+      </div>
+      <div>
+        <h6>Sections</h6>
+<div class="section-container">
+  
+  
+  <a class="section" href="https://tomokiikegami.github.io/Happy_RC.github.io/post/" aria-label="site sections"
+    >Posts</a
+  >
+  
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+<h6>
+  Tags
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduino/">Arduino</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E7%84%A1%E7%B7%9A%E9%80%9A%E4%BF%A1/">無線通信</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%A2%E3%83%97%E3%83%AA/">自作アプリ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/mit-app-inventor/">MIT App Inventor</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B5%E3%83%BC%E3%83%9C/">サーボ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/esc/">ESC</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0/">3Dモデリング</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/freecad/">FreeCAD</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%A9%9F%E6%A2%B0%E8%A8%AD%E8%A8%88/">機械設計</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/pc%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB/">PCトラブル</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/">3Dプリンタ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/python/">Python</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AE%E3%82%A2/">ギア</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B9%E3%83%9E%E3%83%9B/">スマホ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/fusion-360/">Fusion 360</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ultimaker-cura/">Ultimaker Cura</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE/">文字装飾</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/cae/">CAE</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/openfoam/">OpenFOAM</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/vs-code/">VS Code</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/word/">Word</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/arduinodroid/">ArduinoDroid</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/blender/">Blender</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/django/">Django</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/flask/">Flask</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/html%E3%82%BF%E3%82%B0/">htmlタグ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/hugo/">hugo</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/ios/">IOS</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/kicad/">KiCad</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/labview/">LabVIEW</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/libreoffice-draw/">LibreOffice Draw</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/nr-500/">NR-500</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/thunkable/">Thunkable</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/unreal-engine/">Unreal Engine</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%90/">オートメーションサーバ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA/">ゲーム開発</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%8F%E3%83%83%E3%82%AB%E3%82%BD%E3%83%B3/">ハッカソン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97/">バックアップ</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E3%83%9C%E3%83%87%E3%82%A3%E5%A1%97%E8%A3%85/">ボディ塗装</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E5%9B%B3%E3%81%AE%E4%BD%9C%E6%88%90/">図の作成</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/%E8%A8%88%E6%B8%AC%E5%88%B6%E5%BE%A1/">計測制御</a>
+  
+</div>
+
+
+<h6>
+  Categories
+</h6>
+
+<div class="taxa-container">
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E3%83%A9%E3%82%B8%E3%82%B3%E3%83%B3/">ラジコン</a>
+  
+  
+    <a class="taxa" href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/">備忘録</a>
+  
+</div>
+
+
+        <hr class="mobile white-hr" />
+      </div>
+    </div>
+    
+    <div class="footer-info-text">
+      <p>
+        
+        <span>2026</span>
+        <span>Tomoki Ikegami.</span>
+        <span>I hope to enjoy your RC Life.</span>
+      </p>
+      <p>
+        <a href="https://github.com/urjaacharya/redgood">redgood</a>
+        by
+        <a
+          href="https://www.urjaacharya.com/"
+          aria-label="link to urja acharya site"
+        >urja acharya</a>
+      </p>
+    </div>
+    <div style="text-align: right; margin-bottom: 0.25em; font-size: 1.2em">
+      <a class="primary-icon to-top" href="#" aria-label="navigate to top">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
