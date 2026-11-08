@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maya on Happy RC Blog !</title>
+    <link>https://tomokiikegami.github.io/Happy_RC.github.io/tags/maya/</link>
+    <description>Recent content in Maya on Happy RC Blog !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 08 Nov 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/tags/maya/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maya初心者がとりあえず魚作ってみた [初めてのMayaモデリング]</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2026/11/08/maya_fish/</link>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2026/11/08/maya_fish/</guid>
+      <description>モデリング動画 　Mayaで魚をモデリングしたノーカット動画です。動画は一時間半くらいあって長いので、ブログ記事を書いてまとめました！
+  モデリングの様子 　Mayaの操作方法が本当に分からないので、目とマウスカーソルをフラフラ泳がせながらモデリングを進めていきます。
+　とりあえずなんとなくで、てきとうにメニュやボタンをポチポチ押しまくって、出たとこ勝負の究極の行き当たりばったりで作業を進めていきます（非効率ですが笑）。
+　まずは体を作りたいので、丸っこいものを探して置いてみます。
+  ☝　最初の画面    ☝　球を挿入  　元の立体の比率を変えて引き延ばし、魚の体みたいな平べったい形にしていきます
+  ☝　スケールを変更して平べったく    ☝　スケールを変更して平べったく  　胴体と尾びれあればまあ魚に見えるだろうということで、とりあえず尾びれを付けます。
+　尾びれは、辺の分割や統合やらを繰り返して、無駄に遠回りな感じ（複雑な形 → シンプルな形に）の方法で作っていきます（絶対もっと簡単な方法あります）。
+  ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成    ☝　尾びれの作成  　尾びれができたので、おなかのところのひれ（胸びれ）をつくっていきます。</description>
+    </item>
+    
+  </channel>
+</rss>
