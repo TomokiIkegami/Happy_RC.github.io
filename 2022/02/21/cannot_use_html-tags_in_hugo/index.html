@@ -33,10 +33,14 @@
     </a>
     
   </div>
-  <div class="page-title-and-info" style="text-align: center">
-    <h1 class="page-title" >
+  
+  
+  <div class="page-title-and-info" style="text-align: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-all; padding: 0 10px;">
+    <h1 class="page-title" style="white-space: normal; word-break: break-all; ">
       hugoで上付き・下付き文字が入力できない
     </h1>
+  
+
     
     <p class="document-date">
       2022-02-21 &middot; Tomoki Ikegami
@@ -46,10 +50,11 @@
      
   </div>
 </header>
-
     
     <main class="card shadow round-corner">
-<h2 id="現状">現状</h2>
+
+<div style="min-width: 0; max-width: 100%; overflow-wrap: break-word; word-break: break-all; box-sizing: border-box;">
+  <h2 id="現状">現状</h2>
 <p>記事のファイル「index.md」には、下のような感じで上付き文字を含んだ文章を書いているのですが、出力結果がおかしくなってしまいます。</p>
 <h4 id="記事ファイルindexmdの中身">記事ファイル「index.md」の中身</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">x&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt; + y&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt; = r&lt;<span style="color:#f92672">sup</span>&gt;2&lt;/<span style="color:#f92672">sup</span>&gt;　</code></pre></div>
@@ -159,6 +164,8 @@
 <li>まくまくHugo/Goノート「Markdown ファイルに記述した HTML コードが削除されてしまう」、(<a href="https://maku77.github.io/hugo/misc/include-html.html">https://maku77.github.io/hugo/misc/include-html.html</a>)</li>
 <li>Hugo「Now CommonMark Compliant!」、(<a href="https://gohugo.io/news/0.60.0-relnotes/">https://gohugo.io/news/0.60.0-relnotes/</a>)</li>
 </ol>
+
+</div>
 
 
     </main><footer>

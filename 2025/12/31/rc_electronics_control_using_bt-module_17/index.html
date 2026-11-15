@@ -33,10 +33,14 @@
     </a>
     
   </div>
-  <div class="page-title-and-info" style="text-align: center">
-    <h1 class="page-title" >
+  
+  
+  <div class="page-title-and-info" style="text-align: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-all; padding: 0 10px;">
+    <h1 class="page-title" style="white-space: normal; word-break: break-all; ">
       Bluetooth モジュールでRCサーボ・ESCを制御したい [第17回-ESP32 Core 3.x対応のアップデート]
     </h1>
+  
+
     
     <p class="document-date">
       2025-12-31 &middot; Tomoki Ikegami
@@ -46,10 +50,11 @@
      
   </div>
 </header>
-
     
     <main class="card shadow round-corner">
-<hr>
+
+<div style="min-width: 0; max-width: 100%; overflow-wrap: break-word; word-break: break-all; box-sizing: border-box;">
+  <hr>
 <h1 id="アップデート内容">アップデート内容</h1>
 <p>　自作ラジコン操縦アプリ（Happy_RC_Driver）用のレシーバー側プログラムに関して、ESP32が Core 2.x系から3.x系にアップデートされていたため、旧バージョンのプログラムが使えなくなっていました。</p>
 <p>　主にタイマー割り込みのコードの更新が必要だったため、アップデートを行いました。前よりもプログラムがシンプルになった感じがします（ちょっとうれしい）。プログラムのアップデートは<a href="https://github.com/TomokiIkegami/Happy_RC_Driver">GitHubのレポジトリ</a>に反映しておきました。</p>
@@ -83,6 +88,8 @@
 <li>前回記事 →→→ <a href="https://tomokiikegami.github.io/Happy_RC.github.io/2025/11/03/rc_electronics_control_using_bt-module_16/">Bluetooth モジュールでRCサーボ・ESCを制御したい [第16回-ジョイスティック実装]</a></li>
 <li>ラジコン操縦アプリ「Happy_RC_Driver」のGitHubレポジトリ →→→ <a href="https://github.com/TomokiIkegami/Happy_RC_Driver">https://github.com/TomokiIkegami/Happy_RC_Driver</a></li>
 </ul>
+
+</div>
 
 
     </main><footer>
