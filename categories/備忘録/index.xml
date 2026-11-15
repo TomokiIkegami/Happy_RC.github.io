@@ -6,7 +6,23 @@
     <description>Recent content in 備忘録 on Happy RC Blog !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 08 Nov 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Nov 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://tomokiikegami.github.io/Happy_RC.github.io/categories/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Autodesk Fusionで保存時に説明を入力できるアドイン【FusionDescribedSave】を作ってみた</title>
+      <link>https://tomokiikegami.github.io/Happy_RC.github.io/2026/11/15/fusion_described_save/</link>
+      <pubDate>Sun, 15 Nov 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomokiikegami.github.io/Happy_RC.github.io/2026/11/15/fusion_described_save/</guid>
+      <description>動作の様子 　実際に操作している動画です。画面左上にある、ファイルアイコン右横のプルダウン（▼）を押すと、「説明付き保存」というメニューが表示され、メッセージを入力できる欄が現れます。
+  作ったきっかけ 　今年の10月くらい？のアップデートで、保存時にバージョンの説明を入力するポップアップが出てこなくなり困っていました。
+　普段は研究開発プロジェクトでチーム開発をすることも多く、どのバージョンでどんな変更を行ったのかが分からなくなるのはかなり問題でした。
+　データパネル内にあるファイルの履歴から、保存した日時などがある入力欄の右横に手動で打ち込むことができたのですが、画面を行ったり来たりするのがかなり手間でした。
+　プロジェクトでは部品点数が何百個もあるフルアセンブリのモデルを触ることも多いため、保存中に履歴を開いてメッセージを入力することができないという問題もありました。
+　そのときにアドインを作ろうと思い、ChatGPTやGeminiみたいな生成AIを色々使いながら作ってみました。
+　いちいち履歴の画面を開きに行かなくて良くなったので、効率が爆上がりしました😊
+インストール方法など 　GitHubのレポジトリに掲載しました。詳しい手順はこちらを見て頂ければと思います。</description>
+    </item>
+    
     <item>
       <title>Maya初心者がとりあえず魚作ってみた [初めてのMayaモデリング]</title>
       <link>https://tomokiikegami.github.io/Happy_RC.github.io/2026/11/08/maya_fish/</link>
